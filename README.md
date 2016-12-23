@@ -11,6 +11,7 @@ A simple CLI argument parser for all modern .Net platforms
 * Support combined switches `-a -b -c` `-abc`, but reject combinations for parameters
 * Produce --help documentation automatically, and allow user addition to this. Add DocumentationAttribute as an option for the user
 * Validate the arguments model for duplicate options and other issues
+* Validate that all recieved Options in args are also represented in the model, in case of user error
 * Support quotes if they will be a problem - need to allow for quoted "-parameter-value" as valid parameter
 * Support lists in parameters
 
@@ -18,6 +19,12 @@ A simple CLI argument parser for all modern .Net platforms
 * API Documentation
 * Flesh out tests properly
 
+---
+
+# Tests To Write
+
+* Test capitalisation formally
+*
 
 # Behaviour
 
