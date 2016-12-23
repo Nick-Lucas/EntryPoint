@@ -15,9 +15,9 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EntryPoint", "src\EntryPoin
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{181EC602-AD29-44FF-8F68-942D704C0E12}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Example", "Example\Example.xproj", "{BD188E4D-A8C6-48FA-8736-00EAAF894447}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Example", "test\Example\Example.xproj", "{BD188E4D-A8C6-48FA-8736-00EAAF894447}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EntryPointTests", "EntryPointTests\EntryPointTests.xproj", "{16E4BDFF-B4BA-4D70-8AFF-BBD1341F02F4}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EntryPointTests", "test\EntryPointTests\EntryPointTests.xproj", "{16E4BDFF-B4BA-4D70-8AFF-BBD1341F02F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
