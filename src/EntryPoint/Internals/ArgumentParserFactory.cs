@@ -9,12 +9,12 @@ namespace EntryPoint.Internals {
     internal static class ArgumentParserFactory {
         public static IArgumentType Switch {
             get {
-                return new SwitchParser();
+                return new OptionParser();
             }
         }
         public static IArgumentType Parameter {
             get {
-                return new ParameterParser();
+                return new OptionParameterParser();
             }
         }
     }

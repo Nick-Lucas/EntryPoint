@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using EntryPoint.Internals;
 
 namespace EntryPoint.ArgumentTypeParsers {
-    public class ParameterParser : IArgumentType {
-        internal ParameterParser() { }
+    public class OptionParameterParser : IArgumentType {
+        internal OptionParameterParser() { }
 
         public string GetValue(string[] args, BaseArgumentAttribute definition) {
             int index = -1;

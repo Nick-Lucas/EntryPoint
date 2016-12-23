@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using EntryPoint.Internals;
 
 namespace EntryPoint.ArgumentTypeParsers {
-    public class SwitchParser : IArgumentType {
-        internal SwitchParser() { }
+    public class OptionParser : IArgumentType {
+        internal OptionParser() { }
 
         public string GetValue(string[] args, BaseArgumentAttribute definition) {
             return (HasDouble(args, definition)
