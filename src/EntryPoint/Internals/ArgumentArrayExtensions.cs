@@ -24,6 +24,7 @@ namespace EntryPoint.Internals {
                     s.StartsWith(EntryPointApi.DASH_DOUBLE + argName, StringComparison.CurrentCultureIgnoreCase));
         }
 
+        // Determines if an option is used at all in the arguments list
         public static bool OptionExists(this string[] args, BaseOptionAttribute option) {
             return option.SingleDashIndex(args) >= 0
                 || option.DoubleDashIndex(args) >= 0;
