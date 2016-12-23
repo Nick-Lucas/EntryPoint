@@ -75,7 +75,18 @@ namespace EntryPoint.OptionParsers {
             if (Nullable.GetUnderlyingType(outputType) != null) {
                 return Convert.ChangeType(value, Nullable.GetUnderlyingType(outputType));
             }
+            value = SupportIntBools(value, outputType);
             return Convert.ChangeType(value, outputType);
+        }
+
+        object SupportIntBools(object value, Type outputType) {
+            if (outputType == typeof(bool)) {
+                int v;
+                if (int.TryParse(value.ToString(), out v)) {
+                    value = (v != 0);
+                }
+            }
+            return value;
         }
     }
 }
