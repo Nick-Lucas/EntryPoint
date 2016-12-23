@@ -10,10 +10,10 @@ namespace EntryPoint {
         internal const string DASH_SINGLE = "-";
         internal const string DASH_DOUBLE = "--";
 
-        public static A Parse<A>(string[] args) where A : Arguments, new() {
+        public static A Parse<A>(string[] args) where A : BaseArgumentsModel, new() {
             return Parse(new A(), args);
         }
-        public static A Parse<A>(A argumentsClass, string[] args) where A : Arguments {
+        public static A Parse<A>(A argumentsClass, string[] args) where A : BaseArgumentsModel {
             return Parser.ParseAttributes(argumentsClass, args);
         }
     }

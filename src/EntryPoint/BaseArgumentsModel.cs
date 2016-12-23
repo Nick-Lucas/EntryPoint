@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint {
-    public class Arguments {
-        public string[] Operands { get; set; }
+    public class BaseArgumentsModel {
+        public string[] Operands { get; internal set; }
     }
 }
