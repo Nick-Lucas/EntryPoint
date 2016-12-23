@@ -10,7 +10,7 @@ namespace EntryPoint {
     /// <summary>
     /// Declares a standard Option argument which can either be On or Off
     /// </summary>
-    public class OptionAttribute : BaseArgumentAttribute {
+    public class OptionAttribute : BaseOptionAttribute {
         public OptionAttribute() : base(ArgumentParserFactory.Option) { }
     }
 

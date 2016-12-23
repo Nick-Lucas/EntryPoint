@@ -12,14 +12,11 @@ namespace EntryPoint.Internals {
         validOn: AttributeTargets.Property, 
         AllowMultiple = true, 
         Inherited = true)]
-    public class BaseArgumentAttribute : Attribute {
-        internal BaseArgumentAttribute(IOptionParser optionParser) {
+    public class BaseOptionAttribute : Attribute {
+        internal BaseOptionAttribute(IOptionParser optionParser) {
             OptionParser = optionParser;
         }
         internal IOptionParser OptionParser { get; private set; }
-        
-        // TODO: build this functionality
-        public object DefaultValue { get; set; } = null;
 
         /// <summary>
         /// The case sensitive character which can be declared after a - to trigger an option 

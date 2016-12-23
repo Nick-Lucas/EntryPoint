@@ -7,6 +7,6 @@ using EntryPoint.Internals;
 
 namespace EntryPoint.ArgumentTypeParsers {
     public interface IOptionParser {
-        string GetValue(string[] args, BaseArgumentAttribute definition);
+        object GetValue(string[] args, Type outputType, BaseOptionAttribute definition);
     }
 }

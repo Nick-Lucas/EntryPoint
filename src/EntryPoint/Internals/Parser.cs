@@ -10,15 +10,13 @@ namespace EntryPoint.Internals {
         public static A ParseAttributes<A>(A argumentsModel, string[] args) {
             var properties = argumentsModel.GetType().GetRuntimeProperties();
             foreach (var prop in properties) {
-                var argDefinition = prop.GetCustomAttribute<BaseArgumentAttribute>();
-                if (argDefinition == null) {
+                var option = prop.GetCustomAttribute<BaseOptionAttribute>();
+                if (option == null) {
                     continue;
                 }
 
-                // TODO; make this more type safe and robust
-                string value = argDefinition.OptionParser.GetValue(args, argDefinition);
-                var changedType = Convert.ChangeType(value, prop.PropertyType);
-                prop.SetValue(argumentsModel, changedType);
+                object value = option.OptionParser.GetValue(args, prop.PropertyType, option);
+                prop.SetValue(argumentsModel, value);
             }
 
             return argumentsModel;
