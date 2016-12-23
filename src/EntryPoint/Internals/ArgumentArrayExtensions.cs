@@ -23,5 +23,10 @@ namespace EntryPoint.Internals {
             return Array.FindIndex(args, s =>
                     s.StartsWith(EntryPointApi.DASH_DOUBLE + argName, StringComparison.CurrentCultureIgnoreCase));
         }
+
+        public static bool OptionExists(this string[] args, BaseOptionAttribute option) {
+            return option.SingleDashIndex(args) >= 0
+                || option.DoubleDashIndex(args) >= 0;
+        }
     }
 }

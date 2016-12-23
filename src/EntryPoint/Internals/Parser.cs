@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using System.Reflection;
+using EntryPoint.Exceptions;
 
 namespace EntryPoint.Internals {
     internal static class Parser {
@@ -16,6 +17,7 @@ namespace EntryPoint.Internals {
                 if (option == null) {
                     continue;
                 }
+                ValidateRequiredOption(prop, option, args);
 
                 object value = option.OptionParser.GetValue(args, prop.PropertyType, option);
                 prop.SetValue(argumentsModel, value);
@@ -24,5 +26,18 @@ namespace EntryPoint.Internals {
             return argumentsModel;
         }
 
+        static void ValidateRequiredOption(PropertyInfo prop, BaseOptionAttribute option, string[] args) {
+            var required = prop.GetCustomAttribute<OptionRequiredAttribute>();
+            if (required == null) {
+                return;
+            }
+
+            if (!args.OptionExists(option)) {
+                throw new OptionRequiredException(
+                    $"The option {EntryPointApi.DASH_SINGLE}{option.SingleDashChar}/"
+                    + $"{EntryPointApi.DASH_DOUBLE}{option.DoubleDashName} " 
+                    + "was not included, but is a required option");
+            }
+        }
     }
 }
