@@ -48,6 +48,9 @@ namespace EntryPoint.OptionParsers {
 
         public object ConvertValue(string value, Type outputType, BaseOptionAttribute argDefinition) {
             if (value != null) {
+                if (Nullable.GetUnderlyingType(outputType) != null) {
+                    return Convert.ChangeType(value, Nullable.GetUnderlyingType(outputType));
+                }
                 return Convert.ChangeType(value, outputType);
             }
 
