@@ -7,10 +7,10 @@ using EntryPoint;
 
 namespace EntryPointTests.ArgClasses {
     public class GeneralArgs : Arguments {
-        [ParameterArgument(DoubleDashName = "name", SingleDashChar = 'n')]
+        [OptionParameter(DoubleDashName = "name", SingleDashChar = 'n')]
         public string Name { get; set; }
 
-        [SwitchArgument(DoubleDashName = "switched", SingleDashChar = 's')]
+        [Option(DoubleDashName = "switched", SingleDashChar = 's')]
         public bool Switched { get; set; }
     }
 }

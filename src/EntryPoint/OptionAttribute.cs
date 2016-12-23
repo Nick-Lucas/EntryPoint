@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint.Helpers;
 
 namespace EntryPoint {
-    public class ParameterArgumentAttribute : BaseArgumentAttribute {
-        public ParameterArgumentAttribute() : base(ArgumentParserFactory.Parameter) { }
+    public class OptionAttribute : BaseArgumentAttribute {
+        public OptionAttribute() : base(ArgumentParserFactory.Switch) { }
     }
 }
