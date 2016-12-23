@@ -47,15 +47,14 @@ namespace EntryPointTests {
                 "-O"
             };
 
-            var model = EntryPointApi.Parse<OptionArgsModel>(args);
-
-            Assert.StrictEqual(false, model.Option);
+            Assert.Throws<UnkownOptionException>(
+                () => EntryPointApi.Parse<OptionArgsModel>(args));
         }
 
         [Fact]
         public void CaseIncorrect_Double() {
             string[] args = new string[] {
-                "-MY-option"
+                "--MY-option"
             };
 
             var model = EntryPointApi.Parse<OptionArgsModel>(args);

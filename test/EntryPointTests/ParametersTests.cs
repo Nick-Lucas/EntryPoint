@@ -53,10 +53,8 @@ namespace EntryPointTests {
                 "-b", "2"
             };
 
-            var model = EntryPointApi.Parse<ParametersArgsModel>(args);
-
-            Assert.StrictEqual(0, model.Param1);
-            Assert.StrictEqual(2, model.Param2);
+            Assert.Throws<UnkownOptionException>(
+                () => EntryPointApi.Parse<ParametersArgsModel>(args));
         }
 
         [Fact]

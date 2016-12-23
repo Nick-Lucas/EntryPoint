@@ -52,10 +52,8 @@ namespace EntryPointTests {
                 "hello", "world"
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
-
-            Assert.True(model.Operands.All(s => expectedOperands.Contains(s)));
-            Assert.True(expectedOperands.All(s => model.Operands.Contains(s)));
+            Assert.Throws<UnkownOptionException>(
+                () => EntryPointApi.Parse<OperandArgsModel>(args));
         }
 
         [Fact]

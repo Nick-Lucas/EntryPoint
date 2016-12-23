@@ -24,7 +24,7 @@ A simple CLI argument parser for all modern .Net platforms
 # Tests To Write
 
 * Test capitalisation formally
-*
+* Test combining single dash args
 
 # Behaviour
 

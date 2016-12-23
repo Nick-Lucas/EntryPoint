@@ -5,6 +5,19 @@ using System.Threading.Tasks;
 
 namespace EntryPoint.Internals {
     internal static class ArgumentArrayExtensions {
+        public static string[] GetSingleArgs(this string arg) {
+            if (!arg.IsSingleDash()) {
+                throw new InvalidOperationException(
+                    $"arg.{nameof(GetSingleArgs)}() should only be used with Single dash args");
+            }
+
+            return arg
+                .Trim(EntryPointApi.DASH_SINGLE.ToCharArray())
+                .ToCharArray()
+                .Select(c => EntryPointApi.DASH_SINGLE + c)
+                .ToArray();
+        }
+
         // Determines if a given arg array element is a - option
         public static bool IsSingleDash(this string arg) {
             return arg.StartsWith(EntryPointApi.DASH_SINGLE)
@@ -18,7 +31,9 @@ namespace EntryPoint.Internals {
         public static BaseOptionAttribute GetOption(this string arg, List<BaseOptionAttribute> options) {
             return options.FirstOrDefault(o => {
                 return (arg.IsSingleDash() && arg.Contains(o.SingleDashChar))
-                    || (arg.IsDoubleDash() && arg.StartsWith(EntryPointApi.DASH_DOUBLE + o.DoubleDashName));
+                    || (arg.IsDoubleDash() && arg.StartsWith(
+                                                    EntryPointApi.DASH_DOUBLE + o.DoubleDashName, 
+                                                    StringComparison.CurrentCultureIgnoreCase));
             });
         }
 
