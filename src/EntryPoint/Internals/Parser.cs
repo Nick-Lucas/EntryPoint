@@ -7,6 +7,8 @@ using System.Reflection;
 
 namespace EntryPoint.Internals {
     internal static class Parser {
+
+        // Takes the input from the API and orchestrates the process of population
         public static A ParseAttributes<A>(A argumentsModel, string[] args) {
             var properties = argumentsModel.GetType().GetRuntimeProperties();
             foreach (var prop in properties) {
@@ -21,5 +23,6 @@ namespace EntryPoint.Internals {
 
             return argumentsModel;
         }
+
     }
 }

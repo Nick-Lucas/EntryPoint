@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint.Internals;
 
-namespace EntryPoint.ArgumentTypeParsers {
+namespace EntryPoint.OptionParsers {
     public interface IOptionParser {
         object GetValue(string[] args, Type outputType, BaseOptionAttribute definition);
     }

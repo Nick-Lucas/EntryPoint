@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint.Internals;
+using EntryPoint.OptionParsers;
 
 namespace EntryPoint {
 
@@ -11,7 +12,7 @@ namespace EntryPoint {
     /// Declares an Option argument which requires a parameter after the Option is declared
     /// </summary>
     public class OptionParameterAttribute : BaseOptionAttribute {
-        public OptionParameterAttribute() : base(ArgumentParserFactory.OptionParameter) { }
+        public OptionParameterAttribute() : base(OptionParserFactory.OptionParameter) { }
 
         public ParameterDefaultEnum NullValueBehaviour = ParameterDefaultEnum.DefaultValue;
         public object CustomDefaultValue { get; set; } = null;

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using EntryPoint.ArgumentTypeParsers;
-
-namespace EntryPoint.Internals {
-    internal static class ArgumentParserFactory {
+namespace EntryPoint.OptionParsers {
+    internal static class OptionParserFactory {
         public static IOptionParser Option {
             get {
                 return new OptionParser();

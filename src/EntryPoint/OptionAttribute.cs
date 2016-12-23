@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint.Internals;
+using EntryPoint.OptionParsers;
 
 namespace EntryPoint {
 
@@ -11,7 +12,7 @@ namespace EntryPoint {
     /// Declares a standard Option argument which can either be On or Off
     /// </summary>
     public class OptionAttribute : BaseOptionAttribute {
-        public OptionAttribute() : base(ArgumentParserFactory.Option) { }
+        public OptionAttribute() : base(OptionParserFactory.Option) { }
     }
 
 }

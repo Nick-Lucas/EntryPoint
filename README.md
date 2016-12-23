@@ -11,7 +11,6 @@ A simple CLI argument parser for all modern .Net platforms
 * Support combined switches `-a -b -c` `-abc`, but reject combinations for parameters
 * Produce --help documentation automatically, and allow user addition to this. Add DocumentationAttribute as an option for the user
 * Add REQUIRED bool to attribute
-* Support default value setting
 * Validate the arguments model for duplicate options and other issues
 
 ---
