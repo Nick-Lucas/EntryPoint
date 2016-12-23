@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using EntryPoint;
 using EntryPoint.Exceptions;
 using Xunit;
+using EntryPointTests.ArgClasses;
 
-namespace EntryPointTests.ArgClasses {
-    public class TypedArguments {
+namespace EntryPointTests {
+    public class StringArguments {
         [Fact]
-        public void String_NotProvided() {
+        public void NotProvided() {
             string[] args = new string[] { };
 
             var model = EntryPointApi.Parse<StringArgsModel>(args);
@@ -20,7 +21,7 @@ namespace EntryPointTests.ArgClasses {
         }
 
         [Fact]
-        public void String_Normal() {
+        public void Normal() {
             string[] args = new string[] {
                 "--default-null", "punch",
                 "--default-no-name", "judy"
@@ -33,7 +34,7 @@ namespace EntryPointTests.ArgClasses {
         }
 
         [Fact]
-        public void String_NoParameter_DefaultNull() {
+        public void NoParameter_DefaultNull() {
             string[] args = new string[] {
                 "--default-null",
                 "--default-no-name", "judy"
@@ -44,7 +45,7 @@ namespace EntryPointTests.ArgClasses {
         }
 
         [Fact]
-        public void String_NoParameter_DefaultNoName() {
+        public void NoParameter_DefaultNoName() {
             string[] args = new string[] {
                 "--default-null", "punch",
                 "--default-no-name"

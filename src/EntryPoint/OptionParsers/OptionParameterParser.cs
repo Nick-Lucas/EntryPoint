@@ -12,7 +12,7 @@ namespace EntryPoint.OptionParsers {
 
         public object GetValue(string[] args, Type outputType, BaseOptionAttribute definition) {
             int index = -1;
-            string value = null;
+            object value = null;
 
             index = definition.SingleDashIndex(args);
             if (index >= 0) {
@@ -22,10 +22,12 @@ namespace EntryPoint.OptionParsers {
                 index = definition.DoubleDashIndex(args);
                 if (index >= 0) {
                     value = GetKnownValue(args, index);
+                } else {
+                    value = HandleMissingValue(outputType, definition);
                 }
             }
 
-            return ConvertValue(value, outputType, definition);
+            return ConvertValue(value, outputType);
         }
 
         static string GetKnownValue(string[] args, int index) {
@@ -39,22 +41,15 @@ namespace EntryPoint.OptionParsers {
                     throw new NoParameterException(
                         $"The argument {args[index]} was the last argument, but a parameter for it was expected");
                 }
-                if (args[index + 1].StartsWith("-")) {
+                if (args[index + 1].StartsWith(EntryPointApi.DASH_SINGLE)) {
                     throw new NoParameterException(
-                        $"The parameter for {args[index]} was another argument");
+                        $"The parameter for {args[index]} was another option");
                 }
                 return args[index + 1];
             }
         }
 
-        public object ConvertValue(string value, Type outputType, BaseOptionAttribute argDefinition) {
-            if (value != null) {
-                if (Nullable.GetUnderlyingType(outputType) != null) {
-                    return Convert.ChangeType(value, Nullable.GetUnderlyingType(outputType));
-                }
-                return Convert.ChangeType(value, outputType);
-            }
-
+        public object HandleMissingValue(Type outputType, BaseOptionAttribute argDefinition) {
             var definition = (OptionParameterAttribute)argDefinition;
             switch (definition.NullValueBehaviour) {
                 case ParameterDefaultEnum.DefaultValue:
@@ -70,6 +65,17 @@ namespace EntryPoint.OptionParsers {
                     throw new NotSupportedException(
                         $"Unsupported {nameof(ParameterDefaultEnum)} state: {definition.NullValueBehaviour}");
             }
+        }
+
+        public object ConvertValue(object value, Type outputType) {
+            if (value == null) {
+                return value;
+            }
+
+            if (Nullable.GetUnderlyingType(outputType) != null) {
+                return Convert.ChangeType(value, Nullable.GetUnderlyingType(outputType));
+            }
+            return Convert.ChangeType(value, outputType);
         }
     }
 }
