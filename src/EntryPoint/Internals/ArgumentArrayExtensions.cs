@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EntryPoint.Helpers {
+namespace EntryPoint.Internals {
     internal static class ArgumentArrayExtensions {
         public static bool IsSingleDash(this string arg) {
             return arg.StartsWith(EntryPointApi.DASH_SINGLE)

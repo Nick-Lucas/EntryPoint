@@ -5,6 +5,6 @@ using System.Threading.Tasks;
 
 namespace EntryPoint {
     public class Arguments {
-        public string[] DanglingArguments { get; set; }
+        public string[] Operands { get; set; }
     }
 }

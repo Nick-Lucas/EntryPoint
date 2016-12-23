@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 
-namespace EntryPoint.Helpers {
+namespace EntryPoint.Internals {
     internal static class Parser {
         public static A ParseAttributes<A>(A argumentsClass, string[] args) {
             var properties = argumentsClass.GetType().GetRuntimeProperties();

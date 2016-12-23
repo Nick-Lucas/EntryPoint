@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EntryPoint.Helpers {
+namespace EntryPoint.Internals {
     [AttributeUsage(
         validOn: AttributeTargets.Field | AttributeTargets.Property, 
         AllowMultiple = true, 

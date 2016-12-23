@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint.ArgumentTypeParsers;
 
-namespace EntryPoint.Helpers {
+namespace EntryPoint.Internals {
     internal static class ArgumentParserFactory {
         public static IArgumentType Switch {
             get {
