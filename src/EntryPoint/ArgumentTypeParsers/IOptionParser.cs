@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint.Internals;
 
 namespace EntryPoint.ArgumentTypeParsers {
-    public interface IArgumentType {
+    public interface IOptionParser {
         string GetValue(string[] args, BaseArgumentAttribute definition);
     }
 }
