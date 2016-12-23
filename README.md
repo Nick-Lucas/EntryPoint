@@ -15,6 +15,7 @@ A simple CLI argument parser for all modern .Net platforms
 
 ---
 * API Documentation
+* Flesh out tests properly
 
 
 # Behaviour
