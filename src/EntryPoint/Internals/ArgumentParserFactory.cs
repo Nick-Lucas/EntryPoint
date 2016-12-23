@@ -7,12 +7,12 @@ using EntryPoint.ArgumentTypeParsers;
 
 namespace EntryPoint.Internals {
     internal static class ArgumentParserFactory {
-        public static IArgumentType Switch {
+        public static IArgumentType Option {
             get {
                 return new OptionParser();
             }
         }
-        public static IArgumentType Parameter {
+        public static IArgumentType OptionParameter {
             get {
                 return new OptionParameterParser();
             }

@@ -7,6 +7,6 @@ using EntryPoint.Internals;
 
 namespace EntryPoint {
     public class OptionParameterAttribute : BaseArgumentAttribute {
-        public OptionParameterAttribute() : base(ArgumentParserFactory.Parameter) { }
+        public OptionParameterAttribute() : base(ArgumentParserFactory.OptionParameter) { }
     }
 }

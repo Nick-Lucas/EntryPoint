@@ -7,6 +7,6 @@ using EntryPoint.Internals;
 
 namespace EntryPoint {
     public class OptionAttribute : BaseArgumentAttribute {
-        public OptionAttribute() : base(ArgumentParserFactory.Switch) { }
+        public OptionAttribute() : base(ArgumentParserFactory.Option) { }
     }
 }
