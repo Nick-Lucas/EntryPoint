@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntryPoint.Internals {
     [AttributeUsage(
-        validOn: AttributeTargets.Field | AttributeTargets.Property, 
+        validOn: AttributeTargets.Property, 
         AllowMultiple = true, 
         Inherited = true)]
     public class BaseArgumentAttribute : Attribute {
