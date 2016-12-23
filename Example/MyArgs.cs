@@ -8,9 +8,9 @@ using EntryPoint;
 namespace Example {
     public class MyArgs : Arguments {
         [ParameterArgument(SingleDashChar = 'n', DoubleDashName = "name")]
-        string Name { get; set; }
+        public string Name { get; set; }
 
         [SwitchArgument(SingleDashChar = 's', DoubleDashName = "switch")]
-        string Switch { get; set; }
+        public string Switched { get; set; }
     }
 }
