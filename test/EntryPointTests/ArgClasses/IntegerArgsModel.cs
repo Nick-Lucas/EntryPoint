@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.ArgClasses {
-    public class DecimalArgsModel : BaseArgumentsModel {
+    public class IntegerArgsModel : BaseArgumentsModel {
         [OptionParameter(
             DoubleDashName = "default-zero",
             SingleDashChar = 'a')]
-        public decimal DefaultZero { get; set; }
+        public int DefaultZero { get; set; }
 
         [OptionParameter(
             DoubleDashName = "default-null",
             SingleDashChar = 'b')]
-        public decimal? DefaultNull { get; set; }
+        public int? DefaultNull { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "default-71",
+            DoubleDashName = "default-7",
             SingleDashChar = 'c',
             NullValueBehaviour = ParameterDefaultEnum.CustomValue,
-            CustomDefaultValue = 7.1)]
-        public decimal Default71 { get; set; }
+            CustomDefaultValue = 7)]
+        public int Default7 { get; set; }
     }
 }

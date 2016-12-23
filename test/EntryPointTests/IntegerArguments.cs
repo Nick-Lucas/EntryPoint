@@ -9,31 +9,31 @@ using Xunit;
 using EntryPointTests.ArgClasses;
 
 namespace EntryPointTests {
-    public class DecimalArguments {
+    public class IntegerArguments {
         [Fact]
         public void NotProvided() {
             string[] args = new string[] { };
 
-            var model = EntryPointApi.Parse<DecimalArgsModel>(args);
+            var model = EntryPointApi.Parse<IntegerArgsModel>(args);
 
             Assert.StrictEqual(null, model.DefaultNull);
             Assert.StrictEqual(0, model.DefaultZero);
-            Assert.StrictEqual(7.1m, model.Default71);
+            Assert.StrictEqual(7, model.Default7);
         }
 
         [Fact]
         public void Normal() {
             string[] args = new string[] {
-                "--default-null", "1.1",
-                "--default-zero", "2.1",
-                "--default-71", "3.1"
+                "--default-null", "1",
+                "--default-zero", "2",
+                "--default-7", "3"
             };
 
-            var model = EntryPointApi.Parse<DecimalArgsModel>(args);
+            var model = EntryPointApi.Parse<IntegerArgsModel>(args);
 
-            Assert.StrictEqual(1.1m, model.DefaultNull);
-            Assert.StrictEqual(2.1m, model.DefaultZero);
-            Assert.StrictEqual(3.1m, model.Default71);
+            Assert.StrictEqual(1, model.DefaultNull);
+            Assert.StrictEqual(2, model.DefaultZero);
+            Assert.StrictEqual(3, model.Default7);
         }
 
         [Fact]
@@ -41,11 +41,11 @@ namespace EntryPointTests {
             string[] args = new string[] {
                 "--default-null",
                 "--default-zero", "2",
-                "--default-71", "3"
+                "--default-7", "3"
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<DecimalArgsModel>(args));
+                () => EntryPointApi.Parse<IntegerArgsModel>(args));
         }
 
         [Fact]
@@ -53,11 +53,11 @@ namespace EntryPointTests {
             string[] args = new string[] {
                 "--default-null", "1",
                 "--default-zero", "2",
-                "--default-71"
+                "--default-7"
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<DecimalArgsModel>(args));
+                () => EntryPointApi.Parse<IntegerArgsModel>(args));
         }
     }
 }
