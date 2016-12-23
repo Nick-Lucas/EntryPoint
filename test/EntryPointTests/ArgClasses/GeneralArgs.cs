@@ -17,6 +17,9 @@ namespace EntryPointTests.ArgClasses {
         [OptionParameter(DoubleDashName = "height-ft", SingleDashChar = 'h')]
         public decimal? HeightFt { get; set; }
 
+        [OptionParameter(DoubleDashName = "age", SingleDashChar = 'a')]
+        public int Age { get; set; }
+
         [Option(DoubleDashName = "switched", SingleDashChar = 's')]
         public bool Switched { get; set; }
     }

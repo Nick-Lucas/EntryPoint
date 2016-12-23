@@ -57,7 +57,10 @@ namespace EntryPoint.OptionParsers {
             var definition = (OptionParameterAttribute)argDefinition;
             switch (definition.NullValueBehaviour) {
                 case ParameterDefaultEnum.DefaultValue:
-                    throw new NotImplementedException("Default value setting not fully implemented yet"); // TODO
+                    if (Nullable.GetUnderlyingType(outputType) != null) {
+                        return null;
+                    }
+                    return Activator.CreateInstance(outputType);
 
                 case ParameterDefaultEnum.CustomValue:
                     return definition.CustomDefaultValue;
