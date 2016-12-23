@@ -26,6 +26,7 @@ namespace EntryPoint.Internals {
             return argumentsModel;
         }
 
+        // If a property has a Required attribute, enforce the requirement
         static void ValidateRequiredOption(PropertyInfo prop, BaseOptionAttribute option, string[] args) {
             var required = prop.GetCustomAttribute<OptionRequiredAttribute>();
             if (required == null) {
