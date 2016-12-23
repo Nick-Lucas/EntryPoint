@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using EntryPoint.Exceptions;
 using EntryPoint.Internals;
 
 namespace EntryPoint.OptionParsers {
@@ -34,13 +35,13 @@ namespace EntryPoint.OptionParsers {
                     .Last();
 
             } else {
-                if (args.Length == index) {
-                    throw new ArgumentException(
-                        $"TODO: need a proper exception here. The argument: {args[index]}, was the last argument, but a parameter for it was expected");
+                if (args.Length - 1 == index) {
+                    throw new NoParameterException(
+                        $"The argument {args[index]} was the last argument, but a parameter for it was expected");
                 }
                 if (args[index + 1].StartsWith("-")) {
-                    throw new Exception(
-                        "TODO: Need a proper exception here. The value for the given argument was another argument, if this is a Switch then the argument should be configured that way");
+                    throw new NoParameterException(
+                        $"The parameter for {args[index]} was another argument");
                 }
                 return args[index + 1];
             }
@@ -57,7 +58,7 @@ namespace EntryPoint.OptionParsers {
             var definition = (OptionParameterAttribute)argDefinition;
             switch (definition.NullValueBehaviour) {
                 case ParameterDefaultEnum.DefaultValue:
-                    if (Nullable.GetUnderlyingType(outputType) != null) {
+                    if (outputType.CanBeNull()) {
                         return null;
                     }
                     return Activator.CreateInstance(outputType);
