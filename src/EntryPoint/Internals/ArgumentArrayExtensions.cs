@@ -11,6 +11,17 @@ namespace EntryPoint.Internals {
                && !arg.StartsWith(EntryPointApi.DASH_DOUBLE);
         }
 
+        public static bool IsDoubleDash(this string arg) {
+            return arg.StartsWith(EntryPointApi.DASH_DOUBLE);
+        }
+
+        public static BaseOptionAttribute GetOption(this string arg, List<BaseOptionAttribute> options) {
+            return options.FirstOrDefault(o => {
+                return (arg.IsSingleDash() && arg.Contains(o.SingleDashChar))
+                    || (arg.IsDoubleDash() && arg.StartsWith(EntryPointApi.DASH_DOUBLE + o.DoubleDashName));
+            });
+        }
+
         // Returns the array index of a given - option, or -1
         public static int SingleDashIndex(this string[] args, char argName) {
             return Array.FindIndex(args, s => 

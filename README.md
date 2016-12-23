@@ -12,6 +12,7 @@ A simple CLI argument parser for all modern .Net platforms
 * Produce --help documentation automatically, and allow user addition to this. Add DocumentationAttribute as an option for the user
 * Validate the arguments model for duplicate options and other issues
 * Support quotes if they will be a problem - need to allow for quoted "-parameter-value" as valid parameter
+* Support lists in parameters
 
 ---
 * API Documentation
