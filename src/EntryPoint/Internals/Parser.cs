@@ -16,7 +16,7 @@ namespace EntryPoint.Internals {
                 }
 
                 // TODO; make this more type safe and robust
-                var value = argDefinition.ArgumentType.GetValue(args, argDefinition);
+                string value = argDefinition.ArgumentType.GetValue(args, argDefinition);
                 var changedType = Convert.ChangeType(value, prop.PropertyType);
                 prop.SetValue(argumentsClass, changedType);
             }

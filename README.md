@@ -12,6 +12,13 @@ A simple CLI argument parser for all modern .Net platforms
 * Produce --help documentation automatically, and allow user addition to this. Add DocumentationAttribute as an option for the user
 * Add REQUIRED bool to attribute
 * Support default value setting
+* Validate the arguments model for duplicate options and other issues
 
 ---
 * API Documentation
+
+
+# Behaviour
+
+* -O options are case sensitive
+* --option-name options are case insensitive

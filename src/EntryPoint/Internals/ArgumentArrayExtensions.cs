@@ -13,12 +13,12 @@ namespace EntryPoint.Internals {
         public static int SingleDashIndex(this string[] args, char argName) {
             return Array.FindIndex(args, s => 
                    s.IsSingleDash() 
-                && s.Contains(argName)); //todo: make this case insensitive
+                && s.Contains(argName));
         }
 
         public static int DoubleDashIndex(this string[] args, string argName) {
             return Array.FindIndex(args, s =>
-                    s.StartsWith(EntryPointApi.DASH_DOUBLE + argName)); //todo: make this case insensitive
+                    s.StartsWith(EntryPointApi.DASH_DOUBLE + argName, StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }
