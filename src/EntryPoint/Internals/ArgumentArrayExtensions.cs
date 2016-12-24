@@ -28,6 +28,26 @@ namespace EntryPoint.Internals {
             return arg.StartsWith(EntryPointApi.DASH_DOUBLE);
         }
 
+        public static List<string> FlattenSingles(this string[] args) {
+            var singles = args
+                // Get all single dash options
+                .Where(a => a.IsSingleDash())
+
+                // Get all args in the form -o
+                .SelectMany(s => s.GetSingleArgs());
+            return singles.ToList();
+        }
+
+        public static List<string> FlattenDoubles(this string[] args) {
+            var doubles = args
+                // Get all double dash options
+                .Where(a => a.IsDoubleDash())
+
+                // Trim off any parameters from options
+                .Select(s => string.Concat(s.TakeWhile(c => c != '=')));
+            return doubles.ToList();
+        }
+
         public static BaseOptionAttribute GetOption(this string arg, List<BaseOptionAttribute> options) {
             return options.FirstOrDefault(o => {
                 return (arg.IsSingleDash() && arg.Contains(o.SingleDashChar))

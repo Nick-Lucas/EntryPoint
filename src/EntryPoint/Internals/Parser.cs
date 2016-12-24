@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 using EntryPoint.Exceptions;
+using EntryPoint.Internals;
 
 namespace EntryPoint.Internals {
     internal static class Parser {
@@ -24,8 +25,10 @@ namespace EntryPoint.Internals {
                 object value = option.OptionParser.GetValue(args, prop.PropertyType, option);
                 prop.SetValue(argumentsModel, value);
             }
+            ValidateModelForDuplicates(argumentsModel, options);
+            ValidateArgumentsForDuplicates(args, options);
             ValidateUnknownOption(args, options);
-            PopulateOperands(ref argumentsModel, options, args);
+            PopulateOperands(argumentsModel, options, args);
 
             return argumentsModel;
         }
@@ -41,21 +44,27 @@ namespace EntryPoint.Internals {
             }
         }
 
+        static void ValidateArgumentsForDuplicates(string[] args, List<BaseOptionAttribute> options) {
+            var map = args.FlattenSingles().Select(a => a.GetOption(options)).ToList();
+            map.AddRange(args.FlattenDoubles().Select(a => a.GetOption(options)));
+            var duplicates = map.Duplicates(new BaseOptionAttributeEqualityComparer());
+            if (duplicates.Any()) {
+                throw new DuplicateOptionException(
+                    $"Duplicate options were entered for " 
+                    + $"${string.Join("/", duplicates.Select(o => o.DoubleDashName))}");
+            }
+        }
+
         static void ValidateUnknownOption(string[] args, List<BaseOptionAttribute> options) {
             // Validate shortfort Options
-            var singles = args.Where(a => a.IsSingleDash());
-            foreach (var arg in singles) {
-                var singleArgs = arg.GetSingleArgs();
-                foreach (var sArg in singleArgs) {
-                    if (sArg.GetOption(options) == null) {
-                        AssertUnkownOption(sArg);
-                    }
+            foreach (var arg in args.FlattenSingles()) {
+                if (arg.GetOption(options) == null) {
+                    AssertUnkownOption(arg);
                 }
             }
 
             // Validate full Options
-            var doubles = args.Where(a => a.IsDoubleDash());
-            foreach (var arg in doubles) {
+            foreach (var arg in args.FlattenDoubles()) {
                 if (arg.GetOption(options) == null) {
                     AssertUnkownOption(arg);
                 }
@@ -63,12 +72,39 @@ namespace EntryPoint.Internals {
         }
         static void AssertUnkownOption(string arg) {
             throw new UnkownOptionException(
-                $"The option {EntryPointApi.DASH_SINGLE}{arg} was not recognised. " 
+                $"The option {EntryPointApi.DASH_SINGLE}{arg} was not recognised. "
                 + "Please ensure all given arguments are valid. Try --help");
         }
 
-        static void PopulateOperands<A>(ref A argumentsModel, List<BaseOptionAttribute> options, string[] args) 
-            where A : BaseArgumentsModel {
+        static void ValidateModelForDuplicates(BaseArgumentsModel model, List<BaseOptionAttribute> options) {
+            // Check the single dash options
+            var singleDups = options
+                .Where(o => o.SingleDashChar > char.MinValue)
+                .Select(o => o.SingleDashChar.ToString())
+                .Duplicates(StringComparer.CurrentCulture)
+                .ToList();
+            if (singleDups.Any()) {
+                AssertDuplicateOptionsInModel(model, singleDups);
+            }
+            // Check the double dash options
+            var doubleDups = options
+                .Where(o => o.DoubleDashName != string.Empty)
+                .Select(o => o.DoubleDashName)
+                .Duplicates(StringComparer.CurrentCultureIgnoreCase)
+                .ToList();
+            if (doubleDups.Any()) {
+                AssertDuplicateOptionsInModel(model, doubleDups);
+            }
+        }
+        static void AssertDuplicateOptionsInModel(BaseArgumentsModel model, List<string> options) {
+            throw new InvalidModelException(
+                $"The given model {model.GetType().Name} was invalid. "
+                + $"There are duplicate single dash arguments: {String.Join("/", options)}");
+        }
+
+        static void PopulateOperands(
+            BaseArgumentsModel argumentsModel, List<BaseOptionAttribute> options, string[] args) {
+
             if (!args.Any()) {
                 argumentsModel.Operands = new string[] { };
                 return;
