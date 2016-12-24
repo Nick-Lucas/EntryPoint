@@ -7,11 +7,11 @@ using System.Reflection;
 using EntryPoint.Exceptions;
 using EntryPoint.Internals;
 
-namespace EntryPoint.Internals {
+namespace EntryPoint.Parsing {
     internal static class Parser {
 
         // Takes the input from the API and orchestrates the process of population
-        public static A ParseAttributes<A>(A argumentsModel, string[] args) where A : BaseArgumentsModel {
+        public static A ParseAttributes<A>(A argumentsModel, List<Token> args) where A : BaseArgumentsModel {
             var options = new List<BaseOptionAttribute>();
             var properties = argumentsModel.GetType().GetRuntimeProperties();
             foreach (var prop in properties) {
@@ -34,7 +34,7 @@ namespace EntryPoint.Internals {
         }
 
         // If a property has a Required attribute, enforce the requirement
-        static void ValidateRequiredOption(PropertyInfo prop, BaseOptionAttribute option, string[] args) {
+        static void ValidateRequiredOption(PropertyInfo prop, BaseOptionAttribute option, List<Token> args) {
             var required = prop.GetCustomAttribute<OptionRequiredAttribute>() != null;
             if (required && !args.OptionExists(option)) {
                 throw new OptionRequiredException(
@@ -44,7 +44,7 @@ namespace EntryPoint.Internals {
             }
         }
 
-        static void ValidateArgumentsForDuplicates(string[] args, List<BaseOptionAttribute> options) {
+        static void ValidateArgumentsForDuplicates(List<Token> args, List<BaseOptionAttribute> options) {
             var map = args.FlattenSingles().Select(a => a.GetOption(options)).ToList();
             map.AddRange(args.FlattenDoubles().Select(a => a.GetOption(options)));
             var duplicates = map.Duplicates(new BaseOptionAttributeEqualityComparer());
@@ -55,7 +55,7 @@ namespace EntryPoint.Internals {
             }
         }
 
-        static void ValidateUnknownOption(string[] args, List<BaseOptionAttribute> options) {
+        static void ValidateUnknownOption(List<Token> args, List<BaseOptionAttribute> options) {
             // Validate shortfort Options
             foreach (var arg in args.FlattenSingles()) {
                 if (arg.GetOption(options) == null) {
@@ -70,9 +70,9 @@ namespace EntryPoint.Internals {
                 }
             }
         }
-        static void AssertUnkownOption(string arg) {
+        static void AssertUnkownOption(Token arg) {
             throw new UnkownOptionException(
-                $"The option {EntryPointApi.DASH_SINGLE}{arg} was not recognised. "
+                $"The option {EntryPointApi.DASH_SINGLE}{arg.Value} was not recognised. "
                 + "Please ensure all given arguments are valid. Try --help");
         }
 
@@ -103,7 +103,7 @@ namespace EntryPoint.Internals {
         }
 
         static void PopulateOperands(
-            BaseArgumentsModel argumentsModel, List<BaseOptionAttribute> options, string[] args) {
+            BaseArgumentsModel argumentsModel, List<BaseOptionAttribute> options, List<Token> args) {
 
             if (!args.Any()) {
                 argumentsModel.Operands = new string[] { };
@@ -111,11 +111,11 @@ namespace EntryPoint.Internals {
             }
             
             // Find the last item in the list which is a declared Option
-            int lastIndex = args.Length;
-            foreach (var arg in args.Reverse()) {
+            int lastIndex = args.Count;
+            foreach (var arg in args.Reverse<Token>()) {
                 var option = arg.GetOption(options);
                 if (option != null) {
-                    if (option is OptionParameterAttribute && !arg.Contains("=")) {
+                    if (option is OptionParameterAttribute) {
                         // If it's a parameter and not combined, the last option is 1 index further on
                         ++lastIndex;
                     }
@@ -125,7 +125,10 @@ namespace EntryPoint.Internals {
                 --lastIndex;
             }
 
-            argumentsModel.Operands = args.Skip(lastIndex).ToArray();
+            argumentsModel.Operands = args
+                .Skip(lastIndex)
+                .Select(t => t.Value)
+                .ToArray();
         }
     }
 }

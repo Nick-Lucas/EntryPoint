@@ -1,4 +1,5 @@
 ﻿using EntryPoint.OptionParsers;
+using EntryPoint.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace EntryPoint.Internals {
         /// The case sensitive character which can be declared after a - to trigger an option 
         /// </summary>
         public char SingleDashChar { get; set; }
-        internal int SingleDashIndex(string[] args) {
+        internal int SingleDashIndex(List<Token> args) {
             if (SingleDashChar == char.MinValue) {
                 return -1;
             }
@@ -34,7 +35,7 @@ namespace EntryPoint.Internals {
         /// The case insensitive string which can be declared after a -- to trigger an option
         /// </summary>
         public string DoubleDashName { get; set; }
-        internal int DoubleDashIndex(string[] args) {
+        internal int DoubleDashIndex(List<Token> args) {
             if (DoubleDashName == string.Empty) {
                 return -1;
             }

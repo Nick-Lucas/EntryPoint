@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint.Internals;
+using EntryPoint.Parsing;
 
 namespace EntryPoint {
 
@@ -13,6 +14,16 @@ namespace EntryPoint {
     public static class EntryPointApi {
         internal const string DASH_SINGLE = "-";
         internal const string DASH_DOUBLE = "--";
+
+        /// <summary>
+        /// Create and populate a custom ArgumentsModel from the Environment arguments
+        /// </summary>
+        /// <typeparam name="A">The type of the ArgumentsModel, which derives from BaseArgumentsModel</typeparam>
+        /// <returns>A populated ArgumentsModel</returns>
+        public static A Parse<A>() where A : BaseArgumentsModel, new() {
+            var args = Environment.GetCommandLineArgs();
+            return Parse(new A(), args);
+        }
 
         /// <summary>
         /// Create and populate a custom ArgumentsModel
@@ -32,7 +43,9 @@ namespace EntryPoint {
         /// <param name="args">The CLI argruments input</param>
         /// <returns>A populated ArgumentsModel</returns>
         public static A Parse<A>(A argmentsModel, string[] args) where A : BaseArgumentsModel {
-            return Parser.ParseAttributes(argmentsModel, args);
+            string arguments = string.Concat(args);
+            var tokens = Tokeniser.MakeTokens(arguments);
+            return Parser.ParseAttributes(argmentsModel, tokens);
         }
 
     }

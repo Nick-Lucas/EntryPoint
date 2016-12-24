@@ -4,9 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint.Internals;
+using EntryPoint.Parsing;
 
 namespace EntryPoint.OptionParsers {
-    public interface IOptionParser {
-        object GetValue(string[] args, Type outputType, BaseOptionAttribute definition);
+    internal interface IOptionParser {
+        object GetValue(List<Token> args, Type outputType, BaseOptionAttribute definition);
     }
 }

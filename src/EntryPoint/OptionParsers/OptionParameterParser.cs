@@ -5,12 +5,13 @@ using System.Threading.Tasks;
 
 using EntryPoint.Exceptions;
 using EntryPoint.Internals;
+using EntryPoint.Parsing;
 
 namespace EntryPoint.OptionParsers {
-    public class OptionParameterParser : IOptionParser {
+    internal class OptionParameterParser : IOptionParser {
         internal OptionParameterParser() { }
 
-        public object GetValue(string[] args, Type outputType, BaseOptionAttribute definition) {
+        public object GetValue(List<Token> args, Type outputType, BaseOptionAttribute definition) {
             int index = -1;
             object value = null;
 
@@ -30,23 +31,16 @@ namespace EntryPoint.OptionParsers {
             return ConvertValue(value, outputType);
         }
 
-        static string GetKnownValue(string[] args, int index) {
-            if (args[index].Contains("=")) {
-                return args[index]
-                    .Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Last();
-
-            } else {
-                if (args.Length - 1 == index) {
-                    throw new NoParameterException(
-                        $"The argument {args[index]} was the last argument, but a parameter for it was expected");
-                }
-                if (args[index + 1].StartsWith(EntryPointApi.DASH_SINGLE)) {
-                    throw new NoParameterException(
-                        $"The parameter for {args[index]} was another option");
-                }
-                return args[index + 1];
+        static string GetKnownValue(List<Token> args, int index) {
+            if (args.Count - 1 == index) {
+                throw new NoParameterException(
+                    $"The argument {args[index]} was the last argument, but a parameter for it was expected");
             }
+            if (args[index + 1].IsOption) {
+                throw new NoParameterException(
+                    $"The parameter for {args[index]} was another option");
+            }
+            return args[index + 1].Value;
         }
 
         public object HandleMissingValue(Type outputType, BaseOptionAttribute argDefinition) {

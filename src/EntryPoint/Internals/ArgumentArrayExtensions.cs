@@ -1,34 +1,38 @@
-﻿using System;
+﻿using EntryPoint.Parsing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Internals {
     internal static class ArgumentArrayExtensions {
-        public static string[] GetSingleArgs(this string arg) {
+        public static List<Token> GetSingleArgs(this Token arg) {
             if (!arg.IsSingleDash()) {
                 throw new InvalidOperationException(
                     $"arg.{nameof(GetSingleArgs)}() should only be used with Single dash args");
             }
 
             return arg
+                .Value
                 .Trim(EntryPointApi.DASH_SINGLE.ToCharArray())
                 .ToCharArray()
-                .Select(c => EntryPointApi.DASH_SINGLE + c)
-                .ToArray();
+                .Select(c => new Token(EntryPointApi.DASH_SINGLE + c, true))
+                .ToList();
         }
 
         // Determines if a given arg array element is a - option
-        public static bool IsSingleDash(this string arg) {
-            return arg.StartsWith(EntryPointApi.DASH_SINGLE)
-               && !arg.StartsWith(EntryPointApi.DASH_DOUBLE);
+        public static bool IsSingleDash(this Token arg) {
+            return arg.IsOption 
+                && arg.Value.StartsWith(EntryPointApi.DASH_SINGLE)
+               && !arg.Value.StartsWith(EntryPointApi.DASH_DOUBLE);
         }
 
-        public static bool IsDoubleDash(this string arg) {
-            return arg.StartsWith(EntryPointApi.DASH_DOUBLE);
+        public static bool IsDoubleDash(this Token arg) {
+            return arg.IsOption 
+                && arg.Value.StartsWith(EntryPointApi.DASH_DOUBLE);
         }
 
-        public static List<string> FlattenSingles(this string[] args) {
+        public static List<Token> FlattenSingles(this List<Token> args) {
             var singles = args
                 // Get all single dash options
                 .Where(a => a.IsSingleDash())
@@ -38,40 +42,39 @@ namespace EntryPoint.Internals {
             return singles.ToList();
         }
 
-        public static List<string> FlattenDoubles(this string[] args) {
+        public static List<Token> FlattenDoubles(this List<Token> args) {
             var doubles = args
                 // Get all double dash options
-                .Where(a => a.IsDoubleDash())
-
-                // Trim off any parameters from options
-                .Select(s => string.Concat(s.TakeWhile(c => c != '=')));
+                .Where(a => a.IsDoubleDash());
             return doubles.ToList();
         }
 
-        public static BaseOptionAttribute GetOption(this string arg, List<BaseOptionAttribute> options) {
+        public static BaseOptionAttribute GetOption(this Token arg, List<BaseOptionAttribute> options) {
             return options.FirstOrDefault(o => {
-                return (arg.IsSingleDash() && arg.Contains(o.SingleDashChar))
-                    || (arg.IsDoubleDash() && arg.StartsWith(
+                return arg.IsOption && 
+                      ((arg.IsSingleDash() && arg.Value.Contains(o.SingleDashChar))
+                    || (arg.IsDoubleDash() && arg.Value.StartsWith(
                                                     EntryPointApi.DASH_DOUBLE + o.DoubleDashName, 
-                                                    StringComparison.CurrentCultureIgnoreCase));
+                                                    StringComparison.CurrentCultureIgnoreCase)));
             });
         }
 
         // Returns the array index of a given - option, or -1
-        public static int SingleDashIndex(this string[] args, char argName) {
-            return Array.FindIndex(args, s => 
+        public static int SingleDashIndex(this List<Token> args, char argName) {
+            return args.FindIndex(s => 
                    s.IsSingleDash() 
-                && s.Contains(argName));
+                && s.Value.Contains(argName));
         }
 
         // Returns the array index of a given -- option, or -1
-        public static int DoubleDashIndex(this string[] args, string argName) {
-            return Array.FindIndex(args, s =>
-                    s.StartsWith(EntryPointApi.DASH_DOUBLE + argName, StringComparison.CurrentCultureIgnoreCase));
+        public static int DoubleDashIndex(this List<Token> args, string argName) {
+            return args.FindIndex(s =>
+                       s.IsDoubleDash()
+                    && s.Value.StartsWith(EntryPointApi.DASH_DOUBLE + argName, StringComparison.CurrentCultureIgnoreCase));
         }
 
         // Determines if an option is used at all in the arguments list
-        public static bool OptionExists(this string[] args, BaseOptionAttribute option) {
+        public static bool OptionExists(this List<Token> args, BaseOptionAttribute option) {
             return option.SingleDashIndex(args) >= 0
                 || option.DoubleDashIndex(args) >= 0;
         }

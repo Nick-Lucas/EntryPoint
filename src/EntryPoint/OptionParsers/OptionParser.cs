@@ -4,24 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint.Internals;
+using EntryPoint.Parsing;
 
 namespace EntryPoint.OptionParsers {
-    public class OptionParser : IOptionParser {
+    internal class OptionParser : IOptionParser {
         internal OptionParser() { }
 
-        public object GetValue(string[] args, Type outputType, BaseOptionAttribute definition) {
+        public object GetValue(List<Token> args, Type outputType, BaseOptionAttribute definition) {
             var value = HasDouble(args, definition) || HasSingle(args, definition.SingleDashChar);
             return CheckValue(value, outputType, definition);
         }
 
-        bool HasSingle(string[] args, char? argName) {
+        bool HasSingle(List<Token> args, char? argName) {
             if (argName == null) {
                 return false;
             }
             return args.SingleDashIndex(argName.Value) >= 0;
         }
 
-        bool HasDouble(string[] args, BaseOptionAttribute definition) {
+        bool HasDouble(List<Token> args, BaseOptionAttribute definition) {
             return definition.DoubleDashIndex(args) >= 0;
         }
 
