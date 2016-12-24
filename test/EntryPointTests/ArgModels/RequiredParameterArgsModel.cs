@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace EntryPointTests.ArgClasses {
+namespace EntryPointTests.ArgModels {
     public class RequiredParameterArgsModel : BaseArgumentsModel {
         [OptionParameter(
             DoubleDashName = "param-required",

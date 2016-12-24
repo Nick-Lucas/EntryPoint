@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace EntryPointTests.ArgClasses {
+namespace EntryPointTests.ArgModels {
     public class DecimalArgsModel : BaseArgumentsModel {
         [OptionParameter(
             DoubleDashName = "default-zero",

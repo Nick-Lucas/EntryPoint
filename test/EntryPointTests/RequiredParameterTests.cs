@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 using EntryPoint.Exceptions;
 using Xunit;
-using EntryPointTests.ArgClasses;
+using EntryPointTests.ArgModels;
 
 namespace EntryPointTests {
     public class RequiredParameterTests {

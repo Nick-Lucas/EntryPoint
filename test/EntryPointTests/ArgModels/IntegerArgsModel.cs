@@ -5,23 +5,23 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace EntryPointTests.ArgClasses {
-    public class BoolArgsModel : BaseArgumentsModel {
+namespace EntryPointTests.ArgModels {
+    public class IntegerArgsModel : BaseArgumentsModel {
         [OptionParameter(
-            DoubleDashName = "default-false",
+            DoubleDashName = "default-zero",
             SingleDashChar = 'a')]
-        public bool DefaultFalse { get; set; }
+        public int DefaultZero { get; set; }
 
         [OptionParameter(
             DoubleDashName = "default-null",
             SingleDashChar = 'b')]
-        public bool? DefaultNull { get; set; }
+        public int? DefaultNull { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "default-true",
+            DoubleDashName = "default-7",
             SingleDashChar = 'c',
             NullValueBehaviour = ParameterDefaultEnum.CustomValue,
-            CustomDefaultValue = true)]
-        public bool DefaultTrue { get; set; }
+            CustomDefaultValue = 7)]
+        public int Default7 { get; set; }
     }
 }
