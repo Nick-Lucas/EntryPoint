@@ -31,3 +31,4 @@ A simple CLI argument parser for all modern .Net platforms
 
 
 Handle missing Option by setting anything we haven't discovered, at the end
+Handle option required

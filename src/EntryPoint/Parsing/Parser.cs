@@ -64,9 +64,9 @@ namespace EntryPoint.Parsing {
         }
 
         static void AssertParameterExists(Token option, Queue<Token> tokensQueue) {
-            if (tokensQueue.Count == 0 || !tokensQueue.Peek().IsOption) {
+            if (tokensQueue.Count == 0 || tokensQueue.Peek().IsOption) {
                 throw new NoParameterException(
-                    $"The argument {option.Value} was the last argument, but a parameter for it was expected");
+                    $"The option {option.Value} has no parameter, but a parameter for it was expected");
             }
         }
 
