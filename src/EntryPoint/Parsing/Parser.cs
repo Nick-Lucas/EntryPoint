@@ -26,14 +26,14 @@ namespace EntryPoint.Parsing {
                 object value = prop.Definition.OptionParser.GetValue(prop, tokenGroup);
                 prop.Property.SetValue(argumentsModel, value);
             }
-            HandleMissingModelOptions(parse.TokenGroups, model);
+            HandleUnusedOptions(parse.TokenGroups, model);
             
             argumentsModel.Operands = parse.Operands.Select(t => t.Value).ToArray();
             return argumentsModel;
         }
 
         // todo: do this
-        static void HandleMissingModelOptions(List<TokenGroup> tokenGroups, Model model) {
+        static void HandleUnusedOptions(List<TokenGroup> tokenGroups, Model model) {
             throw new NotImplementedException();
             // set default vales
             // validate required flag
