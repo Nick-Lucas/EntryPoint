@@ -15,7 +15,7 @@ namespace EntryPoint.Parsing {
             var options = new List<BaseOptionAttribute>();
             var properties = argumentsModel.GetType().GetRuntimeProperties();
             foreach (var prop in properties) {
-                var option = prop.GetCustomAttribute<BaseOptionAttribute>();
+                var option = prop.GetOptionAttribute();
                 if (option == null) {
                     continue;
                 }
@@ -35,8 +35,7 @@ namespace EntryPoint.Parsing {
 
         // If a property has a Required attribute, enforce the requirement
         static void ValidateRequiredOption(PropertyInfo prop, BaseOptionAttribute option, List<Token> args) {
-            var required = prop.GetCustomAttribute<OptionRequiredAttribute>() != null;
-            if (required && !args.OptionExists(option)) {
+            if (prop.OptionRequired() && !args.OptionExists(option)) {
                 throw new OptionRequiredException(
                     $"The option {EntryPointApi.DASH_SINGLE}{option.SingleDashChar}/"
                     + $"{EntryPointApi.DASH_DOUBLE}{option.DoubleDashName} "
