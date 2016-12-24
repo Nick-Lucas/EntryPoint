@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Internals {
+
     internal static class TypeExtensions {
         public static bool CanBeNull(this Type type) {
             if (type.IsNullable()) {
@@ -21,4 +22,5 @@ namespace EntryPoint.Internals {
             return Nullable.GetUnderlyingType(type) != null;
         }
     }
+
 }

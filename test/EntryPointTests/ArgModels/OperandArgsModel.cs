@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
-    public class OperandArgsModel : BaseArgumentsModel {
+    public class OperandArgsModel : BaseApplicationOptions {
         [OptionParameter(
             DoubleDashName = "opt-param-1")]
         public int OptParam1 { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
-    public class StringArgsModel : BaseArgumentsModel {
+    public class StringArgsModel : BaseApplicationOptions {
         [OptionParameter(
             DoubleDashName = "default-null",
             SingleDashChar = 'a')]
@@ -15,8 +15,8 @@ namespace EntryPointTests.ArgModels {
         [OptionParameter(
             DoubleDashName = "default-no-name",
             SingleDashChar = 'b',
-            NullValueBehaviour = ParameterDefaultEnum.CustomValue,
-            CustomDefaultValue = "NoName")]
+            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
+            ParameterDefaultValue = "NoName")]
         public string DefaultNoName { get; set; }
     }
 }

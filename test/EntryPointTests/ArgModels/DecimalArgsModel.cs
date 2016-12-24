@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
-    public class DecimalArgsModel : BaseArgumentsModel {
+    public class DecimalArgsModel : BaseApplicationOptions {
         [OptionParameter(
             DoubleDashName = "default-zero",
             SingleDashChar = 'a')]
@@ -20,8 +20,8 @@ namespace EntryPointTests.ArgModels {
         [OptionParameter(
             DoubleDashName = "default-71",
             SingleDashChar = 'c',
-            NullValueBehaviour = ParameterDefaultEnum.CustomValue,
-            CustomDefaultValue = 7.1)]
+            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
+            ParameterDefaultValue = 7.1)]
         public decimal Default71 { get; set; }
     }
 }

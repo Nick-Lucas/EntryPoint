@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
-    public class BoolArgsModel : BaseArgumentsModel {
+    public class BoolArgsModel : BaseApplicationOptions {
         [OptionParameter(
             DoubleDashName = "default-false",
             SingleDashChar = 'a')]
@@ -20,8 +20,8 @@ namespace EntryPointTests.ArgModels {
         [OptionParameter(
             DoubleDashName = "default-true",
             SingleDashChar = 'c',
-            NullValueBehaviour = ParameterDefaultEnum.CustomValue,
-            CustomDefaultValue = true)]
+            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
+            ParameterDefaultValue = true)]
         public bool DefaultTrue { get; set; }
     }
 }

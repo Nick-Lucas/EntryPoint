@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
-    public class RequiredParameterArgsModel : BaseArgumentsModel {
+    public class RequiredParameterArgsModel : BaseApplicationOptions {
         [OptionParameter(
             DoubleDashName = "param-required",
             SingleDashChar = 'r')]
@@ -16,8 +16,8 @@ namespace EntryPointTests.ArgModels {
         [OptionParameter(
             DoubleDashName = "param-optional",
             SingleDashChar = 'o',
-            NullValueBehaviour = ParameterDefaultEnum.CustomValue,
-            CustomDefaultValue = 7)]
+            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
+            ParameterDefaultValue = 7)]
         public int ParamOptional { get; set; }
     }
 }
