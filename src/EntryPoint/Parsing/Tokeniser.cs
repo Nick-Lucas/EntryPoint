@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using EntryPoint.Internals;
 
 namespace EntryPoint.Parsing {
+
     internal static class Tokeniser {
 
         // Splits up a string into tokens
@@ -82,4 +83,5 @@ namespace EntryPoint.Parsing {
             }
         }
     }
+
 }

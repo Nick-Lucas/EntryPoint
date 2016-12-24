@@ -12,10 +12,10 @@ namespace EntryPoint {
     /// Declares an Option argument which requires a parameter after the Option is declared
     /// </summary>
     public class OptionParameterAttribute : BaseOptionAttribute {
-        public OptionParameterAttribute() : base(OptionParserFactory.OptionParameter) { }
+        public OptionParameterAttribute() : base(OptionStrategyFactory.OptionParameter) { }
 
-        public ParameterDefaultEnum NullValueBehaviour = ParameterDefaultEnum.DefaultValue;
-        public object CustomDefaultValue { get; set; } = null;
+        public ParameterDefaultEnum ParameterDefaultBehaviour = ParameterDefaultEnum.DefaultValue;
+        public object ParameterDefaultValue { get; set; } = null;
     }
 
 }

@@ -7,8 +7,8 @@ using EntryPoint.Exceptions;
 using System.Reflection;
 
 namespace EntryPoint.Internals {
-    public static class ReflectionExtensions {
-        public static BaseOptionAttribute GetOptionDefinition(this PropertyInfo prop) {
+    internal static class ReflectionExtensions {
+        internal static BaseOptionAttribute GetOptionDefinition(this PropertyInfo prop) {
             var attributes = prop.GetCustomAttributes<BaseOptionAttribute>().ToList();
             if (attributes.Count > 1) {
                 throw new InvalidModelException(
@@ -20,7 +20,7 @@ namespace EntryPoint.Internals {
             return attributes.First();
         }
 
-        public static bool OptionIsRequired(this PropertyInfo prop) {
+        internal static bool OptionIsRequired(this PropertyInfo prop) {
             return prop.GetCustomAttribute<OptionRequiredAttribute>() != null;
         }
     }

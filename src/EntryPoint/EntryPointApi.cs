@@ -55,7 +55,6 @@ namespace EntryPoint {
 
             return (A)model.ApplicationOptions;
         }
-
     }
 
 }

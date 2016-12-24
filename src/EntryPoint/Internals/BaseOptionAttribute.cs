@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Internals {
+
     /// <summary>
     /// The Base class for all argument attributes
     /// </summary>
@@ -14,10 +15,10 @@ namespace EntryPoint.Internals {
         AllowMultiple = true, 
         Inherited = true)]
     public class BaseOptionAttribute : Attribute {
-        internal BaseOptionAttribute(IOptionParser optionParser) {
-            OptionParser = optionParser;
+        internal BaseOptionAttribute(IOptionStrategy optionStrategy) {
+            OptionStrategy = optionStrategy;
         }
-        internal IOptionParser OptionParser { get; private set; }
+        internal IOptionStrategy OptionStrategy { get; private set; }
 
         /// <summary>
         /// The case sensitive character which can be declared after a - to trigger an option 
@@ -29,4 +30,5 @@ namespace EntryPoint.Internals {
         /// </summary>
         public string DoubleDashName { get; set; }
     }
+
 }

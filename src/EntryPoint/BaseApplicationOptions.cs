@@ -14,7 +14,6 @@ namespace EntryPoint {
         /// All trailing arguments left after the list of Options and OptionParameters
         /// </summary>
         public string[] Operands { get; internal set; }
-
     }
 
 }

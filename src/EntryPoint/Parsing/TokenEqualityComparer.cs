@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Parsing {
+
     internal class TokenEqualityComparer : IEqualityComparer<Token> {
         public bool Equals(Token x, Token y) {
             return x.Equals(y);
@@ -13,4 +14,5 @@ namespace EntryPoint.Parsing {
             return 1;
         }
     }
+
 }

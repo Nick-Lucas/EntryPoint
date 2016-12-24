@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace EntryPoint.Parsing {
     public static class Parser {
-        internal static ParseResult MakeParseResult(List<Token> args, Model model) {
+
+        internal static ParseResult MakeParseResult(List<Token> tokens, Model model) {
             var result = new ParseResult();
 
-            var queue = new Queue<Token>(args);
+            var queue = new Queue<Token>(tokens);
             while (queue.Count > 0) {
                 var token = queue.Peek();
 
@@ -24,9 +25,9 @@ namespace EntryPoint.Parsing {
                     }
 
                     result.TokenGroups.Add(new TokenGroup() {
-                        OptionToken = token,
-                        RequiresArgument = requiresParameter,
-                        ArgumentToken = argument
+                        Option = token,
+                        RequiresParameter = requiresParameter,
+                        Parameter = argument
                     });
                 } else {
                     // If we hit a non-option, it must be an operand
@@ -38,11 +39,12 @@ namespace EntryPoint.Parsing {
             return result;
         }
 
-        static void AssertParameterExists(Token option, Queue<Token> tokensQueue) {
+        static void AssertParameterExists(Token token, Queue<Token> tokensQueue) {
             if (tokensQueue.Count == 0 || tokensQueue.Peek().IsOption) {
                 throw new NoParameterException(
-                    $"The option {option.Value} has no parameter, but a parameter for it was expected");
+                    $"The option {token.Value} has no parameter, but a parameter for it was expected");
             }
         }
     }
+
 }

@@ -7,9 +7,11 @@ using EntryPoint.Internals;
 using EntryPoint.Parsing;
 
 namespace EntryPoint.OptionParsers {
-    internal interface IOptionParser {
+
+    internal interface IOptionStrategy {
         object GetValue(ModelOption modelOption, TokenGroup tokenGroup);
         object GetDefaultValue(ModelOption modelOption);
         bool RequiresParameter { get; }
     }
+
 }

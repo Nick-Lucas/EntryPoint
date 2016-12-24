@@ -11,10 +11,10 @@ namespace EntryPoint.Parsing {
     internal class Model : List<ModelOption> {
         public BaseApplicationOptions ApplicationOptions { get; private set; }
 
-        internal Model(BaseApplicationOptions argumentsModel) {
-            ApplicationOptions = argumentsModel;
+        internal Model(BaseApplicationOptions applicationOptions) {
+            ApplicationOptions = applicationOptions;
 
-            var properties = argumentsModel.GetType().GetRuntimeProperties();
+            var properties = applicationOptions.GetType().GetRuntimeProperties();
             var options = properties
                 .Where(prop => prop.GetOptionDefinition() != null)
                 .Select(prop => new ModelOption(prop))
@@ -24,17 +24,17 @@ namespace EntryPoint.Parsing {
 
         // Find the ModelOption for the given Token, or null
         // TODO: break away domain logic into helper class
-        public ModelOption FindByToken(Token arg) {
+        public ModelOption FindByToken(Token token) {
             var option = this.FirstOrDefault(o => {
-                return ((arg.IsSingleDashOption() && arg.Value.Contains(o.Definition.SingleDashChar))
-                    || (arg.IsDoubleDashOption() && arg.Value.StartsWith(
+                return ((token.IsSingleDashOption() && token.Value.Contains(o.Definition.SingleDashChar))
+                    || (token.IsDoubleDashOption() && token.Value.StartsWith(
                             EntryPointApi.DASH_DOUBLE + o.Definition.DoubleDashName,
                             StringComparison.CurrentCultureIgnoreCase)));
             });
 
             if (option == null) {
                 throw new UnkownOptionException(
-                    $"The option {arg.Value} was not recognised. "
+                    $"The option {token.Value} was not recognised. "
                     + "Please ensure all given arguments are valid. Try --help");
             }
 
@@ -44,35 +44,38 @@ namespace EntryPoint.Parsing {
         // TODO: break away domain logic into helper class
         public List<ModelOption> WhereNotIn(List<TokenGroup> tokenGroups) {
             return this.Where(mo => !tokenGroups.Any(tg => {
-                return tg.OptionToken.Value.Equals(EntryPointApi.DASH_SINGLE + mo.Definition.SingleDashChar, StringComparison.CurrentCulture)
-                    || tg.OptionToken.Value.Equals(EntryPointApi.DASH_DOUBLE + mo.Definition.DoubleDashName, StringComparison.CurrentCultureIgnoreCase);
+                return tg.Option.Value.Equals(EntryPointApi.DASH_SINGLE + mo.Definition.SingleDashChar, StringComparison.CurrentCulture)
+                    || tg.Option.Value.Equals(EntryPointApi.DASH_DOUBLE + mo.Definition.DoubleDashName, StringComparison.CurrentCultureIgnoreCase);
             })).ToList();
         }
 
+        // Check model contains only unique names
         public void ValidateNoDuplicateNames() {
+
             // Check the single dash options
-            var singleDups = this
+            var singleDashes = this
                 .Where(o => o.Definition.SingleDashChar > char.MinValue)
                 .Select(o => o.Definition.SingleDashChar.ToString())
                 .Duplicates(StringComparer.CurrentCulture)
                 .ToList();
-            if (singleDups.Any()) {
-                AssertDuplicateOptionsInModel(singleDups);
+            if (singleDashes.Any()) {
+                AssertDuplicateOptionsInModel(singleDashes);
             }
+
             // Check the double dash options
-            var doubleDups = this
+            var doubleDashes = this
                 .Where(o => o.Definition.DoubleDashName != string.Empty)
                 .Select(o => o.Definition.DoubleDashName)
                 .Duplicates(StringComparer.CurrentCultureIgnoreCase)
                 .ToList();
-            if (doubleDups.Any()) {
-                AssertDuplicateOptionsInModel(doubleDups);
+            if (doubleDashes.Any()) {
+                AssertDuplicateOptionsInModel(doubleDashes);
             }
         }
-        static void AssertDuplicateOptionsInModel(List<string> options) {
+        static void AssertDuplicateOptionsInModel(List<string> duplicateOptionNames) {
             throw new InvalidModelException(
                 $"The given {nameof(BaseApplicationOptions)} implementation was invalid. "
-                + $"There are duplicate single dash arguments: {String.Join("/", options)}");
+                + $"There are duplicate single dash arguments: {String.Join("/", duplicateOptionNames)}");
         }
     }
 }

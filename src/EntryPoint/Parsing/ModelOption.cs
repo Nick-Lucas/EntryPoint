@@ -7,6 +7,7 @@ using System.Reflection;
 using EntryPoint.Internals;
 
 namespace EntryPoint.Parsing {
+
     internal class ModelOption {
         internal ModelOption(PropertyInfo property) {
             Property = property;
@@ -23,4 +24,5 @@ namespace EntryPoint.Parsing {
         // Option configuration
         public BaseOptionAttribute Definition { get; set; }
     }
+
 }

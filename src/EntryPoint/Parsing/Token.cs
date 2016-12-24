@@ -19,6 +19,25 @@ namespace EntryPoint.Parsing {
         }
 
 
+        // ** Helpers **
+
+        // Determines if this token is a -o option
+        public bool IsSingleDashOption() {
+            return this.IsOption
+                && this.Value.StartsWith(EntryPointApi.DASH_SINGLE)
+               && !this.Value.StartsWith(EntryPointApi.DASH_DOUBLE);
+        }
+
+        // Determines if this token is a --opt option
+        public bool IsDoubleDashOption() {
+            return this.IsOption
+                && this.Value.StartsWith(EntryPointApi.DASH_DOUBLE);
+        }
+
+        // Splits a -o option token into multiple tokens like:
+        // [-abc]
+        // to:
+        // [-a] [-b] [-c]
         public List<Token> SplitSingleOptions() {
             if (!this.IsSingleDashOption()) {
                 throw new InvalidOperationException(
@@ -31,18 +50,6 @@ namespace EntryPoint.Parsing {
                 .ToCharArray()
                 .Select(c => new Token(EntryPointApi.DASH_SINGLE + c, true))
                 .ToList();
-        }
-
-        // Determines if a given arg array element is a - option
-        public bool IsSingleDashOption() {
-            return this.IsOption
-                && this.Value.StartsWith(EntryPointApi.DASH_SINGLE)
-               && !this.Value.StartsWith(EntryPointApi.DASH_DOUBLE);
-        }
-
-        public bool IsDoubleDashOption() {
-            return this.IsOption
-                && this.Value.StartsWith(EntryPointApi.DASH_DOUBLE);
         }
     }
 }

@@ -7,12 +7,13 @@ using EntryPoint.Internals;
 using EntryPoint.Parsing;
 
 namespace EntryPoint.OptionParsers {
-    internal class OptionParser : IOptionParser {
-        internal OptionParser() { }
+
+    internal class OptionStrategy : IOptionStrategy {
+        internal OptionStrategy() { }
 
         public object GetValue(ModelOption modelOption, TokenGroup tokenGroup) {
-            var value = HasDouble(tokenGroup.OptionToken, modelOption.Definition) 
-                     || HasSingle(tokenGroup.OptionToken, modelOption.Definition.SingleDashChar);
+            var value = HasDoubleOption(tokenGroup.Option, modelOption.Definition) 
+                     || HasSingleOption(tokenGroup.Option, modelOption.Definition.SingleDashChar);
             return CheckValue(value, modelOption.Property.PropertyType, modelOption.Definition);
         }
 
@@ -26,14 +27,17 @@ namespace EntryPoint.OptionParsers {
             }
         }
 
-        bool HasSingle(Token arg, char? argName) {
+
+        // ** Helpers **
+
+        bool HasSingleOption(Token arg, char? argName) {
             if (argName == null) {
                 return false;
             }
             return arg.IsSingleDashOption();
         }
 
-        bool HasDouble(Token arg, BaseOptionAttribute definition) {
+        bool HasDoubleOption(Token arg, BaseOptionAttribute definition) {
             return arg.IsDoubleDashOption();
         }
 
@@ -46,4 +50,5 @@ namespace EntryPoint.OptionParsers {
             return value;
         }
     }
+
 }
