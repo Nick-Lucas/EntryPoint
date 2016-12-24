@@ -35,5 +35,9 @@ namespace EntryPoint.OptionParsers {
             }
             return value;
         }
+
+        public object GetDefaultValue(ModelOption modelOption) {
+            return false;
+        }
     }
 }

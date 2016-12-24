@@ -18,7 +18,7 @@ namespace EntryPointTests.ParsingTests {
             };
 
             var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens);
+            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace EntryPointTests.ParsingTests {
             };
 
             var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens);
+            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace EntryPointTests.ParsingTests {
             };
 
             var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens);
+            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace EntryPointTests.ParsingTests {
             };
 
             var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens);
+            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace EntryPointTests.ParsingTests {
             };
 
             var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens);
+            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
         }
 
         [Fact]
@@ -84,7 +84,7 @@ namespace EntryPointTests.ParsingTests {
             };
 
             var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens);
+            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace EntryPointTests.ParsingTests {
             };
 
             var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens);
+            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
         }
 
     }

@@ -29,15 +29,22 @@ namespace EntryPoint.OptionParsers {
         //    return args[index + 1].Value;
         //}
 
-        // TODO: do this process at the end of everything, once we know what we're missing from the tokens list
-        public object HandleMissingValue(Type outputType, BaseOptionAttribute argDefinition) {
-            var definition = (OptionParameterAttribute)argDefinition;
+        public object GetDefaultValue(ModelOption modelOption) {
+            var value = CalculateDefaultValue(modelOption);
+            if (value == null) {
+                return null;
+            }
+            var type = modelOption.Property.PropertyType;
+            return Convert.ChangeType(value, type);
+        }
+        object CalculateDefaultValue(ModelOption modelOption) {
+            var definition = (OptionParameterAttribute)modelOption.Definition;
             switch (definition.NullValueBehaviour) {
                 case ParameterDefaultEnum.DefaultValue:
-                    if (outputType.CanBeNull()) {
+                    if (modelOption.Property.PropertyType.CanBeNull()) {
                         return null;
                     }
-                    return Activator.CreateInstance(outputType);
+                    return Activator.CreateInstance(modelOption.Property.PropertyType);
 
                 case ParameterDefaultEnum.CustomValue:
                     return definition.CustomDefaultValue;

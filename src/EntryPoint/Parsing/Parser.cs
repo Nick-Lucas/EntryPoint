@@ -26,17 +26,25 @@ namespace EntryPoint.Parsing {
                 object value = prop.Definition.OptionParser.GetValue(prop, tokenGroup);
                 prop.Property.SetValue(argumentsModel, value);
             }
-            HandleUnusedOptions(parse.TokenGroups, model);
+            HandleUnusedOptions(argumentsModel, parse.TokenGroups, model);
             
             argumentsModel.Operands = parse.Operands.Select(t => t.Value).ToArray();
             return argumentsModel;
         }
 
-        // todo: do this
-        static void HandleUnusedOptions(List<TokenGroup> tokenGroups, Model model) {
-            throw new NotImplementedException();
-            // set default vales
-            // validate required flag
+        // if an option was not provided, which is in the ArgumentsModel
+        // Validate whether it's required, then set the values to the defined defaults
+        static void HandleUnusedOptions(BaseArgumentsModel argmentsModel, List<TokenGroup> tokenGroups, Model model) {
+            var unusedOptions = model.Where(mo => !tokenGroups.Any(tg => {
+                return tg.OptionToken.Value.Equals(EntryPointApi.DASH_SINGLE + mo.Definition.SingleDashChar, StringComparison.CurrentCulture)
+                    || tg.OptionToken.Value.Equals(EntryPointApi.DASH_DOUBLE + mo.Definition.DoubleDashName, StringComparison.CurrentCultureIgnoreCase);
+            })).ToList();
+            foreach (var option in unusedOptions) {
+                ValidateRequiredOption(option.Property, option.Definition);
+
+                var value = option.Definition.OptionParser.GetDefaultValue(option);
+                option.Property.SetValue(argmentsModel, value);
+            }
         }
 
         static ParseResult GroupTokens(List<Token> args, Model model) {
@@ -77,8 +85,8 @@ namespace EntryPoint.Parsing {
         }
 
         // If a property has a Required attribute, enforce the requirement
-        static void ValidateRequiredOption(PropertyInfo prop, BaseOptionAttribute option, List<Token> args) {
-            if (prop.OptionRequired() && !args.OptionExists(option)) {
+        static void ValidateRequiredOption(PropertyInfo prop, BaseOptionAttribute option) {
+            if (prop.OptionRequired()) {
                 throw new OptionRequiredException(
                     $"The option {EntryPointApi.DASH_SINGLE}{option.SingleDashChar}/"
                     + $"{EntryPointApi.DASH_DOUBLE}{option.DoubleDashName} "

@@ -9,5 +9,6 @@ using EntryPoint.Parsing;
 namespace EntryPoint.OptionParsers {
     internal interface IOptionParser {
         object GetValue(ModelOption modelOption, TokenGroup tokenGroup);
+        object GetDefaultValue(ModelOption modelOption);
     }
 }
