@@ -11,31 +11,17 @@ namespace EntryPoint.OptionParsers {
     internal class OptionParameterParser : IOptionParser {
         internal OptionParameterParser() { }
 
-        //public object GetValue(List<Token> args, Type outputType, BaseOptionAttribute definition) {
+        // public object GetValue(List<Token> args, Type outputType, BaseOptionAttribute definition) {
         public object GetValue(ModelOption modelOption, TokenGroup tokenGroup) {
             object value = tokenGroup.ArgumentToken.Value;
             return ConvertValue(value, modelOption.Property.PropertyType);
         }
 
-        //static string GetKnownValue(List<Token> args, int index) {
-        //    if (args.Count - 1 == index) {
-        //        throw new NoParameterException(
-        //            $"The argument {args[index]} was the last argument, but a parameter for it was expected");
-        //    }
-        //    if (args[index + 1].IsOption) {
-        //        throw new NoParameterException(
-        //            $"The parameter for {args[index]} was another option");
-        //    }
-        //    return args[index + 1].Value;
-        //}
-
+        // Get the default value for the Option's definition
         public object GetDefaultValue(ModelOption modelOption) {
             var value = CalculateDefaultValue(modelOption);
-            if (value == null) {
-                return null;
-            }
             var type = modelOption.Property.PropertyType;
-            return Convert.ChangeType(value, type);
+            return ConvertValue(value, type);
         }
         object CalculateDefaultValue(ModelOption modelOption) {
             var definition = (OptionParameterAttribute)modelOption.Definition;
@@ -55,6 +41,7 @@ namespace EntryPoint.OptionParsers {
             }
         }
 
+        // Sanitise values before trying to store them
         public object ConvertValue(object value, Type outputType) {
             if (value == null) {
                 return value;
