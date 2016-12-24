@@ -49,9 +49,9 @@ namespace EntryPoint.Internals {
 
         public static ModelOption GetOption(this Token arg, Model model) {
             var option = model.FirstOrDefault(o => {
-                return ((arg.IsSingleDashOption() && arg.Value.Contains(o.Option.SingleDashChar))
+                return ((arg.IsSingleDashOption() && arg.Value.Contains(o.Definition.SingleDashChar))
                      || (arg.IsDoubleDashOption() && arg.Value.StartsWith(
-                                                    EntryPointApi.DASH_DOUBLE + o.Option.DoubleDashName,
+                                                    EntryPointApi.DASH_DOUBLE + o.Definition.DoubleDashName,
                                                     StringComparison.CurrentCultureIgnoreCase)));
             });
 

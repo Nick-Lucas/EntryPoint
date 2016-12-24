@@ -10,20 +10,21 @@ namespace EntryPoint.OptionParsers {
     internal class OptionParser : IOptionParser {
         internal OptionParser() { }
 
-        public object GetValue(List<Token> args, Type outputType, BaseOptionAttribute definition) {
-            var value = HasDouble(args, definition) || HasSingle(args, definition.SingleDashChar);
-            return CheckValue(value, outputType, definition);
+        public object GetValue(ModelOption modelOption, TokenGroup tokenGroup) {
+            var value = HasDouble(tokenGroup.OptionToken, modelOption.Definition) 
+                     || HasSingle(tokenGroup.OptionToken, modelOption.Definition.SingleDashChar);
+            return CheckValue(value, modelOption.Property.PropertyType, modelOption.Definition);
         }
 
-        bool HasSingle(List<Token> args, char? argName) {
+        bool HasSingle(Token arg, char? argName) {
             if (argName == null) {
                 return false;
             }
-            return args.SingleDashIndex(argName.Value) >= 0;
+            return arg.IsSingleDashOption();
         }
 
-        bool HasDouble(List<Token> args, BaseOptionAttribute definition) {
-            return definition.DoubleDashIndex(args) >= 0;
+        bool HasDouble(Token arg, BaseOptionAttribute definition) {
+            return arg.IsDoubleDashOption();
         }
 
         object CheckValue(bool value, Type outputType, BaseOptionAttribute definition) {

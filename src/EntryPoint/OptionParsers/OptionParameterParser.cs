@@ -11,38 +11,25 @@ namespace EntryPoint.OptionParsers {
     internal class OptionParameterParser : IOptionParser {
         internal OptionParameterParser() { }
 
-        public object GetValue(List<Token> args, Type outputType, BaseOptionAttribute definition) {
-            int index = -1;
-            object value = null;
-
-            index = definition.SingleDashIndex(args);
-            if (index >= 0) {
-                value = GetKnownValue(args, index);
-                
-            } else { 
-                index = definition.DoubleDashIndex(args);
-                if (index >= 0) {
-                    value = GetKnownValue(args, index);
-                } else {
-                    value = HandleMissingValue(outputType, definition);
-                }
-            }
-
-            return ConvertValue(value, outputType);
+        //public object GetValue(List<Token> args, Type outputType, BaseOptionAttribute definition) {
+        public object GetValue(ModelOption modelOption, TokenGroup tokenGroup) {
+            object value = tokenGroup.ArgumentToken.Value;
+            return ConvertValue(value, modelOption.Property.PropertyType);
         }
 
-        static string GetKnownValue(List<Token> args, int index) {
-            if (args.Count - 1 == index) {
-                throw new NoParameterException(
-                    $"The argument {args[index]} was the last argument, but a parameter for it was expected");
-            }
-            if (args[index + 1].IsOption) {
-                throw new NoParameterException(
-                    $"The parameter for {args[index]} was another option");
-            }
-            return args[index + 1].Value;
-        }
+        //static string GetKnownValue(List<Token> args, int index) {
+        //    if (args.Count - 1 == index) {
+        //        throw new NoParameterException(
+        //            $"The argument {args[index]} was the last argument, but a parameter for it was expected");
+        //    }
+        //    if (args[index + 1].IsOption) {
+        //        throw new NoParameterException(
+        //            $"The parameter for {args[index]} was another option");
+        //    }
+        //    return args[index + 1].Value;
+        //}
 
+        // TODO: do this process at the end of everything, once we know what we're missing from the tokens list
         public object HandleMissingValue(Type outputType, BaseOptionAttribute argDefinition) {
             var definition = (OptionParameterAttribute)argDefinition;
             switch (definition.NullValueBehaviour) {

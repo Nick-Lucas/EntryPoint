@@ -8,6 +8,6 @@ using EntryPoint.Parsing;
 
 namespace EntryPoint.OptionParsers {
     internal interface IOptionParser {
-        object GetValue(List<Token> args, Type outputType, BaseOptionAttribute definition);
+        object GetValue(ModelOption modelOption, TokenGroup tokenGroup);
     }
 }

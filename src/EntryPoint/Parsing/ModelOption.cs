@@ -10,7 +10,7 @@ namespace EntryPoint.Parsing {
     internal class ModelOption {
         internal ModelOption(PropertyInfo property) {
             Property = property;
-            Option = property.GetOptionAttribute();
+            Definition = property.GetOptionAttribute();
             Required = property.OptionRequired();
         }
 
@@ -21,6 +21,6 @@ namespace EntryPoint.Parsing {
         public bool Required { get; set; }
 
         // Option configuration
-        public BaseOptionAttribute Option { get; set; }
+        public BaseOptionAttribute Definition { get; set; }
     }
 }

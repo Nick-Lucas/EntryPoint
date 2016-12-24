@@ -27,3 +27,7 @@ A simple CLI argument parser for all modern .Net platforms
 
 * -O options are case sensitive
 * --option-name options are case insensitive
+
+
+
+Handle missing Option by setting anything we haven't discovered, at the end

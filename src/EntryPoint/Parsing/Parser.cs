@@ -18,14 +18,14 @@ namespace EntryPoint.Parsing {
             
             // Validate Model and Arguments
             ValidateModelForDuplicates(argumentsModel, model);
-            ValidateArgumentsForDuplicates(parse.TokenGroups, model);
+            ValidateTokensForDuplicateOptions(parse.TokenGroups, model);
 
             foreach (var tokenGroup in parse.TokenGroups) {
                 var prop = tokenGroup.OptionToken.GetOption(model);
 
-                ValidateRequiredOption(prop.Property, prop.Option, args);
+                ValidateRequiredOption(prop.Property, prop.Definition, args);
 
-                object value = prop.Option.OptionParser.GetValue(args, prop.Property.PropertyType, prop.Option);
+                object value = prop.Definition.OptionParser.GetValue(prop, tokenGroup);
                 prop.Property.SetValue(argumentsModel, value);
             }
             //ValidateUnknownOption(args, options);
@@ -42,7 +42,7 @@ namespace EntryPoint.Parsing {
                 if (token.IsOption) {
                     queue.Dequeue();
 
-                    bool requiresParameter = token.GetOption(model).Option is OptionParameterAttribute;
+                    bool requiresParameter = token.GetOption(model).Definition is OptionParameterAttribute;
                     Token argument = null;
                     if (requiresParameter) {
                         AssertParameterExists(token, queue);
@@ -80,9 +80,9 @@ namespace EntryPoint.Parsing {
             }
         }
 
-        static void ValidateArgumentsForDuplicates(List<TokenGroup> args, Model model) {
+        static void ValidateTokensForDuplicateOptions(List<TokenGroup> args, Model model) {
             var duplicates = args
-                .Select(a => a.OptionToken.GetOption(model).Option)
+                .Select(a => a.OptionToken.GetOption(model).Definition)
                 .Duplicates(new BaseOptionAttributeEqualityComparer());
             if (duplicates.Any()) {
                 throw new DuplicateOptionException(
@@ -115,8 +115,8 @@ namespace EntryPoint.Parsing {
         static void ValidateModelForDuplicates(BaseArgumentsModel argumentsModel, Model model) {
             // Check the single dash options
             var singleDups = model
-                .Where(o => o.Option.SingleDashChar > char.MinValue)
-                .Select(o => o.Option.SingleDashChar.ToString())
+                .Where(o => o.Definition.SingleDashChar > char.MinValue)
+                .Select(o => o.Definition.SingleDashChar.ToString())
                 .Duplicates(StringComparer.CurrentCulture)
                 .ToList();
             if (singleDups.Any()) {
@@ -124,8 +124,8 @@ namespace EntryPoint.Parsing {
             }
             // Check the double dash options
             var doubleDups = model
-                .Where(o => o.Option.DoubleDashName != string.Empty)
-                .Select(o => o.Option.DoubleDashName)
+                .Where(o => o.Definition.DoubleDashName != string.Empty)
+                .Select(o => o.Definition.DoubleDashName)
                 .Duplicates(StringComparer.CurrentCultureIgnoreCase)
                 .ToList();
             if (doubleDups.Any()) {
