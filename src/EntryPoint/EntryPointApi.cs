@@ -20,7 +20,7 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">The type of the ArgumentsModel, which derives from BaseArgumentsModel</typeparam>
         /// <returns>A populated ArgumentsModel</returns>
-        public static A Parse<A>() where A : BaseArgumentsModel, new() {
+        public static A Parse<A>() where A : BaseApplicationOptions, new() {
             var args = Environment.GetCommandLineArgs();
             return Parse(new A(), args);
         }
@@ -31,7 +31,7 @@ namespace EntryPoint {
         /// <typeparam name="A">The type of the ArgumentsModel, which derives from BaseArgumentsModel</typeparam>
         /// <param name="args">The CLI argruments input</param>
         /// <returns>A populated ArgumentsModel</returns>
-        public static A Parse<A>(string[] args) where A : BaseArgumentsModel, new() {
+        public static A Parse<A>(string[] args) where A : BaseApplicationOptions, new() {
             return Parse(new A(), args);
         }
 
@@ -39,13 +39,21 @@ namespace EntryPoint {
         /// Populate a given custom ArgumentsModel
         /// </summary>
         /// <typeparam name="A">The type of the ArgumentsModel, which derives from BaseArgumentsModel</typeparam>
-        /// <param name="argmentsModel">The pre-instantiated ArgumentsModel</param>
+        /// <param name="applicationOptions">The pre-instantiated ArgumentsModel</param>
         /// <param name="args">The CLI argruments input</param>
         /// <returns>A populated ArgumentsModel</returns>
-        public static A Parse<A>(A argmentsModel, string[] args) where A : BaseArgumentsModel {
+        public static A Parse<A>(A applicationOptions, string[] args) where A : BaseApplicationOptions {
             string arguments = string.Join(" ", args);
+
+            // Process inputs
+            Model model = new Model(applicationOptions);
             var tokens = Tokeniser.MakeTokens(arguments);
-            return Parser.ParseAttributes(argmentsModel, tokens);
+            ParseResult parseResult = Parser.MakeParseResult(tokens, model);
+            
+            // Map results
+            model = Mapper.MapOptions(model, parseResult);
+
+            return (A)model.ApplicationOptions;
         }
 
     }

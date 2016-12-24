@@ -10,8 +10,8 @@ namespace EntryPoint.Parsing {
     internal class ModelOption {
         internal ModelOption(PropertyInfo property) {
             Property = property;
-            Definition = property.GetOptionAttribute();
-            Required = property.OptionRequired();
+            Definition = property.GetOptionDefinition();
+            Required = property.OptionIsRequired();
         }
 
         // The property from the ArgumentsModel

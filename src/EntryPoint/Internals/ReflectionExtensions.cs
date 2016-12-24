@@ -8,10 +8,11 @@ using System.Reflection;
 
 namespace EntryPoint.Internals {
     public static class ReflectionExtensions {
-        public static BaseOptionAttribute GetOptionAttribute(this PropertyInfo prop) {
+        public static BaseOptionAttribute GetOptionDefinition(this PropertyInfo prop) {
             var attributes = prop.GetCustomAttributes<BaseOptionAttribute>().ToList();
             if (attributes.Count > 1) {
-                throw new InvalidModelException($"More than one Option attribute was applied to {prop.Name}");
+                throw new InvalidModelException(
+                    $"More than one Option attribute was applied to {prop.Name}");
             }
             if (!attributes.Any()) {
                 return null;
@@ -19,7 +20,7 @@ namespace EntryPoint.Internals {
             return attributes.First();
         }
 
-        public static bool OptionRequired(this PropertyInfo prop) {
+        public static bool OptionIsRequired(this PropertyInfo prop) {
             return prop.GetCustomAttribute<OptionRequiredAttribute>() != null;
         }
     }

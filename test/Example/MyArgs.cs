@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace Example {
-    public class MyArgs : BaseArgumentsModel {
+    public class MyArgs : BaseApplicationOptions {
         [OptionParameter(SingleDashChar = 'n', DoubleDashName = "name")]
         public string Name { get; set; }
 

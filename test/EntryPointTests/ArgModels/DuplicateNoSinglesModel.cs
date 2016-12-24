@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
-    public class DuplicateNoSinglesModel : BaseArgumentsModel {
+    public class DuplicateNoSinglesModel : BaseApplicationOptions {
         [Option(DoubleDashName = "alpha")]
         public bool Alpha { get; set; }
 

@@ -41,6 +41,12 @@ namespace EntryPoint.OptionParsers {
             }
         }
 
+        public bool RequiresParameter {
+            get {
+                return true;
+            }
+        }
+
         // Sanitise values before trying to store them
         public object ConvertValue(object value, Type outputType) {
             if (value == null) {

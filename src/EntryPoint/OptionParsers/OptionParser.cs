@@ -16,6 +16,16 @@ namespace EntryPoint.OptionParsers {
             return CheckValue(value, modelOption.Property.PropertyType, modelOption.Definition);
         }
 
+        public object GetDefaultValue(ModelOption modelOption) {
+            return false;
+        }
+
+        public bool RequiresParameter {
+            get {
+                return false;
+            }
+        }
+
         bool HasSingle(Token arg, char? argName) {
             if (argName == null) {
                 return false;
@@ -34,10 +44,6 @@ namespace EntryPoint.OptionParsers {
                     + $"must be a boolean for {nameof(OptionAttribute)}");
             }
             return value;
-        }
-
-        public object GetDefaultValue(ModelOption modelOption) {
-            return false;
         }
     }
 }
