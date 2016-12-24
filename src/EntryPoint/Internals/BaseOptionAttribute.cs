@@ -23,24 +23,10 @@ namespace EntryPoint.Internals {
         /// The case sensitive character which can be declared after a - to trigger an option 
         /// </summary>
         public char SingleDashChar { get; set; }
-        internal int SingleDashIndex(List<Token> args) {
-            if (SingleDashChar == char.MinValue) {
-                return -1;
-            }
-
-            return args.SingleDashIndex(SingleDashChar);
-        }
 
         /// <summary>
         /// The case insensitive string which can be declared after a -- to trigger an option
         /// </summary>
         public string DoubleDashName { get; set; }
-        internal int DoubleDashIndex(List<Token> args) {
-            if (DoubleDashName == string.Empty) {
-                return -1;
-            }
-
-            return args.DoubleDashIndex(DoubleDashName);
-        }
     }
 }

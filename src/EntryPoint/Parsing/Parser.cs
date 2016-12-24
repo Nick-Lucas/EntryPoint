@@ -21,10 +21,10 @@ namespace EntryPoint.Parsing {
             ValidateTokensForDuplicateOptions(parse.TokenGroups, model);
 
             foreach (var tokenGroup in parse.TokenGroups) {
-                var prop = tokenGroup.OptionToken.GetOption(model);
+                var modelOption = model.FindByToken(tokenGroup.OptionToken);
 
-                object value = prop.Definition.OptionParser.GetValue(prop, tokenGroup);
-                prop.Property.SetValue(argumentsModel, value);
+                object value = modelOption.Definition.OptionParser.GetValue(modelOption, tokenGroup);
+                modelOption.Property.SetValue(argumentsModel, value);
             }
             HandleUnusedOptions(argumentsModel, parse.TokenGroups, model);
             
@@ -35,10 +35,7 @@ namespace EntryPoint.Parsing {
         // if an option was not provided, which is in the ArgumentsModel
         // Validate whether it's required, then set the values to the defined defaults
         static void HandleUnusedOptions(BaseArgumentsModel argmentsModel, List<TokenGroup> tokenGroups, Model model) {
-            var unusedOptions = model.Where(mo => !tokenGroups.Any(tg => {
-                return tg.OptionToken.Value.Equals(EntryPointApi.DASH_SINGLE + mo.Definition.SingleDashChar, StringComparison.CurrentCulture)
-                    || tg.OptionToken.Value.Equals(EntryPointApi.DASH_DOUBLE + mo.Definition.DoubleDashName, StringComparison.CurrentCultureIgnoreCase);
-            })).ToList();
+            var unusedOptions = model.WhereNotIn(tokenGroups);
             foreach (var option in unusedOptions) {
                 ValidateRequiredOption(option.Property, option.Definition);
 
@@ -56,7 +53,7 @@ namespace EntryPoint.Parsing {
                 if (token.IsOption) {
                     queue.Dequeue();
 
-                    bool requiresParameter = token.GetOption(model).Definition is OptionParameterAttribute;
+                    bool requiresParameter = model.FindByToken(token).Definition is OptionParameterAttribute;
                     Token argument = null;
                     if (requiresParameter) {
                         AssertParameterExists(token, queue);
@@ -96,7 +93,7 @@ namespace EntryPoint.Parsing {
 
         static void ValidateTokensForDuplicateOptions(List<TokenGroup> args, Model model) {
             var duplicates = args
-                .Select(a => a.OptionToken.GetOption(model).Definition)
+                .Select(a => model.FindByToken(a.OptionToken).Definition)
                 .Duplicates(new BaseOptionAttributeEqualityComparer());
             if (duplicates.Any()) {
                 throw new DuplicateOptionException(
