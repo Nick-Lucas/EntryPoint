@@ -60,5 +60,46 @@ namespace EntryPointTests.ParsingTests {
             Assert.Equal(expectedTokens, tokens);
         }
 
+        [Fact]
+        public void Tokenise_Singles() {
+            string args = "-abc";
+            List<Token> expectedTokens = new List<Token>() {
+                new Token("-a", true),
+                new Token("-b", true),
+                new Token("-c", true)
+            };
+
+            var tokens = Tokeniser.MakeTokens(args);
+            Assert.Equal(expectedTokens, tokens);
+        }
+
+        [Fact]
+        public void Tokenise_Singles_Equals() {
+            string args = "-abc=bob";
+            List<Token> expectedTokens = new List<Token>() {
+                new Token("-a", true),
+                new Token("-b", true),
+                new Token("-c", true),
+                new Token("bob", false),
+            };
+
+            var tokens = Tokeniser.MakeTokens(args);
+            Assert.Equal(expectedTokens, tokens);
+        }
+
+        [Fact]
+        public void Tokenise_Singles_Arg() {
+            string args = "-abc bob";
+            List<Token> expectedTokens = new List<Token>() {
+                new Token("-a", true),
+                new Token("-b", true),
+                new Token("-c", true),
+                new Token("bob", false),
+            };
+
+            var tokens = Tokeniser.MakeTokens(args);
+            Assert.Equal(expectedTokens, tokens);
+        }
+
     }
 }

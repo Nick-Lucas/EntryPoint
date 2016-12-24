@@ -4,16 +4,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using EntryPoint.Internals;
+
 namespace EntryPoint.Parsing {
     internal static class Tokeniser {
 
         // Splits up a string into tokens
         public static List<Token> MakeTokens(string args) {
-            StringBuilder token = new StringBuilder();
-            List<Token> tokens = new List<Token>();
+            var basicTokens = BasicTokenise(args);
+            return SplitCharOptions(basicTokens).ToList();
+        }
+
+        static List<Token> BasicTokenise(string args) {
             bool isOption = false;
             bool quoted = false;
             bool escaped = false;
+
+            StringBuilder token = new StringBuilder();
+            List<Token> tokens = new List<Token>();
+            Action StoreToken = () => {
+                if (token.Length > 0) {
+                    var t = token.ToString().Trim('"');
+                    tokens.Add(new Token(t, isOption));
+                    token.Clear();
+                    isOption = false;
+                }
+            };
+
             foreach (var c in args.ToCharArray()) {
                 if (!escaped && c == '\\') {
                     // If char is an unescaped escape, then set the escape state and continue
@@ -27,10 +44,7 @@ namespace EntryPoint.Parsing {
 
                 } else if (!escaped && !quoted && (Char.IsWhiteSpace(c) || c == '=')) {
                     // if char is unescaped and unquoted whitespace or = then store the token and start again
-                    var t = token.ToString().Trim('"');
-                    tokens.Add(new Token(t, isOption));
-                    token.Clear();
-                    isOption = false;
+                    StoreToken();
 
                 } else {
                     if (!escaped && !quoted && token.Length == 0 && c == '-') {
@@ -47,13 +61,25 @@ namespace EntryPoint.Parsing {
                     escaped = false;
                 }
             }
-            if (token.Length > 0) {
-                tokens.Add(
-                    new Token(token.ToString().Trim('"'), 
-                    isOption));
-            }
+            StoreToken();
 
             return tokens;
+        }
+
+        // Transforms tokens like:
+        // [--some-option] [-abc] [bob]
+        // to:
+        // [--some-option] [-a] [-b] [-c] [bob] 
+        static IEnumerable<Token> SplitCharOptions(List<Token> tokens) {
+            foreach (var token in tokens) {
+                if (token.IsSingleDashOption()) {
+                    foreach (var single in token.SplitSingleOptions()) {
+                        yield return single;
+                    }
+                } else {
+                    yield return token;
+                }
+            }
         }
     }
 }

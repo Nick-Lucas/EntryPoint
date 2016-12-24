@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Parsing {
-    internal struct Token : IEquatable<Token> {
+    internal class Token : IEquatable<Token> {
         public string Value { get; set; }
         public bool IsOption { get; set; }
 

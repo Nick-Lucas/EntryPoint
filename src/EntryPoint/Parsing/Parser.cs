@@ -6,31 +6,68 @@ using System.Threading.Tasks;
 using System.Reflection;
 using EntryPoint.Exceptions;
 using EntryPoint.Internals;
+using EntryPoint.Parsing;
 
 namespace EntryPoint.Parsing {
     internal static class Parser {
 
         // Takes the input from the API and orchestrates the process of population
         public static A ParseAttributes<A>(A argumentsModel, List<Token> args) where A : BaseArgumentsModel {
-            var options = new List<BaseOptionAttribute>();
-            var properties = argumentsModel.GetType().GetRuntimeProperties();
-            foreach (var prop in properties) {
-                var option = prop.GetOptionAttribute();
-                if (option == null) {
-                    continue;
-                }
-                options.Add(option);
-                ValidateRequiredOption(prop, option, args);
+            Model model = new Model(argumentsModel);
+            ParseResult parse = GroupTokens(args, model);
+            
+            // Validate Model and Arguments
+            ValidateModelForDuplicates(argumentsModel, model);
+            ValidateArgumentsForDuplicates(parse.TokenGroups, model);
 
-                object value = option.OptionParser.GetValue(args, prop.PropertyType, option);
-                prop.SetValue(argumentsModel, value);
+            foreach (var tokenGroup in parse.TokenGroups) {
+                var prop = tokenGroup.OptionToken.GetOption(model);
+
+                ValidateRequiredOption(prop.Property, prop.Option, args);
+
+                object value = prop.Option.OptionParser.GetValue(args, prop.Property.PropertyType, prop.Option);
+                prop.Property.SetValue(argumentsModel, value);
             }
-            ValidateModelForDuplicates(argumentsModel, options);
-            ValidateArgumentsForDuplicates(args, options);
-            ValidateUnknownOption(args, options);
-            PopulateOperands(argumentsModel, options, args);
-
+            //ValidateUnknownOption(args, options);
+            argumentsModel.Operands = parse.Operands.Select(t => t.Value).ToArray();
             return argumentsModel;
+        }
+
+        static ParseResult GroupTokens(List<Token> args, Model model) {
+            var result = new ParseResult();
+            var queue = new Queue<Token>(args);
+            while(queue.Count > 0) {
+                var token = queue.Peek();
+
+                if (token.IsOption) {
+                    queue.Dequeue();
+
+                    bool requiresParameter = token.GetOption(model).Option is OptionParameterAttribute;
+                    Token argument = null;
+                    if (requiresParameter) {
+                        AssertParameterExists(token, queue);
+                        argument = queue.Dequeue();
+                    }
+
+                    result.TokenGroups.Add(new TokenGroup() {
+                        OptionToken = token,
+                        RequiresArgument = requiresParameter,
+                        ArgumentToken = argument
+                    });
+                } else {
+                    // If we hit a non-option, it must be an operand
+                    break;
+                }
+            }
+            result.Operands.AddRange(queue);
+            return result;
+        }
+
+        static void AssertParameterExists(Token option, Queue<Token> tokensQueue) {
+            if (tokensQueue.Count == 0 || !tokensQueue.Peek().IsOption) {
+                throw new NoParameterException(
+                    $"The argument {option.Value} was the last argument, but a parameter for it was expected");
+            }
         }
 
         // If a property has a Required attribute, enforce the requirement
@@ -43,10 +80,10 @@ namespace EntryPoint.Parsing {
             }
         }
 
-        static void ValidateArgumentsForDuplicates(List<Token> args, List<BaseOptionAttribute> options) {
-            var map = args.FlattenSingles().Select(a => a.GetOption(options)).ToList();
-            map.AddRange(args.FlattenDoubles().Select(a => a.GetOption(options)));
-            var duplicates = map.Duplicates(new BaseOptionAttributeEqualityComparer());
+        static void ValidateArgumentsForDuplicates(List<TokenGroup> args, Model model) {
+            var duplicates = args
+                .Select(a => a.OptionToken.GetOption(model).Option)
+                .Duplicates(new BaseOptionAttributeEqualityComparer());
             if (duplicates.Any()) {
                 throw new DuplicateOptionException(
                     $"Duplicate options were entered for " 
@@ -54,80 +91,51 @@ namespace EntryPoint.Parsing {
             }
         }
 
-        static void ValidateUnknownOption(List<Token> args, List<BaseOptionAttribute> options) {
-            // Validate shortfort Options
-            foreach (var arg in args.FlattenSingles()) {
-                if (arg.GetOption(options) == null) {
-                    AssertUnkownOption(arg);
-                }
-            }
+        //static void ValidateUnknownOption(List<Token> args, List<BaseOptionAttribute> options) {
+        //    // Validate shortfort Options
+        //    foreach (var arg in args.FlattenSingles()) {
+        //        if (arg.GetOption(options) == null) {
+        //            AssertUnkownOption(arg);
+        //        }
+        //    }
 
-            // Validate full Options
-            foreach (var arg in args.FlattenDoubles()) {
-                if (arg.GetOption(options) == null) {
-                    AssertUnkownOption(arg);
-                }
-            }
-        }
-        static void AssertUnkownOption(Token arg) {
-            throw new UnkownOptionException(
-                $"The option {EntryPointApi.DASH_SINGLE}{arg.Value} was not recognised. "
-                + "Please ensure all given arguments are valid. Try --help");
-        }
+        //    // Validate full Options
+        //    foreach (var arg in args.FlattenDoubles()) {
+        //        if (arg.GetOption(options) == null) {
+        //            AssertUnkownOption(arg);
+        //        }
+        //    }
+        //}
+        //static void AssertUnkownOption(Token arg) {
+        //    throw new UnkownOptionException(
+        //        $"The option {EntryPointApi.DASH_SINGLE}{arg.Value} was not recognised. "
+        //        + "Please ensure all given arguments are valid. Try --help");
+        //}
 
-        static void ValidateModelForDuplicates(BaseArgumentsModel model, List<BaseOptionAttribute> options) {
+        static void ValidateModelForDuplicates(BaseArgumentsModel argumentsModel, Model model) {
             // Check the single dash options
-            var singleDups = options
-                .Where(o => o.SingleDashChar > char.MinValue)
-                .Select(o => o.SingleDashChar.ToString())
+            var singleDups = model
+                .Where(o => o.Option.SingleDashChar > char.MinValue)
+                .Select(o => o.Option.SingleDashChar.ToString())
                 .Duplicates(StringComparer.CurrentCulture)
                 .ToList();
             if (singleDups.Any()) {
-                AssertDuplicateOptionsInModel(model, singleDups);
+                AssertDuplicateOptionsInModel(argumentsModel, singleDups);
             }
             // Check the double dash options
-            var doubleDups = options
-                .Where(o => o.DoubleDashName != string.Empty)
-                .Select(o => o.DoubleDashName)
+            var doubleDups = model
+                .Where(o => o.Option.DoubleDashName != string.Empty)
+                .Select(o => o.Option.DoubleDashName)
                 .Duplicates(StringComparer.CurrentCultureIgnoreCase)
                 .ToList();
             if (doubleDups.Any()) {
-                AssertDuplicateOptionsInModel(model, doubleDups);
+                AssertDuplicateOptionsInModel(argumentsModel, doubleDups);
             }
         }
         static void AssertDuplicateOptionsInModel(BaseArgumentsModel model, List<string> options) {
             throw new InvalidModelException(
                 $"The given model {model.GetType().Name} was invalid. "
                 + $"There are duplicate single dash arguments: {String.Join("/", options)}");
-        }
-
-        static void PopulateOperands(
-            BaseArgumentsModel argumentsModel, List<BaseOptionAttribute> options, List<Token> args) {
-
-            if (!args.Any()) {
-                argumentsModel.Operands = new string[] { };
-                return;
-            }
-            
-            // Find the last item in the list which is a declared Option
-            int lastIndex = args.Count;
-            foreach (var arg in args.Reverse<Token>()) {
-                var option = arg.GetOption(options);
-                if (option != null) {
-                    if (option is OptionParameterAttribute) {
-                        // If it's a parameter and not combined, the last option is 1 index further on
-                        ++lastIndex;
-                    }
-                    break;
-                }
-
-                --lastIndex;
-            }
-
-            argumentsModel.Operands = args
-                .Skip(lastIndex)
-                .Select(t => t.Value)
-                .ToArray();
         }
     }
 }
