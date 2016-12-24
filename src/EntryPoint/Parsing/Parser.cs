@@ -23,14 +23,20 @@ namespace EntryPoint.Parsing {
             foreach (var tokenGroup in parse.TokenGroups) {
                 var prop = tokenGroup.OptionToken.GetOption(model);
 
-                ValidateRequiredOption(prop.Property, prop.Definition, args);
-
                 object value = prop.Definition.OptionParser.GetValue(prop, tokenGroup);
                 prop.Property.SetValue(argumentsModel, value);
             }
-            //ValidateUnknownOption(args, options);
+            HandleMissingModelOptions(parse.TokenGroups, model);
+            
             argumentsModel.Operands = parse.Operands.Select(t => t.Value).ToArray();
             return argumentsModel;
+        }
+
+        // todo: do this
+        static void HandleMissingModelOptions(List<TokenGroup> tokenGroups, Model model) {
+            throw new NotImplementedException();
+            // set default vales
+            // validate required flag
         }
 
         static ParseResult GroupTokens(List<Token> args, Model model) {
@@ -90,27 +96,6 @@ namespace EntryPoint.Parsing {
                     + $"${string.Join("/", duplicates.Select(o => o.DoubleDashName))}");
             }
         }
-
-        //static void ValidateUnknownOption(List<Token> args, List<BaseOptionAttribute> options) {
-        //    // Validate shortfort Options
-        //    foreach (var arg in args.FlattenSingles()) {
-        //        if (arg.GetOption(options) == null) {
-        //            AssertUnkownOption(arg);
-        //        }
-        //    }
-
-        //    // Validate full Options
-        //    foreach (var arg in args.FlattenDoubles()) {
-        //        if (arg.GetOption(options) == null) {
-        //            AssertUnkownOption(arg);
-        //        }
-        //    }
-        //}
-        //static void AssertUnkownOption(Token arg) {
-        //    throw new UnkownOptionException(
-        //        $"The option {EntryPointApi.DASH_SINGLE}{arg.Value} was not recognised. "
-        //        + "Please ensure all given arguments are valid. Try --help");
-        //}
 
         static void ValidateModelForDuplicates(BaseArgumentsModel argumentsModel, Model model) {
             // Check the single dash options
