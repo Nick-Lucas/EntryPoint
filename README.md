@@ -13,7 +13,8 @@ Lightweight declarative CLI argument parser for all modern .Net platforms
 * Allow options to depend on other options, or be exclusive of other options
 
 ---
-* API Documentation
+* API Documentation Website
+* EntryPoint icon
 
 ---
 
