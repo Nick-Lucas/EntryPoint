@@ -1,34 +1,12 @@
-Lightweight declarative CLI argument parser for all modern .Net platforms
+An argument parser with a declarative and object oriented approach.
 
-# TODO
+Supports:
+* .Net Standard 1.6+ (All future .Net releases are built on this)
+* .Net Framework 4.5.2+
 
----
-* Follow IEEE standard: http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html
+Follows the [IEEE standard](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html) closely, but does include common adblibs such as fully name --option style options.
 
----
-* Produce --help documentation automatically, and allow user addition to this. Add DocumentationAttribute as an option for the user
-* Support lists in parameters
-* Support mapping of positional operands
-* Make sure named AND numbered Enums work
-* Allow options to depend on other options, or be exclusive of other options
-
----
-* API Documentation Website
-* EntryPoint icon
-
----
-
-# Tests To Write
-
-* Test combining single dash args
-* Test Quotes usage
-* Test = usage
-* That -h or --help will trigger a Model Exception for duplicate option
-
-# Behaviour
-
-* -O options are case sensitive
-* --option-name options are case insensitive
+Pull requests are welcome, and some small tasks are already in the Issues :)
 
 # Example
 
@@ -90,3 +68,9 @@ namespace Example {
     }
 }
 ```
+
+# Behaviour
+
+* -O options are case sensitive
+* --option-name options are case insensitive
+* Standard types are all supported currently, some more advanced types are being actively worked on.
