@@ -10,6 +10,7 @@ Lightweight declarative CLI argument parser for all modern .Net platforms
 * Support lists in parameters
 * Support mapping of positional operands
 * Make sure named AND numbered Enums work
+* Allow options to depend on other options, or be exclusive of other options
 
 ---
 * API Documentation
@@ -21,6 +22,7 @@ Lightweight declarative CLI argument parser for all modern .Net platforms
 * Test combining single dash args
 * Test Quotes usage
 * Test = usage
+* That -h or --help will trigger a Model Exception for duplicate option
 
 # Behaviour
 

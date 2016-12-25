@@ -6,23 +6,27 @@ using System.Threading.Tasks;
 using System.Reflection;
 using EntryPoint.Internals;
 
-namespace EntryPoint.Parsing {
+namespace EntryPoint.OptionModel {
 
     internal class ModelOption {
         internal ModelOption(PropertyInfo property) {
             Property = property;
             Definition = property.GetOptionDefinition();
             Required = property.OptionIsRequired();
+            Help = property.GetHelp();
         }
 
         // The property from the ArgumentsModel
-        public PropertyInfo Property { get; set; }
+        public PropertyInfo Property { get; private set; }
         
         // Whether the Option is required
-        public bool Required { get; set; }
+        public bool Required { get; private set; }
 
         // Option configuration
-        public BaseOptionAttribute Definition { get; set; }
+        public BaseOptionAttribute Definition { get; private set; }
+
+        // Provided documentation
+        public HelpAttribute Help { get; private set; }
     }
 
 }

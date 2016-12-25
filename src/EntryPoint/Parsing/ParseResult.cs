@@ -10,6 +10,7 @@ namespace EntryPoint.Parsing {
     internal class ParseResult {
         public List<TokenGroup> TokenGroups { get; set; } = new List<TokenGroup>();
         public List<Token> Operands { get; set; } = new List<Token>();
+        public bool HelpRequested { get; set; }
     }
 
 }

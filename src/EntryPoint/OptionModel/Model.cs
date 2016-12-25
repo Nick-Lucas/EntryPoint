@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using System.Reflection;
 using EntryPoint.Internals;
 using EntryPoint.Exceptions;
+using EntryPoint.Parsing;
 
-namespace EntryPoint.Parsing {
+namespace EntryPoint.OptionModel {
     internal class Model : List<ModelOption> {
         public BaseApplicationOptions ApplicationOptions { get; private set; }
 
@@ -20,7 +21,11 @@ namespace EntryPoint.Parsing {
                 .Select(prop => new ModelOption(prop))
                 .ToList();
             base.AddRange(options);
+
+            Help = applicationOptions.GetType().GetTypeInfo().GetHelp();
         }
+
+        public HelpAttribute Help { get; private set; }
 
         // Find the ModelOption for the given Token, or null
         // TODO: break away domain logic into helper class
@@ -49,6 +54,7 @@ namespace EntryPoint.Parsing {
             })).ToList();
         }
 
+        // TODO: break away domain logic into validation class
         // Check model contains only unique names
         public void ValidateNoDuplicateNames() {
 

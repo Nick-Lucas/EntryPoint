@@ -23,5 +23,11 @@ namespace EntryPoint.Internals {
         internal static bool OptionIsRequired(this PropertyInfo prop) {
             return prop.GetCustomAttribute<OptionRequiredAttribute>() != null;
         }
+
+        // Get the HelpAttribute from a class or property
+        internal static HelpAttribute GetHelp(this MemberInfo member) {
+            return member.GetCustomAttribute<HelpAttribute>()
+                ?? new HelpAttribute();
+        }
     }
 }

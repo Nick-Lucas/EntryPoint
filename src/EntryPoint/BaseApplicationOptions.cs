@@ -6,14 +6,30 @@ using System.Threading.Tasks;
 namespace EntryPoint {
 
     /// <summary>
-    /// The base class which must be derived from for an ArgumentsModel implementation
+    /// The base class which must be derived from for an OptionsModel  implementation
     /// </summary>
-    public class BaseApplicationOptions {
+    public abstract class BaseApplicationOptions {
+        /// <summary>
+        /// The base class which must be derived from for an OptionsModel implementation
+        /// </summary>
+        /// <param name="utilityName">The name of your utility or application</param>
+        public BaseApplicationOptions(string utilityName) {
+            UtilityName = utilityName;
+        }
+        internal BaseApplicationOptions() { }
+
+        internal string UtilityName { get; set; }
     
         /// <summary>
         /// All trailing arguments left after the list of Options and OptionParameters
         /// </summary>
         public string[] Operands { get; internal set; }
+
+        [Option(
+            DoubleDashName = "help", SingleDashChar = 'h')]
+        [Help(
+            "Display the Help Documentation")]
+        internal bool HelpRequested { get; set; }
     }
 
 }
