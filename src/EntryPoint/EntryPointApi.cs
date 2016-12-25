@@ -72,8 +72,8 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseApplicationOptions which can be created with 0 arguments</typeparam>
         /// <returns>Help string</returns>
-        public static string GetHelp<A>() where A : BaseApplicationOptions, new() {
-            return GetHelp(new A());
+        public static string GenerateHelp<A>() where A : BaseApplicationOptions, new() {
+            return GenerateHelp(new A());
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace EntryPoint {
         /// <typeparam name="A">Custom implementation type of BaseApplicationOptions</typeparam>
         /// <param name="applicationOptions">Instance of custom BaseApplicationOptions implementation</param>
         /// <returns>Help string</returns>
-        public static string GetHelp<A>(A applicationOptions) where A : BaseApplicationOptions, new() {
+        public static string GenerateHelp<A>(A applicationOptions) where A : BaseApplicationOptions, new() {
             return Help.Generate(new Model(applicationOptions));
         }
     }
