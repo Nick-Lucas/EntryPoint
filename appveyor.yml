@@ -15,15 +15,15 @@ before_build:
 
   # Restore packages
   - dotnet restore .\src\EntryPoint\project.json
-  - dotnet restore .\src\EntryPointTests\project.json
+  - dotnet restore .\test\EntryPointTests\project.json
 
 build_script:
   - dotnet build .\src\EntryPoint\project.json
-  - dotnet build .\src\EntryPointTests\project.json
+  - dotnet build .\test\EntryPointTests\project.json
 
 test_script:
   # .NET Core
-  - dotnet test .\src\EntryPointTests
+  - dotnet test .\test\EntryPointTests
 
 after_test:
   - dotnet pack .\src\EntryPoint --configuration=Release --output=".\Nuget"
