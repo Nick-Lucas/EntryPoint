@@ -16,6 +16,7 @@ namespace EntryPoint {
         public BaseApplicationOptions(string utilityName) {
             UtilityName = utilityName;
         }
+        internal BaseApplicationOptions() { }
 
         internal string UtilityName { get; set; }
     

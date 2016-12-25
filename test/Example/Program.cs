@@ -34,6 +34,8 @@ namespace Example {
     }
 
     public class ApplicationOptions : BaseApplicationOptions {
+        public ApplicationOptions() : base("Example Project") { }
+
         [OptionParameter(
             SingleDashChar = 'n', DoubleDashName = "name")]
         public string Name { get; set; }
