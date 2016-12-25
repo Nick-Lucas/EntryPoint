@@ -10,6 +10,7 @@ Lightweight declarative CLI argument parser for all modern .Net platforms
 * Support lists in parameters
 * Support mapping of positional operands
 * Make sure named AND numbered Enums work
+* Allow options to depend on other options, or be exclusive of other options
 
 ---
 * API Documentation
@@ -22,6 +23,7 @@ Lightweight declarative CLI argument parser for all modern .Net platforms
 * Add documentation attribute for class and properties
 * trigger through --help
 * validadae models do not contain --help
+* Expose documentation generation through main Api
 
 # Tests To Write
 

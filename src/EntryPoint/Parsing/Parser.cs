@@ -14,6 +14,7 @@ namespace EntryPoint.Parsing {
             var queue = new Queue<Token>(tokens);
             while (queue.Count > 0) {
                 var token = queue.Peek();
+                result.HelpRequested = Help.IsHelpOption(token);
 
                 if (token.IsOption) {
                     queue.Dequeue();
