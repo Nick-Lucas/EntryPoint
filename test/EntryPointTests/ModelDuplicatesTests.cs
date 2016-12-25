@@ -27,6 +27,22 @@ namespace EntryPointTests {
         }
 
         [Fact]
+        public void Duplicates_hSingle() {
+            string[] args = new string[] { };
+
+            Assert.Throws<InvalidModelException>(
+                () => EntryPointApi.Parse<DuplicateHelpSingleModel>(args));
+        }
+
+        [Fact]
+        public void Duplicates_HelpDoubles() {
+            string[] args = new string[] { };
+
+            Assert.Throws<InvalidModelException>(
+                () => EntryPointApi.Parse<DuplicateHelpSingleModel>(args));
+        }
+
+        [Fact]
         public void Duplicates_OnTheLimitsButFine() {
             string[] args = new string[] { };
 
