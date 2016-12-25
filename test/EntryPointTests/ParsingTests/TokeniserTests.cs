@@ -11,7 +11,7 @@ namespace EntryPointTests.ParsingTests {
 
         [Fact]
         public void Tokenise_EscaleSingleDash() {
-            string args = @"--hello \-world ";
+            string[] args = new string[] { "--hello", @"\-world" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("--hello", true),
                 new Token("-world", false)
@@ -26,7 +26,7 @@ namespace EntryPointTests.ParsingTests {
         // TODO: but maybe there is a precedent for having to escape
         // TODO: both dashes to see a potential option as a parameter?
         public void Tokenise_EscapeDoubleDash() {
-            string args = @"--hello \--world ";
+            string[] args = new string[] { "--hello", @"\--world" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("--hello", true),
                 new Token("--world", false)
@@ -38,7 +38,7 @@ namespace EntryPointTests.ParsingTests {
 
         [Fact]
         public void Tokenise_Quotes() {
-            string args = "--goodbye \"to bob\"";
+            string[] args = new string[] { "--goodbye", "to bob" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("--goodbye", true),
                 new Token("to bob", false)
@@ -50,7 +50,7 @@ namespace EntryPointTests.ParsingTests {
 
         [Fact]
         public void Tokenise_EqualsSign() {
-            string args = "--goodbye=bob";
+            string[] args = new string[] { "--goodbye=bob" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("--goodbye", true),
                 new Token("bob", false)
@@ -62,7 +62,7 @@ namespace EntryPointTests.ParsingTests {
 
         [Fact]
         public void Tokenise_Singles() {
-            string args = "-abc";
+            string[] args = new string[] { "-abc" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("-a", true),
                 new Token("-b", true),
@@ -75,7 +75,7 @@ namespace EntryPointTests.ParsingTests {
 
         [Fact]
         public void Tokenise_Singles_Equals() {
-            string args = "-abc=bob";
+            string[] args = new string[] { "-abc=bob" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("-a", true),
                 new Token("-b", true),
@@ -89,7 +89,7 @@ namespace EntryPointTests.ParsingTests {
 
         [Fact]
         public void Tokenise_Singles_Arg() {
-            string args = "-abc bob";
+            string[] args = new string[] { "-abc", "bob" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("-a", true),
                 new Token("-b", true),

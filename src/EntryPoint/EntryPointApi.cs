@@ -46,11 +46,10 @@ namespace EntryPoint {
         /// <param name="args">The CLI argruments input</param>
         /// <returns>A populated ArgumentsModel</returns>
         public static A Parse<A>(A applicationOptions, string[] args) where A : BaseApplicationOptions {
-            string arguments = string.Join(" ", args);
 
             // Process inputs
             Model model = new Model(applicationOptions);
-            var tokens = Tokeniser.MakeTokens(arguments);
+            var tokens = Tokeniser.MakeTokens(args);
             ParseResult parseResult = Parser.MakeParseResult(tokens, model);
             
             // Map results
