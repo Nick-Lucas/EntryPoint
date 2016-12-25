@@ -8,6 +8,28 @@ using EntryPoint.Internals;
 
 namespace EntryPoint.Parsing {
 
+    /// <summary>
+    /// .Net Behaviour Observations
+    /// 
+    /// .Net automatically tokenises command line arguments and passes them to the program as `string[] args`
+    /// 
+    /// .Net Core does not provide raw access to the original string due to x-platform concerns,
+    /// see: https://github.com/dotnet/coreclr/issues/3103
+    /// This may change in the future
+    /// 
+    /// .Net tokenisation does a few things:
+    /// * Split on Whitespace(Good)
+    /// * Protects quoted contiguous text which means: 
+    ///     ` "1 23",456 ` transforms to a single token: ` 1 23,456 ` (Good)
+    /// * Strips quotes, even on list tokens, which means 
+    ///     ` "1,23",456 ` transforms to a single token: ` 1,23,456 ` (BAD)
+    /// 
+    /// This behaviour needs to be worked with by the Tokeniser.
+    /// 
+    /// The latter behaviour is un-workable and needs to be communicated as a limitation,
+    /// and communicated to the .Net team
+    /// 
+    /// </summary>
     internal static class Tokeniser {
 
         // Splits up a .Net Args array into tokens
