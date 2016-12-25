@@ -21,7 +21,11 @@ namespace EntryPoint.OptionModel {
                 .Select(prop => new ModelOption(prop))
                 .ToList();
             base.AddRange(options);
+
+            Help = applicationOptions.GetType().GetTypeInfo().GetHelp();
         }
+
+        public HelpAttribute Help { get; private set; }
 
         // Find the ModelOption for the given Token, or null
         // TODO: break away domain logic into helper class
@@ -50,6 +54,7 @@ namespace EntryPoint.OptionModel {
             })).ToList();
         }
 
+        // TODO: break away domain logic into validation class
         // Check model contains only unique names
         public void ValidateNoDuplicateNames() {
 

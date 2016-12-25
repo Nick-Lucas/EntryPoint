@@ -14,16 +14,16 @@ namespace EntryPoint {
         AttributeTargets.Class | AttributeTargets.Property,
         AllowMultiple = true,
         Inherited = true)]
-    public class DocumentationAttribute : Attribute {
+    public class HelpAttribute : Attribute {
 
         /// <summary>
         /// Additional information to display when --help is invoked
         /// </summary>
         /// <param name="detail">A description of the utility/option's usage</param>
-        public DocumentationAttribute(string detail) {
+        public HelpAttribute(string detail) {
             _detail = detail;
         }
-        internal DocumentationAttribute() { }
+        internal HelpAttribute() { }
 
         /// <summary>
         /// A description of the utility/option's usage

@@ -24,9 +24,10 @@ namespace EntryPoint.Internals {
             return prop.GetCustomAttribute<OptionRequiredAttribute>() != null;
         }
 
-        internal static DocumentationAttribute GetDocumentation(this PropertyInfo prop) {
-            return prop.GetCustomAttribute<DocumentationAttribute>() 
-                ?? new DocumentationAttribute();
+        // Get the HelpAttribute from a class or property
+        internal static HelpAttribute GetHelp(this MemberInfo member) {
+            return member.GetCustomAttribute<HelpAttribute>()
+                ?? new HelpAttribute();
         }
     }
 }

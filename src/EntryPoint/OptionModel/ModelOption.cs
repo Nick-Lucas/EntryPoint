@@ -13,7 +13,7 @@ namespace EntryPoint.OptionModel {
             Property = property;
             Definition = property.GetOptionDefinition();
             Required = property.OptionIsRequired();
-            Documentation = property.GetDocumentation();
+            Help = property.GetHelp();
         }
 
         // The property from the ArgumentsModel
@@ -26,7 +26,7 @@ namespace EntryPoint.OptionModel {
         public BaseOptionAttribute Definition { get; private set; }
 
         // Provided documentation
-        public DocumentationAttribute Documentation { get; private set; }
+        public HelpAttribute Help { get; private set; }
     }
 
 }
