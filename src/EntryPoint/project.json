@@ -1,6 +1,8 @@
 {
+  "version": "0.9.1-*",
   "title": "EntryPoint",
-  "version": "0.9.0-*",
+  "description": "Lightweight declarative CLI argument parser for all modern .Net platforms",
+  "authors": [ "Nick Lucas" ],
   "packOptions": {
     "owners": [ "Nick Lucas" ],
     "summary": "Lightweight declarative CLI argument parser for all modern .Net platforms",
@@ -8,8 +10,20 @@
       "type": "git",
       "url": "https://github.com/Nick-Lucas/EntryPoint"
     },
-    "tags": [ "cli", "argument", "option", "parameter", "declarative", "parser", 
-              ".net", "dotnet", "core", "netcore", "4.5.2", "452" ],
+    "tags": [
+      "cli",
+      "argument",
+      "option",
+      "parameter",
+      "declarative",
+      "parser",
+      ".net",
+      "dotnet",
+      "core",
+      "netcore",
+      "4.5.2",
+      "452"
+    ],
     "licenseUrl": "https://github.com/Nick-Lucas/EntryPoint/blob/master/LICENSE"
   },
 
