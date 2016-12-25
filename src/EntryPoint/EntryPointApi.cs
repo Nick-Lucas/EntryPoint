@@ -50,14 +50,14 @@ namespace EntryPoint {
             Model model = new Model(applicationOptions);
             var tokens = Tokeniser.MakeTokens(arguments);
             ParseResult parseResult = Parser.MakeParseResult(tokens, model);
-
-            // If --help was requested
-            if (parseResult.HelpRequested) {
-                Help.HandleHelpRequest(model);
-            }
             
             // Map results
             model = Mapper.MapOptions(model, parseResult);
+            
+            // If --help was requested
+            if (model.ApplicationOptions.HelpRequested) {
+                Help.HandleHelpRequest(model);
+            }
 
             return (A)model.ApplicationOptions;
         }

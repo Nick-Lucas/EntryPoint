@@ -30,6 +30,7 @@ Lightweight declarative CLI argument parser for all modern .Net platforms
 * Test combining single dash args
 * Test Quotes usage
 * Test = usage
+* That -h or --help will trigger a Model Exception for duplicate option
 
 # Behaviour
 

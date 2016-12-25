@@ -24,6 +24,12 @@ namespace EntryPoint {
         /// All trailing arguments left after the list of Options and OptionParameters
         /// </summary>
         public string[] Operands { get; internal set; }
+
+        [Option(
+            DoubleDashName = "help", SingleDashChar = 'h')]
+        [Help(
+            "Display the Help Documentation")]
+        internal bool HelpRequested { get; set; }
     }
 
 }

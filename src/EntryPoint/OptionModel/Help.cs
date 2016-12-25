@@ -38,13 +38,6 @@ namespace EntryPoint.OptionModel {
 
             return builder.ToString();
         }
-
-        // Determines if a Token is the -h / --help option
-        public static bool IsHelpOption(Token token) {
-            return token.IsOption && 
-                  (token.Value.Equals(EntryPointApi.DASH_DOUBLE + "help", StringComparison.CurrentCultureIgnoreCase)
-                || token.Value.Equals(EntryPointApi.DASH_SINGLE + "h", StringComparison.CurrentCulture));
-        }
     }
 
 }
