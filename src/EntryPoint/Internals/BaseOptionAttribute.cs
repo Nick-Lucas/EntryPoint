@@ -1,4 +1,4 @@
-﻿using EntryPoint.OptionParsers;
+﻿using EntryPoint.OptionStrategies;
 using EntryPoint.Parsing;
 using System;
 using System.Collections.Generic;

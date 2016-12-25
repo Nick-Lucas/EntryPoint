@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint.Internals;
 using EntryPoint.Parsing;
 
-namespace EntryPoint.OptionParsers {
+namespace EntryPoint.OptionStrategies {
 
     internal interface IOptionStrategy {
         object GetValue(ModelOption modelOption, TokenGroup tokenGroup);

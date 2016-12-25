@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint.Internals;
 using EntryPoint.Parsing;
 
-namespace EntryPoint.OptionParsers {
+namespace EntryPoint.OptionStrategies {
 
     internal class OptionStrategy : IOptionStrategy {
         internal OptionStrategy() { }

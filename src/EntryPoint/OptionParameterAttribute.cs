@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint.Internals;
-using EntryPoint.OptionParsers;
+using EntryPoint.OptionStrategies;
 
 namespace EntryPoint {
 

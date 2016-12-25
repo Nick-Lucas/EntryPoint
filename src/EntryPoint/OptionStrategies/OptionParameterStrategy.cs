@@ -7,7 +7,7 @@ using EntryPoint.Exceptions;
 using EntryPoint.Internals;
 using EntryPoint.Parsing;
 
-namespace EntryPoint.OptionParsers {
+namespace EntryPoint.OptionStrategies {
 
     internal class OptionParameterStrategy : IOptionStrategy {
         internal OptionParameterStrategy() { }
