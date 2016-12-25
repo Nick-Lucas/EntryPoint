@@ -9,8 +9,6 @@ namespace Example {
     public class Program {
         public static void Main(string[] args) {
             if (!args.Any()) {
-
-                // Supports all standard forms for CLI options
                 args = new string[] {
                     "-aB",
                     "--name", "Bob",
@@ -19,8 +17,7 @@ namespace Example {
                 };
             }
 
-            Console.WriteLine("Parsing for:");
-            Console.WriteLine(String.Join(" ", args));
+            // Parses arguments based on a declarative BaseApplicationOptions implementation (below)
             ApplicationOptions a = EntryPointApi.Parse<ApplicationOptions>(args);
 
             Console.WriteLine($"Name: {a.Name}");
@@ -29,6 +26,7 @@ namespace Example {
                 Console.WriteLine($"Study Year: {a.StudyYear}");
             }
 
+            // Contains a built in documentation generator
             Console.WriteLine("\n\nHelp Documentation: \n");
             EntryPointApi.Parse<ApplicationOptions>(new string[] { "--help" });
 

@@ -4,19 +4,24 @@ Supports:
 * .Net Standard 1.6+ (All future .Net releases are built on this)
 * .Net Framework 4.5.2+
 
-Follows the [IEEE standard](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html) closely, but does include common adblibs such as fully name --option style options.
+Follows the [IEEE standard](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html) closely, but does include common adblibs such as fully named --option style options.
 
-Pull requests are welcome, and some small tasks are already in the Issues :)
+Pull requests and suggestions are welcome, and some small tasks are already in the Issues :)
 
 # Example
 
 ```C#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+using EntryPoint;
+
 namespace Example {
     public class Program {
         public static void Main(string[] args) {
             if (!args.Any()) {
-
-                // Supports all standard forms for CLI options
                 args = new string[] {
                     "-aB",
                     "--name", "Bob",
@@ -25,8 +30,7 @@ namespace Example {
                 };
             }
 
-            Console.WriteLine("Parsing for:");
-            Console.WriteLine(String.Join(" ", args));
+            // Parses arguments based on a declarative BaseApplicationOptions implementation (below)
             ApplicationOptions a = EntryPointApi.Parse<ApplicationOptions>(args);
 
             Console.WriteLine($"Name: {a.Name}");
@@ -35,38 +39,60 @@ namespace Example {
                 Console.WriteLine($"Study Year: {a.StudyYear}");
             }
 
+            // Contains a built in documentation generator
+            Console.WriteLine("\n\nHelp Documentation: \n");
+            EntryPointApi.Parse<ApplicationOptions>(new string[] { "--help" });
+
             Console.Read();
         }
     }
 
+    [Help(
+        "This program is intended to show off the key features of EntryPoint, "
+        + "such as this handy declarative API which includes a documentation generator")]
     public class ApplicationOptions : BaseApplicationOptions {
+        public ApplicationOptions() : base("Example Project") { }
+
         [OptionParameter(
             SingleDashChar = 'n', DoubleDashName = "name")]
+        [Help(
+            "Name of the individual")]
         public string Name { get; set; }
 
         [OptionParameter(
             SingleDashChar = 'g', DoubleDashName = "gender")]
+        [Help(
+            "Gender of the individual")]
         public string Gender { get; set; }
 
         [Option(
             SingleDashChar = 's', DoubleDashName = "student")]
+        [Help(
+            "Use this option if the individual is a student")]
         public bool Student { get; set; }
 
         [OptionParameter(
             SingleDashChar = 'y', DoubleDashName = "study-year",
             ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
             ParameterDefaultValue = -1)]
+        [Help(
+            "If the individual is a student, you may provide their study year")]
         public int StudyYear { get; set; }
 
         [Option(
             SingleDashChar = 'a', DoubleDashName = "alpha")]
+        [Help(
+            "A test option. Does nothing")]
         public bool Alpha { get; set; }
 
         [Option(
             SingleDashChar = 'B', DoubleDashName = "bravo")]
+        [Help(
+            "A test option. Does nothing")]
         public bool Bravo { get; set; }
     }
 }
+
 ```
 
 # Behaviour
