@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 using System.Reflection;
 using EntryPoint.Internals;
 using EntryPoint.Exceptions;
+using EntryPoint.Parsing;
 
-namespace EntryPoint.Parsing {
+namespace EntryPoint.OptionModel {
     internal class Model : List<ModelOption> {
         public BaseApplicationOptions ApplicationOptions { get; private set; }
 

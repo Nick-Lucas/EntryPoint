@@ -7,6 +7,7 @@ using System.Reflection;
 using EntryPoint.Exceptions;
 using EntryPoint.Internals;
 using EntryPoint.Parsing;
+using EntryPoint.OptionModel;
 
 namespace EntryPoint.Parsing {
     internal static class Mapper {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using EntryPoint.Internals;
 
-namespace EntryPoint.Parsing {
+namespace EntryPoint.OptionModel {
 
     internal class ModelOption {
         internal ModelOption(PropertyInfo property) {
