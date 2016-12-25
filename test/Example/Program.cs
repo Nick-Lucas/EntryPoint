@@ -29,7 +29,7 @@ namespace Example {
                 Console.WriteLine($"Study Year: {a.StudyYear}");
             }
 
-            Console.WriteLine("Help Documentation: \n");
+            Console.WriteLine("\n\nHelp Documentation: \n");
             EntryPointApi.Parse<ApplicationOptions>(new string[] { "--help" });
 
             Console.Read();

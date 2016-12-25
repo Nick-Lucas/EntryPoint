@@ -16,6 +16,8 @@ namespace EntryPoint {
         internal const string DASH_SINGLE = "-";
         internal const string DASH_DOUBLE = "--";
 
+        // ** Parsing **
+
         /// <summary>
         /// Create and populate a custom ArgumentsModel from the Environment arguments
         /// </summary>
@@ -60,6 +62,28 @@ namespace EntryPoint {
             }
 
             return (A)model.ApplicationOptions;
+        }
+
+
+        // ** Help **
+
+        /// <summary>
+        /// Generate and return a Help string for a given BaseApplicationOptions instance
+        /// </summary>
+        /// <typeparam name="A">Custom implementation type of BaseApplicationOptions which can be created with 0 arguments</typeparam>
+        /// <returns>Help string</returns>
+        public static string GetHelp<A>() where A : BaseApplicationOptions, new() {
+            return GetHelp(new A());
+        }
+
+        /// <summary>
+        /// Generate and return a Help string for a given BaseApplicationOptions instance
+        /// </summary>
+        /// <typeparam name="A">Custom implementation type of BaseApplicationOptions</typeparam>
+        /// <param name="applicationOptions">Instance of custom BaseApplicationOptions implementation</param>
+        /// <returns>Help string</returns>
+        public static string GetHelp<A>(A applicationOptions) where A : BaseApplicationOptions, new() {
+            return Help.Generate(new Model(applicationOptions));
         }
     }
 
