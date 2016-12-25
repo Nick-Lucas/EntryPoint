@@ -13,16 +13,20 @@ namespace EntryPoint.OptionModel {
             Property = property;
             Definition = property.GetOptionDefinition();
             Required = property.OptionIsRequired();
+            Documentation = property.GetDocumentation();
         }
 
         // The property from the ArgumentsModel
-        public PropertyInfo Property { get; set; }
+        public PropertyInfo Property { get; private set; }
         
         // Whether the Option is required
-        public bool Required { get; set; }
+        public bool Required { get; private set; }
 
         // Option configuration
-        public BaseOptionAttribute Definition { get; set; }
+        public BaseOptionAttribute Definition { get; private set; }
+
+        // Provided documentation
+        public DocumentationAttribute Documentation { get; private set; }
     }
 
 }

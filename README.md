@@ -16,6 +16,13 @@ Lightweight declarative CLI argument parser for all modern .Net platforms
 
 ---
 
+# Documentation generator
+
+* Construct documentation string
+* Add documentation attribute for class and properties
+* trigger through --help
+* validadae models do not contain --help
+
 # Tests To Write
 
 * Test combining single dash args
