@@ -1,0 +1,32 @@
+version: '{build}'
+
+clone_depth: 50
+
+cache:
+  - '%LOCALAPPDATA%\Microsoft\dotnet -> appveyor.yml'
+  - '%USERPROFILE%\.nuget\packages -> appveyor.yml, **\project.json, Nuget.Config'
+
+before_build:
+  # Install dotnet cli
+  - appveyor DownloadFile https://raw.githubusercontent.com/dotnet/cli/v1.0.0-preview2/scripts/obtain/dotnet-install.ps1
+  - powershell -File dotnet-install.ps1
+  - set PATH=%PATH%;%LOCALAPPDATA%\Microsoft\dotnet
+  - dotnet --version
+
+  # Restore packages
+  - dotnet restore .\src\EntryPoint\project.json
+  - dotnet restore .\src\EntryPointTests\project.json
+
+build_script:
+  - dotnet build .\src\EntryPoint\project.json
+  - dotnet build .\src\EntryPointTests\project.json
+
+test_script:
+  # .NET Core
+  - dotnet test .\src\EntryPointTests
+
+after_test:
+  - dotnet pack .\src\EntryPoint --configuration=Release --output=".\Nuget"
+
+artifacts:
+  - path: .\Nuget\*.nupkg
