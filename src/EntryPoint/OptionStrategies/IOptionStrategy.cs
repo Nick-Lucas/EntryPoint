@@ -11,7 +11,6 @@ namespace EntryPoint.OptionStrategies {
 
     internal interface IOptionStrategy {
         object GetValue(ModelOption modelOption, TokenGroup tokenGroup);
-        object GetDefaultValue(ModelOption modelOption);
         bool RequiresParameter { get; }
     }
 

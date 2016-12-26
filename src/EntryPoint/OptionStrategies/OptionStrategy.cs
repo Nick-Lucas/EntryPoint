@@ -18,10 +18,6 @@ namespace EntryPoint.OptionStrategies {
             return CheckValue(value, modelOption.Property.PropertyType, modelOption.Definition);
         }
 
-        public object GetDefaultValue(ModelOption modelOption) {
-            return false;
-        }
-
         public bool RequiresParameter {
             get {
                 return false;

@@ -14,9 +14,7 @@ namespace EntryPointTests.ArgModels {
 
         [OptionParameter(
             LongName = "default-no-name",
-            ShortName = 'b',
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = "NoName")]
-        public string DefaultNoName { get; set; }
+            ShortName = 'b')]
+        public string DefaultNoName { get; set; } = "NoName";
     }
 }

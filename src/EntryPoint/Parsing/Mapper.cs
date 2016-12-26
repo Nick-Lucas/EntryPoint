@@ -40,20 +40,21 @@ namespace EntryPoint.Parsing {
         static void StoreOperands(Model model, ParseResult parseResult) {
             var operands = parseResult.Operands;
             foreach (var operand in model.Operands) {
-                object value = operand.OperandStrategy.GetValue(operand, parseResult);
-                operand.Property.SetValue(model.ApplicationOptions, value);
+                if (parseResult.OperandProvided(operand)) {
+                    object value = operand.OperandStrategy.GetValue(operand, parseResult);
+                    operand.Property.SetValue(model.ApplicationOptions, value);
+                }
             }
         }
 
-        // if an option was not provided, which is in the ArgumentsModel
-        // Validate whether it's required, then set the values to the defined defaults
+        // if an option was not provided, Validate whether it's marked as required
         static void HandleUnusedOptions(Model model, List<TokenGroup> usedOptions) {
-            var unusedOptions = model.WhereNotIn(usedOptions);
-            foreach (var option in unusedOptions) {
-                ValidateRequiredOption(option.Property, option.Definition);
+            var requiredOption = model
+                .WhereNotIn(usedOptions)
+                .FirstOrDefault(mo => mo.Property.OptionIsRequired());
 
-                var value = option.Definition.OptionStrategy.GetDefaultValue(option);
-                option.Property.SetValue(model.ApplicationOptions, value);
+            if (requiredOption != null) {
+                ValidateRequiredOption(requiredOption.Property, requiredOption.Definition);
             }
         }
 

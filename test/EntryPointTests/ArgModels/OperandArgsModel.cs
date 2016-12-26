@@ -15,10 +15,8 @@ namespace EntryPointTests.ArgModels {
             LongName = "opt-2")]
         public bool Opt2 { get; set; }
 
-        [Operand(1,
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = "NoName")]
-        public string Name { get; set; }
+        [Operand(1)]
+        public string Name { get; set; } = "NoName";
 
         [Operand(2)]
         public string Gender { get; set; }

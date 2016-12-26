@@ -16,12 +16,10 @@ namespace EntryPointTests.ArgModels {
             LongName = "default-null",
             ShortName = 'b')]
         public decimal? DefaultNull { get; set; }
-        
+
         [OptionParameter(
             LongName = "default-71",
-            ShortName = 'c',
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = 7.1)]
-        public decimal Default71 { get; set; }
+            ShortName = 'c')]
+        public decimal Default71 { get; set; } = 7.1m;
     }
 }

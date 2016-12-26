@@ -31,7 +31,7 @@ namespace EntryPointTests {
         }
 
         [Fact]
-        public void Enums_Named_CaseSensitive() {
+        public void Enums_Named_IgnoresCase() {
             string[] args = new string[] {
                 "--opt-1", "ITEM3"
             };
@@ -59,10 +59,8 @@ namespace EntryPointTests {
         public Enum1 OptEnum1 { get; set; }
 
         [OptionParameter(
-            LongName = "opt-2",
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = Enum1.item2)]
-        public Enum1 OptEnum2 { get; set; }
+            LongName = "opt-2")]
+        public Enum1 OptEnum2 { get; set; } = Enum1.item2;
     }
 
     enum Enum1 {

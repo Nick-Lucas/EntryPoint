@@ -19,14 +19,6 @@ namespace EntryPoint.OptionStrategies {
             return ValueConverter.ConvertValue(value, modelOption.Property.PropertyType);
         }
 
-        // Get the default value for the Option's definition
-        public object GetDefaultValue(ModelOption modelOption) {
-            var parameterDefinition = (OptionParameterAttribute)modelOption.Definition;
-            var type = modelOption.Property.PropertyType;
-            var value = ValueConverter.CalculateDefaultValue(parameterDefinition, type);
-            return ValueConverter.ConvertValue(value, type);
-        }
-
         public bool RequiresParameter {
             get {
                 return true;

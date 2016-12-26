@@ -44,26 +44,7 @@ namespace EntryPoint.OptionStrategies {
 
         // Converts an int or string representation of an application enum into that enum
         static object SanitiseEnum(object value, Type outputType) {
-            return Enum.Parse(outputType, value.ToString());
-        }
-
-
-        // ** Value Defaulting **
-        public static object CalculateDefaultValue(IValueDefaultable definition, Type outputType) {
-            switch (definition.DefaultValueBehaviour) {
-                case DefaultValueBehaviourEnum.DefaultValue:
-                    if (outputType.CanBeNull()) {
-                        return null;
-                    }
-                    return Activator.CreateInstance(outputType);
-
-                case DefaultValueBehaviourEnum.CustomValue:
-                    return definition.CustomDefaultValue;
-
-                default:
-                    throw new NotSupportedException(
-                        $"Unsupported {nameof(DefaultValueBehaviourEnum)} state: {definition.DefaultValueBehaviour}");
-            }
+            return Enum.Parse(outputType, value.ToString(), true);
         }
     }
 }
