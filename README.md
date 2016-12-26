@@ -85,11 +85,12 @@ namespace Example {
             "Some string to be used")]
         public string StringArg { get; set; }
 
-        // Including ints, decimals, doubles, floats
+        // Anything can be marked as Required, and will throw if not provided
+        [Required]
         [OptionParameter(
             ShortName = 'n', LongName = "number")]
         [Help(
-            "Some number to be used")]
+            "Some number to be used. Must be provided")]
         public decimal DecimalArg { get; set; }
 
         // Also supports named and numbered enums
@@ -99,16 +100,13 @@ namespace Example {
             "Provide an enum's value or name")]
         public ExampleEnum AppEnum { get; set; }
 
-        // When not provided by the user,
-        // OptionParameters are set to their type's default, 
-        // OR a custom value you provide
+        // When not provided by the user, the default value is respected
+        // This is either the Type default, or a pre-initialised value, like below.
         [OptionParameter(
-            ShortName = 'd', LongName = "defaultable",
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = -1)]
+            ShortName = 'd', LongName = "defaultable")]
         [Help(
             "If not provided by the user this will be defaulted")]
-        public int DefaultableValue { get; set; }
+        public int DefaultableValue { get; set; } = -1;
 
         // Operands are always dumped into the BaseApplicationModel.Operands list
         // But Positional Operands can also be mapped directly
@@ -117,7 +115,7 @@ namespace Example {
             "The first Operand after all Options and OptionParameters")]
         public string Operand1 { get; set; }
 
-        // 
+        
         // These are used in the example but don't show off any new features
         
         [Option(

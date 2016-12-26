@@ -19,32 +19,32 @@ namespace EntryPoint {
         // ** Parsing **
 
         /// <summary>
-        /// Create and populate a custom ArgumentsModel from the Environment arguments
+        /// Create and populate an ApplicationOptions implementation from the command line args
         /// </summary>
-        /// <typeparam name="A">The type of the ArgumentsModel, which derives from BaseArgumentsModel</typeparam>
-        /// <returns>A populated ArgumentsModel</returns>
+        /// <typeparam name="A">The type of the ApplicationOptions, which derives from BaseArgumentsModel</typeparam>
+        /// <returns>A populated ApplicationOptions instance</returns>
         public static A Parse<A>() where A : BaseApplicationOptions, new() {
             var args = Environment.GetCommandLineArgs();
             return Parse(new A(), args);
         }
 
         /// <summary>
-        /// Create and populate a custom ArgumentsModel
+        /// Create and populate an ApplicationOptions implementation
         /// </summary>
-        /// <typeparam name="A">The type of the ArgumentsModel, which derives from BaseArgumentsModel</typeparam>
+        /// <typeparam name="A">The type of the ApplicationOptions, which derives from BaseArgumentsModel</typeparam>
         /// <param name="args">The CLI argruments input</param>
-        /// <returns>A populated ArgumentsModel</returns>
+        /// <returns>A populated ApplicationOptions instance</returns>
         public static A Parse<A>(string[] args) where A : BaseApplicationOptions, new() {
             return Parse(new A(), args);
         }
 
         /// <summary>
-        /// Populate a given custom ArgumentsModel
+        /// Populate a given ApplicationOptions instance
         /// </summary>
-        /// <typeparam name="A">The type of the ArgumentsModel, which derives from BaseArgumentsModel</typeparam>
-        /// <param name="applicationOptions">The pre-instantiated ArgumentsModel</param>
+        /// <typeparam name="A">The type of the ApplicationOptions, which derives from BaseArgumentsModel</typeparam>
+        /// <param name="applicationOptions">The pre-instantiated ApplicationOptions implementation</param>
         /// <param name="args">The CLI argruments input</param>
-        /// <returns>A populated ArgumentsModel</returns>
+        /// <returns>A populated ApplicationOptions instance</returns>
         public static A Parse<A>(A applicationOptions, string[] args) where A : BaseApplicationOptions {
 
             // Process inputs
