@@ -8,18 +8,18 @@ using EntryPoint;
 namespace EntryPointTests.ArgModels {
     public class SingleDashArgsModel : BaseApplicationOptions {
         [Option(
-            DoubleDashName = "opt1",
-            SingleDashChar = 'a')]
+            LongName = "opt1",
+            ShortName = 'a')]
         public bool Opt1 { get; set; }
 
         [Option(
-            DoubleDashName = "opt2",
-            SingleDashChar = 'b')]
+            LongName = "opt2",
+            ShortName = 'b')]
         public bool Opt2 { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "opt3",
-            SingleDashChar = 'c')]
+            LongName = "opt3",
+            ShortName = 'c')]
         public string Opt3 { get; set; }
     }
 }

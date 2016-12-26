@@ -8,13 +8,13 @@ using EntryPoint;
 namespace EntryPointTests.ArgModels {
     public class ParametersArgsModel : BaseApplicationOptions {
         [OptionParameter(
-            DoubleDashName = "param-1",
-            SingleDashChar = 'a')]
+            LongName = "param-1",
+            ShortName = 'a')]
         public int Param1 { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "param-2",
-            SingleDashChar = 'b',
+            LongName = "param-2",
+            ShortName = 'b',
             DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
             CustomDefaultValue = 7)]
         public int Param2 { get; set; }

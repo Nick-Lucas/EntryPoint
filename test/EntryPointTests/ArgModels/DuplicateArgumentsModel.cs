@@ -7,10 +7,10 @@ using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
     public class DuplicateArgumentsModel : BaseApplicationOptions {
-        [Option(DoubleDashName = "alpha", SingleDashChar = 'a')]
+        [Option(LongName = "alpha", ShortName = 'a')]
         public bool Alpha { get; set; }
 
-        [Option(DoubleDashName = "bravo", SingleDashChar = 'A')]
+        [Option(LongName = "bravo", ShortName = 'A')]
         public bool Bravo { get; set; }
     }
 }

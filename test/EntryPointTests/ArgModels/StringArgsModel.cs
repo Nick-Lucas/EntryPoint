@@ -8,13 +8,13 @@ using EntryPoint;
 namespace EntryPointTests.ArgModels {
     public class StringArgsModel : BaseApplicationOptions {
         [OptionParameter(
-            DoubleDashName = "default-null",
-            SingleDashChar = 'a')]
+            LongName = "default-null",
+            ShortName = 'a')]
         public string DefaultNull { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "default-no-name",
-            SingleDashChar = 'b',
+            LongName = "default-no-name",
+            ShortName = 'b',
             DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
             CustomDefaultValue = "NoName")]
         public string DefaultNoName { get; set; }

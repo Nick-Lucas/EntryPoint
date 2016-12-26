@@ -23,12 +23,12 @@ namespace EntryPoint.Internals {
         /// <summary>
         /// The case sensitive character which can be declared after a - to trigger an option 
         /// </summary>
-        public char SingleDashChar { get; set; }
+        public char ShortName { get; set; }
 
         /// <summary>
         /// The case insensitive string which can be declared after a -- to trigger an option
         /// </summary>
-        public string DoubleDashName { get; set; }
+        public string LongName { get; set; }
     }
 
 }

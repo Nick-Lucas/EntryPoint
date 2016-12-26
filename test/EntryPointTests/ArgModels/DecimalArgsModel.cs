@@ -8,18 +8,18 @@ using EntryPoint;
 namespace EntryPointTests.ArgModels {
     public class DecimalArgsModel : BaseApplicationOptions {
         [OptionParameter(
-            DoubleDashName = "default-zero",
-            SingleDashChar = 'a')]
+            LongName = "default-zero",
+            ShortName = 'a')]
         public decimal DefaultZero { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "default-null",
-            SingleDashChar = 'b')]
+            LongName = "default-null",
+            ShortName = 'b')]
         public decimal? DefaultNull { get; set; }
         
         [OptionParameter(
-            DoubleDashName = "default-71",
-            SingleDashChar = 'c',
+            LongName = "default-71",
+            ShortName = 'c',
             DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
             CustomDefaultValue = 7.1)]
         public decimal Default71 { get; set; }

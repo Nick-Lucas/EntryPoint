@@ -44,11 +44,11 @@ namespace EntryPointTests {
 
     class EnumAppOptions : BaseApplicationOptions {
         [OptionParameter(
-            DoubleDashName = "opt-1")]
+            LongName = "opt-1")]
         public Enum1 OptEnum1 { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "opt-2",
+            LongName = "opt-2",
             DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
             CustomDefaultValue = Enum1.item2)]
         public Enum1 OptEnum2 { get; set; }

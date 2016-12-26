@@ -8,8 +8,8 @@ using EntryPoint;
 namespace EntryPointTests.ArgModels {
     public class OptionArgsModel : BaseApplicationOptions {
         [Option(
-            DoubleDashName = "my-option",
-            SingleDashChar = 'o')]
+            LongName = "my-option",
+            ShortName = 'o')]
         public bool Option { get; set; }
     }
 }

@@ -7,10 +7,10 @@ using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
     public class DuplicateLimitsModel : BaseApplicationOptions {
-        [Option(DoubleDashName = "alpha", SingleDashChar = 'a')]
+        [Option(LongName = "alpha", ShortName = 'a')]
         public bool Alpha { get; set; }
 
-        [OptionParameter(DoubleDashName = "beta", SingleDashChar = 'A')]
+        [OptionParameter(LongName = "beta", ShortName = 'A')]
         public int Bravo { get; set; }
     }
 }

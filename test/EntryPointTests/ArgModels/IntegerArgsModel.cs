@@ -8,18 +8,18 @@ using EntryPoint;
 namespace EntryPointTests.ArgModels {
     public class IntegerArgsModel : BaseApplicationOptions {
         [OptionParameter(
-            DoubleDashName = "default-zero",
-            SingleDashChar = 'a')]
+            LongName = "default-zero",
+            ShortName = 'a')]
         public int DefaultZero { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "default-null",
-            SingleDashChar = 'b')]
+            LongName = "default-null",
+            ShortName = 'b')]
         public int? DefaultNull { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "default-7",
-            SingleDashChar = 'c',
+            LongName = "default-7",
+            ShortName = 'c',
             DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
             CustomDefaultValue = 7)]
         public int Default7 { get; set; }

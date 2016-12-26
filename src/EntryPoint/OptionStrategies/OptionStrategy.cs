@@ -14,7 +14,7 @@ namespace EntryPoint.OptionStrategies {
 
         public object GetValue(ModelOption modelOption, TokenGroup tokenGroup) {
             var value = HasDoubleOption(tokenGroup.Option, modelOption.Definition) 
-                     || HasSingleOption(tokenGroup.Option, modelOption.Definition.SingleDashChar);
+                     || HasSingleOption(tokenGroup.Option, modelOption.Definition.ShortName);
             return CheckValue(value, modelOption.Property.PropertyType, modelOption.Definition);
         }
 
@@ -45,7 +45,7 @@ namespace EntryPoint.OptionStrategies {
         object CheckValue(bool value, Type outputType, BaseOptionAttribute definition) {
             if (outputType != typeof(bool)) {
                 throw new InvalidOperationException(
-                    $"The type of {EntryPointApi.DASH_DOUBLE}{definition.DoubleDashName} on the ArgumentsModel, " 
+                    $"The type of {EntryPointApi.DASH_DOUBLE}{definition.LongName} on the ArgumentsModel, " 
                     + $"must be a boolean for {nameof(OptionAttribute)}");
             }
             return value;

@@ -41,9 +41,9 @@ namespace EntryPoint.OptionModel {
         // TODO: break away domain logic into helper class
         public ModelOption FindByToken(Token token) {
             var option = this.FirstOrDefault(o => {
-                return ((token.IsSingleDashOption() && token.Value.Contains(o.Definition.SingleDashChar))
+                return ((token.IsSingleDashOption() && token.Value.Contains(o.Definition.ShortName))
                     || (token.IsDoubleDashOption() && token.Value.StartsWith(
-                            EntryPointApi.DASH_DOUBLE + o.Definition.DoubleDashName,
+                            EntryPointApi.DASH_DOUBLE + o.Definition.LongName,
                             StringComparison.CurrentCultureIgnoreCase)));
             });
 
@@ -59,8 +59,8 @@ namespace EntryPoint.OptionModel {
         // TODO: break away domain logic into helper class
         public List<ModelOption> WhereNotIn(List<TokenGroup> tokenGroups) {
             return this.Where(mo => !tokenGroups.Any(tg => {
-                return tg.Option.Value.Equals(EntryPointApi.DASH_SINGLE + mo.Definition.SingleDashChar, StringComparison.CurrentCulture)
-                    || tg.Option.Value.Equals(EntryPointApi.DASH_DOUBLE + mo.Definition.DoubleDashName, StringComparison.CurrentCultureIgnoreCase);
+                return tg.Option.Value.Equals(EntryPointApi.DASH_SINGLE + mo.Definition.ShortName, StringComparison.CurrentCulture)
+                    || tg.Option.Value.Equals(EntryPointApi.DASH_DOUBLE + mo.Definition.LongName, StringComparison.CurrentCultureIgnoreCase);
             })).ToList();
         }
 
@@ -70,8 +70,8 @@ namespace EntryPoint.OptionModel {
 
             // Check the single dash options
             var singleDashes = this
-                .Where(o => o.Definition.SingleDashChar > char.MinValue)
-                .Select(o => o.Definition.SingleDashChar.ToString())
+                .Where(o => o.Definition.ShortName > char.MinValue)
+                .Select(o => o.Definition.ShortName.ToString())
                 .Duplicates(StringComparer.CurrentCulture)
                 .ToList();
             if (singleDashes.Any()) {
@@ -80,8 +80,8 @@ namespace EntryPoint.OptionModel {
 
             // Check the double dash options
             var doubleDashes = this
-                .Where(o => o.Definition.DoubleDashName != string.Empty)
-                .Select(o => o.Definition.DoubleDashName)
+                .Where(o => o.Definition.LongName != string.Empty)
+                .Select(o => o.Definition.LongName)
                 .Duplicates(StringComparer.CurrentCultureIgnoreCase)
                 .ToList();
             if (doubleDashes.Any()) {

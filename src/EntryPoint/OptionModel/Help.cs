@@ -30,7 +30,7 @@ namespace EntryPoint.OptionModel {
             }
             
             foreach (var option in model) {
-                builder.AppendLine($"   -{option.Definition.SingleDashChar} --{option.Definition.DoubleDashName}");
+                builder.AppendLine($"   -{option.Definition.ShortName} --{option.Definition.LongName}");
                 builder.AppendLine($"   {option.Help.Detail}");
                 builder.AppendLine();
             }

@@ -26,7 +26,7 @@ namespace EntryPoint {
         public string[] Operands { get; internal set; }
 
         [Option(
-            DoubleDashName = "help", SingleDashChar = 'h')]
+            LongName = "help", ShortName = 'h')]
         [Help(
             "Display the Help Documentation")]
         internal bool HelpRequested { get; set; }

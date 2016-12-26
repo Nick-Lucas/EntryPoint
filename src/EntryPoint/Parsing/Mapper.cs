@@ -61,8 +61,8 @@ namespace EntryPoint.Parsing {
         static void ValidateRequiredOption(PropertyInfo property, BaseOptionAttribute option) {
             if (property.OptionIsRequired()) {
                 throw new OptionRequiredException(
-                    $"The option {EntryPointApi.DASH_SINGLE}{option.SingleDashChar}/"
-                    + $"{EntryPointApi.DASH_DOUBLE}{option.DoubleDashName} "
+                    $"The option {EntryPointApi.DASH_SINGLE}{option.ShortName}/"
+                    + $"{EntryPointApi.DASH_DOUBLE}{option.LongName} "
                     + "was not included, but is a required option");
             }
         }
@@ -75,7 +75,7 @@ namespace EntryPoint.Parsing {
             if (duplicates.Any()) {
                 throw new DuplicateOptionException(
                     $"Duplicate options were entered for " 
-                    + $"${string.Join("/", duplicates.Select(o => o.DoubleDashName))}");
+                    + $"${string.Join("/", duplicates.Select(o => o.LongName))}");
             }
         }
     }

@@ -41,25 +41,25 @@ namespace Example {
         public ApplicationOptions() : base("Example Project") { }
 
         [OptionParameter(
-            SingleDashChar = 'n', DoubleDashName = "name")]
+            ShortName = 'n', LongName = "name")]
         [Help(
             "Name of the individual")]
         public string Name { get; set; }
 
         [OptionParameter(
-            SingleDashChar = 'g', DoubleDashName = "gender")]
+            ShortName = 'g', LongName = "gender")]
         [Help(
             "Gender of the individual")]
         public string Gender { get; set; }
 
         [Option(
-            SingleDashChar = 's', DoubleDashName = "student")]
+            ShortName = 's', LongName = "student")]
         [Help(
             "Use this option if the individual is a student")]
         public bool Student { get; set; }
 
         [OptionParameter(
-            SingleDashChar = 'y', DoubleDashName = "study-year",
+            ShortName = 'y', LongName = "study-year",
             DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
             CustomDefaultValue = -1)]
         [Help(
@@ -67,13 +67,13 @@ namespace Example {
         public int StudyYear { get; set; }
 
         [Option(
-            SingleDashChar = 'a', DoubleDashName = "alpha")]
+            ShortName = 'a', LongName = "alpha")]
         [Help(
             "A test option. Does nothing")]
         public bool Alpha { get; set; }
 
         [Option(
-            SingleDashChar = 'B', DoubleDashName = "bravo")]
+            ShortName = 'B', LongName = "bravo")]
         [Help(
             "A test option. Does nothing")]
         public bool Bravo { get; set; }

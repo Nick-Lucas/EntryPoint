@@ -7,7 +7,7 @@ using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
     public class DuplicateHelpSingleModel : BaseApplicationOptions {
-        [Option(DoubleDashName = "alpha", SingleDashChar = 'h')]
+        [Option(LongName = "alpha", ShortName = 'h')]
         public bool Alpha { get; set; }
     }
 }

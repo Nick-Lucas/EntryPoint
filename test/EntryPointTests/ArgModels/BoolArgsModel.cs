@@ -8,18 +8,18 @@ using EntryPoint;
 namespace EntryPointTests.ArgModels {
     public class BoolArgsModel : BaseApplicationOptions {
         [OptionParameter(
-            DoubleDashName = "default-false",
-            SingleDashChar = 'a')]
+            LongName = "default-false",
+            ShortName = 'a')]
         public bool DefaultFalse { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "default-null",
-            SingleDashChar = 'b')]
+            LongName = "default-null",
+            ShortName = 'b')]
         public bool? DefaultNull { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "default-true",
-            SingleDashChar = 'c',
+            LongName = "default-true",
+            ShortName = 'c',
             DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
             CustomDefaultValue = true)]
         public bool DefaultTrue { get; set; }

@@ -8,14 +8,14 @@ using EntryPoint;
 namespace EntryPointTests.ArgModels {
     public class RequiredParameterArgsModel : BaseApplicationOptions {
         [OptionParameter(
-            DoubleDashName = "param-required",
-            SingleDashChar = 'r')]
+            LongName = "param-required",
+            ShortName = 'r')]
         [OptionRequired]
         public int ParamRequired { get; set; }
 
         [OptionParameter(
-            DoubleDashName = "param-optional",
-            SingleDashChar = 'o',
+            LongName = "param-optional",
+            ShortName = 'o',
             DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
             CustomDefaultValue = 7)]
         public int ParamOptional { get; set; }
