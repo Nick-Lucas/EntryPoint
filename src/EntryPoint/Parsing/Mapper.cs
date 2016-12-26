@@ -23,7 +23,7 @@ namespace EntryPoint.Parsing {
             StoreOptions(model, parseResult);
             HandleUnusedOptions(model, parseResult.TokenGroups);
             StoreOperands(model, parseResult);
-            HandlingUnusedOperands(model, parseResult);
+            HandleUnusedOperands(model, parseResult);
 
             return model;
         }
@@ -62,7 +62,7 @@ namespace EntryPoint.Parsing {
             }
         }
 
-        static void HandlingUnusedOperands(Model model, ParseResult parseResult) {
+        static void HandleUnusedOperands(Model model, ParseResult parseResult) {
             int providedOperandsCount = parseResult.Operands.Count;
 
             var requiredOperand = model.Operands
