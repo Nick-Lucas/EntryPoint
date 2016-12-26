@@ -20,6 +20,10 @@ namespace EntryPoint.Internals {
             return attributes.First();
         }
 
+        internal static OperandAttribute GetOperandDefinition(this PropertyInfo prop) {
+            return prop.GetCustomAttribute<OperandAttribute>();
+        }
+
         internal static bool OptionIsRequired(this PropertyInfo prop) {
             return prop.GetCustomAttribute<OptionRequiredAttribute>() != null;
         }

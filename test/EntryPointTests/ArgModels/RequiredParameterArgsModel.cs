@@ -16,8 +16,8 @@ namespace EntryPointTests.ArgModels {
         [OptionParameter(
             DoubleDashName = "param-optional",
             SingleDashChar = 'o',
-            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
-            ParameterDefaultValue = 7)]
+            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
+            CustomDefaultValue = 7)]
         public int ParamOptional { get; set; }
     }
 }

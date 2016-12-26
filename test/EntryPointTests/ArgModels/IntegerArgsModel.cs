@@ -20,8 +20,8 @@ namespace EntryPointTests.ArgModels {
         [OptionParameter(
             DoubleDashName = "default-7",
             SingleDashChar = 'c',
-            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
-            ParameterDefaultValue = 7)]
+            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
+            CustomDefaultValue = 7)]
         public int Default7 { get; set; }
     }
 }

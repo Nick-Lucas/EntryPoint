@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using EntryPoint.Internals;
 using EntryPoint.OptionStrategies;
 
 namespace EntryPoint {
+    public class OperandAttribute : Attribute, IValueDefaultable {
+        public OperandAttribute(int position) {
+            Position = position;
+        }
 
-    /// <summary>
-    /// Declares an Option argument which requires a parameter after the Option is declared
-    /// </summary>
-    public class OptionParameterAttribute : BaseOptionAttribute, IValueDefaultable {
-        public OptionParameterAttribute() : base(OptionStrategyFactory.OptionParameter) { }
+        /// <summary>
+        /// The 1 Based position of the operand
+        /// </summary>
+        public int Position { get; set; }
 
         /// <summary>
         /// Selects what the default value behaviour for when the parameter is not provided
@@ -24,5 +26,4 @@ namespace EntryPoint {
         /// </summary>
         public object CustomDefaultValue { get; set; } = null;
     }
-
 }

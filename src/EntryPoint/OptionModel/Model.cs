@@ -16,14 +16,24 @@ namespace EntryPoint.OptionModel {
             ApplicationOptions = applicationOptions;
 
             var properties = applicationOptions.GetType().GetRuntimeProperties();
+
+            // Map Options Model
             var options = properties
                 .Where(prop => prop.GetOptionDefinition() != null)
                 .Select(prop => new ModelOption(prop))
                 .ToList();
             base.AddRange(options);
 
+            // Map Operands Model
+            Operands = properties
+                .Where(prop => prop.GetOperandDefinition() != null)
+                .Select(prop => new ModelOperand(prop))
+                .ToList();
+
             Help = applicationOptions.GetType().GetTypeInfo().GetHelp();
         }
+
+        public List<ModelOperand> Operands { get; set; }
 
         public HelpAttribute Help { get; private set; }
 

@@ -60,8 +60,8 @@ namespace Example {
 
         [OptionParameter(
             SingleDashChar = 'y', DoubleDashName = "study-year",
-            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
-            ParameterDefaultValue = -1)]
+            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
+            CustomDefaultValue = -1)]
         [Help(
             "If the individual is a student, you may provide their study year")]
         public int StudyYear { get; set; }

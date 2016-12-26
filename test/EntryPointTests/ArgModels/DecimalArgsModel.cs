@@ -16,12 +16,12 @@ namespace EntryPointTests.ArgModels {
             DoubleDashName = "default-null",
             SingleDashChar = 'b')]
         public decimal? DefaultNull { get; set; }
-
+        
         [OptionParameter(
             DoubleDashName = "default-71",
             SingleDashChar = 'c',
-            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
-            ParameterDefaultValue = 7.1)]
+            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
+            CustomDefaultValue = 7.1)]
         public decimal Default71 { get; set; }
     }
 }
