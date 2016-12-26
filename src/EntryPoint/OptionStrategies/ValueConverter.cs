@@ -49,7 +49,7 @@ namespace EntryPoint.OptionStrategies {
 
 
         // ** Value Defaulting **
-        public static object CalculateDefaultValue(IValueDefaulter definition, Type outputType) {
+        public static object CalculateDefaultValue(IValueDefaultable definition, Type outputType) {
             switch (definition.DefaultValueBehaviour) {
                 case DefaultValueBehaviourEnum.DefaultValue:
                     if (outputType.CanBeNull()) {

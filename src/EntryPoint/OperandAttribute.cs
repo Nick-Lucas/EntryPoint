@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint.OptionStrategies;
 
 namespace EntryPoint {
-    public class OperandAttribute : Attribute, IValueDefaulter {
+    public class OperandAttribute : Attribute, IValueDefaultable {
         public OperandAttribute(int position) {
             Position = position;
         }

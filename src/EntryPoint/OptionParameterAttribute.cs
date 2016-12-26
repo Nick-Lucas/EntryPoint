@@ -11,7 +11,7 @@ namespace EntryPoint {
     /// <summary>
     /// Declares an Option argument which requires a parameter after the Option is declared
     /// </summary>
-    public class OptionParameterAttribute : BaseOptionAttribute, IValueDefaulter {
+    public class OptionParameterAttribute : BaseOptionAttribute, IValueDefaultable {
         public OptionParameterAttribute() : base(OptionStrategyFactory.OptionParameter) { }
 
         /// <summary>
