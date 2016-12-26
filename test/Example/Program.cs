@@ -85,12 +85,10 @@ namespace Example {
         // OptionParameters are set to their type's default, 
         // OR a custom value you provide
         [OptionParameter(
-            ShortName = 'd', LongName = "defaultable",
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = -1)]
+            ShortName = 'd', LongName = "defaultable")]
         [Help(
             "If not provided by the user this will be defaulted")]
-        public int DefaultableValue { get; set; }
+        public int DefaultableValue { get; set; } = -1;
 
         // Operands are always dumped into the BaseApplicationModel.Operands list
         // But Positional Operands can also be mapped directly

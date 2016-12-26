@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 using Xunit;
+using EntryPointTests.Helpers;
 
 namespace EntryPointTests {
     public class EnumArguments {
@@ -31,7 +32,7 @@ namespace EntryPointTests {
         }
 
         [Fact]
-        public void Enums_Named_CaseSensitive() {
+        public void Enums_Named_IgnoresCase() {
             string[] args = new string[] {
                 "--opt-1", "ITEM3"
             };
@@ -59,15 +60,7 @@ namespace EntryPointTests {
         public Enum1 OptEnum1 { get; set; }
 
         [OptionParameter(
-            LongName = "opt-2",
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = Enum1.item2)]
-        public Enum1 OptEnum2 { get; set; }
-    }
-
-    enum Enum1 {
-        item1 = 1,
-        item2 = 2,
-        item3 = 3
+            LongName = "opt-2")]
+        public Enum1 OptEnum2 { get; set; } = Enum1.item2;
     }
 }

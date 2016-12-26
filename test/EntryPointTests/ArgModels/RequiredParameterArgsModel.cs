@@ -15,9 +15,7 @@ namespace EntryPointTests.ArgModels {
 
         [OptionParameter(
             LongName = "param-optional",
-            ShortName = 'o',
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = 7)]
-        public int ParamOptional { get; set; }
+            ShortName = 'o')]
+        public int ParamOptional { get; set; } = 7;
     }
 }

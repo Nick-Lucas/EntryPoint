@@ -19,9 +19,7 @@ namespace EntryPointTests.ArgModels {
 
         [OptionParameter(
             LongName = "default-true",
-            ShortName = 'c',
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = true)]
-        public bool DefaultTrue { get; set; }
+            ShortName = 'c')]
+        public bool DefaultTrue { get; set; } = true;
     }
 }
