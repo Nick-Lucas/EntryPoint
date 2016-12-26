@@ -11,13 +11,13 @@ namespace EntryPoint {
     /// <summary>
     /// Declares an Option argument which requires a parameter after the Option is declared
     /// </summary>
-    public class OptionParameterAttribute : BaseOptionAttribute {
+    public class OptionParameterAttribute : BaseOptionAttribute, IValueDefaulter {
         public OptionParameterAttribute() : base(OptionStrategyFactory.OptionParameter) { }
 
         /// <summary>
         /// Selects what the default value behaviour for when the parameter is not provided
         /// </summary>
-        public DefaultValueBehaviourEnum DefaultValueBehaviour = DefaultValueBehaviourEnum.DefaultValue;
+        public DefaultValueBehaviourEnum DefaultValueBehaviour { get; set; } = DefaultValueBehaviourEnum.DefaultValue;
 
         /// <summary>
         /// If the behaviour is set to Custom, set the default value for when the parameter is not provided

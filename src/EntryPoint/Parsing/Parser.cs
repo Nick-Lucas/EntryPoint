@@ -18,6 +18,7 @@ namespace EntryPoint.Parsing {
                 if (token.IsOption) {
                     queue.Dequeue();
 
+                    // TODO: refactor out knowledge of OptionParameterAttribute
                     bool requiresParameter = model.FindByToken(token).Definition is OptionParameterAttribute;
                     Token argument = null;
                     if (requiresParameter) {
@@ -39,6 +40,7 @@ namespace EntryPoint.Parsing {
 
             return result;
         }
+
 
         static void AssertParameterExists(Token token, Queue<Token> tokensQueue) {
             if (tokensQueue.Count == 0 || tokensQueue.Peek().IsOption) {

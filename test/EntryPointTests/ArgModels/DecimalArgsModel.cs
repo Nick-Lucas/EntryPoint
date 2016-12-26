@@ -16,7 +16,7 @@ namespace EntryPointTests.ArgModels {
             DoubleDashName = "default-null",
             SingleDashChar = 'b')]
         public decimal? DefaultNull { get; set; }
-
+        
         [OptionParameter(
             DoubleDashName = "default-71",
             SingleDashChar = 'c',

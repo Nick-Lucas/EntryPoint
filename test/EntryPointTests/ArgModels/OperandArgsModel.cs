@@ -20,9 +20,7 @@ namespace EntryPointTests.ArgModels {
             CustomDefaultValue = "NoName")]
         public string Name { get; set; }
 
-        [Operand(2,
-            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
-            CustomDefaultValue = "Undefined")]
+        [Operand(2)]
         public string Gender { get; set; }
     }
 }

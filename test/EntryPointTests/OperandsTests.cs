@@ -15,7 +15,6 @@ namespace EntryPointTests {
 
         [Fact]
         public void OperandMap_Standard() {
-            var expectedOperands = new string[] { "hello", "world" };
             string[] args = new string[] {
                 "--opt-1", "--opt-2",
 
@@ -27,6 +26,18 @@ namespace EntryPointTests {
 
             Assert.Equal("hello", model.Name);
             Assert.Equal("world", model.Gender);
+        }
+
+        [Fact]
+        public void OperandMap_Defaults() {
+            string[] args = new string[] {
+                "--opt-1", "--opt-2",
+            };
+
+            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+
+            Assert.Equal("NoName", model.Name);
+            Assert.Equal(null, model.Gender);
         }
 
 

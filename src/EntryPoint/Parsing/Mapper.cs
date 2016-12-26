@@ -21,6 +21,7 @@ namespace EntryPoint.Parsing {
 
             // Populate ArgumentsModel
             StoreOptions(model, parseResult);
+            StoreOperands(model, parseResult);
             HandleUnusedOptions(model, parseResult.TokenGroups);
 
             return model;
@@ -34,6 +35,14 @@ namespace EntryPoint.Parsing {
                 modelOption.Property.SetValue(model.ApplicationOptions, value);
             }
             model.ApplicationOptions.Operands = parseResult.Operands.Select(t => t.Value).ToArray();
+        }
+
+        static void StoreOperands(Model model, ParseResult parseResult) {
+            var operands = parseResult.Operands;
+            foreach (var operand in model.Operands) {
+                object value = operand.OperandStrategy.GetValue(operand, parseResult);
+                operand.Property.SetValue(model.ApplicationOptions, value);
+            }
         }
 
         // if an option was not provided, which is in the ArgumentsModel
