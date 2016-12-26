@@ -59,18 +59,33 @@ namespace EntryPoint.OptionStrategies {
             if (Nullable.GetUnderlyingType(outputType) != null) {
                 return Convert.ChangeType(value, Nullable.GetUnderlyingType(outputType));
             }
-            value = SanitiseBool(value, outputType);
+            value = SanitiseSpecialTypes(value, outputType);
             return Convert.ChangeType(value, outputType);
         }
 
-        object SanitiseBool(object value, Type outputType) {
+        object SanitiseSpecialTypes(object value, Type outputType) {
             if (outputType == typeof(bool)) {
-                int v;
-                if (int.TryParse(value.ToString(), out v)) {
-                    value = (v != 0);
-                }
+                return SanitiseBool(value);
+            }
+            if (outputType.BaseType() == typeof(Enum) || outputType == typeof(Enum)) {
+                return SanitiseEnum(value, outputType);
             }
             return value;
+        }
+
+        // Converts an int or string representation of a bool into a bool
+        // todo: what about bool.TryParse(...)? probably more appropriate as it supports string representations natively
+        object SanitiseBool(object value) {
+            int v;
+            if (int.TryParse(value.ToString(), out v)) {
+                value = (v != 0);
+            }
+            return value;
+        }
+
+        // Converts an int or string representation of an application enum into that enum
+        object SanitiseEnum(object value, Type outputType) {
+            return Enum.Parse(outputType, value.ToString());
         }
     }
 

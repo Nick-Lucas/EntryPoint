@@ -29,5 +29,10 @@ namespace EntryPoint.Internals {
             return member.GetCustomAttribute<HelpAttribute>()
                 ?? new HelpAttribute();
         }
+
+        // Get the base type without using reflection elsewhere
+        internal static Type BaseType(this Type type) {
+            return type.GetTypeInfo().BaseType;
+        }
     }
 }
