@@ -16,6 +16,11 @@
           "version": "1.0.0"
         }
       }
+    },
+    "net451": {
+      "dependencies": {
+
+      }
     }
   },
   "buildOptions": {
