@@ -9,7 +9,7 @@ namespace EntryPoint {
     /// Used to mark an Option as required
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class OptionRequiredAttribute : Attribute {
+    public class RequiredAttribute : Attribute {
 
     }
 

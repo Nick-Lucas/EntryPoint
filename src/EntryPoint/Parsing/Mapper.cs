@@ -21,8 +21,9 @@ namespace EntryPoint.Parsing {
 
             // Populate ArgumentsModel
             StoreOptions(model, parseResult);
-            StoreOperands(model, parseResult);
             HandleUnusedOptions(model, parseResult.TokenGroups);
+            StoreOperands(model, parseResult);
+            HandlingUnusedOperands(model, parseResult);
 
             return model;
         }
@@ -51,17 +52,34 @@ namespace EntryPoint.Parsing {
         static void HandleUnusedOptions(Model model, List<TokenGroup> usedOptions) {
             var requiredOption = model
                 .WhereNotIn(usedOptions)
-                .FirstOrDefault(mo => mo.Property.OptionIsRequired());
+                .FirstOrDefault(mo => mo.Property.HasRequiredAttribute());
 
             if (requiredOption != null) {
-                ValidateRequiredOption(requiredOption.Property, requiredOption.Definition);
+                throw new RequiredException(
+                    $"The option {EntryPointApi.DASH_SINGLE}{requiredOption.Definition.ShortName}/"
+                    + $"{EntryPointApi.DASH_DOUBLE}{requiredOption.Definition.LongName} "
+                    + "was not included, but is a required option");
+            }
+        }
+
+        static void HandlingUnusedOperands(Model model, ParseResult parseResult) {
+            int providedOperandsCount = parseResult.Operands.Count;
+
+            var requiredOperand = model.Operands
+                .Where(mo => mo.Definition.Position > providedOperandsCount)
+                .FirstOrDefault(mo => mo.Required);
+
+            if (requiredOperand != null) {
+                throw new RequiredException(
+                    $"The operand in position {requiredOperand.Definition.Position} "
+                    + "was not provided, but is required");
             }
         }
 
         // If a property has a Required attribute, enforce the requirement
         static void ValidateRequiredOption(PropertyInfo property, BaseOptionAttribute option) {
-            if (property.OptionIsRequired()) {
-                throw new OptionRequiredException(
+            if (property.HasRequiredAttribute()) {
+                throw new RequiredException(
                     $"The option {EntryPointApi.DASH_SINGLE}{option.ShortName}/"
                     + $"{EntryPointApi.DASH_DOUBLE}{option.LongName} "
                     + "was not included, but is a required option");

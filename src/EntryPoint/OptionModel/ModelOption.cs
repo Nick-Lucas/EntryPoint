@@ -12,7 +12,7 @@ namespace EntryPoint.OptionModel {
         internal ModelOption(PropertyInfo property) {
             Property = property;
             Definition = property.GetOptionDefinition();
-            Required = property.OptionIsRequired();
+            Required = property.HasRequiredAttribute();
             Help = property.GetHelp();
         }
 

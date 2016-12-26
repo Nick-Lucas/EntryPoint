@@ -93,6 +93,26 @@ namespace EntryPointTests {
             Assert.Equal(Enum1.item2, model.Enum);
         }
 
+        [Fact]
+        public void OperandMap_RequiredAttribute_Standard() {
+            string[] args = new string[] {
+                "hello"
+            };
+
+            var model = EntryPointApi.Parse<OperandRequiredArgsModel>(args);
+
+            Assert.Equal("hello", model.Name);
+        }
+
+        [Fact]
+        public void OperandMap_RequiredAttribute_Error() {
+            string[] args = new string[] {
+            };
+
+            Assert.Throws<RequiredException>(
+                () => EntryPointApi.Parse<OperandRequiredArgsModel>(args));            
+        }
+
 
         // ** Operands Dump **
 

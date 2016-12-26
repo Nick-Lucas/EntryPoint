@@ -10,7 +10,7 @@ namespace EntryPointTests.ArgModels {
         [OptionParameter(
             LongName = "param-required",
             ShortName = 'r')]
-        [OptionRequired]
+        [Required]
         public int ParamRequired { get; set; }
 
         [OptionParameter(

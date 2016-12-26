@@ -29,7 +29,7 @@ namespace EntryPointTests {
                 "--param-optional", "2",
             };
 
-            Assert.Throws<OptionRequiredException>(
+            Assert.Throws<RequiredException>(
                 () => EntryPointApi.Parse<RequiredParameterArgsModel>(args));
         }
     }

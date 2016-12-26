@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Exceptions {
-    public class OptionRequiredException : ArgumentException {
-        public OptionRequiredException(string message) : base(message) { }
+    public class RequiredException : ArgumentException {
+        public RequiredException(string message) : base(message) { }
     }
 }
