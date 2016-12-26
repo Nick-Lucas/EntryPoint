@@ -28,19 +28,19 @@ namespace EntryPoint.OptionStrategies {
 
         object CalculateDefaultValue(ModelOption modelOption) {
             var definition = (OptionParameterAttribute)modelOption.Definition;
-            switch (definition.ParameterDefaultBehaviour) {
-                case ParameterDefaultEnum.DefaultValue:
+            switch (definition.DefaultValueBehaviour) {
+                case DefaultValueBehaviourEnum.DefaultValue:
                     if (modelOption.Property.PropertyType.CanBeNull()) {
                         return null;
                     }
                     return Activator.CreateInstance(modelOption.Property.PropertyType);
 
-                case ParameterDefaultEnum.CustomValue:
-                    return definition.ParameterDefaultValue;
+                case DefaultValueBehaviourEnum.CustomValue:
+                    return definition.CustomDefaultValue;
 
                 default:
                     throw new NotSupportedException(
-                        $"Unsupported {nameof(ParameterDefaultEnum)} state: {definition.ParameterDefaultBehaviour}");
+                        $"Unsupported {nameof(DefaultValueBehaviourEnum)} state: {definition.DefaultValueBehaviour}");
             }
         }
 

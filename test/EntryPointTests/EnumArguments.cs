@@ -49,8 +49,8 @@ namespace EntryPointTests {
 
         [OptionParameter(
             DoubleDashName = "opt-2",
-            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
-            ParameterDefaultValue = Enum1.item2)]
+            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
+            CustomDefaultValue = Enum1.item2)]
         public Enum1 OptEnum2 { get; set; }
     }
 

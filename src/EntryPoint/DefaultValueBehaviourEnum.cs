@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint {
-    public enum ParameterDefaultEnum {
+    public enum DefaultValueBehaviourEnum {
         
         /// <summary>
         /// Causes option parameters which are not found to default to their type's default value

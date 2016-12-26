@@ -15,8 +15,8 @@ namespace EntryPointTests.ArgModels {
         [OptionParameter(
             DoubleDashName = "default-no-name",
             SingleDashChar = 'b',
-            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
-            ParameterDefaultValue = "NoName")]
+            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
+            CustomDefaultValue = "NoName")]
         public string DefaultNoName { get; set; }
     }
 }

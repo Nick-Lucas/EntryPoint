@@ -7,16 +7,22 @@ using EntryPoint;
 
 namespace EntryPointTests.ArgModels {
     public class OperandArgsModel : BaseApplicationOptions {
-        [OptionParameter(
-            DoubleDashName = "opt-param-1")]
-        public int OptParam1 { get; set; }
-
-        [OptionParameter(
-            DoubleDashName = "opt-param-2")]
-        public int OptParam2 { get; set; }
-
         [Option(
             DoubleDashName = "opt-1")]
         public bool Opt1 { get; set; }
+
+        [Option(
+            DoubleDashName = "opt-2")]
+        public bool Opt2 { get; set; }
+
+        [Operand(1,
+            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
+            CustomDefaultValue = "NoName")]
+        public string Name { get; set; }
+
+        [Operand(2,
+            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
+            CustomDefaultValue = "Undefined")]
+        public string Gender { get; set; }
     }
 }
