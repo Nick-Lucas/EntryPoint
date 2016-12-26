@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPointTests.Helpers;
 
 namespace EntryPointTests.ArgModels {
     public class OperandArgsModel : BaseApplicationOptions {
@@ -20,5 +21,11 @@ namespace EntryPointTests.ArgModels {
 
         [Operand(2)]
         public string Gender { get; set; }
+
+        [Operand(3)]
+        public bool BoolValue { get; set; }
+
+        [Operand(4)]
+        public Enum1 Enum { get; set; }
     }
 }

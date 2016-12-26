@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 using Xunit;
+using EntryPointTests.Helpers;
 
 namespace EntryPointTests {
     public class EnumArguments {
@@ -61,11 +62,5 @@ namespace EntryPointTests {
         [OptionParameter(
             LongName = "opt-2")]
         public Enum1 OptEnum2 { get; set; } = Enum1.item2;
-    }
-
-    enum Enum1 {
-        item1 = 1,
-        item2 = 2,
-        item3 = 3
     }
 }

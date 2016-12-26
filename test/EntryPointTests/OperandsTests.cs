@@ -7,6 +7,7 @@ using EntryPoint;
 using EntryPoint.Exceptions;
 using Xunit;
 using EntryPointTests.ArgModels;
+using EntryPointTests.Helpers;
 
 namespace EntryPointTests {
     public class OperandsTests {
@@ -38,6 +39,58 @@ namespace EntryPointTests {
 
             Assert.Equal("NoName", model.Name);
             Assert.Equal(null, model.Gender);
+        }
+
+        [Fact]
+        public void OperandMap_BoolTrue() {
+            string[] args = new string[] {
+                "hello", "world",
+
+                "true"
+            };
+
+            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+
+            Assert.Equal(true, model.BoolValue);
+        }
+
+        [Fact]
+        public void OperandMap_BoolTrue_2() {
+            string[] args = new string[] {
+                "hello", "world",
+
+                "1"
+            };
+
+            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+
+            Assert.Equal(true, model.BoolValue);
+        }
+
+        [Fact]
+        public void OperandMap_Enum_Int() {
+            string[] args = new string[] {
+                "hello", "world", "1",
+
+                "2"
+            };
+
+            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+
+            Assert.Equal(Enum1.item2, model.Enum);
+        }
+
+        [Fact]
+        public void OperandMap_Enum_Name() {
+            string[] args = new string[] {
+                "hello", "world", "1",
+
+                "item2"
+            };
+
+            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+
+            Assert.Equal(Enum1.item2, model.Enum);
         }
 
 
