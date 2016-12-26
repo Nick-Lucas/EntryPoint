@@ -76,16 +76,6 @@ namespace EntryPoint.Parsing {
             }
         }
 
-        // If a property has a Required attribute, enforce the requirement
-        static void ValidateRequiredOption(PropertyInfo property, BaseOptionAttribute option) {
-            if (property.HasRequiredAttribute()) {
-                throw new RequiredException(
-                    $"The option {EntryPointApi.DASH_SINGLE}{option.ShortName}/"
-                    + $"{EntryPointApi.DASH_DOUBLE}{option.LongName} "
-                    + "was not included, but is a required option");
-            }
-        }
-
         static void ValidateTokensForDuplicateOptions(Model model, List<TokenGroup> tokenGroups) {
             var duplicates = tokenGroups
                 .Select(a => model.FindByToken(a.Option).Definition)
