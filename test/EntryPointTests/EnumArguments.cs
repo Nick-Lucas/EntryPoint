@@ -31,6 +31,17 @@ namespace EntryPointTests {
         }
 
         [Fact]
+        public void Enums_Named_CaseSensitive() {
+            string[] args = new string[] {
+                "--opt-1", "ITEM3"
+            };
+
+            var options = EntryPointApi.Parse<EnumAppOptions>(args);
+
+            Assert.StrictEqual(Enum1.item3, options.OptEnum1);
+        }
+
+        [Fact]
         public void Enums_Defaults() {
             string[] args = new string[] {
             };

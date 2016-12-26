@@ -17,32 +17,45 @@ Pull requests and suggestions are welcome, and some small tasks are already in t
 
 ```C#
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 using EntryPoint;
 
 namespace Example {
     public class Program {
         public static void Main(string[] args) {
+            // CLI command:
+            // ApplicationName -oq -re FirstItem --string Bob -n=1.2 "the operand"
+            Console.WriteLine("For the following command: ");
+            Console.WriteLine("ApplicationName -oq -re FirstItem --string Bob -n=1.2 \"the operand\"\n");
             if (!args.Any()) {
                 args = new string[] {
-                    "-aB",
-                    "--name", "Bob",
-                    "-g=male",
-                    "-sy", "2" 
+                    // short options can be grouped
+                    "-ab",
+
+                    // the last short option in a group 
+                    // can be an option parameter
+                    "-ce", "FirstItem",
+
+                    // option parameters can be whitespace or = separated
+                    "--string", "Bob",
+                    "-n=1.2",
+
+                    "the operand"
                 };
             }
 
             // Parses arguments based on a declarative BaseApplicationOptions implementation (below)
             ApplicationOptions a = EntryPointApi.Parse<ApplicationOptions>(args);
 
-            Console.WriteLine($"Name: {a.Name}");
-            Console.WriteLine($"Gender: {a.Gender}");
-            if (a.Student) {
-                Console.WriteLine($"Study Year: {a.StudyYear}");
-            }
+            Console.WriteLine($"a: {a.Option1}");
+            Console.WriteLine($"b: {a.Option2}");
+            Console.WriteLine($"c: {a.Option3}");
+            Console.WriteLine($"e: {a.AppEnum}");
+            Console.WriteLine($"string: {a.StringArg}");
+            Console.WriteLine($"n: {a.DecimalArg}");
+            Console.WriteLine($"first operand: {a.Operand1}");
+            Console.WriteLine($"other operands: {string.Join(" : ", a.Operands)}");
 
             // Contains a built in documentation generator
             Console.WriteLine("\n\nHelp Documentation: \n");
@@ -58,43 +71,67 @@ namespace Example {
     public class ApplicationOptions : BaseApplicationOptions {
         public ApplicationOptions() : base("Example Project") { }
 
-        [OptionParameter(
-            SingleDashChar = 'n', DoubleDashName = "name")]
-        [Help(
-            "Name of the individual")]
-        public string Name { get; set; }
-
-        [OptionParameter(
-            SingleDashChar = 'g', DoubleDashName = "gender")]
-        [Help(
-            "Gender of the individual")]
-        public string Gender { get; set; }
-
+        // Simple flag options are a given
         [Option(
-            SingleDashChar = 's', DoubleDashName = "student")]
-        [Help(
-            "Use this option if the individual is a student")]
-        public bool Student { get; set; }
-
-        [OptionParameter(
-            SingleDashChar = 'y', DoubleDashName = "study-year",
-            ParameterDefaultBehaviour = ParameterDefaultEnum.CustomValue,
-            ParameterDefaultValue = -1)]
-        [Help(
-            "If the individual is a student, you may provide their study year")]
-        public int StudyYear { get; set; }
-
-        [Option(
-            SingleDashChar = 'a', DoubleDashName = "alpha")]
+            ShortName = 'a', LongName = "option-1")]
         [Help(
             "A test option. Does nothing")]
-        public bool Alpha { get; set; }
+        public bool Option1 { get; set; }
 
+        // Take option parameters in any primitive type you like
+        [OptionParameter(
+            ShortName = 's', LongName = "string")]
+        [Help(
+            "Some string to be used")]
+        public string StringArg { get; set; }
+
+        // Including ints, decimals, doubles, floats
+        [OptionParameter(
+            ShortName = 'n', LongName = "number")]
+        [Help(
+            "Some number to be used")]
+        public decimal DecimalArg { get; set; }
+
+        // Also supports named and numbered enums
+        [OptionParameter(
+            ShortName = 'e', LongName = "app-enum")]
+        [Help(
+            "Provide an enum's value or name")]
+        public ExampleEnum AppEnum { get; set; }
+
+        // When not provided by the user,
+        // OptionParameters are set to their type's default, 
+        // OR a custom value you provide
+        [OptionParameter(
+            ShortName = 'd', LongName = "defaultable",
+            DefaultValueBehaviour = DefaultValueBehaviourEnum.CustomValue,
+            CustomDefaultValue = -1)]
+        [Help(
+            "If not provided by the user this will be defaulted")]
+        public int DefaultableValue { get; set; }
+
+        // Operands are always dumped into the BaseApplicationModel.Operands list
+        // But Positional Operands can also be mapped directly
+        [Operand(position: 1)]
+        [Help(
+            "The first Operand after all Options and OptionParameters")]
+        public string Operand1 { get; set; }
+
+        // 
+        // These are used in the example but don't show off any new features
+        
         [Option(
-            SingleDashChar = 'B', DoubleDashName = "bravo")]
+            ShortName = 'b', LongName = "option-2")]
         [Help(
             "A test option. Does nothing")]
-        public bool Bravo { get; set; }
+        public bool Option2 { get; set; }
+
+        [Option(
+            ShortName = 'c', LongName = "option-3")]
+        [Help(
+            "A test option. Does nothing")]
+        public bool Option3 { get; set; }
+
     }
 }
 
