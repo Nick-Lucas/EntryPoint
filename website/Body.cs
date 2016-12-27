@@ -98,6 +98,8 @@ namespace Website {
     /// * **Apply to:** Class Properties with any Option or Operand Attribute applied, or an ApplicationOptions Class
     /// * **Detail:** Provides custom documentation on an Option, Operand or ApplicationOptions Class, which is consumed by the --help generator
     ///
+
+
     /// ## Messaging Application
     /// 
     /// The following is an example implementation for use in a simple message sending application
@@ -128,7 +130,7 @@ namespace Website {
         [Help("Sets the importance level of a sent message")]
         public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 
-        // A message which *must* be provided, 
+        // A message which *must* be provided as the first operand
         [Required]
         [Operand(1)]
         [Help("Mandatory message to provide")]
@@ -149,4 +151,41 @@ namespace Website {
         High = 2
     }
 #endif
+
+    /// ## Help Generator
+    /// 
+    /// EntryPoint provides an automatic Help generator, which always owns the `-h` and `--help` Options.
+    /// If the Help option is provided then EntryPoint will generate Help information on the CLI, and end the program.
+    /// 
+    /// It consumes the following information:
+#if CODE
+    [Help("This will be displayed as an initial blurb for the utility")]
+    class HelpApplicationOptions : BaseApplicationOptions {
+        public HelpApplicationOptions() 
+            : base(utilityName: "Displayed as the application name") { }
+
+        // [Option(...)]
+        // [OptionParameter(...)]
+        // [Operand(...)]
+        [Help("Displayed as additional instructions for an Option/Operand")]
+        public bool Value { get; set; }
+    }
+#endif
+
+    
+    /// 
+    class HelpProgram {
+        public void main() {
+
+            /// The help prompt will be triggered whenever the application recieves `-h` or `--help`.
+#if CODE
+            string[] args = new string[] { "--help" };
+            EntryPointApi.Parse<HelpApplicationOptions>(args);
+#endif
+            /// It can also be generated manually
+#if CODE
+            string help = EntryPointApi.GenerateHelp<HelpApplicationOptions>();
+#endif
+        }
+    }
 }

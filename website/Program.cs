@@ -9,6 +9,9 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 
+using EntryPoint;
+using System.Reflection;
+
 namespace Website {
 
     class Program {
@@ -18,6 +21,7 @@ namespace Website {
 
             var layout = File.ReadAllText("../layout.html");
             layout = layout.Replace("{{description}}", "Composable CLI Argument Parser");
+            layout = layout.Replace("{{version}}", GetVersion());
             layout = layout.Replace("{{updated_on}}", DateTime.Now.ToString("MMM d, yyyy"));
 
             var headerIdList = new List<string>();
@@ -27,6 +31,15 @@ namespace Website {
             layout = layout.Replace("{{body}}", body);
             ValidateHeaderAnchors(headerIdList, layout);
             File.WriteAllText("../www/index.html", layout);
+        }
+
+        static string GetVersion() {
+            return typeof(EntryPointApi)
+                .Assembly
+                .GetName()
+                .Version
+                .ToString()
+                .TrimEnd(".0".ToCharArray());
         }
 
         static string PreprocessBody() {

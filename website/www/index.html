@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>EntryPoint - Composable CLI Argument Parser</title>
+    <title>EntryPoint 0.9.4</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/androidstudio.min.css" rel="stylesheet" />
@@ -63,7 +63,7 @@
         <div class="starter-template">
             <h1>
                 <i class="fa fa-terminal"></i>
-                EntryPoint
+                EntryPoint 0.9.4
             </h1>
             <p class="lead">
                 Composable CLI Argument Parser
@@ -199,7 +199,7 @@ class SimpleProgram {
     [Help(&quot;Sets the importance level of a sent message&quot;)]
     public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 
-    // A message which *must* be provided, 
+    // A message which *must* be provided as the first operand
     [Required]
     [Operand(1)]
     [Help(&quot;Mandatory message to provide&quot;)]
@@ -219,6 +219,32 @@ enum MessageImportanceEnum {
     Normal = 1,
     High = 2
 }
+</code></pre>
+
+<h2 id="help-generator">Help Generator</h2>
+<p>EntryPoint provides an automatic Help generator, which always owns the <code>-h</code> and <code>--help</code> Options.
+If the Help option is provided then EntryPoint will generate Help information on the CLI, and end the program.</p>
+<p>It consumes the following information:</p>
+<pre><code>[Help(&quot;This will be displayed as an initial blurb for the utility&quot;)]
+class HelpApplicationOptions : BaseApplicationOptions {
+    public HelpApplicationOptions() 
+        : base(utilityName: &quot;Displayed as the application name&quot;) { }
+
+    // [Option(...)]
+    // [OptionParameter(...)]
+    // [Operand(...)]
+    [Help(&quot;Displayed as additional instructions for an Option/Operand&quot;)]
+    public bool Value { get; set; }
+}
+</code></pre>
+
+<p>The help prompt will be triggered whenever the application recieves <code>-h</code> or <code>--help</code>.</p>
+<pre><code>string[] args = new string[] { &quot;--help&quot; };
+EntryPointApi.Parse&lt;HelpApplicationOptions&gt;(args);
+</code></pre>
+
+<p>It can also be generated manually</p>
+<pre><code>string help = EntryPointApi.GenerateHelp&lt;HelpApplicationOptions&gt;();
 </code></pre>
 
 
