@@ -86,11 +86,12 @@
 
     <div class="container">
         <h2 id="about-entrypoint">About EntryPoint</h2>
-<p>An argument parser with an API intentionally designed to be composable and maintainable.</p>
+<p>An argument parser with an designed to be composable, practical and maintainable.</p>
+<p>Parses arguments in the form <code>UtilityName [-o | --options] [operands]</code></p>
 <p>Supports:</p>
 <ul>
 <li>.Net Standard 1.6+ (All future.Net releases are built on this)</li>
-<li>.Net Framework 4.5.1+</li>
+<li>.Net Framework 4.5+</li>
 </ul>
 <p>Follows the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">IEEE Standard</a>
 closely, but does include common adblibs such as fully named --option style options.</p>
@@ -100,21 +101,21 @@ closely, but does include common adblibs such as fully named --option style opti
 </code></pre>
 
 <h2 id="basic-usage">Basic Usage</h2>
-<p>EntryPoint is designed so you can write declarative <code>ApplicationOptions</code>
-classes and then simply pass to EntryPoint for population</p>
+<p>EntryPoint evolves around declarative <code>ApplicationOptions</code>
+classes which are simply passed to EntryPoint for population</p>
 <p>Let's say we want a utility used like: <code>UtilityName -s --name Bob 6.1</code></p>
 <p>This has one Option, one OptionParameter and a positional Operand</p>
 <pre><code>class SimpleApplicationOptions : BaseApplicationOptions {
     public SimpleApplicationOptions() : base(&quot;SimpleApp&quot;) { }
 
     // Option
-    [Option(
-        LongName = &quot;switch&quot;, ShortName = 's')]
+    [Option(LongName = &quot;switch&quot;, 
+            ShortName = 's')]
     public bool Switch { get; set; }
 
     // Option-Parameter
-    [OptionParameter(
-        LongName = &quot;name&quot;, ShortName = 'n')]
+    [OptionParameter(LongName = &quot;name&quot;, 
+                     ShortName = 'n')]
     public string Name { get; set; }
 
     // Operand
@@ -125,7 +126,7 @@ classes and then simply pass to EntryPoint for population</p>
 class SimpleProgram {
     void main(string[] args) {
 
-        // One line parsing of any BaseApplicationOptions implementation
+        // One line parsing of any `BaseApplicationOptions` implementation
         var options = EntryPointApi.Parse&lt;SimpleApplicationOptions&gt;(args);
 
         // Object oriented access to your arguments
@@ -145,6 +146,7 @@ class SimpleProgram {
 <li><strong>Detail:</strong> Defines an On/Off option for use on the CLI</li>
 <li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
 <li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
+<li>At least one name needs to be provided</li>
 </ul>
 <h4><code>[OptionParameter(LongName = string, ShortName = char)]</code></h4>
 <ul>
@@ -153,14 +155,14 @@ class SimpleProgram {
 <li><strong>Detail:</strong> Defines a parameter which can be invoked to provide a value</li>
 <li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
 <li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
+<li>At least one name needs to be provided</li>
 </ul>
 <h4><code>[Operand(position = int)]</code></h4>
 <ul>
 <li><strong>Apply to:</strong> Class Properties</li>
 <li><strong>Output Types:</strong> Primitive Types, Enums</li>
 <li><strong>Detail:</strong> Maps a positional operand from the end of a CLI command</li>
-<li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
-<li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
+<li><strong>Argument, Position:</strong> the 1 based position of the Operand</li>
 </ul>
 <h4><code>[Required]</code></h4>
 <ul>
@@ -170,7 +172,7 @@ class SimpleProgram {
 <h4><code>[Help(detail = string)]</code></h4>
 <ul>
 <li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied, or an ApplicationOptions Class</li>
-<li><strong>Detail:</strong> Provides custom documentation on an Option, Operand or ApplicationOptions Class, which is consumed by the --help generator</li>
+<li><strong>Detail:</strong> Provides custom documentation on an Option, Operand or ApplicationOptions Class, which will be consumed by the --help generator</li>
 </ul>
 <h2 id="messaging-application">Messaging Application</h2>
 <p>The following is an example implementation for use in a simple message sending application</p>
@@ -184,15 +186,15 @@ class SimpleProgram {
     [Help(&quot;When this is set, verbose logging will be activated&quot;)]
     public bool Verbose { get; set; }
 
-    // A message which *must* be provided, 
+    // A message which *must* be provided by the user 
     [Required]
     [OptionParameter(LongName = &quot;subject&quot;,
                      ShortName = 's')]
     [Help(&quot;Mandatory Subject to provide&quot;)]
     public string Subject { get; set; }
 
-    // An importance level for the message
-    // If not provided is defaulted to `Normal`
+    // An importance level for the message.
+    // If not provided this is defaulted to `Normal`
     // User can provide the value as a number or string (ie. '2' or 'high')
     [OptionParameter(LongName = &quot;importance&quot;, 
                      ShortName = 'i')]
@@ -223,7 +225,7 @@ enum MessageImportanceEnum {
 
 <h2 id="help-generator">Help Generator</h2>
 <p>EntryPoint provides an automatic Help generator, which always owns the <code>-h</code> and <code>--help</code> Options.
-If the Help option is provided then EntryPoint will generate Help information on the CLI, and end the program.</p>
+If the Help option is invoked then EntryPoint will generate Help information on the CLI, and end the program.</p>
 <p>It consumes the following information:</p>
 <pre><code>[Help(&quot;This will be displayed as an initial blurb for the utility&quot;)]
 class HelpApplicationOptions : BaseApplicationOptions {
@@ -245,8 +247,18 @@ EntryPointApi.Parse&lt;HelpApplicationOptions&gt;(args);
 
 <p>It can also be generated manually</p>
 <pre><code>string help = EntryPointApi.GenerateHelp&lt;HelpApplicationOptions&gt;();
+Console.WriteLine(help);
 </code></pre>
 
+<h2 id="tips-amp-behaviour">Tips &amp; Behaviour</h2>
+<ul>
+<li>Short named options <code>-o</code> are case sensitive: <code>-a != -A</code></li>
+<li>Long named options <code>--option</code> are case insensitive: <code>--opt == --Opt</code></li>
+<li>Options can be combined by the user: <code>-a -b -c</code> -&gt; <code>-abc</code></li>
+<li>Combined options can end with an option-parameter: <code>-abco value</code></li>
+<li>Option-parameters have several forms: <code>-o value</code> <code>-o=value</code> <code>--option value</code> <code>--option=value</code></li>
+<li>Quotes and Escale characters are both supported: <code>--option &quot;my value&quot;</code> <code>--option \-my-value</code></li>
+</ul>
 
     </div>
 
