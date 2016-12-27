@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>EntryPoint {{version}}</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/androidstudio.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=".">
+                    <i class="fa fa-terminal"></i>
+                    EntryPoint
+                </a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a target="_blank" href="https://www.nuget.org/packages/EntryPoint">
+                            <i class="fa fa-square"></i>
+                            NuGet
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/Nick-Lucas/EntryPoint/">
+                            <i class="fa fa-github"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://ci.appveyor.com/project/Nick-Lucas/EntryPoint">
+                            <i class="fa fa-circle"></i>
+                            AppVeyor
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container hero">
+        <div class="starter-template">
+            <h1>
+                <i class="fa fa-terminal"></i>
+                EntryPoint {{version}}
+            </h1>
+            <p class="lead">
+                {{description}}
+                <!--<br>
+                Second line goes here-->
+            </p>
+            <div>
+                <!-- Add page links here -->
+                <!--<a class="btn btn-nuget btn-lg" href=#"installation">
+                    <i class="fa fa-cloud-download"></i>
+                    Install via NuGet
+                </a>
+                <a class="btn btn-default btn-lg" href=#"getting-started-basic-crud-create-read-update-delete">
+                    <i class="fa fa-book"></i>
+                    Documentation
+                </a>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        {{body}}
+    </div>
+
+    <div class="container footer">
+        <hr />
+        <b>EntryPoint</b> is released under the <a href="https://raw.githubusercontent.com/Nick-Lucas/EntryPoint/master/LICENSE.txt">MIT license</a>
+        <br />
+        Updated on {{updated_on}}
+        <br /><br />
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/languages/cs.min.js"></script>
+
+    <script type="text/javascript" src="https://static.addtoany.com/menu/page.js"></script>
+
+    <script>
+        hljs.configure({ languages: [ "cs", "json" ] });
+        hljs.initHighlightingOnLoad();
+
+        // https://github.com/twbs/bootstrap/issues/1768
+        $(window).on("hashchange", function() {
+            scrollBy(0, -65);
+        });
+    </script>
+</body>
+</html>
