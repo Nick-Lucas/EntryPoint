@@ -11,6 +11,7 @@
       "type": "git",
       "url": "https://github.com/Nick-Lucas/EntryPoint"
     },
+    "iconUrl": "https://nick-lucas.github.io/EntryPoint/website/www/fa-terminal.png",
     "tags": [
       "cli",
       "argument",

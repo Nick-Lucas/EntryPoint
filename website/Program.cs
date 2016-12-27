@@ -32,10 +32,11 @@ namespace Website {
             ValidateHeaderAnchors(headerIdList, layout);
             File.WriteAllText("../www/index.html", layout);
 
-            var directory = new DirectoryInfo("../www/");
-            foreach (var file in directory.GetFiles()) {
-                File.Copy(file.FullName, Path.Combine("../../", file.Name), true);
-            }
+            // Useful if we ever need to copy to the /docs directory again
+            //var directory = new DirectoryInfo("../www/");
+            //foreach (var file in directory.GetFiles()) {
+            //    File.Copy(file.FullName, Path.Combine("../../", file.Name), true);
+            //}
         }
 
         static string GetVersion() {

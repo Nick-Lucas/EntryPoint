@@ -14,7 +14,7 @@ namespace Website {
         ///
         /// Supports:
         /// 
-        /// * .Net Standard 1.6+ (All future.Net releases are built on this)
+        /// * .Net Standard 1.6+ (All future .Net releases are built on this)
         /// * .Net Framework 4.5+
         ///
         /// Follows the [IEEE Standard](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html) 
