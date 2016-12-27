@@ -8,7 +8,7 @@ namespace Website {
     class Body {
         /// ## About EntryPoint
         /// 
-        /// An argument parser with an designed to be composable, practical and maintainable.
+        /// An argument parser designed to be composable, practical and maintainable.
         /// 
         /// Parses arguments in the form `UtilityName [-o | --options] [operands]`
         ///
@@ -18,7 +18,7 @@ namespace Website {
         /// * .Net Framework 4.5+
         ///
         /// Follows the [IEEE Standard](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html) 
-        /// closely, but does include common adblibs such as fully named --option style options.
+        /// closely, but does include common adblibs such as fully named `--option` style options.
         ///
         /// ## Installation
         /// EntryPoint is available on [NuGet](https://www.nuget.org/packages/LimeBean):
@@ -27,9 +27,17 @@ namespace Website {
         ///     
     }
 
+    /// ## Introduction
+    /// EntryPoint is simple to use, and composable. It has a few tools you'll use:
+    /// 
+    /// * `EntryPointApi` - The main API you'll interact with to perform actions
+    /// * `BaseApplicationOptions` - An abstract class you'll implement, and define your CLI Options & Operands against
+    /// * `Attributes` - There are a small handful of attributes you'll use to define your ApplicationOptions implementation, documented below.
+    /// 
+
     /// ## Basic Usage
-    /// EntryPoint evolves around declarative `ApplicationOptions` 
-    /// classes which are simply passed to EntryPoint for population
+    /// Everything revolves around declarative `ApplicationOptions` 
+    /// classes which are passed to EntryPoint for population
     /// 
     /// Let's say we want a utility used like: `UtilityName -s --name Bob 6.1`
     /// 
@@ -103,7 +111,7 @@ namespace Website {
     ///
 
 
-    /// ## Messaging Application
+    /// ## Example Application
     /// 
     /// The following is an example implementation for use in a simple message sending application
     /// 
@@ -193,10 +201,12 @@ namespace Website {
 
     /// ## Tips & Behaviour
     /// 
+    /// * `EntryPointApi.Parse` has several overloads available. It can create the class and get the command line arguments itself, but gives you manual control, too.
     /// * Short named options `-o` are case sensitive: `-a != -A`
     /// * Long named options `--option` are case insensitive: `--opt == --Opt`
     /// * Options can be combined by the user: `-a -b -c` -> `-abc`
     /// * Combined options can end with an option-parameter: `-abco value`
     /// * Option-parameters have several forms: `-o value` `-o=value` `--option value` `--option=value`
-    /// * Quotes and Escale characters are both supported: `--option "my value"` `--option \-my-value`
+    /// * Quotes and Escape characters are both supported: `--option "my value"` `--option \-my-value`
+    /// * **Warning:** be careful with Quotes as .Net relies on the shell for encoding them, some shells strip quotes and some pass them on. This behaviour is being worked on, and will be more predictable in a future EntryPoint version
 }

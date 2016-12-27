@@ -12,6 +12,11 @@ h1, h2, h3, h4 {
   font-weight: normal;
 }
 
+h2 {
+    padding-top: 0.7em;
+    padding-bottom: 0.1em;
+}
+
 code {
     color: #585858;
 }
@@ -31,9 +36,12 @@ pre code.hljs {
 
 .hero {
     font-weight: lighter;
-    background: #d95800;
-    color: white;
+    background: #222;
+    color: ghostwhite;
     width: inherit;
+}
+.hero-title {
+    color: #d95800;
 }
 
 .btn-nuget { 

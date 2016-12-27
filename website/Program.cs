@@ -31,6 +31,11 @@ namespace Website {
             layout = layout.Replace("{{body}}", body);
             ValidateHeaderAnchors(headerIdList, layout);
             File.WriteAllText("../www/index.html", layout);
+
+            var directory = new DirectoryInfo("../www/");
+            foreach (var file in directory.GetFiles()) {
+                File.Copy(file.FullName, Path.Combine("../../", file.Name), true);
+            }
         }
 
         static string GetVersion() {

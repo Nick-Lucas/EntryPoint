@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="favicon.ico">
 
     <title>EntryPoint 0.9.4</title>
 
@@ -30,8 +31,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href=".">
-                    <i class="fa fa-terminal"></i>
-                    EntryPoint
+                    <div class="hero-title">
+                        <i class="fa fa-terminal hero-title"></i>
+                        EntryPoint
+                    </div>
                 </a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
@@ -61,7 +64,7 @@
 
     <div class="container hero">
         <div class="starter-template">
-            <h1>
+            <h1 class="hero-title">
                 <i class="fa fa-terminal"></i>
                 EntryPoint 0.9.4
             </h1>
@@ -86,7 +89,7 @@
 
     <div class="container">
         <h2 id="about-entrypoint">About EntryPoint</h2>
-<p>An argument parser with an designed to be composable, practical and maintainable.</p>
+<p>An argument parser designed to be composable, practical and maintainable.</p>
 <p>Parses arguments in the form <code>UtilityName [-o | --options] [operands]</code></p>
 <p>Supports:</p>
 <ul>
@@ -94,15 +97,22 @@
 <li>.Net Framework 4.5+</li>
 </ul>
 <p>Follows the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">IEEE Standard</a>
-closely, but does include common adblibs such as fully named --option style options.</p>
+closely, but does include common adblibs such as fully named <code>--option</code> style options.</p>
 <h2 id="installation">Installation</h2>
 <p>EntryPoint is available on <a href="https://www.nuget.org/packages/LimeBean">NuGet</a>:</p>
 <pre><code>PM&gt; Install-Package EntryPoint
 </code></pre>
 
+<h2 id="introduction">Introduction</h2>
+<p>EntryPoint is simple to use, and composable. It has a few tools you'll use:</p>
+<ul>
+<li><code>EntryPointApi</code> - The main API you'll interact with to perform actions</li>
+<li><code>BaseApplicationOptions</code> - An abstract class you'll implement, and define your CLI Options &amp; Operands against</li>
+<li><code>Attributes</code> - There are a small handful of attributes you'll use to define your ApplicationOptions implementation, documented below.</li>
+</ul>
 <h2 id="basic-usage">Basic Usage</h2>
-<p>EntryPoint evolves around declarative <code>ApplicationOptions</code>
-classes which are simply passed to EntryPoint for population</p>
+<p>Everything revolves around declarative <code>ApplicationOptions</code>
+classes which are passed to EntryPoint for population</p>
 <p>Let's say we want a utility used like: <code>UtilityName -s --name Bob 6.1</code></p>
 <p>This has one Option, one OptionParameter and a positional Operand</p>
 <pre><code>class SimpleApplicationOptions : BaseApplicationOptions {
@@ -174,7 +184,7 @@ class SimpleProgram {
 <li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied, or an ApplicationOptions Class</li>
 <li><strong>Detail:</strong> Provides custom documentation on an Option, Operand or ApplicationOptions Class, which will be consumed by the --help generator</li>
 </ul>
-<h2 id="messaging-application">Messaging Application</h2>
+<h2 id="example-application">Example Application</h2>
 <p>The following is an example implementation for use in a simple message sending application</p>
 <p>This is used like <code>UtilityName [ -v | --verbose ] [ -s | --subject &quot;your subject&quot; ] [ -i | --importance [ 1 | normal | 2 | high ] ] [message]</code></p>
 <pre><code>class MessagingApplicationOptions : BaseApplicationOptions {
@@ -252,12 +262,14 @@ Console.WriteLine(help);
 
 <h2 id="tips-amp-behaviour">Tips &amp; Behaviour</h2>
 <ul>
+<li><code>EntryPointApi.Parse</code> has several overloads available. It can create the class and get the command line arguments itself, but gives you manual control, too.</li>
 <li>Short named options <code>-o</code> are case sensitive: <code>-a != -A</code></li>
 <li>Long named options <code>--option</code> are case insensitive: <code>--opt == --Opt</code></li>
 <li>Options can be combined by the user: <code>-a -b -c</code> -&gt; <code>-abc</code></li>
 <li>Combined options can end with an option-parameter: <code>-abco value</code></li>
 <li>Option-parameters have several forms: <code>-o value</code> <code>-o=value</code> <code>--option value</code> <code>--option=value</code></li>
-<li>Quotes and Escale characters are both supported: <code>--option &quot;my value&quot;</code> <code>--option \-my-value</code></li>
+<li>Quotes and Escape characters are both supported: <code>--option &quot;my value&quot;</code> <code>--option \-my-value</code></li>
+<li><strong>Warning:</strong> be careful with Quotes as .Net relies on the shell for encoding them, some shells strip quotes and some pass them on. This behaviour is being worked on, and will be more predictable in a future EntryPoint version</li>
 </ul>
 
     </div>
