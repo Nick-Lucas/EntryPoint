@@ -40,8 +40,8 @@ namespace Example {
             Console.WriteLine($"other operands: {string.Join(" : ", a.Operands)}");
 
             // Contains a built in documentation generator
-            Console.WriteLine("\n\nHelp Documentation: \n");
-            EntryPointApi.Parse<ApplicationOptions>(new string[] { "--help" });
+            //Console.WriteLine("\n\nHelp Documentation: \n");
+            //EntryPointApi.Parse<ApplicationOptions>(new string[] { "--help" });
 
             Console.Read();
         }
@@ -68,7 +68,6 @@ namespace Example {
         public string StringArg { get; set; }
 
         // Anything can be marked as Required, and will throw if not provided
-        [Required]
         [OptionParameter(
             ShortName = 'n', LongName = "number")]
         [Help(
