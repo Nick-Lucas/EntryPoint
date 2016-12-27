@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>EntryPoint - Composable CLI Argument Parser</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/androidstudio.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="index.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=".">
+                    <i class="fa fa-terminal"></i>
+                    EntryPoint
+                </a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a target="_blank" href="https://www.nuget.org/packages/EntryPoint">
+                            <i class="fa fa-square"></i>
+                            NuGet
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://github.com/Nick-Lucas/EntryPoint/">
+                            <i class="fa fa-github"></i>
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="https://ci.appveyor.com/project/Nick-Lucas/EntryPoint">
+                            <i class="fa fa-circle"></i>
+                            AppVeyor
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container hero">
+        <div class="starter-template">
+            <h1>
+                <i class="fa fa-terminal"></i>
+                EntryPoint
+            </h1>
+            <p class="lead">
+                Composable CLI Argument Parser
+                <!--<br>
+                Second line goes here-->
+            </p>
+            <div>
+                <!-- Add page links here -->
+                <!--<a class="btn btn-nuget btn-lg" href=#"installation">
+                    <i class="fa fa-cloud-download"></i>
+                    Install via NuGet
+                </a>
+                <a class="btn btn-default btn-lg" href=#"getting-started-basic-crud-create-read-update-delete">
+                    <i class="fa fa-book"></i>
+                    Documentation
+                </a>-->
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 id="about-entrypoint">About EntryPoint</h2>
+<p>An argument parser with an API intentionally designed to be composable and maintainable.</p>
+<p>Supports:</p>
+<ul>
+<li>.Net Standard 1.6+ (All future.Net releases are built on this)</li>
+<li>.Net Framework 4.5.1+</li>
+</ul>
+<p>Follows the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">IEEE Standard</a>
+closely, but does include common adblibs such as fully named --option style options.</p>
+<h2 id="installation">Installation</h2>
+<p>EntryPoint is available on <a href="https://www.nuget.org/packages/LimeBean">NuGet</a>:</p>
+<pre><code>PM&gt; Install-Package EntryPoint
+</code></pre>
+
+<h2 id="basic-usage">Basic Usage</h2>
+<p>EntryPoint is designed so you can write declarative <code>ApplicationOptions</code>
+classes and then simply pass to EntryPoint for population</p>
+<p>Let's say we want a utility used like: <code>UtilityName -s --name Bob 6.1</code></p>
+<p>This has one Option, one OptionParameter and a positional Operand</p>
+<pre><code>class SimpleApplicationOptions : BaseApplicationOptions {
+    public SimpleApplicationOptions() : base(&quot;SimpleApp&quot;) { }
+
+    // Option
+    [Option(
+        LongName = &quot;switch&quot;, ShortName = 's')]
+    public bool Switch { get; set; }
+
+    // Option-Parameter
+    [OptionParameter(
+        LongName = &quot;name&quot;, ShortName = 'n')]
+    public string Name { get; set; }
+
+    // Operand
+    [Operand(position: 1)]
+    public decimal FirstOperand { get; set; }
+}
+
+class SimpleProgram {
+    void main(string[] args) {
+
+        // One line parsing of any BaseApplicationOptions implementation
+        var options = EntryPointApi.Parse&lt;SimpleApplicationOptions&gt;(args);
+
+        // Object oriented access to your arguments
+        Console.WriteLine($&quot;The name is {options.Name}&quot;);
+        Console.WriteLine($&quot;Switch flag: {options.Switch}&quot;);
+        Console.WriteLine($&quot;Positional Operand 1: {options.FirstOperand}&quot;);
+    }
+}
+</code></pre>
+
+<h2 id="attributes">Attributes</h2>
+<p><code>BaseApplicationOptions</code> implementations use Attributes to define CLI functionality</p>
+<h4><code>[Option(LongName = string, ShortName = char)]</code></h4>
+<ul>
+<li><strong>Apply to:</strong> Class Properties</li>
+<li><strong>Output Types:</strong> Bool</li>
+<li><strong>Detail:</strong> Defines an On/Off option for use on the CLI</li>
+<li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
+<li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
+</ul>
+<h4><code>[OptionParameter(LongName = string, ShortName = char)]</code></h4>
+<ul>
+<li><strong>Apply to:</strong> Class Properties</li>
+<li><strong>Output Types:</strong> Primitive Types, Enums</li>
+<li><strong>Detail:</strong> Defines a parameter which can be invoked to provide a value</li>
+<li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
+<li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
+</ul>
+<h4><code>[Operand(position = int)]</code></h4>
+<ul>
+<li><strong>Apply to:</strong> Class Properties</li>
+<li><strong>Output Types:</strong> Primitive Types, Enums</li>
+<li><strong>Detail:</strong> Maps a positional operand from the end of a CLI command</li>
+<li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
+<li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
+</ul>
+<h4><code>[Required]</code></h4>
+<ul>
+<li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied</li>
+<li><strong>Detail:</strong> Makes an Option or Operand mandatory for the user to provide</li>
+</ul>
+<h4><code>[Help(detail = string)]</code></h4>
+<ul>
+<li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied, or an ApplicationOptions Class</li>
+<li><strong>Detail:</strong> Provides custom documentation on an Option, Operand or ApplicationOptions Class, which is consumed by the --help generator</li>
+</ul>
+<h2 id="messaging-application">Messaging Application</h2>
+<p>The following is an example implementation for use in a simple message sending application</p>
+<p>This is used like <code>UtilityName [ -v | --verbose ] [ -s | --subject &quot;your subject&quot; ] [ -i | --importance [ 1 | normal | 2 | high ] ] [message]</code></p>
+<pre><code>class MessagingApplicationOptions : BaseApplicationOptions {
+    public MessagingApplicationOptions() : base(&quot;Message Sender&quot;) { }
+
+    // A verbose Option with help documentation
+    [Option(LongName = &quot;verbose&quot;, 
+            ShortName = 'v')]
+    [Help(&quot;When this is set, verbose logging will be activated&quot;)]
+    public bool Verbose { get; set; }
+
+    // A message which *must* be provided, 
+    [Required]
+    [OptionParameter(LongName = &quot;subject&quot;,
+                     ShortName = 's')]
+    [Help(&quot;Mandatory Subject to provide&quot;)]
+    public string Subject { get; set; }
+
+    // An importance level for the message
+    // If not provided is defaulted to `Normal`
+    // User can provide the value as a number or string (ie. '2' or 'high')
+    [OptionParameter(LongName = &quot;importance&quot;, 
+                     ShortName = 'i')]
+    [Help(&quot;Sets the importance level of a sent message&quot;)]
+    public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
+
+    // A message which *must* be provided, 
+    [Required]
+    [Operand(1)]
+    [Help(&quot;Mandatory message to provide&quot;)]
+    public string Message { get; set; }
+}
+
+// Usage is then as simple as
+class MessagingProgram {
+    void main(string[] args) {
+        var options = EntryPointApi.Parse&lt;MessagingApplicationOptions&gt;(args);
+
+        // Use the options object...
+    }
+}
+
+enum MessageImportanceEnum {
+    Normal = 1,
+    High = 2
+}
+</code></pre>
+
+
+    </div>
+
+    <div class="container footer">
+        <hr />
+        <b>EntryPoint</b> is released under the <a href="https://raw.githubusercontent.com/Nick-Lucas/EntryPoint/master/LICENSE.txt">MIT license</a>
+        <br />
+        Updated on Dec 27, 2016
+        <br /><br />
+        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/languages/cs.min.js"></script>
+
+    <script type="text/javascript" src="https://static.addtoany.com/menu/page.js"></script>
+
+    <script>
+        hljs.configure({ languages: [ "cs", "json" ] });
+        hljs.initHighlightingOnLoad();
+
+        // https://github.com/twbs/bootstrap/issues/1768
+        $(window).on("hashchange", function() {
+            scrollBy(0, -65);
+        });
+    </script>
+</body>
+</html>
