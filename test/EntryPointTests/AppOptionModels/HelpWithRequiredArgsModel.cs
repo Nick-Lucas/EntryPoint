@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+using EntryPoint;
+
+namespace EntryPointTests.AppOptionModels {
+    public class HelpWithRequiredArgsModel : BaseApplicationOptions {
+        public HelpWithRequiredArgsModel() : base("APP_NAME") { }
+
+        [Required]
+        [OptionParameter(
+            LongName = "param-required",
+            ShortName = 'r')]
+        [Help("PARAM_REQUIRED_HELP_STRING")]
+        public int ParamRequired { get; set; }
+
+        [OptionParameter(LongName = "param-2",
+                         ShortName = 'o')]
+        [Help("PARAM_OPTIONAL_HELP_STRING")]
+        public string StringOption { get; set; }
+    }
+}
