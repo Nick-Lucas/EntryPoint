@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace EntryPointTests.ArgModels {
-    public class DuplicateDoubleModel : BaseApplicationOptions {
+namespace EntryPointTests.AppOptionModels {
+    public class DuplicateArgumentsModel : BaseApplicationOptions {
         [Option(LongName = "alpha", ShortName = 'a')]
         public bool Alpha { get; set; }
 
-        [OptionParameter(LongName = "Alpha", ShortName = 'b')]
-        public int Bravo { get; set; }
+        [Option(LongName = "bravo", ShortName = 'A')]
+        public bool Bravo { get; set; }
     }
 }

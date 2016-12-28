@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace EntryPointTests.ArgModels {
+namespace EntryPointTests.AppOptionModels {
     public class DuplicateSingleModel : BaseApplicationOptions {
         [Option(LongName = "my-double", ShortName = 'm')]
         public bool MyDouble { get; set; }

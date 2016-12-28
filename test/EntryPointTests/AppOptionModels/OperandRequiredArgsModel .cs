@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 using EntryPointTests.Helpers;
 
-namespace EntryPointTests.ArgModels {
+namespace EntryPointTests.AppOptionModels {
     public class OperandRequiredArgsModel : BaseApplicationOptions {
         [Operand(1)]
         [Required]

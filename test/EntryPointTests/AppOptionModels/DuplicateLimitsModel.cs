@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace EntryPointTests.ArgModels {
-    public class DuplicateArgumentsModel : BaseApplicationOptions {
+namespace EntryPointTests.AppOptionModels {
+    public class DuplicateLimitsModel : BaseApplicationOptions {
         [Option(LongName = "alpha", ShortName = 'a')]
         public bool Alpha { get; set; }
 
-        [Option(LongName = "bravo", ShortName = 'A')]
-        public bool Bravo { get; set; }
+        [OptionParameter(LongName = "beta", ShortName = 'A')]
+        public int Bravo { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace EntryPointTests.ArgModels {
+namespace EntryPointTests.AppOptionModels {
     public class ParametersArgsModel : BaseApplicationOptions {
         [OptionParameter(
             LongName = "param-1",
