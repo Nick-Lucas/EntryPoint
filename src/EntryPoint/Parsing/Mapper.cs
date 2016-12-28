@@ -16,7 +16,7 @@ namespace EntryPoint.Parsing {
         public static Model MapOptions(Model model, ParseResult parseResult) {
             
             // Validate Model and Arguments
-            model.ValidateNoDuplicateNames();
+            model.ValidateNoDuplicateOptionNames();
             ValidateTokensForDuplicateOptions(model, parseResult.TokenGroups);
 
             // Populate ArgumentsModel
@@ -30,7 +30,7 @@ namespace EntryPoint.Parsing {
 
         static void StoreOptions(Model model, ParseResult parseResult) {
             foreach (var tokenGroup in parseResult.TokenGroups) {
-                var modelOption = model.FindByToken(tokenGroup.Option);
+                var modelOption = model.FindOptionByToken(tokenGroup.Option);
 
                 object value = modelOption.Definition.OptionStrategy.GetValue(modelOption, tokenGroup);
                 modelOption.Property.SetValue(model.ApplicationOptions, value);
@@ -51,7 +51,7 @@ namespace EntryPoint.Parsing {
         // if an option was not provided, Validate whether it's marked as required
         static void HandleUnusedOptions(Model model, List<TokenGroup> usedOptions) {
             var requiredOption = model
-                .WhereNotIn(usedOptions)
+                .WhereOptionNotIn(usedOptions)
                 .FirstOrDefault(mo => mo.Property.HasRequiredAttribute());
 
             if (requiredOption != null) {
@@ -78,7 +78,7 @@ namespace EntryPoint.Parsing {
 
         static void ValidateTokensForDuplicateOptions(Model model, List<TokenGroup> tokenGroups) {
             var duplicates = tokenGroups
-                .Select(a => model.FindByToken(a.Option).Definition)
+                .Select(a => model.FindOptionByToken(a.Option).Definition)
                 .Duplicates(new BaseOptionAttributeEqualityComparer());
 
             if (duplicates.Any()) {

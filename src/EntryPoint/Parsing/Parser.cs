@@ -19,7 +19,7 @@ namespace EntryPoint.Parsing {
                     queue.Dequeue();
 
                     // TODO: refactor out knowledge of OptionParameterAttribute
-                    bool requiresParameter = model.FindByToken(token).Definition is OptionParameterAttribute;
+                    bool requiresParameter = model.FindOptionByToken(token).Definition is OptionParameterAttribute;
                     Token argument = null;
                     if (requiresParameter) {
                         AssertParameterExists(token, queue);

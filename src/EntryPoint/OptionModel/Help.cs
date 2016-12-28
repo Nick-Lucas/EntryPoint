@@ -29,7 +29,7 @@ namespace EntryPoint.OptionModel {
                 builder.AppendLine();
             }
             
-            foreach (var option in model.OrderBy(mo => mo.Definition.ShortName)) {
+            foreach (var option in model.Options.OrderBy(mo => mo.Definition.ShortName)) {
                 builder.AppendLine($"   -{option.Definition.ShortName} --{option.Definition.LongName}");
                 builder.AppendLine($"   {option.Help.Detail}");
                 builder.AppendLine();
