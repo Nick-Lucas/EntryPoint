@@ -1,5 +1,5 @@
 {
-  "version": "0.9.4-*",
+  "version": "0.9.5-*",
   "title": "EntryPoint",
   "description": "Lightweight and Composable CLI Argument Parser for all modern .Net platforms",
   "authors": [ "Nick Lucas" ],
@@ -13,6 +13,7 @@
     },
     "iconUrl": "https://nick-lucas.github.io/EntryPoint/fa-terminal.png",
     "tags": [
+      "composable",
       "cli",
       "argument",
       "option",
@@ -23,8 +24,8 @@
       "dotnet",
       "core",
       "netcore",
-      "4.5.2",
-      "452"
+      "4.5",
+      "net45"
     ],
     "licenseUrl": "https://github.com/Nick-Lucas/EntryPoint/blob/master/LICENSE"
   },
