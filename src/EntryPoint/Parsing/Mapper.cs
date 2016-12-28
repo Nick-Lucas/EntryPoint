@@ -38,6 +38,7 @@ namespace EntryPoint.Parsing {
             model.ApplicationOptions.Operands = parseResult.Operands.Select(t => t.Value).ToArray();
         }
 
+        // Map and then Remove operands which have been mapped on the Model
         static void StoreOperands(Model model, ParseResult parseResult) {
             var operands = parseResult.Operands;
             foreach (var operand in model.Operands) {
@@ -46,6 +47,15 @@ namespace EntryPoint.Parsing {
                     operand.Property.SetValue(model.ApplicationOptions, value);
                 }
             }
+
+            var maxPosition = model
+                .Operands
+                .Max(mo => mo.Definition.Position as int?) ?? 0;
+            model.ApplicationOptions.Operands = model
+                .ApplicationOptions
+                .Operands
+                .Skip(maxPosition)
+                .ToArray();
         }
 
         // if an option was not provided, Validate whether it's marked as required
