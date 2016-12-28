@@ -1,17 +1,17 @@
 {
   "version": "0.9.4-*",
   "title": "EntryPoint",
-  "description": "Lightweight declarative CLI argument parser for all modern .Net platforms",
+  "description": "Lightweight and Composable CLI Argument Parser for all modern .Net platforms",
   "authors": [ "Nick Lucas" ],
   "packOptions": {
     "owners": [ "Nick Lucas" ],
-    "summary": "Lightweight declarative CLI argument parser for all modern .Net platforms",
-    "projectUrl": "https://github.com/Nick-Lucas/EntryPoint",
+    "summary": "Lightweight and Composable CLI Argument Parser for all modern .Net platforms",
+    "projectUrl": "https://nick-lucas.github.io/EntryPoint/",
     "repository": {
       "type": "git",
       "url": "https://github.com/Nick-Lucas/EntryPoint"
     },
-    "iconUrl": "https://nick-lucas.github.io/EntryPoint/website/www/fa-terminal.png",
+    "iconUrl": "https://nick-lucas.github.io/EntryPoint/fa-terminal.png",
     "tags": [
       "cli",
       "argument",

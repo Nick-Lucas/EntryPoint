@@ -5,7 +5,7 @@
 
 ## EntryPoint
 
-An argument parser designed to be composable, practical and maintainable.
+Lightweight and Composable CLI Argument Parser for all modern .Net platforms
 
 Parses arguments in the form `UtilityName[-o | --options][operands]`
 
