@@ -54,11 +54,6 @@ namespace EntryPoint {
             
             // Map results
             model = Mapper.MapOptions(model, parseResult);
-            
-            // If --help was requested
-            if (model.ApplicationOptions.HelpRequested) {
-                Help.HandleHelpRequest(model);
-            }
 
             return (A)model.ApplicationOptions;
         }

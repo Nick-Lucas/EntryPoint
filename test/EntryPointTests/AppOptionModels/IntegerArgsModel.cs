@@ -5,21 +5,21 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace EntryPointTests.ArgModels {
-    public class BoolArgsModel : BaseApplicationOptions {
+namespace EntryPointTests.AppOptionModels {
+    public class IntegerArgsModel : BaseApplicationOptions {
         [OptionParameter(
-            LongName = "default-false",
+            LongName = "default-zero",
             ShortName = 'a')]
-        public bool DefaultFalse { get; set; }
+        public int DefaultZero { get; set; }
 
         [OptionParameter(
             LongName = "default-null",
             ShortName = 'b')]
-        public bool? DefaultNull { get; set; }
+        public int? DefaultNull { get; set; }
 
         [OptionParameter(
-            LongName = "default-true",
+            LongName = "default-7",
             ShortName = 'c')]
-        public bool DefaultTrue { get; set; } = true;
+        public int Default7 { get; set; } = 7;
     }
 }

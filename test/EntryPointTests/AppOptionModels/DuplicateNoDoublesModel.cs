@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace EntryPointTests.ArgModels {
-    public class DuplicateNoSinglesModel : BaseApplicationOptions {
+namespace EntryPointTests.AppOptionModels {
+    public class DuplicateNoDoublesModel : BaseApplicationOptions {
         [Option(LongName = "alpha")]
         public bool Alpha { get; set; }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 using EntryPoint.Exceptions;
 using Xunit;
-using EntryPointTests.ArgModels;
+using EntryPointTests.AppOptionModels;
 using EntryPointTests.Helpers;
 
 namespace EntryPointTests {

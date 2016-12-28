@@ -9,20 +9,20 @@ using EntryPoint.Exceptions;
 using EntryPoint.Parsing;
 
 namespace EntryPoint.OptionModel {
-    internal class Model : List<ModelOption> {
+    internal class Model {
         public BaseApplicationOptions ApplicationOptions { get; private set; }
 
         internal Model(BaseApplicationOptions applicationOptions) {
             ApplicationOptions = applicationOptions;
 
+            // TODO: extract this reflection logic
             var properties = applicationOptions.GetType().GetRuntimeProperties();
 
             // Map Options Model
-            var options = properties
+            Options = properties
                 .Where(prop => prop.GetOptionDefinition() != null)
                 .Select(prop => new ModelOption(prop))
                 .ToList();
-            base.AddRange(options);
 
             // Map Operands Model
             Operands = properties
@@ -33,43 +33,38 @@ namespace EntryPoint.OptionModel {
             Help = applicationOptions.GetType().GetTypeInfo().GetHelp();
         }
 
-        public List<ModelOperand> Operands { get; set; }
-
+        // Help attribute applied to the class itself
         public HelpAttribute Help { get; private set; }
 
-        // Find the ModelOption for the given Token, or null
-        // TODO: break away domain logic into helper class
-        public ModelOption FindByToken(Token token) {
-            var option = this.FirstOrDefault(o => {
-                return ((token.IsSingleDashOption() && token.Value.Contains(o.Definition.ShortName))
-                    || (token.IsDoubleDashOption() && token.Value.StartsWith(
-                            EntryPointApi.DASH_DOUBLE + o.Definition.LongName,
-                            StringComparison.CurrentCultureIgnoreCase)));
-            });
+        // Options defined by the class
+        public List<ModelOption> Options { get; set; }
 
+        // Operands defined by the class
+        public List<ModelOperand> Operands { get; set; }
+
+        // Find the ModelOption for the given Token, or null
+        public ModelOption FindOptionByToken(Token token) {
+            var option = this.Options
+                .FirstOrDefault(o => token.InvokesOption(o));
             if (option == null) {
                 throw new UnkownOptionException(
                     $"The option {token.Value} was not recognised. "
                     + "Please ensure all given arguments are valid. Try --help");
             }
-
             return option;
         }
 
-        // TODO: break away domain logic into helper class
-        public List<ModelOption> WhereNotIn(List<TokenGroup> tokenGroups) {
-            return this.Where(mo => !tokenGroups.Any(tg => {
-                return tg.Option.Value.Equals(EntryPointApi.DASH_SINGLE + mo.Definition.ShortName, StringComparison.CurrentCulture)
-                    || tg.Option.Value.Equals(EntryPointApi.DASH_DOUBLE + mo.Definition.LongName, StringComparison.CurrentCultureIgnoreCase);
-            })).ToList();
+        public List<ModelOption> WhereOptionsNotIn(List<TokenGroup> tokenGroups) {
+            return this.Options
+                .Where(o => !tokenGroups.Any(tg => tg.Option.InvokesOption(o)))
+                .ToList();
         }
 
-        // TODO: break away domain logic into validation class
         // Check model contains only unique names
-        public void ValidateNoDuplicateNames() {
+        public void ValidateNoDuplicateOptionNames() {
 
             // Check the single dash options
-            var singleDashes = this
+            var singleDashes = this.Options
                 .Where(o => o.Definition.ShortName > char.MinValue)
                 .Select(o => o.Definition.ShortName.ToString())
                 .Duplicates(StringComparer.CurrentCulture)
@@ -79,7 +74,7 @@ namespace EntryPoint.OptionModel {
             }
 
             // Check the double dash options
-            var doubleDashes = this
+            var doubleDashes = this.Options
                 .Where(o => o.Definition.LongName != string.Empty)
                 .Select(o => o.Definition.LongName)
                 .Duplicates(StringComparer.CurrentCultureIgnoreCase)
