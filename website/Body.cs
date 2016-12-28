@@ -119,13 +119,13 @@ namespace Website {
     class MessagingApplicationOptions : BaseApplicationOptions {
         public MessagingApplicationOptions() : base("Message Sender") { }
 
-        // A verbose Option with help documentation
+        // Verbose will be a familiar option to most CLI users
         [Option(LongName = "verbose", 
                 ShortName = 'v')]
         [Help("When this is set, verbose logging will be activated")]
         public bool Verbose { get; set; }
 
-        // A message which *must* be provided by the user 
+        // A subject *must* be provided by the user 
         [Required]
         [OptionParameter(LongName = "subject",
                          ShortName = 's')]
@@ -140,7 +140,7 @@ namespace Website {
         [Help("Sets the importance level of a sent message")]
         public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 
-        // A message which *must* be provided as the first operand
+        // A message *must* be provided as the first operand
         [Required]
         [Operand(1)]
         [Help("Mandatory message to provide")]
@@ -161,6 +161,25 @@ namespace Website {
         High = 2
     }
 #endif
+
+    /// ## Value Defaults
+    /// 
+    /// If the user does not provide an non-required option-parameter or operand, 
+    /// it can be useful to configure the application with a default.
+    /// 
+    /// This is easily done using C# property initialisers, 
+    /// and will otherwise use the type's default value
+    /// 
+    class DefaultsExample {
+#if CODE
+        // The following Importance Enum will always be set to 'Normal'
+        // if the user does not provide a value
+        [OptionParameter(LongName = "importance",
+                         ShortName = 'i')]
+        [Help("Sets the importance level of a sent message")]
+        public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
+#endif
+    }
 
     /// ## Help Generator
     /// 
@@ -207,5 +226,5 @@ namespace Website {
     /// * Combined options can end with an option-parameter: `-abco value`
     /// * Option-parameters have several forms: `-o value` `-o=value` `--option value` `--option=value`
     /// * Quotes and Escape characters are both supported: `--option "my value"` `--option \-my-value`
-    /// * **Warning:** be careful with Quotes as .Net relies on the shell for encoding them, some shells strip quotes and some pass them on. This behaviour is being worked on, and will be more predictable in a future EntryPoint version
+    /// * **Warning:** be careful with Quotes as .Net respects and then removes them during `string[] args` creation. They can be escaped to include in values.
 }
