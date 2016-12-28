@@ -54,12 +54,10 @@ namespace EntryPoint.OptionModel {
             return option;
         }
 
-        // TODO: break away domain logic into helper class
-        public List<ModelOption> WhereOptionNotIn(List<TokenGroup> tokenGroups) {
-            return this.Options.Where(o => !tokenGroups.Any(tg => {
-                return tg.Option.Value.Equals(EntryPointApi.DASH_SINGLE + o.Definition.ShortName, StringComparison.CurrentCulture)
-                    || tg.Option.Value.Equals(EntryPointApi.DASH_DOUBLE + o.Definition.LongName, StringComparison.CurrentCultureIgnoreCase);
-            })).ToList();
+        public List<ModelOption> WhereOptionsNotIn(List<TokenGroup> tokenGroups) {
+            return this.Options
+                .Where(o => !tokenGroups.Any(tg => tg.Option.InvokesOption(o)))
+                .ToList();
         }
 
         // TODO: break away domain logic into validation class

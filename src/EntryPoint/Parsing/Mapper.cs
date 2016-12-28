@@ -51,7 +51,7 @@ namespace EntryPoint.Parsing {
         // if an option was not provided, Validate whether it's marked as required
         static void HandleUnusedOptions(Model model, List<TokenGroup> usedOptions) {
             var requiredOption = model
-                .WhereOptionNotIn(usedOptions)
+                .WhereOptionsNotIn(usedOptions)
                 .FirstOrDefault(mo => mo.Property.HasRequiredAttribute());
 
             if (requiredOption != null) {
