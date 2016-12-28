@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntryPoint, Version=0.9.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\EntryPoint.0.9.4\lib\net452\EntryPoint.dll</HintPath>
+    <Reference Include="EntryPoint, Version=0.9.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\EntryPoint.0.9.5\lib\net45\EntryPoint.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MarkdownDeep, Version=1.5.4615.26275, Culture=neutral, processorArchitecture=MSIL">

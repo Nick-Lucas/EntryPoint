@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="favicon.ico">
 
-    <title>EntryPoint 0.9.4</title>
+    <title>EntryPoint 0.9.5</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/androidstudio.min.css" rel="stylesheet" />
@@ -66,7 +66,7 @@
         <div class="starter-template">
             <h1 class="hero-title">
                 <i class="fa fa-terminal"></i>
-                EntryPoint 0.9.4
+                EntryPoint 0.9.5
             </h1>
             <p class="lead">
                 Composable CLI Argument Parser
@@ -182,7 +182,7 @@ class SimpleProgram {
 <h4><code>[Help(detail = string)]</code></h4>
 <ul>
 <li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied, or an ApplicationOptions Class</li>
-<li><strong>Detail:</strong> Provides custom documentation on an Option, Operand or ApplicationOptions Class, which will be consumed by the --help generator</li>
+<li><strong>Detail:</strong> Provides custom documentation on an Option, Operand or ApplicationOptions Class, which will be consumed by the help generator</li>
 </ul>
 <h2 id="example-application">Example Application</h2>
 <p>The following is an example implementation for use in a simple message sending application</p>
@@ -247,8 +247,8 @@ public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.No
 </code></pre>
 
 <h2 id="help-generator">Help Generator</h2>
-<p>EntryPoint provides an automatic Help generator, which always owns the <code>-h</code> and <code>--help</code> Options.
-If the Help option is invoked then EntryPoint will generate Help information on the CLI, and end the program.</p>
+<p>EntryPoint provides an automatic Help generator, which always owns the <code>-h</code> and <code>--help</code> Options.</p>
+<p>This sets the <code>BaseApplicationOptions.HelpRequested</code> property; every ApplicationOptions class therefore has it.</p>
 <p>It consumes the following information:</p>
 <pre><code>[Help(&quot;This will be displayed as an initial blurb for the utility&quot;)]
 class HelpApplicationOptions : BaseApplicationOptions {
@@ -263,16 +263,26 @@ class HelpApplicationOptions : BaseApplicationOptions {
 }
 </code></pre>
 
-<p>The help prompt will be triggered whenever the application recieves <code>-h</code> or <code>--help</code>.</p>
-<pre><code>string[] args = new string[] { &quot;--help&quot; };
-EntryPointApi.Parse&lt;HelpApplicationOptions&gt;(args);
+<p>A simple implementation would therefore look like this:</p>
+<pre><code>class HelpProgram {
+    public void main(string[] args) {
+        var options = EntryPointApi.Parse&lt;HelpApplicationOptions&gt;(args);
+        if (options.HelpRequested) {
+            string help = EntryPointApi.GenerateHelp&lt;HelpApplicationOptions&gt;();
+            Console.WriteLine(help);
+            Console.WriteLine(&quot;Press enter to exit...&quot;);
+            Console.ReadLine();
+            return;
+        }
+
+        // Application code...
+    }
+}
 </code></pre>
 
-<p>It can also be generated manually</p>
-<pre><code>string help = EntryPointApi.GenerateHelp&lt;HelpApplicationOptions&gt;();
-Console.WriteLine(help);
-</code></pre>
-
+<p>It is recommended that you always check for <code>.HelpRequested</code>, as invoking <code>--help</code>
+will disable exceptions for all <code>[Required]</code> Options or Operands.
+Help is expected to take precedence over other options</p>
 <h2 id="tips-amp-behaviour">Tips &amp; Behaviour</h2>
 <ul>
 <li><code>EntryPointApi.Parse</code> has several overloads available. It can create the class and get the command line arguments itself, but gives you manual control, too.</li>

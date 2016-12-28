@@ -106,7 +106,7 @@ namespace Website {
     /// 
     /// #### `[Help(detail = string)]`
     /// * **Apply to:** Class Properties with any Option or Operand Attribute applied, or an ApplicationOptions Class
-    /// * **Detail:** Provides custom documentation on an Option, Operand or ApplicationOptions Class, which will be consumed by the --help generator
+    /// * **Detail:** Provides custom documentation on an Option, Operand or ApplicationOptions Class, which will be consumed by the help generator
     ///
 
 
@@ -184,7 +184,8 @@ namespace Website {
     /// ## Help Generator
     /// 
     /// EntryPoint provides an automatic Help generator, which always owns the `-h` and `--help` Options.
-    /// If the Help option is invoked then EntryPoint will generate Help information on the CLI, and end the program.
+    /// 
+    /// This sets the `BaseApplicationOptions.HelpRequested` property; every ApplicationOptions class therefore has it.
     /// 
     /// It consumes the following information:
 #if CODE
@@ -201,21 +202,26 @@ namespace Website {
     }
 #endif
 
+    /// A simple implementation would therefore look like this:
+#if CODE
     class HelpProgram {
-        public void main() {
+        public void main(string[] args) {
+            var options = EntryPointApi.Parse<HelpApplicationOptions>(args);
+            if (options.HelpRequested) {
+                string help = EntryPointApi.GenerateHelp<HelpApplicationOptions>();
+                Console.WriteLine(help);
+                Console.WriteLine("Press enter to exit...");
+                Console.ReadLine();
+                return;
+            }
 
-            /// The help prompt will be triggered whenever the application recieves `-h` or `--help`.
-#if CODE
-            string[] args = new string[] { "--help" };
-            EntryPointApi.Parse<HelpApplicationOptions>(args);
-#endif
-            /// It can also be generated manually
-#if CODE
-            string help = EntryPointApi.GenerateHelp<HelpApplicationOptions>();
-            Console.WriteLine(help);
-#endif
+            // Application code...
         }
     }
+#endif
+    /// It is recommended that you always check for `.HelpRequested`, as invoking `--help`
+    /// will disable exceptions for all `[Required]` Options or Operands. 
+    /// Help is expected to take precedence over other options
 
     /// ## Tips & Behaviour
     /// 
