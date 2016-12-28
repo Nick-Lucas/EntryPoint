@@ -4,7 +4,6 @@ using System.Linq;
 using EntryPoint;
 
 namespace Website {
-
     class Body {
         /// ## About EntryPoint
         /// 
@@ -21,7 +20,7 @@ namespace Website {
         /// closely, but does include common adblibs such as fully named `--option` style options.
         ///
         /// ## Installation
-        /// EntryPoint is available on [NuGet](https://www.nuget.org/packages/LimeBean):
+        /// EntryPoint is available on [NuGet](https://www.nuget.org/packages/EntryPoint):
         /// 
         ///     PM> Install-Package EntryPoint
         ///     
@@ -30,16 +29,16 @@ namespace Website {
     /// ## Introduction
     /// EntryPoint is simple to use, and composable. It has a few tools you'll use:
     /// 
-    /// * `EntryPointApi` - The main API you'll interact with to perform actions
-    /// * `BaseApplicationOptions` - An abstract class you'll implement, and define your CLI Options & Operands against
-    /// * `Attributes` - There are a small handful of attributes you'll use to define your ApplicationOptions implementation, documented below.
+    /// * `EntryPointApi` - The main API, which handles all processing
+    /// * `BaseApplicationOptions` - An abstract class which you implement to define your CLI Options & Operands
+    /// * `Attributes` - There are a small handful of attributes you can use to define your ApplicationOptions implementation, documented below.
     /// 
 
     /// ## Basic Usage
     /// Everything revolves around declarative `ApplicationOptions` 
-    /// classes which are passed to EntryPoint for population
+    /// classes which EntryPoint uses to parse command line arguments
     /// 
-    /// Let's say we want a utility used like: `UtilityName -s --name Bob 6.1`
+    /// Let's say we want a utility used like: `UtilityName [-s] [--name Bob] [6.1]`
     /// 
     /// This has one Option, one OptionParameter and a positional Operand
 #if CODE

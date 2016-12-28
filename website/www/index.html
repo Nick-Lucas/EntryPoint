@@ -99,21 +99,21 @@
 <p>Follows the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">IEEE Standard</a>
 closely, but does include common adblibs such as fully named <code>--option</code> style options.</p>
 <h2 id="installation">Installation</h2>
-<p>EntryPoint is available on <a href="https://www.nuget.org/packages/LimeBean">NuGet</a>:</p>
+<p>EntryPoint is available on <a href="https://www.nuget.org/packages/EntryPoint">NuGet</a>:</p>
 <pre><code>PM&gt; Install-Package EntryPoint
 </code></pre>
 
 <h2 id="introduction">Introduction</h2>
 <p>EntryPoint is simple to use, and composable. It has a few tools you'll use:</p>
 <ul>
-<li><code>EntryPointApi</code> - The main API you'll interact with to perform actions</li>
-<li><code>BaseApplicationOptions</code> - An abstract class you'll implement, and define your CLI Options &amp; Operands against</li>
-<li><code>Attributes</code> - There are a small handful of attributes you'll use to define your ApplicationOptions implementation, documented below.</li>
+<li><code>EntryPointApi</code> - The main API, which handles all processing</li>
+<li><code>BaseApplicationOptions</code> - An abstract class which you implement to define your CLI Options &amp; Operands</li>
+<li><code>Attributes</code> - There are a small handful of attributes you can use to define your ApplicationOptions implementation, documented below.</li>
 </ul>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>Everything revolves around declarative <code>ApplicationOptions</code>
-classes which are passed to EntryPoint for population</p>
-<p>Let's say we want a utility used like: <code>UtilityName -s --name Bob 6.1</code></p>
+classes which EntryPoint uses to parse command line arguments</p>
+<p>Let's say we want a utility used like: <code>UtilityName [-s] [--name Bob] [6.1]</code></p>
 <p>This has one Option, one OptionParameter and a positional Operand</p>
 <pre><code>class SimpleApplicationOptions : BaseApplicationOptions {
     public SimpleApplicationOptions() : base(&quot;SimpleApp&quot;) { }
@@ -278,7 +278,7 @@ Console.WriteLine(help);
         <hr />
         <b>EntryPoint</b> is released under the <a href="https://raw.githubusercontent.com/Nick-Lucas/EntryPoint/master/LICENSE.txt">MIT license</a>
         <br />
-        Updated on Dec 27, 2016
+        Updated on Dec 28, 2016
         <br /><br />
         <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by/4.0/80x15.png" /></a>
     </div>
