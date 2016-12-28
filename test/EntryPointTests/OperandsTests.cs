@@ -110,7 +110,69 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<RequiredException>(
-                () => EntryPointApi.Parse<OperandRequiredArgsModel>(args));            
+                () => EntryPointApi.Parse<OperandRequiredArgsModel>(args));
+        }
+
+        [Fact]
+        public void OperandMap_CheckDumpSize() {
+            string[] args = new string[] { };
+
+            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+
+            Assert.Equal(0, model.Operands.Length);
+        }
+
+        [Fact]
+        public void OperandMap_CheckMappedAreRemovedFromDump_One() {
+            string[] args = new string[] {
+                "hello"
+            };
+
+            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+
+            Assert.Equal(0, model.Operands.Length);
+        }
+
+        [Fact]
+        public void OperandMap_CheckMappedAreRemovedFromDump_Max() {
+            string[] args = new string[] {
+                "hello", "world", "false", "item1"
+            };
+
+            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+
+            Assert.Equal(0, model.Operands.Length);
+        }
+
+        [Fact]
+        public void OperandMap_CheckMappedAreRemovedFromDump_Overflow() {
+            string[] args = new string[] {
+                "hello", "world", "false", "item1", "something completely different"
+            };
+
+            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+
+            Assert.Equal(1, model.Operands.Length);
+        }
+
+        [Fact]
+        public void OperandMap_CheckContiguityValidation() {
+            string[] args = new string[] {
+
+            };
+
+            Assert.Throws<InvalidModelException>(
+                () => EntryPointApi.Parse<OperandNonContiguousArgsModel>(args));
+        }
+
+        [Fact]
+        public void OperandMap_Check0PositionValidation() {
+            string[] args = new string[] {
+
+            };
+
+            Assert.Throws<InvalidModelException>(
+                () => EntryPointApi.Parse<OperandStartAt0ArgsModel>(args));
         }
 
 
