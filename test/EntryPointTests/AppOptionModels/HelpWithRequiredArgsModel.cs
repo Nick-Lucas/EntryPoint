@@ -20,5 +20,9 @@ namespace EntryPointTests.AppOptionModels {
                          ShortName = 'o')]
         [Help("PARAM_OPTIONAL_HELP_STRING")]
         public string StringOption { get; set; }
+
+        [Required]
+        [Operand(1)]
+        public string OneOperand { get; set; }
     }
 }

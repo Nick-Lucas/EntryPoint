@@ -68,6 +68,11 @@ namespace EntryPoint.Parsing {
         }
 
         static void HandleUnusedOperands(Model model, ParseResult parseResult) {
+            if (model.ApplicationOptions.HelpRequested) {
+                // If the help flag is set, then Required parameters are irrelevant
+                return;
+            }
+
             int providedOperandsCount = parseResult.Operands.Count;
 
             var requiredOperand = model.Operands

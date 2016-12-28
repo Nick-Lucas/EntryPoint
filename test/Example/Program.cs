@@ -9,26 +9,16 @@ namespace Example {
             // CLI command:
             // ApplicationName -oq -re FirstItem --string Bob -n=1.2 "the operand"
             Console.WriteLine("For the following command: ");
-            Console.WriteLine("ApplicationName -oq -re FirstItem --string Bob -n=1.2 \"the operand\"\n");
-            if (!args.Any()) {
-                args = new string[] {
-                    // short options can be grouped
-                    "-ab",
-
-                    // the last short option in a group 
-                    // can be an option parameter
-                    "-ce", "FirstItem",
-
-                    // option parameters can be whitespace or = separated
-                    "--string", "Bob",
-                    "-n=1.2",
-
-                    "the operand"
-                };
-            }
+            Console.WriteLine("ApplicationName " + string.Join(" ", args));
 
             // Parses arguments based on a declarative BaseApplicationOptions implementation (below)
             ApplicationOptions a = EntryPointApi.Parse<ApplicationOptions>(args);
+            if (a.HelpRequested) {
+                Console.WriteLine(EntryPointApi.GenerateHelp<ApplicationOptions>());
+                Console.WriteLine("Enter to exit...");
+                Console.ReadLine();
+                return;
+            }
 
             Console.WriteLine($"a: {a.Option1}");
             Console.WriteLine($"b: {a.Option2}");
@@ -38,10 +28,6 @@ namespace Example {
             Console.WriteLine($"n: {a.DecimalArg}");
             Console.WriteLine($"first operand: {a.Operand1}");
             Console.WriteLine($"other operands: {string.Join(" : ", a.Operands)}");
-
-            // Contains a built in documentation generator
-            //Console.WriteLine("\n\nHelp Documentation: \n");
-            //EntryPointApi.Parse<ApplicationOptions>(new string[] { "--help" });
 
             Console.Read();
         }
@@ -75,6 +61,7 @@ namespace Example {
         public decimal DecimalArg { get; set; }
 
         // Also supports named and numbered enums
+        [Required]
         [OptionParameter(
             ShortName = 'e', LongName = "app-enum")]
         [Help(
@@ -91,6 +78,7 @@ namespace Example {
 
         // Operands are always dumped into the BaseApplicationModel.Operands list
         // But Positional Operands can also be mapped directly
+        [Required]
         [Operand(position: 1)]
         [Help(
             "The first Operand after all Options and OptionParameters")]

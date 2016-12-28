@@ -24,6 +24,11 @@ namespace EntryPoint.OptionModel {
 
         // Option configuration
         public BaseOptionAttribute Definition { get; private set; }
+        public bool TakesParameter {
+            get {
+                return Definition is OptionParameterAttribute;
+            }
+        }
 
         // Provided documentation
         public HelpAttribute Help { get; private set; }

@@ -14,6 +14,7 @@ namespace EntryPoint.OptionModel {
             Property = property;
             Definition = property.GetOperandDefinition();
             Required = property.HasRequiredAttribute();
+            Help = property.GetHelp();
         }
 
         // The original property on the ApplicationOptions implementation
@@ -27,5 +28,8 @@ namespace EntryPoint.OptionModel {
 
         // Whether the Option is required
         public bool Required { get; private set; }
+
+        // Help attribute
+        public HelpAttribute Help { get; internal set; }
     }
 }

@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Example": {
+      "commandName": "Project"
+    },
+    "Help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    },
+    "TestArgs": {
+      "commandName": "Project",
+      "commandLineArgs": "-oq -re FirstItem --string Bob -n=1.2 \"the operand\" \n"
+    }
+  }
+}

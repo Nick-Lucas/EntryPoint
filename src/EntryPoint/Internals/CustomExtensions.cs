@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EntryPoint.Internals {
 
-    internal static class CustomLinqExtensions {
+    internal static class CustomExtensions {
         internal static List<T> Duplicates<T>(this IEnumerable<T> items, IEqualityComparer<T> comparer = null) {
             HashSet<T> hash = new HashSet<T>(comparer);
             List<T> result = new List<T>();
@@ -19,6 +19,10 @@ namespace EntryPoint.Internals {
             }
 
             return result;
+        }
+
+        internal static T IfTrue<T>(this bool b, T show) {
+            return b ? show : default(T);
         }
     }
 

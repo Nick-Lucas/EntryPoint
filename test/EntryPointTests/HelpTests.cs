@@ -21,9 +21,21 @@ namespace EntryPointTests {
         }
 
         [Fact]
+        public void Help_CheckRequiredDoesNotThrow_Operand() {
+            string[] args = new string[] {
+                "-r", "1", "--help"
+            };
+
+            // Check this doesn't throw because of Required validation
+            // Also check it doesn't throw because of an option being included
+            // Behaviour: --help will take control
+            EntryPointApi.Parse<HelpWithRequiredArgsModel>(args);
+        }
+
+        [Fact]
         public void Help_CheckRequiredDoesNotThrow_OtherParams() {
             string[] args = new string[] {
-                "-o", "name", "--help"
+                "-o", "name", "--help", "operand_value"
             };
 
             // Check this doesn't throw because of Required validation
@@ -35,7 +47,7 @@ namespace EntryPointTests {
         [Fact]
         public void Help_CheckRequiredDoesNotThrow_RequiredProvided() {
             string[] args = new string[] {
-                "-r", "1", "--help"
+                "-r", "1", "--help", "operand_value"
             };
 
             // Check this doesn't throw because of an option being included
