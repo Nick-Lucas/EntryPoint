@@ -50,6 +50,11 @@ namespace EntryPoint.Parsing {
 
         // if an option was not provided, Validate whether it's marked as required
         static void HandleUnusedOptions(Model model, List<TokenGroup> usedOptions) {
+            if (model.ApplicationOptions.HelpRequested) {
+                // If the help flag is set, then Required parameters are irrelevant
+                return;
+            }
+
             var requiredOption = model
                 .WhereOptionsNotIn(usedOptions)
                 .FirstOrDefault(mo => mo.Property.HasRequiredAttribute());

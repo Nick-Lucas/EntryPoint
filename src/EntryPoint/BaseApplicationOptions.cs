@@ -25,11 +25,14 @@ namespace EntryPoint {
         /// </summary>
         public string[] Operands { get; internal set; }
 
+
+        // ** Baked in Options **
+        
         [Option(
             LongName = "help", ShortName = 'h')]
         [Help(
             "Display the Help Documentation")]
-        internal bool HelpRequested { get; set; }
+        public bool HelpRequested { get; set; }
     }
 
 }

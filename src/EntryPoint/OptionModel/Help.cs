@@ -7,13 +7,6 @@ using System.Threading.Tasks;
 
 namespace EntryPoint.OptionModel {
     internal static class Help {
-        public static void HandleHelpRequest(Model model) {
-            var help = Generate(model);
-            Console.WriteLine(help);
-            Console.WriteLine("\nPress Enter to exit...");
-            Console.ReadLine();
-            Environment.Exit(0);
-        }
 
         // Given a Model, generates a string which can be printed to the CLI 
         // based on information provided by the ApplicationModel
@@ -38,6 +31,7 @@ namespace EntryPoint.OptionModel {
 
             return builder.ToString();
         }
+
     }
 
 }
