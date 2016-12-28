@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EntryPoint.OptionModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,6 +51,16 @@ namespace EntryPoint.Parsing {
                 .ToCharArray()
                 .Select(c => new Token(EntryPointApi.DASH_SINGLE + c, true))
                 .ToList();
+        }
+
+
+
+        // Check if a ModelOption is being called by an option token
+        public bool InvokesOption(ModelOption option) {
+            return ((this.IsSingleDashOption() && this.Value.Contains(option.Definition.ShortName))
+                 || (this.IsDoubleDashOption() && this.Value.StartsWith(
+                            EntryPointApi.DASH_DOUBLE + option.Definition.LongName,
+                            StringComparison.CurrentCultureIgnoreCase)));
         }
     }
 }
