@@ -60,7 +60,6 @@ namespace EntryPoint.OptionModel {
                 .ToList();
         }
 
-        // TODO: break away domain logic into validation class
         // Check model contains only unique names
         public void ValidateNoDuplicateOptionNames() {
 
