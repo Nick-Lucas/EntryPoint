@@ -14,9 +14,9 @@ namespace EntryPoint.Parsing {
 
         // Takes the input from the API and orchestrates the process of population
         public static Model MapOptions(Model model, ParseResult parseResult) {
-            
+
             // Validate Model and Arguments
-            model.ValidateNoDuplicateOptionNames();
+            model.Validate();
             ValidateTokensForDuplicateOptions(model, parseResult.TokenGroups);
 
             // Populate ArgumentsModel

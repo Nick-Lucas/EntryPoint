@@ -155,6 +155,26 @@ namespace EntryPointTests {
             Assert.Equal(1, model.Operands.Length);
         }
 
+        [Fact]
+        public void OperandMap_CheckContiguityValidation() {
+            string[] args = new string[] {
+
+            };
+
+            Assert.Throws<InvalidModelException>(
+                () => EntryPointApi.Parse<OperandNonContiguousArgsModel>(args));
+        }
+
+        [Fact]
+        public void OperandMap_Check0PositionValidation() {
+            string[] args = new string[] {
+
+            };
+
+            Assert.Throws<InvalidModelException>(
+                () => EntryPointApi.Parse<OperandStartAt0ArgsModel>(args));
+        }
+
 
         // ** Operands Dump **
 

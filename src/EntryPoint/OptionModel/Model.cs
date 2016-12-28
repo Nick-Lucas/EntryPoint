@@ -60,8 +60,42 @@ namespace EntryPoint.OptionModel {
                 .ToList();
         }
 
+
+        // ** Model Validation **
+
+        public void Validate() {
+            ValidateNoDuplicateOptionNames();
+            ValidateContigiousOperandMapping();
+        }
+
+        // Check that operand positions have the form: [ 1, 2, 3, 4 ](contigious)
+        // As opposed to [ 0, 1, 2, 3 ](less than 1) OR [ 1, 2, 4, 5 ](gaps)
+        void ValidateContigiousOperandMapping() {
+            int lastPosition = 0;
+            var operands = Operands.OrderBy(o => o.Definition.Position);
+
+            foreach (var operand in operands) {
+                int position = operand.Definition.Position;
+                int diff = position - lastPosition;
+
+                // Position should always be greater than 1
+                if (position < 1) {
+                    throw new InvalidModelException("Negative Operand Position. "
+                        + $"Operand(position: {position}) on "
+                        + $"{operand.Property.Name} was < 1. The first position is 1");
+
+                // Position should always increase by 1
+                } else if (diff != 1) {
+                    throw new InvalidModelException("Non-contiguous Operand Positions. "
+                        + $"Operand positions should cover every position from min->max. {position} and {lastPosition} were next to each other");
+                }
+
+                lastPosition = position;
+            }
+        }
+
         // Check model contains only unique names
-        public void ValidateNoDuplicateOptionNames() {
+        void ValidateNoDuplicateOptionNames() {
 
             // Check the single dash options
             var singleDashes = this.Options
