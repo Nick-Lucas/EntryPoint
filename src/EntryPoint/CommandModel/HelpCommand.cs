@@ -12,7 +12,7 @@ namespace EntryPoint.CommandModel {
 
         public void Execute(CommandModel model, string message = null) {
             string spacer = message == null ? "" : "\n\n";
-            string help = CommandHelpGenerator.Generate(model);
+            string help = CliCommandsHelp.Generate(model);
             string fullHelp = $"{message}{spacer}{help}";
             
             try {

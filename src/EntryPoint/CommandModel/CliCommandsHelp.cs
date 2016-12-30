@@ -8,7 +8,7 @@ using System.Reflection;
 using EntryPoint.Internals;
 
 namespace EntryPoint.CommandModel {
-    internal static class CommandHelpGenerator {
+    internal static class CliCommandsHelp {
         public static string Generate(CommandModel model) {
             StringBuilder builder = new StringBuilder();
 
