@@ -11,7 +11,7 @@ namespace Website {
         /// 
         /// An argument parser designed to be composable, practical and maintainable.
         /// 
-        /// Parses arguments in the form `UtilityName [-o | --options] [operands]`
+        /// Parses arguments in the form `UtilityName [command] [-o | --options] [operands]`
         ///
         /// Supports:
         /// 
@@ -31,21 +31,24 @@ namespace Website {
     /// ## Introduction
     /// EntryPoint is simple to use, and composable. It has a few tools you'll use:
     /// 
-    /// * `EntryPointApi` - The main API, which handles all processing
-    /// * `BaseApplicationOptions` - An abstract class which you implement to define your CLI Options & Operands
-    /// * `Attributes` - There are a small handful of attributes you can use to define your ApplicationOptions implementation, documented below.
+    /// * `Cli` - The main API, which handles all processing
+    /// * `CliArguments` - An abstract class which you implement to define Options & Operands
+    /// * `BaseCliCommands` - An abstract class which you implement to define Commands
+    /// * `Attributes` - There are a handful of attributes you can use to define your CliCommands and CliArguments implementations
     /// 
 
+    /// # CliArguments
+    ///
     /// ## Basic Usage
-    /// Everything revolves around declarative `ApplicationOptions` 
-    /// classes which EntryPoint uses to parse command line arguments
+    /// Everything revolves around declarative `CliArguments` classes 
+    /// which EntryPoint uses to parse command line arguments
     /// 
     /// Let's say we want a utility used like: `UtilityName [-s] [--name Bob] [6.1]`
     /// 
     /// This has one Option, one OptionParameter and a positional Operand
 #if CODE
-    class SimpleApplicationOptions : BaseCliArguments {
-        public SimpleApplicationOptions() : base("SimpleApp") { }
+    class SimpleCliArguments : BaseCliArguments {
+        public SimpleCliArguments() : base("SimpleApp") { }
 
         // Option
         [Option(LongName = "switch", 
@@ -64,21 +67,21 @@ namespace Website {
 
     class SimpleProgram {
         void main(string[] args) {
-            
-            // One line parsing of any `BaseApplicationOptions` implementation
-            var options = Cli.Parse<SimpleApplicationOptions>(args);
+
+            // One line parsing of any `BaseCliArguments` implementation
+            var arguments = Cli.Parse<SimpleCliArguments>(args);
 
             // Object oriented access to your arguments
-            Console.WriteLine($"The name is {options.Name}");
-            Console.WriteLine($"Switch flag: {options.Switch}");
-            Console.WriteLine($"Positional Operand 1: {options.FirstOperand}");
+            Console.WriteLine($"The name is {arguments.Name}");
+            Console.WriteLine($"Switch flag: {arguments.Switch}");
+            Console.WriteLine($"Positional Operand 1: {arguments.FirstOperand}");
         }
     }
 #endif
 
-    /// ## Attributes
+    /// ## CliArguments Attributes
     /// 
-    /// `BaseApplicationOptions` implementations use Attributes to define CLI functionality
+    /// `BaseCliArguments` implementations use Attributes to define CLI functionality
     /// 
     /// #### `[Option(LongName = string, ShortName = char)]`
     /// * **Apply to:** Class Properties
@@ -107,8 +110,8 @@ namespace Website {
     /// * **Detail:** Makes an Option or Operand mandatory for the user to provide
     /// 
     /// #### `[Help(detail = string)]`
-    /// * **Apply to:** Class Properties with any Option or Operand Attribute applied, or an ApplicationOptions Class
-    /// * **Detail:** Provides custom documentation on an Option, Operand or ApplicationOptions Class, which will be consumed by the help generator
+    /// * **Apply to:** Class Properties with any Option or Operand Attribute applied, or an CliArguments Class
+    /// * **Detail:** Provides custom documentation on an Option, Operand or CliArguments Class, which will be consumed by the help generator
     ///
 
 
@@ -118,8 +121,8 @@ namespace Website {
     /// 
     /// This is used like `UtilityName [ -v | --verbose ] [ -s | --subject "your subject" ] [ -i | --importance [ 1 | normal | 2 | high ] ] [message]`
 #if CODE
-    class MessagingApplicationOptions : BaseCliArguments {
-        public MessagingApplicationOptions() : base("Message Sender") { }
+    class MessagingCliArguments : BaseCliArguments {
+        public MessagingCliArguments() : base("Message Sender") { }
 
         // Verbose will be a familiar option to most CLI users
         [Option(LongName = "verbose", 
@@ -152,9 +155,9 @@ namespace Website {
     // Usage is then as simple as
     class MessagingProgram {
         void main(string[] args) {
-            var options = Cli.Parse<MessagingApplicationOptions>(args);
+            var arguments = Cli.Parse<MessagingCliArguments>(args);
 
-            // Use the options object...
+            // Use the arguments object...
         }
     }
 
@@ -183,18 +186,88 @@ namespace Website {
 #endif
     }
 
+    /// # CliCommands
+    /// 
+    /// ## Introduction
+    /// 
+    /// Although it's perfectly fine to only use a CliArguments class for a simple application, 
+    /// if you have multiple Commands, each with a different set of Arguments, you may want
+    /// to create multiple CliArguments classes and route to the correct one.
+    /// 
+    /// This is the purpose of `BaseCliCommands`.
+    /// 
+    /// ## Basic Usage
+#if CODE
+    class SimpleCliCommands : BaseCliCommands {
+
+        // A command is a Method which takes a `string[]`.
+        // You also need to apply a [Command(name)] attribute, 
+        // with the name of the command on the CLI
+        [Command("command1")]
+        public void Command1(string[] args) {
+            // var arguments = Cli.Parse<Command1CliArguments>(args);
+            // ...Application logic
+        }
+
+        // You can also define a Default command.
+        // This helps if you want a fallback when the user doesn't name a command
+        [DefaultCommand]
+        [Command("command2")]
+        public void Command2(string[] args) {
+            // var arguments = Cli.Parse<Command2CliArguments>(args);
+            // ...Application logic
+        }
+    }
+#endif
+
+    /// ## CliCommands Attributes
+    /// 
+    /// There are several attributes which can be applied to a CliCommands class
+    /// 
+    /// #### `[Command(Name = string)]`
+    /// * **Apply to:** Methods with the signature: `void MethodName(string[])`
+    /// * **Argument, Name:** This is the Command Name to be used on the CLI like: `Utility [Command Name] [options]`
+    /// * **Detail:** Defines a method as a Command to be routed to
+    /// 
+    /// #### `[DefaultCommand]`
+    /// * **Apply to:** Command Methods
+    /// * **Detail:** Defines a Command as the default when no Command is specified, otherwise the EntryPoint invokes --help
+    /// 
+    /// #### `[Help(detail = string)]`
+    /// * **Apply to:** CliCommands classes and Command Methods
+    /// * **Detail:** Provides custom documentation on a Command
+
+    /// # Other Tools
+    /// 
     /// ## Help Generator
     /// 
-    /// EntryPoint provides an automatic Help generator, which always owns the `-h` and `--help` Options.
+    /// EntryPoint provides an automatic Help generator, which always owns the `-h` and `--help` 
+    /// Options in both CliCommands and CliArguments instances.
     /// 
-    /// This sets the `BaseApplicationOptions.HelpRequested` property; every ApplicationOptions class therefore has it.
+    /// When --help is invoked by the user, the `.HelpRequested` is set on CliCommands/CliArguments and 
+    /// the virtual method `OnHelpInvoked(string helpText)` is invoked.
     /// 
-    /// It consumes the following information:
+    /// By overriding the `OnHelpInvoked` method on your CliCommands/CliArguments implementations 
+    /// you can print and exit, or do something equally appropriate to your program flow. 
+    /// Entrypoint does not try to control your usage of this.
+    /// 
+    /// The Help Generator consumes the following information for each class type:
 #if CODE
     [Help("This will be displayed as an initial blurb for the utility")]
-    class HelpApplicationOptions : BaseCliArguments {
-        public HelpApplicationOptions() 
-            : base(utilityName: "Displayed as the application name") { }
+    class HelpCliCommands : BaseCliCommands {
+
+        // [DefaultCommand]
+        // [Command(...)]
+        [Help("Displayed as instructions for a command")]
+        public void CommandMethod(string[] args) {
+            // ...
+        }
+    }
+
+    [Help("This will be displayed as an initial blurb for the command/utility")]
+    class HelpCliArguments : BaseCliArguments {
+        public HelpCliArguments()
+            : base(utilityName: "Displayed as the command/utility name") { }
 
         // [Option(...)]
         // [OptionParameter(...)]
@@ -206,21 +279,74 @@ namespace Website {
 
     /// A simple implementation would therefore look like this:
 #if CODE
-    class HelpProgram {
+    [Help("This will be displayed as an initial blurb for the utility")]
+    class ExampleHelpCliCommands : BaseCliCommands {
+
+        // [DefaultCommand]
+        [Command("command1")]
+        [Help("Some command that can be used")]
+        public void Command1(string[] args) {
+            // ...etc
+        }
+
+        // This will run if --help is invoked, print help and exit the program
+        public override void OnHelpInvoked(string helpText) {
+            Console.WriteLine(helpText);
+            Environment.Exit(0);
+        }
+    }
+
+    class CommandsHelpProgram {
         public void main(string[] args) {
-            var options = Cli.Parse<HelpApplicationOptions>(args);
-            if (options.HelpInvoked) {
-                string help = Cli.GetHelp<HelpApplicationOptions>();
-                Console.WriteLine(help);
-                Console.WriteLine("Press enter to exit...");
-                Console.ReadLine();
-                return;
+            var commands = Cli.Execute<ExampleHelpCliCommands>(args);
+            // Execution would not reach this point if --help is invoked, 
+            // since OnHelpInvoked would run and exit the program
+
+            // However, if you don't want to implement OnHelpInvoked, 
+            // you could also do this:
+            if (commands.HelpInvoked) {
+                // Return here, or run something else
             }
 
-            // Application code...
+            // Normal Post-Command Application code...
         }
     }
 #endif
+
+    /// The same thinking applies to CliArguments
+#if CODE
+    [Help("This will be displayed as an initial blurb for the command/utility")]
+    class ExampleHelpCliArguments : BaseCliArguments {
+        public ExampleHelpCliArguments()
+            : base(utilityName: "Displayed as the command/utility name") { }
+        
+        [OptionParameter(LongName = "value1")]
+        [Help("Some value to set")]
+        public bool Value1 { get; set; }
+
+        public override void OnHelpInvoked(string helpText) {
+            Console.WriteLine(helpText);
+            Environment.Exit(0);
+        }
+    }
+
+    class ArgumentsHelpProgram {
+        public void main(string[] args) {
+            var arguments = Cli.Parse<ExampleHelpCliArguments>(args);
+            // Execution would not reach this point if --help is invoked, 
+            // since OnHelpInvoked would run and exit the program
+
+            // However, if you don't want to implement OnHelpInvoked, 
+            // you could also do this:
+            if (arguments.HelpInvoked) {
+                // Return here, or run something else
+            }
+
+            // Normal Application code...
+        }
+    }
+#endif
+
     /// It is recommended that you always check for `.HelpRequested`, as invoking `--help`
     /// will disable exceptions for all `[Required]` Options or Operands. 
     /// Help is expected to take precedence over other options
