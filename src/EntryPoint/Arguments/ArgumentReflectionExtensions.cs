@@ -8,7 +8,26 @@ using System.Reflection;
 using EntryPoint.Helpers;
 
 namespace EntryPoint.Arguments {
-    public static class ArgumentReflectionExtensions {
+    internal static class ArgumentReflectionExtensions {
+
+        internal static List<Option> GetOptions(this BaseCliArguments cliArguments) {
+            return cliArguments.GetType().GetRuntimeProperties()
+                .Where(prop => prop.GetOptionDefinition() != null)
+                .Select(prop => new Option(prop))
+                .ToList();
+        }
+
+        internal static List<Operand> GetOperands(this BaseCliArguments cliArguments) {
+            return cliArguments.GetType().GetRuntimeProperties()
+                .Where(prop => prop.GetOperandDefinition() != null)
+                .Select(prop => new Operand(prop))
+                .ToList();
+        }
+
+        internal static HelpAttribute GetHelpAttribute(this BaseCliArguments cliArguments) {
+            return cliArguments.GetType().GetTypeInfo()
+                .GetHelp();
+        }
 
         internal static BaseOptionAttribute GetOptionDefinition(this PropertyInfo prop) {
             var attributes = prop.GetCustomAttributes<BaseOptionAttribute>().ToList();

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using System.Reflection;
 using EntryPoint.Helpers;
 using EntryPoint.Exceptions;
 using EntryPoint.Parsing;
@@ -15,23 +14,9 @@ namespace EntryPoint.Arguments {
 
         internal ArgumentModel(BaseCliArguments applicationOptions) {
             ApplicationOptions = applicationOptions;
-
-            // TODO: extract this reflection logic
-            var properties = applicationOptions.GetType().GetRuntimeProperties();
-
-            // Map Options Model
-            Options = properties
-                .Where(prop => prop.GetOptionDefinition() != null)
-                .Select(prop => new Option(prop))
-                .ToList();
-
-            // Map Operands Model
-            Operands = properties
-                .Where(prop => prop.GetOperandDefinition() != null)
-                .Select(prop => new Operand(prop))
-                .ToList();
-
-            Help = applicationOptions.GetType().GetTypeInfo().GetHelp();
+            Options = applicationOptions.GetOptions();
+            Operands = applicationOptions.GetOperands();
+            Help = applicationOptions.GetHelpAttribute();
         }
 
         // Help attribute applied to the class itself
