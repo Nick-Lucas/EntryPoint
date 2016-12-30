@@ -9,6 +9,7 @@ using EntryPoint.Internals;
 
 namespace EntryPoint.Arguments {
     public static class ArgumentReflectionExtensions {
+
         internal static BaseOptionAttribute GetOptionDefinition(this PropertyInfo prop) {
             var attributes = prop.GetCustomAttributes<BaseOptionAttribute>().ToList();
             if (attributes.Count > 1) {
@@ -29,4 +30,5 @@ namespace EntryPoint.Arguments {
             return prop.GetCustomAttribute<RequiredAttribute>() != null;
         }
     }
+
 }

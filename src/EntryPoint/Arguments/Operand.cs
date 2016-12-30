@@ -10,6 +10,7 @@ using System.Reflection;
 
 namespace EntryPoint.Arguments {
     internal class Operand {
+
         public Operand(PropertyInfo property) {
             Property = property;
             Definition = property.GetOperandDefinition();
@@ -32,4 +33,5 @@ namespace EntryPoint.Arguments {
         // Help attribute
         public HelpAttribute Help { get; internal set; }
     }
+
 }

@@ -9,6 +9,7 @@ using EntryPoint.Exceptions;
 using EntryPoint.Parsing;
 
 namespace EntryPoint.Arguments {
+
     internal class ArgumentModel {
         public BaseCliArguments ApplicationOptions { get; private set; }
 
@@ -123,4 +124,5 @@ namespace EntryPoint.Arguments {
                 + $"There are duplicate single dash arguments: {String.Join("/", duplicateOptionNames)}");
         }
     }
+
 }
