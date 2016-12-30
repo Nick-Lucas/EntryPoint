@@ -19,7 +19,7 @@ namespace Website {
         static void Main(string[] args) {
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en");
 
-            var layout = File.ReadAllText("../layout.html");
+            var layout = File.ReadAllText("./layout.html");
             layout = layout.Replace("{{description}}", "Composable CLI Argument Parser");
             layout = layout.Replace("{{version}}", GetVersion());
             layout = layout.Replace("{{updated_on}}", DateTime.Now.ToString("MMM d, yyyy"));
@@ -30,7 +30,7 @@ namespace Website {
 
             layout = layout.Replace("{{body}}", body);
             ValidateHeaderAnchors(headerIdList, layout);
-            File.WriteAllText("../www/index.html", layout);
+            File.WriteAllText("./www/index.html", layout);
 
             // Useful if we ever need to copy to the /docs directory again
             //var directory = new DirectoryInfo("../www/");
@@ -49,7 +49,7 @@ namespace Website {
         }
 
         static string PreprocessBody() {
-            var source = File.ReadAllLines("../Body.cs");
+            var source = File.ReadAllLines("./Body.cs");
             var result = new List<string>();
             List<string> currentCode = null;
 

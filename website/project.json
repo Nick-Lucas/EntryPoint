@@ -1,0 +1,16 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "MarkdownDeepNext.NET": "2.0.3",
+    "EntryPoint": "0.9.5"
+  },
+  "frameworks": {
+    "net452": {
+      
+    }
+  }
+}
