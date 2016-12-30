@@ -1,4 +1,4 @@
-﻿using EntryPoint.Internals;
+﻿using EntryPoint.Helpers;
 using EntryPoint.Parsing;
 using System;
 using System.Collections.Generic;
@@ -7,12 +7,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntryPoint.OptionModel {
-    internal static class Help {
+namespace EntryPoint.Arguments {
+    internal static class CliArgumentsHelp {
 
         // Given a Model, generates a string which can be printed to the CLI 
         // based on information provided by the ApplicationModel
-        public static string Generate(Model model) {
+        public static string Generate(ArgumentModel model) {
             StringBuilder builder = new StringBuilder();
             var options = model.Options.OrderBy(mo => mo.Definition.ShortName).ToList();
             var operands = model.Operands.OrderBy(mo => mo.Definition.Position).ToList();
@@ -40,12 +40,12 @@ namespace EntryPoint.OptionModel {
             return Assembly.GetEntryAssembly();
         }
 
-        static string GenerateUsageSummary(List<ModelOption> options, List<ModelOperand> operands) {
+        static string GenerateUsageSummary(List<Option> options, List<Operand> operands) {
             string utilityName = MainAssembly().GetName().Name;
             return $"   Usage:\n   {utilityName} [ -o | --option ] [ -p VALUE | --parameter VALUE ] [ operands ]";
         }
 
-        static string GenerateBreakdown(List<ModelOption> options, List<ModelOperand> operands) {
+        static string GenerateBreakdown(List<Option> options, List<Operand> operands) {
             StringBuilder breakdown = new StringBuilder();
 
             // For Options
@@ -71,14 +71,14 @@ namespace EntryPoint.OptionModel {
             return breakdown.ToString();
         }
 
-        static string GetParameterString(ModelOption option) {
+        static string GetParameterString(Option option) {
             if (option.TakesParameter) {
                 Type type = option.Property.PropertyType;
                 return $"[{GetTypeSummary(type)}] ";
             }
             return "";
         }
-        static string GetOperandTypeString(ModelOperand operand) {
+        static string GetOperandTypeString(Operand operand) {
             Type type = operand.Property.PropertyType;
             return $"[{GetTypeSummary(type)}] ";
         }
@@ -93,7 +93,7 @@ namespace EntryPoint.OptionModel {
             }
         }
 
-        static string GetNamesSummary(ModelOption option) {
+        static string GetNamesSummary(Option option) {
             bool hasShort = option.Definition.ShortName > char.MinValue;
             bool hasLong = option.Definition.LongName.Length > 0;
 

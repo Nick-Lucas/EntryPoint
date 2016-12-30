@@ -7,7 +7,7 @@ using EntryPoint;
 using EntryPointTests.Helpers;
 
 namespace EntryPointTests.AppOptionModels {
-    public class OperandArgsModel : BaseApplicationOptions {
+    public class OperandArgsModel : BaseCliArguments {
         [Option(
             LongName = "opt-1")]
         public bool Opt1 { get; set; }

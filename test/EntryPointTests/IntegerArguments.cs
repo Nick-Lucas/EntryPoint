@@ -14,7 +14,7 @@ namespace EntryPointTests {
         public void NotProvided() {
             string[] args = new string[] { };
 
-            var model = EntryPointApi.Parse<IntegerArgsModel>(args);
+            var model = Cli.Parse<IntegerArgsModel>(args);
 
             Assert.StrictEqual(null, model.DefaultNull);
             Assert.StrictEqual(0, model.DefaultZero);
@@ -29,7 +29,7 @@ namespace EntryPointTests {
                 "--default-7", "3"
             };
 
-            var model = EntryPointApi.Parse<IntegerArgsModel>(args);
+            var model = Cli.Parse<IntegerArgsModel>(args);
 
             Assert.StrictEqual(1, model.DefaultNull);
             Assert.StrictEqual(2, model.DefaultZero);
@@ -45,7 +45,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<IntegerArgsModel>(args));
+                () => Cli.Parse<IntegerArgsModel>(args));
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<IntegerArgsModel>(args));
+                () => Cli.Parse<IntegerArgsModel>(args));
         }
     }
 }

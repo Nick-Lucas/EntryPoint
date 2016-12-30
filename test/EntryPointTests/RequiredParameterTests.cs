@@ -17,7 +17,7 @@ namespace EntryPointTests {
                 "--param-optional", "2",
             };
 
-            var model = EntryPointApi.Parse<RequiredParameterArgsModel>(args);
+            var model = Cli.Parse<RequiredParameterArgsModel>(args);
 
             Assert.StrictEqual(1, model.ParamRequired);
             Assert.StrictEqual(2, model.ParamOptional);
@@ -30,7 +30,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<RequiredException>(
-                () => EntryPointApi.Parse<RequiredParameterArgsModel>(args));
+                () => Cli.Parse<RequiredParameterArgsModel>(args));
         }
     }
 }

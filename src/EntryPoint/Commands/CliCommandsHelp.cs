@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Reflection;
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 
-namespace EntryPoint.CommandModel {
-    internal static class CommandHelpGenerator {
+namespace EntryPoint.Commands {
+    internal static class CliCommandsHelp {
         public static string Generate(CommandModel model) {
             StringBuilder builder = new StringBuilder();
 

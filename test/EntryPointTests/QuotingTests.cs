@@ -18,7 +18,7 @@ namespace EntryPointTests {
                 "--default-null", "hello world"
             };
 
-            var model = EntryPointApi.Parse<StringArgsModel>(args);
+            var model = Cli.Parse<StringArgsModel>(args);
 
             Assert.StrictEqual("hello world", model.DefaultNull);
         }
@@ -31,7 +31,7 @@ namespace EntryPointTests {
                 "--default-null=hello world"
             };
 
-            var model = EntryPointApi.Parse<StringArgsModel>(args);
+            var model = Cli.Parse<StringArgsModel>(args);
 
             Assert.StrictEqual("hello world", model.DefaultNull);
         }
@@ -44,7 +44,7 @@ namespace EntryPointTests {
                 "--default-null", "hello world,goodbye"
             };
 
-            var model = EntryPointApi.Parse<StringArgsModel>(args);
+            var model = Cli.Parse<StringArgsModel>(args);
 
             Assert.StrictEqual("hello world,goodbye", model.DefaultNull);
         }
@@ -59,7 +59,7 @@ namespace EntryPointTests {
                 "--default-null", "hello,world,goodbye"
             };
 
-            var model = EntryPointApi.Parse<StringArgsModel>(args);
+            var model = Cli.Parse<StringArgsModel>(args);
 
             Assert.StrictEqual("hello,world,goodbye", model.DefaultNull);
         }

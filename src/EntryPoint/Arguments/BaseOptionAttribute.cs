@@ -1,11 +1,11 @@
-﻿using EntryPoint.OptionStrategies;
+﻿using EntryPoint.Arguments.OptionStrategies;
 using EntryPoint.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EntryPoint.Internals {
+namespace EntryPoint.Arguments {
 
     /// <summary>
     /// The Base class for all argument attributes

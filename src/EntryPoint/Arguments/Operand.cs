@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
-using EntryPoint.Internals;
-using EntryPoint.OptionStrategies;
+using EntryPoint.Helpers;
+using EntryPoint.Arguments.OptionStrategies;
 using System.Reflection;
 
-namespace EntryPoint.OptionModel {
-    internal class ModelOperand {
-        public ModelOperand(PropertyInfo property) {
+namespace EntryPoint.Arguments {
+    internal class Operand {
+
+        public Operand(PropertyInfo property) {
             Property = property;
             Definition = property.GetOperandDefinition();
             Required = property.HasRequiredAttribute();
@@ -32,4 +33,5 @@ namespace EntryPoint.OptionModel {
         // Help attribute
         public HelpAttribute Help { get; internal set; }
     }
+
 }

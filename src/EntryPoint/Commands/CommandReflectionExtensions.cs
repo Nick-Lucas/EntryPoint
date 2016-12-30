@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using System.Reflection;
-using EntryPoint.CommandModel;
+using EntryPoint.Commands;
 
-namespace EntryPoint.CommandModel {
+namespace EntryPoint.Commands {
     internal static class CommandReflectionExtensions {
 
-        // Get a list of all commands in a BaseCommands class
-        public static List<Command> GetCommands(this BaseCommands baseCommands) {
+        // Get a list of all commands in a BaseCliCommands class
+        public static List<Command> GetCommands(this BaseCliCommands baseCommands) {
             return baseCommands.GetType().GetRuntimeMethods()
                 .Where(method => method.GetCommandDefinition() != null)
                 .Select(method => new Command(baseCommands, method))
@@ -35,7 +35,7 @@ namespace EntryPoint.CommandModel {
         }
 
         // Get the implemented Help command
-        public static HelpCommand GetHelpCommand(this BaseCommands baseCommands) {
+        public static HelpCommand GetHelpCommand(this BaseCliCommands baseCommands) {
             return baseCommands.GetType().GetRuntimeMethods()
                 .Where(method => method.HasHelpCommandAttribute())
                 .Select(method => new HelpCommand(baseCommands, method))

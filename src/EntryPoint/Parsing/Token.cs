@@ -1,4 +1,4 @@
-﻿using EntryPoint.OptionModel;
+﻿using EntryPoint.Arguments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,14 +25,14 @@ namespace EntryPoint.Parsing {
         // Determines if this token is a -o option
         public bool IsSingleDashOption() {
             return this.IsOption
-                && this.Value.StartsWith(EntryPointApi.DASH_SINGLE)
-               && !this.Value.StartsWith(EntryPointApi.DASH_DOUBLE);
+                && this.Value.StartsWith(Cli.DASH_SINGLE)
+               && !this.Value.StartsWith(Cli.DASH_DOUBLE);
         }
 
         // Determines if this token is a --opt option
         public bool IsDoubleDashOption() {
             return this.IsOption
-                && this.Value.StartsWith(EntryPointApi.DASH_DOUBLE);
+                && this.Value.StartsWith(Cli.DASH_DOUBLE);
         }
 
         // Splits a -o option token into multiple tokens like:
@@ -47,19 +47,19 @@ namespace EntryPoint.Parsing {
 
             return this
                 .Value
-                .Trim(EntryPointApi.DASH_SINGLE.ToCharArray())
+                .Trim(Cli.DASH_SINGLE.ToCharArray())
                 .ToCharArray()
-                .Select(c => new Token(EntryPointApi.DASH_SINGLE + c, true))
+                .Select(c => new Token(Cli.DASH_SINGLE + c, true))
                 .ToList();
         }
 
 
 
         // Check if a ModelOption is being called by an option token
-        public bool InvokesOption(ModelOption option) {
+        public bool InvokesOption(Option option) {
             return ((this.IsSingleDashOption() && this.Value.Contains(option.Definition.ShortName))
                  || (this.IsDoubleDashOption() && this.Value.StartsWith(
-                            EntryPointApi.DASH_DOUBLE + option.Definition.LongName,
+                            Cli.DASH_DOUBLE + option.Definition.LongName,
                             StringComparison.CurrentCultureIgnoreCase)));
         }
     }

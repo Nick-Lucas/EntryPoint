@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.AppOptionModels {
-    public class OptionArgsModel : BaseApplicationOptions {
+    public class OptionArgsModel : BaseCliArguments {
         [Option(
             LongName = "my-option",
             ShortName = 'o')]

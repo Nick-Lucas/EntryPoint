@@ -4,15 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using System.Reflection;
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 using EntryPoint.Exceptions;
 using EntryPoint.Parsing;
 
-namespace EntryPoint.OptionModel {
-    internal class Model {
-        public BaseApplicationOptions ApplicationOptions { get; private set; }
+namespace EntryPoint.Arguments {
 
-        internal Model(BaseApplicationOptions applicationOptions) {
+    internal class ArgumentModel {
+        public BaseCliArguments ApplicationOptions { get; private set; }
+
+        internal ArgumentModel(BaseCliArguments applicationOptions) {
             ApplicationOptions = applicationOptions;
 
             // TODO: extract this reflection logic
@@ -21,13 +22,13 @@ namespace EntryPoint.OptionModel {
             // Map Options Model
             Options = properties
                 .Where(prop => prop.GetOptionDefinition() != null)
-                .Select(prop => new ModelOption(prop))
+                .Select(prop => new Option(prop))
                 .ToList();
 
             // Map Operands Model
             Operands = properties
                 .Where(prop => prop.GetOperandDefinition() != null)
-                .Select(prop => new ModelOperand(prop))
+                .Select(prop => new Operand(prop))
                 .ToList();
 
             Help = applicationOptions.GetType().GetTypeInfo().GetHelp();
@@ -37,13 +38,13 @@ namespace EntryPoint.OptionModel {
         public HelpAttribute Help { get; private set; }
 
         // Options defined by the class
-        public List<ModelOption> Options { get; set; }
+        public List<Option> Options { get; set; }
 
         // Operands defined by the class
-        public List<ModelOperand> Operands { get; set; }
+        public List<Operand> Operands { get; set; }
 
         // Find the ModelOption for the given Token, or null
-        public ModelOption FindOptionByToken(Token token) {
+        public Option FindOptionByToken(Token token) {
             var option = this.Options
                 .FirstOrDefault(o => token.InvokesOption(o));
             if (option == null) {
@@ -54,7 +55,7 @@ namespace EntryPoint.OptionModel {
             return option;
         }
 
-        public List<ModelOption> WhereOptionsNotIn(List<TokenGroup> tokenGroups) {
+        public List<Option> WhereOptionsNotIn(List<TokenGroup> tokenGroups) {
             return this.Options
                 .Where(o => !tokenGroups.Any(tg => tg.Option.InvokesOption(o)))
                 .ToList();
@@ -119,8 +120,9 @@ namespace EntryPoint.OptionModel {
         }
         static void AssertDuplicateOptionsInModel(List<string> duplicateOptionNames) {
             throw new InvalidModelException(
-                $"The given {nameof(BaseApplicationOptions)} implementation was invalid. "
+                $"The given {nameof(BaseCliArguments)} implementation was invalid. "
                 + $"There are duplicate single dash arguments: {String.Join("/", duplicateOptionNames)}");
         }
     }
+
 }

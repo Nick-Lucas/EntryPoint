@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 using System.Reflection;
 
-namespace EntryPoint.OptionStrategies {
+namespace EntryPoint.Arguments.OptionStrategies {
     internal static class ValueConverter {
 
         // Sanitise values before trying to store them

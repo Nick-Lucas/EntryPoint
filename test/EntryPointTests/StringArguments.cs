@@ -14,7 +14,7 @@ namespace EntryPointTests {
         public void NotProvided() {
             string[] args = new string[] { };
 
-            var model = EntryPointApi.Parse<StringArgsModel>(args);
+            var model = Cli.Parse<StringArgsModel>(args);
 
             Assert.StrictEqual(null, model.DefaultNull);
             Assert.StrictEqual("NoName", model.DefaultNoName);
@@ -27,7 +27,7 @@ namespace EntryPointTests {
                 "--default-no-name", "judy"
             };
 
-            var model = EntryPointApi.Parse<StringArgsModel>(args);
+            var model = Cli.Parse<StringArgsModel>(args);
 
             Assert.StrictEqual("punch", model.DefaultNull);
             Assert.StrictEqual("judy", model.DefaultNoName);
@@ -41,7 +41,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<StringArgsModel>(args));
+                () => Cli.Parse<StringArgsModel>(args));
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<StringArgsModel>(args));
+                () => Cli.Parse<StringArgsModel>(args));
         }
     }
 }

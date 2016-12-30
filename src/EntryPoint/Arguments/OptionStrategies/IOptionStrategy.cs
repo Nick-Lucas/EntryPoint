@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 using EntryPoint.Parsing;
-using EntryPoint.OptionModel;
+using EntryPoint.Arguments;
 
-namespace EntryPoint.OptionStrategies {
+namespace EntryPoint.Arguments.OptionStrategies {
 
     internal interface IOptionStrategy {
-        object GetValue(ModelOption modelOption, TokenGroup tokenGroup);
+        object GetValue(Option modelOption, TokenGroup tokenGroup);
         bool RequiresParameter { get; }
     }
 

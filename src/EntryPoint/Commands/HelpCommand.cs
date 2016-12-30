@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 
-namespace EntryPoint.CommandModel {
+namespace EntryPoint.Commands {
     internal class HelpCommand : BaseCommand {
-        internal HelpCommand(BaseCommands baseCommands, MethodInfo method) 
+        internal HelpCommand(BaseCliCommands baseCommands, MethodInfo method) 
             : base(baseCommands, method) { }
 
         public void Execute(CommandModel model, string message = null) {
             string spacer = message == null ? "" : "\n\n";
-            string help = CommandHelpGenerator.Generate(model);
+            string help = CliCommandsHelp.Generate(model);
             string fullHelp = $"{message}{spacer}{help}";
             
             try {

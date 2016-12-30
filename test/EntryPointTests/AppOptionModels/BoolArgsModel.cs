@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.AppOptionModels {
-    public class BoolArgsModel : BaseApplicationOptions {
+    public class BoolArgsModel : BaseCliArguments {
         [OptionParameter(
             LongName = "default-false",
             ShortName = 'a')]

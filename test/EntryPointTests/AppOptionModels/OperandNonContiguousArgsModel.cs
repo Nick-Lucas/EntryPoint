@@ -7,7 +7,7 @@ using EntryPoint;
 using EntryPointTests.Helpers;
 
 namespace EntryPointTests.AppOptionModels {
-    public class OperandNonContiguousArgsModel : BaseApplicationOptions {
+    public class OperandNonContiguousArgsModel : BaseCliArguments {
         [Operand(1)]
         public string Name { get; set; } = "NoName";
 

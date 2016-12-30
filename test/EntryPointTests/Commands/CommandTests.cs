@@ -14,13 +14,14 @@ namespace EntryPointTests.Commands {
 
         // ** Basic Command Handling **
 
-        // If no command passed in, there is no default set, so we will get a RequiredException
+        // If no command passed in, there is no default set, we will get routed to the Help method
         [Fact]
         public void Commands_ExecuteNothing_NoDefaults() {
             string[] args = { };
 
-            Assert.Throws<RequiredException>(
-                () => EntryPointApi.ExecuteCommand<CommandModel_NoDefaults>(args));
+            Assert.Throws<CommandExecutedException>(
+                "HELP",
+                () => Cli.Execute<CommandModel_NoDefaults>(args));
         }
 
         // If no command passed in, we will default to the [DefaultCommand] attribute
@@ -30,7 +31,7 @@ namespace EntryPointTests.Commands {
 
             Assert.Throws<CommandExecutedException>(
                 "C2",
-                () => EntryPointApi.ExecuteCommand<CommandModel_Defaults>(args));
+                () => Cli.Execute<CommandModel_Defaults>(args));
         }
 
         // Pass in command, should be executed with a default set
@@ -40,7 +41,7 @@ namespace EntryPointTests.Commands {
 
             Assert.Throws<CommandExecutedException>(
                 "C1",
-                () => EntryPointApi.ExecuteCommand<CommandModel_Defaults>(args));
+                () => Cli.Execute<CommandModel_Defaults>(args));
         }
 
         // Pass in command, should be executed wih no default set
@@ -50,7 +51,7 @@ namespace EntryPointTests.Commands {
 
             Assert.Throws<CommandExecutedException>(
                 "C1",
-                () => EntryPointApi.ExecuteCommand<CommandModel_NoDefaults>(args));
+                () => Cli.Execute<CommandModel_NoDefaults>(args));
         }
 
 
@@ -64,7 +65,7 @@ namespace EntryPointTests.Commands {
 
             Assert.Throws<CommandExecutedException>(
                 "C1 " + string.Join(" ", expected),
-                () => EntryPointApi.ExecuteCommand<CommandModel_Executable>(args));
+                () => Cli.Execute<CommandModel_Executable>(args));
         }
 
         // Pass in no command with options, should be executed and pass on all arguments
@@ -75,7 +76,7 @@ namespace EntryPointTests.Commands {
 
             Assert.Throws<CommandExecutedException>(
                 "C2 " + string.Join(" ", expected),
-                () => EntryPointApi.ExecuteCommand<CommandModel_Executable>(args));
+                () => Cli.Execute<CommandModel_Executable>(args));
         }
 
 
@@ -88,7 +89,7 @@ namespace EntryPointTests.Commands {
 
             Assert.Throws<CommandExecutedException>(
                 "HELP",
-                () => EntryPointApi.ExecuteCommand<CommandModel_Help>(args));
+                () => Cli.Execute<CommandModel_Help>(args));
         }
 
         // Call COMMAND --help, expect to be sent to the command
@@ -98,7 +99,7 @@ namespace EntryPointTests.Commands {
 
             Assert.Throws<CommandExecutedException>(
                 "C1",
-                () => EntryPointApi.ExecuteCommand<CommandModel_Help>(args));
+                () => Cli.Execute<CommandModel_Help>(args));
         }
 
         // Call --help with other args, expect to be sent to the help method and discard the args
@@ -108,7 +109,7 @@ namespace EntryPointTests.Commands {
 
             Assert.Throws<CommandExecutedException>(
                 "HELP",
-                () => EntryPointApi.ExecuteCommand<CommandModel_Help>(args));
+                () => Cli.Execute<CommandModel_Help>(args));
         }
 
 
@@ -120,7 +121,7 @@ namespace EntryPointTests.Commands {
             string[] args = new string[] { };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.ExecuteCommand<CommandModel_DuplicateNames>(args));
+                () => Cli.Execute<CommandModel_DuplicateNames>(args));
         }
 
         // Pass model with 2 defaults
@@ -129,7 +130,7 @@ namespace EntryPointTests.Commands {
             string[] args = new string[] { };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.ExecuteCommand<CommandModel_TwoDefaults>(args));
+                () => Cli.Execute<CommandModel_TwoDefaults>(args));
         }
 
         // Check validation of Method
@@ -138,7 +139,7 @@ namespace EntryPointTests.Commands {
             string[] args = { "C1" };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.ExecuteCommand<CommandModel_MethodSig_NoArgs>(args));
+                () => Cli.Execute<CommandModel_MethodSig_NoArgs>(args));
         }
 
         // Check validation of Method
@@ -147,7 +148,7 @@ namespace EntryPointTests.Commands {
             string[] args = { "C1" };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.ExecuteCommand<CommandModel_MethodSig_ManyArgs>(args));
+                () => Cli.Execute<CommandModel_MethodSig_ManyArgs>(args));
         }
 
         // Check validation of Method
@@ -157,7 +158,7 @@ namespace EntryPointTests.Commands {
 
             Assert.Throws<CommandExecutedException>(
                 "C1",
-                () => EntryPointApi.ExecuteCommand<CommandModel_NoDefaults>(args));
+                () => Cli.Execute<CommandModel_NoDefaults>(args));
         }
     }
 }

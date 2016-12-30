@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 
 using EntryPoint.Exceptions;
 using System.Reflection;
+using EntryPoint.Helpers;
 
-namespace EntryPoint.Internals {
-    internal static class ReflectionExtensions {
+namespace EntryPoint.Arguments {
+    public static class ArgumentReflectionExtensions {
+
         internal static BaseOptionAttribute GetOptionDefinition(this PropertyInfo prop) {
             var attributes = prop.GetCustomAttributes<BaseOptionAttribute>().ToList();
             if (attributes.Count > 1) {
@@ -27,22 +29,6 @@ namespace EntryPoint.Internals {
         internal static bool HasRequiredAttribute(this PropertyInfo prop) {
             return prop.GetCustomAttribute<RequiredAttribute>() != null;
         }
-
-        // Get the HelpAttribute from a class or property
-        internal static HelpAttribute GetHelp(this MemberInfo member) {
-            return member.GetCustomAttribute<HelpAttribute>()
-                ?? new HelpAttribute();
-        }
-
-        // Get the HelpAttribute from a class or property
-        internal static HelpAttribute GetHelp(this MethodInfo member) {
-            return member.GetCustomAttribute<HelpAttribute>()
-                ?? new HelpAttribute();
-        }
-
-        // Get the base type without using reflection elsewhere
-        internal static Type BaseType(this Type type) {
-            return type.GetTypeInfo().BaseType;
-        }
     }
+
 }

@@ -14,7 +14,7 @@ namespace EntryPointTests {
         public void NotProvided() {
             string[] args = new string[] { };
 
-            var model = EntryPointApi.Parse<OptionArgsModel>(args);
+            var model = Cli.Parse<OptionArgsModel>(args);
 
             Assert.StrictEqual(false, model.Option);
         }
@@ -25,7 +25,7 @@ namespace EntryPointTests {
                 "--my-option"
             };
 
-            var model = EntryPointApi.Parse<OptionArgsModel>(args);
+            var model = Cli.Parse<OptionArgsModel>(args);
 
             Assert.StrictEqual(true, model.Option);
         }
@@ -36,7 +36,7 @@ namespace EntryPointTests {
                 "-o"
             };
 
-            var model = EntryPointApi.Parse<OptionArgsModel>(args);
+            var model = Cli.Parse<OptionArgsModel>(args);
 
             Assert.StrictEqual(true, model.Option);
         }
@@ -48,7 +48,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<UnkownOptionException>(
-                () => EntryPointApi.Parse<OptionArgsModel>(args));
+                () => Cli.Parse<OptionArgsModel>(args));
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace EntryPointTests {
                 "--MY-option"
             };
 
-            var model = EntryPointApi.Parse<OptionArgsModel>(args);
+            var model = Cli.Parse<OptionArgsModel>(args);
 
             Assert.StrictEqual(true, model.Option);
         }

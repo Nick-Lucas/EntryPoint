@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.AppOptionModels {
-    public class HelpWithRequiredArgsModel : BaseApplicationOptions {
+    public class HelpWithRequiredArgsModel : BaseCliArguments {
         public HelpWithRequiredArgsModel() : base("APP_NAME") { }
 
         [Required]

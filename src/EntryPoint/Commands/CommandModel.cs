@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 using EntryPoint.Exceptions;
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 
-namespace EntryPoint.CommandModel {
+namespace EntryPoint.Commands {
     internal class CommandModel {
-        internal CommandModel(BaseCommands baseCommands) {
+        internal CommandModel(BaseCliCommands baseCommands) {
             CommandsClass = baseCommands;
             Commands = baseCommands.GetCommands();
             DefaultCommand = GetDefaultCommandOrNull(Commands);
@@ -29,7 +29,7 @@ namespace EntryPoint.CommandModel {
 
         // ** Properties **
 
-        public BaseCommands CommandsClass { get; private set; }
+        public BaseCliCommands CommandsClass { get; private set; }
         public List<Command> Commands { get; private set; }
         public Command DefaultCommand { get; private set; }
         public HelpCommand HelpCommand { get; private set; }
@@ -95,7 +95,7 @@ namespace EntryPoint.CommandModel {
                 .Duplicates();
             if (duplicates.Any()) {
                 throw new InvalidModelException(
-                    $"There are duplicate command names in this {nameof(BaseCommands)} "
+                    $"There are duplicate command names in this {nameof(BaseCliCommands)} "
                     + $"implementation: {string.Join(", ", duplicates)}");
             }
         }

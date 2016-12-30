@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EntryPoint.OptionStrategies {
+namespace EntryPoint.Arguments.OptionStrategies {
 
     internal static class OptionStrategyFactory {
         public static IOptionStrategy Option {

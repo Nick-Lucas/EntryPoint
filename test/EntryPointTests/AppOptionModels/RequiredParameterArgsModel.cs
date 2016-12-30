@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.AppOptionModels {
-    public class RequiredParameterArgsModel : BaseApplicationOptions {
+    public class RequiredParameterArgsModel : BaseCliArguments {
         [OptionParameter(
             LongName = "param-required",
             ShortName = 'r')]

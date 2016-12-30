@@ -7,7 +7,7 @@ using EntryPoint;
 using EntryPointTests.Helpers;
 
 namespace EntryPointTests.AppOptionModels {
-    public class OperandRequiredArgsModel : BaseApplicationOptions {
+    public class OperandRequiredArgsModel : BaseCliArguments {
         [Operand(1)]
         [Required]
         public string Name { get; set; }

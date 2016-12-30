@@ -4,12 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using System.Reflection;
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 
-namespace EntryPoint.OptionModel {
+namespace EntryPoint.Arguments {
 
-    internal class ModelOption {
-        internal ModelOption(PropertyInfo property) {
+    internal class Option {
+        internal Option(PropertyInfo property) {
             Property = property;
             Definition = property.GetOptionDefinition();
             Required = property.HasRequiredAttribute();

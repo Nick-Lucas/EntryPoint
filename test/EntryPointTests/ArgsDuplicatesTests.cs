@@ -17,7 +17,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<DuplicateOptionException>(
-                () => EntryPointApi.Parse<DuplicateArgumentsModel>(args));
+                () => Cli.Parse<DuplicateArgumentsModel>(args));
         }
         [Fact]
         public void DuplicateArgs_Single_alt() {
@@ -26,7 +26,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<DuplicateOptionException>(
-                () => EntryPointApi.Parse<DuplicateArgumentsModel>(args));
+                () => Cli.Parse<DuplicateArgumentsModel>(args));
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<DuplicateOptionException>(
-                () => EntryPointApi.Parse<DuplicateArgumentsModel>(args));
+                () => Cli.Parse<DuplicateArgumentsModel>(args));
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<DuplicateOptionException>(
-                () => EntryPointApi.Parse<DuplicateArgumentsModel>(args));
+                () => Cli.Parse<DuplicateArgumentsModel>(args));
         }
 
         [Fact]
@@ -55,7 +55,7 @@ namespace EntryPointTests {
                 "-a", "-A"
             };
 
-            EntryPointApi.Parse<DuplicateArgumentsModel>(args);
+            Cli.Parse<DuplicateArgumentsModel>(args);
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace EntryPointTests {
                 "-aA"
             };
 
-            EntryPointApi.Parse<DuplicateArgumentsModel>(args);
+            Cli.Parse<DuplicateArgumentsModel>(args);
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<DuplicateOptionException>(
-                () => EntryPointApi.Parse<DuplicateArgumentsModel>(args));
+                () => Cli.Parse<DuplicateArgumentsModel>(args));
         }
     }
 }

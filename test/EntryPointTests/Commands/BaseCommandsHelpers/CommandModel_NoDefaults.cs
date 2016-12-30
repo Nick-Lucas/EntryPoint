@@ -7,7 +7,7 @@ using EntryPoint;
 using EntryPointTests.Commands.Helpers;
 
 namespace EntryPointTests.Commands.BaseCommandsHelpers {
-    public class CommandModel_NoDefaults : BaseCommands {
+    public class CommandModel_NoDefaults : BaseCliCommands {
         [Command("C1")]
         public void Command1(string[] args) {
             throw new CommandExecutedException("C1");
@@ -19,7 +19,7 @@ namespace EntryPointTests.Commands.BaseCommandsHelpers {
         }
 
         public override void Help(string commandsHelpText) {
-            throw new NotImplementedException();
+            throw new CommandExecutedException("HELP");
         }
     }
 }
