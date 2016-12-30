@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using EntryPoint.Arguments;
 using EntryPoint.Parsing;
 
-namespace EntryPoint.OptionStrategies {
+namespace EntryPoint.Arguments.OptionStrategies {
     internal class OperandStrategy {
         public object GetValue(Operand modelOperand, ParseResult parseResult) {
             int position = modelOperand.Definition.Position;

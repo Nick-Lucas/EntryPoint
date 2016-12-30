@@ -8,7 +8,7 @@ using EntryPoint.Helpers;
 using EntryPoint.Parsing;
 using EntryPoint.Arguments;
 
-namespace EntryPoint.OptionStrategies {
+namespace EntryPoint.Arguments.OptionStrategies {
 
     internal class OptionParameterStrategy : IOptionStrategy {
         internal OptionParameterStrategy() { }

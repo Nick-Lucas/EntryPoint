@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint.Helpers;
 using System.Reflection;
 
-namespace EntryPoint.OptionStrategies {
+namespace EntryPoint.Arguments.OptionStrategies {
     internal static class ValueConverter {
 
         // Sanitise values before trying to store them

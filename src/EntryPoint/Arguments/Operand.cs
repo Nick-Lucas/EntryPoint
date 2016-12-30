@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 using EntryPoint.Helpers;
-using EntryPoint.OptionStrategies;
+using EntryPoint.Arguments.OptionStrategies;
 using System.Reflection;
 
 namespace EntryPoint.Arguments {

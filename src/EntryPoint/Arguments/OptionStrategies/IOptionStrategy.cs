@@ -7,7 +7,7 @@ using EntryPoint.Helpers;
 using EntryPoint.Parsing;
 using EntryPoint.Arguments;
 
-namespace EntryPoint.OptionStrategies {
+namespace EntryPoint.Arguments.OptionStrategies {
 
     internal interface IOptionStrategy {
         object GetValue(Option modelOption, TokenGroup tokenGroup);
