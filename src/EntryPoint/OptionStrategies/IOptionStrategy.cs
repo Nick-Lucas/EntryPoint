@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint.Internals;
 using EntryPoint.Parsing;
-using EntryPoint.OptionModel;
+using EntryPoint.ArgumentModel;
 
 namespace EntryPoint.OptionStrategies {
 

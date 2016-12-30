@@ -1,5 +1,5 @@
 ﻿using EntryPoint.Exceptions;
-using EntryPoint.OptionModel;
+using EntryPoint.ArgumentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

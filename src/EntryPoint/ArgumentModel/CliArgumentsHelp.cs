@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntryPoint.OptionModel {
+namespace EntryPoint.ArgumentModel {
     internal static class CliArgumentsHelp {
 
         // Given a Model, generates a string which can be printed to the CLI 

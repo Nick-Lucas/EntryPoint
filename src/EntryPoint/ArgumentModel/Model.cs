@@ -8,7 +8,7 @@ using EntryPoint.Internals;
 using EntryPoint.Exceptions;
 using EntryPoint.Parsing;
 
-namespace EntryPoint.OptionModel {
+namespace EntryPoint.ArgumentModel {
     internal class Model {
         public BaseCliArguments ApplicationOptions { get; private set; }
 

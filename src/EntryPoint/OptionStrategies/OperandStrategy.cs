@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EntryPoint.OptionModel;
+using EntryPoint.ArgumentModel;
 using EntryPoint.Parsing;
 
 namespace EntryPoint.OptionStrategies {
