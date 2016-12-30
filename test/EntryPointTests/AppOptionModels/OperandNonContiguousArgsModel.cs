@@ -20,9 +20,5 @@ namespace EntryPointTests.AppOptionModels {
 
         [Operand(4)]
         public Enum1 Enum { get; set; }
-
-        public override void OnHelpInvoked(string helpText) {
-            throw new NotImplementedException();
-        }
     }
 }

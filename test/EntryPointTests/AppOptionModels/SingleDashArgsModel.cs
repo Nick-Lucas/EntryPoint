@@ -21,9 +21,5 @@ namespace EntryPointTests.AppOptionModels {
             LongName = "opt3",
             ShortName = 'c')]
         public string Opt3 { get; set; }
-
-        public override void OnHelpInvoked(string helpText) {
-            throw new NotImplementedException();
-        }
     }
 }
