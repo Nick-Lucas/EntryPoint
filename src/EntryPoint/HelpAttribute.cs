@@ -9,6 +9,7 @@ namespace EntryPoint {
     /// Used to provide additional information to display in the --help Option. May be applied to:
     /// Class: for a description of the utility
     /// Property: for a description of the option's usage
+    /// Method: for a Command class's command methods
     /// </summary>
     [AttributeUsage(
         AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method,

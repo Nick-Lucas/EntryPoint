@@ -8,6 +8,7 @@ namespace EntryPoint.CommandModel {
         AttributeTargets.Method, 
         AllowMultiple = false, 
         Inherited = true)]
-    public class HelpCommandAttribute : Attribute {
+    internal class HelpCommandAttribute : Attribute {
+
     }
 }

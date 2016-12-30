@@ -81,7 +81,6 @@ namespace EntryPointTests.Commands {
 
         // ** Help Handling **
 
-
         // Call --help, expect to be sent straight to the help method
         [Fact]
         public void Commands_ExecuteHelp() {

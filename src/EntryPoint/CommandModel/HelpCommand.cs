@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using System.Reflection;
 
 namespace EntryPoint.CommandModel {
-    public class HelpCommand : BaseCommand {
-        public HelpCommand(BaseCommands baseCommands, MethodInfo method) 
+    internal class HelpCommand : BaseCommand {
+        internal HelpCommand(BaseCommands baseCommands, MethodInfo method) 
             : base(baseCommands, method) { }
 
         public void Execute(CommandModel model) {

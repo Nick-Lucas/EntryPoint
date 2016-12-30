@@ -6,18 +6,17 @@ using System.Threading.Tasks;
 using System.Reflection;
 
 namespace EntryPoint.CommandModel {
-    public class Command : BaseCommand {
+    internal class Command : BaseCommand {
+        internal Command(BaseCommands parent, MethodInfo method) : base(parent, method) {
+            Definition = method.GetCommandDefinition();
+            Default = method.HasDefaultCommandAttribute();
+        }
 
         // Command definition
         public CommandAttribute Definition { get; private set; }
 
         // Whether this Command is marked as default
         public bool Default { get; set; }
-
-        public Command(BaseCommands parent, MethodInfo method) : base(parent, method) {
-            Definition = method.GetCommandDefinition();
-            Default = method.HasDefaultCommandAttribute();
-        }
 
 
         // ** Execution **

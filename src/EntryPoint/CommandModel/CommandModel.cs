@@ -8,8 +8,8 @@ using EntryPoint.Exceptions;
 using EntryPoint.Internals;
 
 namespace EntryPoint.CommandModel {
-    public class CommandModel {
-        public CommandModel(BaseCommands baseCommands) {
+    internal class CommandModel {
+        internal CommandModel(BaseCommands baseCommands) {
             CommandsClass = baseCommands;
             Commands = baseCommands.GetCommands();
             DefaultCommand = GetDefaultCommandOrNull(Commands);
