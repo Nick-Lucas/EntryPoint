@@ -2,6 +2,7 @@
 [![NuGet](https://img.shields.io/nuget/v/EntryPoint.svg)](https://www.nuget.org/packages/EntryPoint)
 [![MIT License](https://img.shields.io/github/license/Nick-Lucas/EntryPoint.svg)](https://github.com/Nick-Lucas/EntryPoint/blob/master/LICENSE)
 
+**Warning: (Version 0.9.5)** EntryPoint is currently pre-1.0 and changes to the API are planned, it is stable and usable but interfaces may change. See the roadmap below for more information
 
 ## EntryPoint
 
@@ -32,3 +33,12 @@ var someOption = options.SomeOption;
 ```
 
 Full documentation: https://nick-lucas.github.io/EntryPoint/
+
+## Roadmap
+* **0.9.6**
+	* Big changes to the API. `EntryPointApi -> Cli` etc
+	* Improved Help system for CliArguments
+* **Future**
+	* Support Lists
+	* Support Data Validation
+	* 1.0 Release
