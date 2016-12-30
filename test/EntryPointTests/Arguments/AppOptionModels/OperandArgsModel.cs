@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
-using EntryPointTests.Helpers;
+using EntryPointTests.Arguments.Helpers;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class OperandArgsModel : BaseCliArguments {

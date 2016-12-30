@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 using Xunit;
-using EntryPointTests.Helpers;
+using EntryPointTests.Arguments.Helpers;
 
 namespace EntryPointTests.Arguments {
     public class EnumArguments {

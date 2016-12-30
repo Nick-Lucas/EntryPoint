@@ -7,7 +7,7 @@ using System.Diagnostics;
 using EntryPoint;
 using Xunit;
 using EntryPointTests.Arguments.AppOptionModels;
-using EntryPointTests.Helpers;
+using EntryPointTests.Arguments.Helpers;
 
 namespace EntryPointTests.Arguments {
     public class HelpTests {
