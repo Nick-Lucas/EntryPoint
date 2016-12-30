@@ -4,7 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint {
-    [AttributeUsage(AttributeTargets.Method)]
+    [AttributeUsage(
+        AttributeTargets.Method,
+        AllowMultiple = false,
+        Inherited = true)]
     public class CommandAttribute : Attribute {
         public CommandAttribute(string Name) {
             if (Name == null || Name.Length == 0) {
