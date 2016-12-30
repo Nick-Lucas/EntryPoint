@@ -7,6 +7,10 @@ namespace EntryPoint {
     [AttributeUsage(AttributeTargets.Method)]
     public class CommandAttribute : Attribute {
         public CommandAttribute(string Name) {
+            if (Name == null || Name.Length == 0) {
+                throw new ArgumentException(
+                    "You must give a Command a name");
+            }
             this.Name = Name;
         }
 
