@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPointTests.Commands.BaseCommandsHelpers {
-    public class CommandModel_DuplicateNames : BaseCommands {
+    public class CommandModel_DuplicateNames : BaseCliCommands {
         [Command("C1")]
         public void Command1(string[] args) {
             throw new CommandExecutedException("C1");

@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace EntryPoint.CommandModel {
     internal class Command : BaseCommand {
-        internal Command(BaseCommands parent, MethodInfo method) : base(parent, method) {
+        internal Command(BaseCliCommands parent, MethodInfo method) : base(parent, method) {
             Definition = method.GetCommandDefinition();
             Default = method.HasDefaultCommandAttribute();
         }

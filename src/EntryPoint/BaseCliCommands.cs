@@ -10,7 +10,7 @@ namespace EntryPoint {
     /// <summary>
     /// The base class which must be derived from for an application's Commands
     /// </summary>
-    public abstract class BaseCommands {
+    public abstract class BaseCliCommands {
         
         /// <summary>
         /// Invoked when the user invokes -h/--help with no explicit command

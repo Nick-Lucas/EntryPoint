@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace Example {
-    public class ExampleCommands : BaseCommands {
+    public class ExampleCommands : BaseCliCommands {
         [DefaultCommand]
         [Command("main")]
         [Help(

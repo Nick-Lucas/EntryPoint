@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace EntryPoint.CommandModel {
     internal class HelpCommand : BaseCommand {
-        internal HelpCommand(BaseCommands baseCommands, MethodInfo method) 
+        internal HelpCommand(BaseCliCommands baseCommands, MethodInfo method) 
             : base(baseCommands, method) { }
 
         public void Execute(CommandModel model, string message = null) {

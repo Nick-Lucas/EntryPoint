@@ -7,7 +7,7 @@ using EntryPoint;
 using EntryPointTests.Commands.Helpers;
 
 namespace EntryPointTests.Commands.BaseCommandsHelpers {
-    public class CommandModel_Executable : BaseCommands {
+    public class CommandModel_Executable : BaseCliCommands {
         [Command("C1")]
         public void Command1(string[] args) {
             throw new CommandExecutedException("C1 " + string.Join(" ", args));

@@ -66,7 +66,7 @@ namespace EntryPoint {
         /// Execute a CommandModel
         /// </summary>
         /// <typeparam name="C">The type of the class implementing BaseCommandModel, which can be created with 0 arguments</typeparam>
-        public static void ExecuteCommand<C>() where C : BaseCommands, new() {
+        public static void ExecuteCommand<C>() where C : BaseCliCommands, new() {
             ExecuteCommand(new C(), Environment.GetCommandLineArgs());
         }
 
@@ -75,7 +75,7 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="C">The type of the class implementing BaseCommandModel, which can be created with 0 arguments</typeparam>
         /// <param name="args">The CLI arguments input</param>
-        public static void ExecuteCommand<C>(string[] args) where C : BaseCommands, new() {
+        public static void ExecuteCommand<C>(string[] args) where C : BaseCliCommands, new() {
             ExecuteCommand(new C(), args);
         }
 
@@ -85,7 +85,7 @@ namespace EntryPoint {
         /// <typeparam name="C">The type of the class implementing BaseCommandModel</typeparam>
         /// <param name="commands">An instance of the class implementing BaseCommandModel</param>
         /// <param name="args">The CLI arguments input</param>
-        public static void ExecuteCommand<C>(C commands, string[] args) where C : BaseCommands {
+        public static void ExecuteCommand<C>(C commands, string[] args) where C : BaseCliCommands {
             var model = new CommandModel.CommandModel(commands);
             model.Execute(args);
         }
