@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using EntryPoint.Helpers;
+using EntryPoint.Common;
 
 namespace EntryPoint.Parsing {
 

@@ -8,7 +8,7 @@ namespace EntryPoint.Parsing {
     internal class TokenGroup {
         public Token Option { get; set; }
 
-        public bool RequiresParameter { get; set; }
+        public bool TakesParameter { get; set; }
         public Token Parameter { get; set; }
     }
 

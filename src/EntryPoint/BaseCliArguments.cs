@@ -1,15 +1,17 @@
-﻿using EntryPoint.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using EntryPoint.Help;
+using EntryPoint.Common;
 
 namespace EntryPoint {
 
     /// <summary>
     /// The base class which must be derived from for a CliArguments implementation
     /// </summary>
-    public abstract class BaseCliArguments : ICliHelpable {
+    public abstract class BaseCliArguments : BaseHelpable {
         /// <summary>
         /// The base class which must be derived from for  CliArguments implementation
         /// </summary>
@@ -26,14 +28,12 @@ namespace EntryPoint {
         /// </summary>
         public string[] Operands { get; internal set; }
 
-
-        // ** Baked in Options **
-        
         [Option(
-            LongName = "help", ShortName = 'h')]
+            LongName = HelpRules.HelpLong, 
+            ShortName = HelpRules.HelpShort)]
         [Help(
-            "Display the Help Documentation")]
-        public bool HelpRequested { get; set; }
+            "Displays Help information about arguments when set")]
+        public new bool HelpInvoked { get; set; }
     }
 
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Reflection;
-using EntryPoint.Helpers;
+using EntryPoint.Common;
 
 namespace EntryPoint.Commands {
     internal static class CliCommandsHelp {
@@ -13,7 +13,7 @@ namespace EntryPoint.Commands {
             StringBuilder builder = new StringBuilder();
 
             // TODO: abstract away this reflection logic
-            string appName = model.CommandsClass.GetType().GetTypeInfo().Assembly.GetName().Name;
+            string appName = model.CliCommands.GetType().GetTypeInfo().Assembly.GetName().Name;
             builder.AppendLine($"Commands for {appName}");
             builder.AppendLine();
             builder.AppendLine($"Usage:\n{appName} [COMMAND] [COMMAND ARGUMENTS]");

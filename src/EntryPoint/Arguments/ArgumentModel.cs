@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using EntryPoint.Helpers;
+using EntryPoint.Common;
 using EntryPoint.Exceptions;
 using EntryPoint.Parsing;
+using EntryPoint.Help;
 
 namespace EntryPoint.Arguments {
 
     internal class ArgumentModel {
-        public BaseCliArguments ApplicationOptions { get; private set; }
-
-        internal ArgumentModel(BaseCliArguments applicationOptions) {
-            ApplicationOptions = applicationOptions;
-            Options = applicationOptions.GetOptions();
-            Operands = applicationOptions.GetOperands();
-            Help = applicationOptions.GetHelpAttribute();
+        internal ArgumentModel(BaseCliArguments cliArguments) {
+            CliArguments = cliArguments;
+            Options = cliArguments.GetOptions();
+            Operands = cliArguments.GetOperands();
+            Help = cliArguments.GetHelpAttribute();
+            HelpFacade = new HelpFacade(cliArguments);
         }
+
+        public BaseCliArguments CliArguments { get; private set; }
 
         // Help attribute applied to the class itself
         public HelpAttribute Help { get; private set; }
@@ -28,12 +30,18 @@ namespace EntryPoint.Arguments {
         // Operands defined by the class
         public List<Operand> Operands { get; set; }
 
+        // Facade for invoking Help
+        public HelpFacade HelpFacade { get; set; }
+
+
+        // ** Helpers **
+
         // Find the ModelOption for the given Token, or null
         public Option FindOptionByToken(Token token) {
             var option = this.Options
                 .FirstOrDefault(o => token.InvokesOption(o));
             if (option == null) {
-                throw new UnkownOptionException(
+                throw new UnknownOptionException(
                     $"The option {token.Value} was not recognised. "
                     + "Please ensure all given arguments are valid. Try --help");
             }
@@ -87,8 +95,7 @@ namespace EntryPoint.Arguments {
             var singleDashes = this.Options
                 .Where(o => o.Definition.ShortName > char.MinValue)
                 .Select(o => o.Definition.ShortName.ToString())
-                .Duplicates(StringComparer.CurrentCulture)
-                .ToList();
+                .Duplicates(StringComparer.CurrentCulture);
             if (singleDashes.Any()) {
                 AssertDuplicateOptionsInModel(singleDashes);
             }
@@ -97,8 +104,7 @@ namespace EntryPoint.Arguments {
             var doubleDashes = this.Options
                 .Where(o => o.Definition.LongName != string.Empty)
                 .Select(o => o.Definition.LongName)
-                .Duplicates(StringComparer.CurrentCultureIgnoreCase)
-                .ToList();
+                .Duplicates(StringComparer.CurrentCultureIgnoreCase);
             if (doubleDashes.Any()) {
                 AssertDuplicateOptionsInModel(doubleDashes);
             }

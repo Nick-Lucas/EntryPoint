@@ -1,4 +1,4 @@
-﻿using EntryPoint.Helpers;
+﻿using EntryPoint.Common;
 using EntryPoint.Parsing;
 using System;
 using System.Collections.Generic;
@@ -18,8 +18,8 @@ namespace EntryPoint.Arguments {
             var operands = model.Operands.OrderBy(mo => mo.Definition.Position).ToList();
 
             // Header section
-            if (model.ApplicationOptions.UtilityName.Length > 0) {
-                string utilityName = model.ApplicationOptions.UtilityName;
+            if (model.CliArguments.UtilityName.Length > 0) {
+                string utilityName = model.CliArguments.UtilityName;
                 string version = MainAssembly().GetName().Version.ToString().TrimEnd('.', '0');
                 builder.AppendLine($"{utilityName} v{version} Documentation");
                 builder.AppendLine();

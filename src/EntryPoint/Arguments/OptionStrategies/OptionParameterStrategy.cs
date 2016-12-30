@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint.Exceptions;
-using EntryPoint.Helpers;
+using EntryPoint.Common;
 using EntryPoint.Parsing;
 using EntryPoint.Arguments;
 
