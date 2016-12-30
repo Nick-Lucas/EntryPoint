@@ -9,8 +9,8 @@ namespace Example
     [Help(
         "This program is intended to show off the key features of EntryPoint, "
         + "such as this handy declarative API which includes a documentation generator")]
-    public class MainApplicationOptions : BaseCliArguments {
-        public MainApplicationOptions() : base("Example Project") { }
+    public class MainCliArguments : BaseCliArguments {
+        public MainCliArguments() : base("Example Project") { }
 
         // Simple flag options are a given
         [Option(
@@ -73,7 +73,10 @@ namespace Example
         public bool Option3 { get; set; }
 
         public override void OnHelpInvoked(string helpText) {
-            throw new NotImplementedException();
+            Console.WriteLine(helpText);
+            Console.WriteLine("Press enter to exit...");
+            Console.ReadLine();
+            Environment.Exit(0);
         }
     }
 }

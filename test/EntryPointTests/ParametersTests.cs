@@ -53,7 +53,7 @@ namespace EntryPointTests {
                 "-b", "2"
             };
 
-            Assert.Throws<UnkownOptionException>(
+            Assert.Throws<UnknownOptionException>(
                 () => Cli.Parse<ParametersArgsModel>(args));
         }
 

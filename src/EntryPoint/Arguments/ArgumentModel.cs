@@ -41,7 +41,7 @@ namespace EntryPoint.Arguments {
             var option = this.Options
                 .FirstOrDefault(o => token.InvokesOption(o));
             if (option == null) {
-                throw new UnkownOptionException(
+                throw new UnknownOptionException(
                     $"The option {token.Value} was not recognised. "
                     + "Please ensure all given arguments are valid. Try --help");
             }

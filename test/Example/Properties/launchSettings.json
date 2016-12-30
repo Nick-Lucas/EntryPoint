@@ -7,6 +7,10 @@
       "commandName": "Project",
       "commandLineArgs": "--help"
     },
+    "MainHelp": {
+      "commandName": "Project",
+      "commandLineArgs": "Main --help"
+    },
     "TestArgs": {
       "commandName": "Project",
       "commandLineArgs": "-ac -bs Bob --app-enum FirstItem -n=1.2 \"the operand\" \n"

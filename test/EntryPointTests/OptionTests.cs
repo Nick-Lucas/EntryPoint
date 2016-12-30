@@ -47,7 +47,7 @@ namespace EntryPointTests {
                 "-O"
             };
 
-            Assert.Throws<UnkownOptionException>(
+            Assert.Throws<UnknownOptionException>(
                 () => Cli.Parse<OptionArgsModel>(args));
         }
 

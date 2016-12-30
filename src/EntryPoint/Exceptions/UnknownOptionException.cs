@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Exceptions {
-    public class UnkownOptionException : ArgumentException {
-        public UnkownOptionException(string message) : base(message) { }
+    public class UnknownOptionException : UserFacingException {
+        public UnknownOptionException(string message) : base(message) { }
     }
 }

@@ -220,7 +220,7 @@ namespace EntryPointTests {
                 "hello", "world"
             };
 
-            Assert.Throws<UnkownOptionException>(
+            Assert.Throws<UnknownOptionException>(
                 () => Cli.Parse<OperandDumpModel>(args));
         }
 

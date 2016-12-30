@@ -18,9 +18,9 @@ namespace Example {
             Console.WriteLine(string.Join(" ", args));
 
             // Parses arguments based on a declarative BaseCliArguments implementation (below)
-            MainApplicationOptions a = Cli.Parse<MainApplicationOptions>(args);
+            MainCliArguments a = Cli.Parse<MainCliArguments>(args);
             if (a.HelpInvoked) {
-                Console.WriteLine(Cli.GetHelp<MainApplicationOptions>());
+                Console.WriteLine(Cli.GetHelp<MainCliArguments>());
                 Console.WriteLine("Enter to exit...");
                 Console.ReadLine();
                 return;
@@ -42,7 +42,7 @@ namespace Example {
         [Help(
             "The Secondary command, for doing something else. Takes only Operands")]
         public void Secondary(string[] args) {
-            var options = Cli.Parse<SecondaryApplicationOptions>(args);
+            var options = Cli.Parse<SecondaryCliArguments>(args);
 
             Console.WriteLine("Secondary Command Invoked");
 
@@ -59,6 +59,7 @@ namespace Example {
             Console.WriteLine(commandsHelpText);
             Console.WriteLine("Press Enter to exit...");
             Console.ReadLine();
+            Environment.Exit(0);
         }
     }
 }
