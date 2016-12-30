@@ -55,7 +55,7 @@ namespace EntryPoint {
             ParseResult parseResult = Parser.MakeParseResult(tokens, model);
             
             // Map results
-            model = Mapper.MapOptions(model, parseResult);
+            model = ArgumentMapper.MapOptions(model, parseResult);
 
             return (A)model.ApplicationOptions;
         }

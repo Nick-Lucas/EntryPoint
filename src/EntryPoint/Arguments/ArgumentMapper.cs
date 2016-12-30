@@ -9,8 +9,8 @@ using EntryPoint.Helpers;
 using EntryPoint.Parsing;
 using EntryPoint.Arguments;
 
-namespace EntryPoint.Parsing {
-    internal static class Mapper {
+namespace EntryPoint.Arguments {
+    internal static class ArgumentMapper {
 
         // Takes the input from the API and orchestrates the process of population
         public static ArgumentModel MapOptions(ArgumentModel model, ParseResult parseResult) {
