@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EntryPoint.Helpers {
+namespace EntryPoint.Common {
 
     internal static class TypeExtensions {
         public static bool CanBeNull(this Type type) {

@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 using EntryPoint.Exceptions;
-using EntryPoint.Helpers;
+using EntryPoint.Common;
+using EntryPoint.Help;
 
 namespace EntryPoint.Commands {
     internal class CommandModel {
-        internal CommandModel(BaseCliCommands baseCommands) {
-            CommandsClass = baseCommands;
-            Commands = baseCommands.GetCommands();
+        internal CommandModel(BaseCliCommands cliCommands) {
+            CliCommands = cliCommands;
+            Commands = cliCommands.GetCommands();
             DefaultCommand = GetDefaultCommandOrNull(Commands);
-            HelpCommand = baseCommands.GetHelpCommand();
+            HelpFacade = new HelpFacade(cliCommands);
 
             ValidateNoDuplicateNames(Commands);
             ValidateMethodArguments(Commands);
@@ -29,10 +30,10 @@ namespace EntryPoint.Commands {
 
         // ** Properties **
 
-        public BaseCliCommands CommandsClass { get; private set; }
+        public BaseCliCommands CliCommands { get; private set; }
         public List<Command> Commands { get; private set; }
         public Command DefaultCommand { get; private set; }
-        public HelpCommand HelpCommand { get; private set; }
+        public HelpFacade HelpFacade { get; private set; }
 
 
         // ** Execution **
@@ -40,8 +41,8 @@ namespace EntryPoint.Commands {
         // Starts invocation of the CommandsClass
         public void Execute(string[] args) {
             string commandName = args.DefaultIfEmpty().First();
-            if (IsHelpInvocation(commandName)) {
-                HelpCommand.Execute(this);
+            if (HelpRules.InvokedByArgument(commandName)) {
+                HelpFacade.Execute();
             } else {
                 ExecuteCommand(args, commandName);
             }
@@ -64,16 +65,12 @@ namespace EntryPoint.Commands {
                 // If we have no default then invoke Help 
                 string message =
                     $"The command '{commandName}' does not exist, and here is no default command";
-                HelpCommand.Execute(this, message);
+                HelpFacade.Execute(message);
 
             } else {
                 // Pass on all arguments to the default Command
                 DefaultCommand.Execute(args);
             }
-        }
-
-        bool IsHelpInvocation(string commandName) {
-            return commandName == "--help" || commandName == "-h";
         }
 
 

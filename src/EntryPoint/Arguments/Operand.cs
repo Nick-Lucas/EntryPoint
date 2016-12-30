@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
-using EntryPoint.Helpers;
+using EntryPoint.Common;
 using EntryPoint.Arguments.OptionStrategies;
 using System.Reflection;
 

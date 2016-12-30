@@ -4,23 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint.Commands;
-using EntryPoint.Interfaces;
-using EntryPoint.Helpers;
+using EntryPoint.Help;
+using EntryPoint.Common;
 
 namespace EntryPoint {
 
     /// <summary>
     /// The base class which must be derived from for a CliCommands implement
     /// </summary>
-    public abstract class BaseCliCommands : ICliHelpable {
+    public abstract class BaseCliCommands : BaseHelpable {
         
-        /// <summary>
-        /// Invoked when the user invokes -h/--help with no explicit command
-        /// </summary>
-        /// <param name="args">Any remaining arguments after --help</param>
-        [HelpInvoker]
-        public abstract void OnHelpInvoked(string helpText);
-
     }
 
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using EntryPoint.Helpers;
+using EntryPoint.Common;
 using EntryPoint.Parsing;
 using EntryPoint.Arguments;
 using EntryPoint.Commands;
-using EntryPoint.Interfaces;
+using EntryPoint.Help;
 
 namespace EntryPoint {
 
@@ -57,7 +57,11 @@ namespace EntryPoint {
             // Map results
             model = ArgumentMapper.MapOptions(model, parseResult);
 
-            return (A)model.ApplicationOptions;
+            if (model.CliArguments.HelpInvoked) {
+                model.HelpFacade.Execute();
+            }
+
+            return (A)model.CliArguments;
         }
 
 
@@ -99,7 +103,7 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands which can be created with 0 arguments</typeparam>
         /// <returns>Help string</returns>
-        public static string GetHelp<A>() where A : ICliHelpable, new() {
+        public static string GetHelp<A>() where A : BaseHelpable, new() {
             return GetHelp(new A());
         }
 
@@ -109,7 +113,7 @@ namespace EntryPoint {
         /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands</typeparam>
         /// <param name="applicationOptions">Instance of the custom BaseCliArguments or BaseCliCommands implementation</param>
         /// <returns>Help string</returns>
-        public static string GetHelp<A>(A applicationOptions) where A : ICliHelpable, new() {
+        public static string GetHelp<A>(A applicationOptions) where A : BaseHelpable {
             if (applicationOptions is BaseCliArguments) {
                 return CliArgumentsHelp.Generate(
                     new ArgumentModel(applicationOptions as BaseCliArguments));
@@ -119,7 +123,7 @@ namespace EntryPoint {
                     new CommandModel(applicationOptions as BaseCliCommands));
             }
             throw new InvalidOperationException(
-                $"Unknown {nameof(ICliHelpable)}: "
+                $"Unknown {nameof(BaseHelpable)}: "
                 + $"{applicationOptions.GetType().Name}");
         }
     }

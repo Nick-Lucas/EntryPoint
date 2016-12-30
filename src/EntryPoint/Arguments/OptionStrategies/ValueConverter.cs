@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using EntryPoint.Helpers;
+using EntryPoint.Common;
 using System.Reflection;
 
 namespace EntryPoint.Arguments.OptionStrategies {

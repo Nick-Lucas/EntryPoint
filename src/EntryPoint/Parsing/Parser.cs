@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EntryPoint.Help;
 
 namespace EntryPoint.Parsing {
     public static class Parser {
@@ -17,7 +18,7 @@ namespace EntryPoint.Parsing {
 
                 if (token.IsOption) {
                     queue.Dequeue();
-
+                    
                     bool takesParameter = model.FindOptionByToken(token).TakesParameter;
                     Token argument = null;
                     if (takesParameter) {
@@ -27,7 +28,7 @@ namespace EntryPoint.Parsing {
 
                     result.TokenGroups.Add(new TokenGroup() {
                         Option = token,
-                        RequiresParameter = takesParameter,
+                        TakesParameter = takesParameter,
                         Parameter = argument
                     });
                 } else {

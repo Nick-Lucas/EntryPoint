@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EntryPoint.Interfaces {
-    public interface ICliHelpable {
+namespace EntryPointTests.Helpers {
+    public class HelpTriggeredSuccessException : Exception {
     }
 }

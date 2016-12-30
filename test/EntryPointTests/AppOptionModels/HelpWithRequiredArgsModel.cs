@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPointTests.Helpers;
 
 namespace EntryPointTests.AppOptionModels {
     public class HelpWithRequiredArgsModel : BaseCliArguments {
@@ -26,7 +27,7 @@ namespace EntryPointTests.AppOptionModels {
         public string OneOperand { get; set; }
 
         public override void OnHelpInvoked(string helpText) {
-            throw new NotImplementedException();
+            throw new HelpTriggeredSuccessException();
         }
     }
 }

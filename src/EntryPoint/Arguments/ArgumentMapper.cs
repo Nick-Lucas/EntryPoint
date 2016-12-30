@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 using EntryPoint.Exceptions;
-using EntryPoint.Helpers;
+using EntryPoint.Common;
 using EntryPoint.Parsing;
 using EntryPoint.Arguments;
 
@@ -33,9 +33,9 @@ namespace EntryPoint.Arguments {
                 var modelOption = model.FindOptionByToken(tokenGroup.Option);
 
                 object value = modelOption.Definition.OptionStrategy.GetValue(modelOption, tokenGroup);
-                modelOption.Property.SetValue(model.ApplicationOptions, value);
+                modelOption.Property.SetValue(model.CliArguments, value);
             }
-            model.ApplicationOptions.Operands = parseResult.Operands.Select(t => t.Value).ToArray();
+            model.CliArguments.Operands = parseResult.Operands.Select(t => t.Value).ToArray();
         }
 
         // Map and then Remove operands which have been mapped on the Model
@@ -44,15 +44,15 @@ namespace EntryPoint.Arguments {
             foreach (var operand in model.Operands) {
                 if (parseResult.OperandProvided(operand)) {
                     object value = operand.OperandStrategy.GetValue(operand, parseResult);
-                    operand.Property.SetValue(model.ApplicationOptions, value);
+                    operand.Property.SetValue(model.CliArguments, value);
                 }
             }
 
             var maxPosition = model
                 .Operands
                 .Max(mo => mo.Definition.Position as int?) ?? 0;
-            model.ApplicationOptions.Operands = model
-                .ApplicationOptions
+            model.CliArguments.Operands = model
+                .CliArguments
                 .Operands
                 .Skip(maxPosition)
                 .ToArray();
@@ -60,7 +60,7 @@ namespace EntryPoint.Arguments {
 
         // if an option was not provided, Validate whether it's marked as required
         static void HandleUnusedOptions(ArgumentModel model, List<TokenGroup> usedOptions) {
-            if (model.ApplicationOptions.HelpInvoked) {
+            if (model.CliArguments.HelpInvoked) {
                 // If the help flag is set, then Required parameters are irrelevant
                 return;
             }
@@ -78,7 +78,7 @@ namespace EntryPoint.Arguments {
         }
 
         static void HandleUnusedOperands(ArgumentModel model, ParseResult parseResult) {
-            if (model.ApplicationOptions.HelpInvoked) {
+            if (model.CliArguments.HelpInvoked) {
                 // If the help flag is set, then Required parameters are irrelevant
                 return;
             }
