@@ -62,5 +62,9 @@ namespace EntryPointTests {
         [OptionParameter(
             LongName = "opt-2")]
         public Enum1 OptEnum2 { get; set; } = Enum1.item2;
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

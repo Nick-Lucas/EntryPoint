@@ -16,5 +16,9 @@ namespace EntryPointTests.AppOptionModels {
             LongName = "default-no-name",
             ShortName = 'b')]
         public string DefaultNoName { get; set; } = "NoName";
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

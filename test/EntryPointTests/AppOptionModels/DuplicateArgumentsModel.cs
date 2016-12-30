@@ -12,5 +12,9 @@ namespace EntryPointTests.AppOptionModels {
 
         [Option(LongName = "bravo", ShortName = 'A')]
         public bool Bravo { get; set; }
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

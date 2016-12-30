@@ -11,5 +11,9 @@ namespace EntryPointTests.AppOptionModels {
         [Operand(1)]
         [Required]
         public string Name { get; set; }
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

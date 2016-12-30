@@ -16,5 +16,9 @@ namespace EntryPointTests.AppOptionModels {
             LongName = "param-2",
             ShortName = 'b')]
         public int Param2 { get; set; } = 7;
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

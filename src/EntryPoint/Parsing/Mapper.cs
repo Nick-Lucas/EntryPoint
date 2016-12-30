@@ -60,7 +60,7 @@ namespace EntryPoint.Parsing {
 
         // if an option was not provided, Validate whether it's marked as required
         static void HandleUnusedOptions(ArgumentModel model, List<TokenGroup> usedOptions) {
-            if (model.ApplicationOptions.HelpRequested) {
+            if (model.ApplicationOptions.HelpInvoked) {
                 // If the help flag is set, then Required parameters are irrelevant
                 return;
             }
@@ -78,7 +78,7 @@ namespace EntryPoint.Parsing {
         }
 
         static void HandleUnusedOperands(ArgumentModel model, ParseResult parseResult) {
-            if (model.ApplicationOptions.HelpRequested) {
+            if (model.ApplicationOptions.HelpInvoked) {
                 // If the help flag is set, then Required parameters are irrelevant
                 return;
             }

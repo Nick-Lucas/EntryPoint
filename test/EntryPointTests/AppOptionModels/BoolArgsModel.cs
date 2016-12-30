@@ -21,5 +21,9 @@ namespace EntryPointTests.AppOptionModels {
             LongName = "default-true",
             ShortName = 'c')]
         public bool DefaultTrue { get; set; } = true;
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

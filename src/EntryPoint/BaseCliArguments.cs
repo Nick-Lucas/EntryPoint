@@ -1,8 +1,10 @@
-﻿using EntryPoint.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using EntryPoint.Interfaces;
+using EntryPoint.Helpers;
 
 namespace EntryPoint {
 
@@ -27,13 +29,20 @@ namespace EntryPoint {
         public string[] Operands { get; internal set; }
 
 
-        // ** Baked in Options **
+        // ** Baked in Functionality **
         
         [Option(
             LongName = "help", ShortName = 'h')]
         [Help(
             "Display the Help Documentation")]
-        public bool HelpRequested { get; set; }
+        public bool HelpInvoked { get; set; }
+
+        /// <summary>
+        /// Invoked when the user invokes -h/--help with no explicit command
+        /// </summary>
+        /// <param name="args">Any remaining arguments after --help</param>
+        [HelpInvoker]
+        public abstract void OnHelpInvoked(string helpText);
     }
 
 }

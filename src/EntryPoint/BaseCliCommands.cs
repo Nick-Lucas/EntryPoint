@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint.Commands;
 using EntryPoint.Interfaces;
+using EntryPoint.Helpers;
 
 namespace EntryPoint {
 
@@ -17,8 +18,8 @@ namespace EntryPoint {
         /// Invoked when the user invokes -h/--help with no explicit command
         /// </summary>
         /// <param name="args">Any remaining arguments after --help</param>
-        [HelpCommand]
-        public abstract void Help(string commandsHelpText);
+        [HelpInvoker]
+        public abstract void OnHelpInvoked(string helpText);
 
     }
 

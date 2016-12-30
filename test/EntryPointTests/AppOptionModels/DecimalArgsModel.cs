@@ -21,5 +21,9 @@ namespace EntryPointTests.AppOptionModels {
             LongName = "default-71",
             ShortName = 'c')]
         public decimal Default71 { get; set; } = 7.1m;
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -21,5 +21,9 @@ namespace EntryPointTests.AppOptionModels {
             LongName = "default-7",
             ShortName = 'c')]
         public int Default7 { get; set; } = 7;
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

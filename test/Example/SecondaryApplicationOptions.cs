@@ -8,5 +8,9 @@ using EntryPoint;
 namespace Example {
     public class SecondaryApplicationOptions : BaseCliArguments {
         public SecondaryApplicationOptions() : base("Secondary Command") { }
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

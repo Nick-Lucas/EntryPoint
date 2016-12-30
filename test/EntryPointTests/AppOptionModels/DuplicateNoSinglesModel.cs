@@ -12,5 +12,9 @@ namespace EntryPointTests.AppOptionModels {
 
         [OptionParameter(LongName = "beta")]
         public int Bravo { get; set; }
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

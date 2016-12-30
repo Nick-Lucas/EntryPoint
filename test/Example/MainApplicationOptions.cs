@@ -72,5 +72,8 @@ namespace Example
             "A test option. Does nothing")]
         public bool Option3 { get; set; }
 
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 using EntryPoint.Commands;
+using EntryPoint.Helpers;
 
 namespace EntryPoint.Commands {
     internal static class CommandReflectionExtensions {
@@ -37,14 +38,14 @@ namespace EntryPoint.Commands {
         // Get the implemented Help command
         public static HelpCommand GetHelpCommand(this BaseCliCommands baseCommands) {
             return baseCommands.GetType().GetRuntimeMethods()
-                .Where(method => method.HasHelpCommandAttribute())
+                .Where(method => method.HasHelpInvokerAttribute())
                 .Select(method => new HelpCommand(baseCommands, method))
                 .First();
         }
 
         // Find out if a given Command method is the Help Command
-        public static bool HasHelpCommandAttribute(this MethodInfo method) {
-            return method.GetCustomAttribute<HelpCommandAttribute>() != null;
+        public static bool HasHelpInvokerAttribute(this MethodInfo method) {
+            return method.GetCustomAttribute<HelpInvokerAttribute>() != null;
         }
 
         // Matches a command name against a list of Commands, and returns the first match, or null

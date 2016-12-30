@@ -19,7 +19,7 @@ namespace Example {
 
             // Parses arguments based on a declarative BaseCliArguments implementation (below)
             MainApplicationOptions a = Cli.Parse<MainApplicationOptions>(args);
-            if (a.HelpRequested) {
+            if (a.HelpInvoked) {
                 Console.WriteLine(Cli.GetHelp<MainApplicationOptions>());
                 Console.WriteLine("Enter to exit...");
                 Console.ReadLine();
@@ -55,7 +55,7 @@ namespace Example {
             Console.ReadLine();
         }
         
-        public override void Help(string commandsHelpText) {
+        public override void OnHelpInvoked(string commandsHelpText) {
             Console.WriteLine(commandsHelpText);
             Console.WriteLine("Press Enter to exit...");
             Console.ReadLine();

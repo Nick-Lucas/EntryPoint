@@ -9,5 +9,9 @@ namespace EntryPointTests.AppOptionModels {
     public class DuplicateHelpSingleModel : BaseCliArguments {
         [Option(LongName = "alpha", ShortName = 'h')]
         public bool Alpha { get; set; }
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
     }
 }
