@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using EntryPoint;
 using Xunit;
 using EntryPoint.Exceptions;
+using EntryPointTests.Commands.BaseCommandsHelpers;
+using EntryPointTests.Commands.Helpers;
 
 namespace EntryPointTests.Commands {
     public class CommandTests {
