@@ -7,6 +7,7 @@ using EntryPoint.Helpers;
 using EntryPoint.Parsing;
 using EntryPoint.Arguments;
 using EntryPoint.Commands;
+using EntryPoint.Interfaces;
 
 namespace EntryPoint {
 
@@ -98,7 +99,7 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseCliArguments which can be created with 0 arguments</typeparam>
         /// <returns>Help string</returns>
-        public static string GetHelp<A>() where A : BaseCliArguments, new() {
+        public static string GetHelp<A>() where A : ICliHelpable, new() {
             return GetHelp(new A());
         }
 
@@ -108,8 +109,18 @@ namespace EntryPoint {
         /// <typeparam name="A">Custom implementation type of BaseCliArguments</typeparam>
         /// <param name="applicationOptions">Instance of custom BaseCliArguments implementation</param>
         /// <returns>Help string</returns>
-        public static string GetHelp<A>(A applicationOptions) where A : BaseCliArguments, new() {
-            return CliArgumentsHelp.Generate(new ArgumentModel(applicationOptions));
+        public static string GetHelp<A>(A applicationOptions) where A : ICliHelpable, new() {
+            if (applicationOptions is BaseCliArguments) {
+                return CliArgumentsHelp.Generate(
+                    new ArgumentModel(applicationOptions as BaseCliArguments));
+            }
+            if (applicationOptions is BaseCliCommands) {
+                return CliCommandsHelp.Generate(
+                    new CommandModel(applicationOptions as BaseCliCommands));
+            }
+            throw new InvalidOperationException(
+                $"Unknown {nameof(ICliHelpable)}: "
+                + $"{applicationOptions.GetType().Name}");
         }
     }
 
