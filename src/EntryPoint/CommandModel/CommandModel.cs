@@ -39,31 +39,33 @@ namespace EntryPoint.CommandModel {
 
         public void Execute(string[] args) {
             string commandName = args.DefaultIfEmpty().First();
-            if (IsHelpCommand(commandName)) {
+            if (IsHelpInvocation(commandName)) {
                 HelpCommand.Execute(this);
                 return;
             }
 
             Command command = Commands.GetCommandToExecute(commandName);
             if (command == null) {
-                // If we have no default then throw
                 if (DefaultCommand == null) {
-                    throw new RequiredException(
-                        $"The command {commandName} does not exist, and here is no default command");
-                    
-                }
+                    // If we have no default then invoke Help 
+                    string message =
+                        $"The command '{commandName}' does not exist, and here is no default command";
+                    HelpCommand.Execute(this, message);
 
-                // Pass on all arguments to the default Command
-                DefaultCommand.Execute(args);
+                } else {
+                    // Pass on all arguments to the default Command
+                    DefaultCommand.Execute(args);
+                }
             } else {
                 // Pass all remaining arguments to the matched command
                 command.Execute(args.Skip(1).ToArray());
             }
         }
 
-        bool IsHelpCommand(string commandName) {
+        bool IsHelpInvocation(string commandName) {
             return commandName == "--help" || commandName == "-h";
         }
+
 
 
         // ** Validation **

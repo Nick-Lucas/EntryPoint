@@ -7,7 +7,7 @@ using EntryPoint;
 
 namespace Example {
     public class Commands : BaseCommands {
-        [DefaultCommand]
+        //[DefaultCommand]
         [Command("main")]
         [Help(
             "The Main command, for doing something")]
