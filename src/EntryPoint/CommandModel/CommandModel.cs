@@ -9,29 +9,18 @@ using EntryPoint.Internals;
 
 namespace EntryPoint.CommandModel {
     public class CommandModel {
-        public CommandModel(BaseCommands commandModel) {
-            var methods = commandModel.GetType().GetRuntimeMethods();
-
-            // TODO: abstract away reflection logic
-            Commands = GetCommands(commandModel, methods);
+        public CommandModel(BaseCommands baseCommands) {
+            Commands = baseCommands.GetCommands();
             DefaultCommand = GetDefaultCommandOrNull(Commands);
 
             ValidateNoDuplicateNames(Commands);
             ValidateMethodArguments(Commands);
         }
 
-        List<Command> GetCommands(BaseCommands commandModel, IEnumerable<MethodInfo> methods) {
-            return methods
-                    .Where(method => method.GetCustomAttribute<CommandAttribute>() != null)
-                    .Select(method => new Command(commandModel, method))
-                    .ToList();
-        }
-
+        // If there's a [DefaultCommand] tagged command, return it. Otherwise null
         Command GetDefaultCommandOrNull(List<Command> commands) {
-            var defaultCommands = commands.Where(command => command.Default).ToList();
-            if (defaultCommands.Count > 1) {
-                AssertMultipleDefaults();
-            }
+            var defaultCommands = commands.GetDefaultCommands();
+            ValidateForMultipleDefaults(defaultCommands);
             return defaultCommands.DefaultIfEmpty(null).First();
         }
 
@@ -39,8 +28,6 @@ namespace EntryPoint.CommandModel {
         // ** Properties **
 
         public List<Command> Commands { get; private set; }
-
-        // The Default Command, or Null
         public Command DefaultCommand { get; private set; }
 
 
@@ -48,27 +35,32 @@ namespace EntryPoint.CommandModel {
 
         public void Execute(string[] args) {
             string commandName = args.DefaultIfEmpty().First();
-            Command command = Commands.FirstOrDefault(c => c.Definition.Name.Equals(commandName, StringComparison.CurrentCultureIgnoreCase));
-
+            Command command = Commands.GetCommandToExecute(commandName);
             if (command == null) {
+                // If we have no default then throw
                 if (DefaultCommand == null) {
                     throw new RequiredException(
                         $"The command {commandName} does not exist, and here is no default command");
                     
                 }
-                DefaultCommand.Execute(args);
-            }
 
-            command.Execute(args.Skip(1).ToArray());
+                // Pass on all arguments to the default Command
+                DefaultCommand.Execute(args);
+            } else {
+                // Pass all remaining arguments to the matched command
+                command.Execute(args.Skip(1).ToArray());
+            }
         }
 
 
         // ** Validation **
 
-        static void AssertMultipleDefaults() {
-            throw new InvalidModelException(
-                $"There was more than one {nameof(DefaultCommandAttribute)} "
-                + $"in this CommandModel");
+        static void ValidateForMultipleDefaults(List<Command> defaults) {
+            if (defaults.Count > 1) {
+                throw new InvalidModelException(
+                    $"There was more than one {nameof(DefaultCommandAttribute)} "
+                    + $"in this CommandModel");
+            }
         }
 
         static void ValidateNoDuplicateNames(List<Command> commands) {
