@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using EntryPoint.OptionStrategies;
 
 namespace EntryPoint {
+    [AttributeUsage(
+        AttributeTargets.Property,
+        AllowMultiple = false,
+        Inherited = true)]
     public class OperandAttribute : Attribute {
         public OperandAttribute(int position) {
             Position = position;

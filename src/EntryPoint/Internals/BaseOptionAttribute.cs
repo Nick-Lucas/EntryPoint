@@ -11,7 +11,7 @@ namespace EntryPoint.Internals {
     /// The Base class for all argument attributes
     /// </summary>
     [AttributeUsage(
-        validOn: AttributeTargets.Property, 
+        AttributeTargets.Property, 
         AllowMultiple = true, 
         Inherited = true)]
     public class BaseOptionAttribute : Attribute {
