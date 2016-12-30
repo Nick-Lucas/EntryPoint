@@ -11,5 +11,9 @@ namespace EntryPointTests.Commands.BaseCommandsHelpers {
         public void Command1(string[] args, int i) {
             throw new CommandExecutedException("C1");
         }
+
+        public override void Help(string commandsHelpText) {
+            throw new NotImplementedException();
+        }
     }
 }

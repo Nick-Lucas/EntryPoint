@@ -9,6 +9,8 @@ namespace Example {
     public class Commands : BaseCommands {
         [DefaultCommand]
         [Command("main")]
+        [Help(
+            "The Main command, for doing something")]
         public void Main(string[] args) {
             // CLI command:
             // ApplicationName -oq -re FirstItem --string Bob -n=1.2 "the operand"
@@ -37,6 +39,8 @@ namespace Example {
         }
 
         [Command("secondary")]
+        [Help(
+            "The Secondary command, for doing something else. Takes only Operands")]
         public void Secondary(string[] args) {
             var options = EntryPointApi.Parse<SecondaryApplicationOptions>(args);
 
@@ -48,6 +52,12 @@ namespace Example {
                 i++;
             }
 
+            Console.ReadLine();
+        }
+        
+        public override void Help(string commandsHelpText) {
+            Console.WriteLine(commandsHelpText);
+            Console.WriteLine("Press Enter to exit...");
             Console.ReadLine();
         }
     }

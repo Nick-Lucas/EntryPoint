@@ -79,6 +79,40 @@ namespace EntryPointTests.Commands {
         }
 
 
+        // ** Help Handling **
+
+
+        // Call --help, expect to be sent straight to the help method
+        [Fact]
+        public void Commands_ExecuteHelp() {
+            string[] args = { "--help" };
+
+            Assert.Throws<CommandExecutedException>(
+                "HELP",
+                () => EntryPointApi.ExecuteCommand<CommandModel_Help>(args));
+        }
+
+        // Call COMMAND --help, expect to be sent to the command
+        [Fact]
+        public void Commands_ExecuteHelp_CommandFirst() {
+            string[] args = { "C1", "--help" };
+
+            Assert.Throws<CommandExecutedException>(
+                "C1",
+                () => EntryPointApi.ExecuteCommand<CommandModel_Help>(args));
+        }
+
+        // Call --help with other args, expect to be sent to the help method and discard the args
+        [Fact]
+        public void Commands_ExecuteHelp_OtherArgs() {
+            string[] args = { "--help", "some", "other", "arguments" };
+
+            Assert.Throws<CommandExecutedException>(
+                "HELP",
+                () => EntryPointApi.ExecuteCommand<CommandModel_Help>(args));
+        }
+
+
         // ** Validation Handling **
 
         // Pass model with duplicate command names (case-insensitive)

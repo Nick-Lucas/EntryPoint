@@ -10,8 +10,10 @@ using EntryPoint.Internals;
 namespace EntryPoint.CommandModel {
     public class CommandModel {
         public CommandModel(BaseCommands baseCommands) {
+            CommandsClass = baseCommands;
             Commands = baseCommands.GetCommands();
             DefaultCommand = GetDefaultCommandOrNull(Commands);
+            HelpCommand = baseCommands.GetHelpCommand();
 
             ValidateNoDuplicateNames(Commands);
             ValidateMethodArguments(Commands);
@@ -27,14 +29,21 @@ namespace EntryPoint.CommandModel {
 
         // ** Properties **
 
+        public BaseCommands CommandsClass { get; private set; }
         public List<Command> Commands { get; private set; }
         public Command DefaultCommand { get; private set; }
+        public HelpCommand HelpCommand { get; private set; }
 
 
         // ** Execution **
 
         public void Execute(string[] args) {
             string commandName = args.DefaultIfEmpty().First();
+            if (IsHelpCommand(commandName)) {
+                HelpCommand.Execute(this);
+                return;
+            }
+
             Command command = Commands.GetCommandToExecute(commandName);
             if (command == null) {
                 // If we have no default then throw
@@ -50,6 +59,10 @@ namespace EntryPoint.CommandModel {
                 // Pass all remaining arguments to the matched command
                 command.Execute(args.Skip(1).ToArray());
             }
+        }
+
+        bool IsHelpCommand(string commandName) {
+            return commandName == "--help" || commandName == "-h";
         }
 
 

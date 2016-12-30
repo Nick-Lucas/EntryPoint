@@ -18,5 +18,9 @@ namespace EntryPointTests.Commands.BaseCommandsHelpers {
         public void Command2(string[] args) {
             throw new CommandExecutedException("C2 " + string.Join(" ", args));
         }
+
+        public override void Help(string commandsHelpText) {
+            throw new CommandExecutedException("HELP");
+        }
     }
 }

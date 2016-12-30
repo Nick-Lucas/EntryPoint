@@ -11,7 +11,7 @@ namespace EntryPoint {
     /// Property: for a description of the option's usage
     /// </summary>
     [AttributeUsage(
-        AttributeTargets.Class | AttributeTargets.Property,
+        AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method,
         AllowMultiple = true,
         Inherited = true)]
     public class HelpAttribute : Attribute {
