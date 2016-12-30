@@ -8,25 +8,6 @@ using System.Reflection;
 
 namespace EntryPoint.Internals {
     internal static class ReflectionExtensions {
-        internal static BaseOptionAttribute GetOptionDefinition(this PropertyInfo prop) {
-            var attributes = prop.GetCustomAttributes<BaseOptionAttribute>().ToList();
-            if (attributes.Count > 1) {
-                throw new InvalidModelException(
-                    $"More than one Option attribute was applied to {prop.Name}");
-            }
-            if (!attributes.Any()) {
-                return null;
-            }
-            return attributes.First();
-        }
-
-        internal static OperandAttribute GetOperandDefinition(this PropertyInfo prop) {
-            return prop.GetCustomAttribute<OperandAttribute>();
-        }
-
-        internal static bool HasRequiredAttribute(this PropertyInfo prop) {
-            return prop.GetCustomAttribute<RequiredAttribute>() != null;
-        }
 
         // Get the HelpAttribute from a class or property
         internal static HelpAttribute GetHelp(this MemberInfo member) {
