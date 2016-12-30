@@ -66,8 +66,8 @@ namespace EntryPoint {
         /// Executes a CliCommands implementation
         /// </summary>
         /// <typeparam name="C">The type of the class implementing BaseCliCommands, which can be created with 0 arguments</typeparam>
-        public static void ExecuteCommand<C>() where C : BaseCliCommands, new() {
-            ExecuteCommand(new C(), Environment.GetCommandLineArgs());
+        public static void Execute<C>() where C : BaseCliCommands, new() {
+            Execute(new C(), Environment.GetCommandLineArgs());
         }
 
         /// <summary>
@@ -75,8 +75,8 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="C">The type of the class implementing BaseCliCommands, which can be created with 0 arguments</typeparam>
         /// <param name="args">The CLI arguments input</param>
-        public static void ExecuteCommand<C>(string[] args) where C : BaseCliCommands, new() {
-            ExecuteCommand(new C(), args);
+        public static void Execute<C>(string[] args) where C : BaseCliCommands, new() {
+            Execute(new C(), args);
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace EntryPoint {
         /// <typeparam name="C">The type of the class implementing BaseCliCommands</typeparam>
         /// <param name="commands">An instance of the class implementing BaseCliCommands</param>
         /// <param name="args">The CLI arguments input</param>
-        public static void ExecuteCommand<C>(C commands, string[] args) where C : BaseCliCommands {
+        public static void Execute<C>(C commands, string[] args) where C : BaseCliCommands {
             var model = new CommandModel(commands);
             model.Execute(args);
         }
@@ -98,8 +98,8 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseCliArguments which can be created with 0 arguments</typeparam>
         /// <returns>Help string</returns>
-        public static string GenerateHelp<A>() where A : BaseCliArguments, new() {
-            return GenerateHelp(new A());
+        public static string GetHelp<A>() where A : BaseCliArguments, new() {
+            return GetHelp(new A());
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace EntryPoint {
         /// <typeparam name="A">Custom implementation type of BaseCliArguments</typeparam>
         /// <param name="applicationOptions">Instance of custom BaseCliArguments implementation</param>
         /// <returns>Help string</returns>
-        public static string GenerateHelp<A>(A applicationOptions) where A : BaseCliArguments, new() {
+        public static string GetHelp<A>(A applicationOptions) where A : BaseCliArguments, new() {
             return CliArgumentsHelp.Generate(new ArgumentModel(applicationOptions));
         }
     }

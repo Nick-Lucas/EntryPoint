@@ -20,7 +20,7 @@ namespace Example {
             // Parses arguments based on a declarative BaseCliArguments implementation (below)
             MainApplicationOptions a = Cli.Parse<MainApplicationOptions>(args);
             if (a.HelpRequested) {
-                Console.WriteLine(Cli.GenerateHelp<MainApplicationOptions>());
+                Console.WriteLine(Cli.GetHelp<MainApplicationOptions>());
                 Console.WriteLine("Enter to exit...");
                 Console.ReadLine();
                 return;
