@@ -9,10 +9,10 @@ using EntryPoint.Exceptions;
 using EntryPoint.Parsing;
 
 namespace EntryPoint.Arguments {
-    internal class Model {
+    internal class ArgumentModel {
         public BaseCliArguments ApplicationOptions { get; private set; }
 
-        internal Model(BaseCliArguments applicationOptions) {
+        internal ArgumentModel(BaseCliArguments applicationOptions) {
             ApplicationOptions = applicationOptions;
 
             // TODO: extract this reflection logic
@@ -21,13 +21,13 @@ namespace EntryPoint.Arguments {
             // Map Options Model
             Options = properties
                 .Where(prop => prop.GetOptionDefinition() != null)
-                .Select(prop => new ModelOption(prop))
+                .Select(prop => new Option(prop))
                 .ToList();
 
             // Map Operands Model
             Operands = properties
                 .Where(prop => prop.GetOperandDefinition() != null)
-                .Select(prop => new ModelOperand(prop))
+                .Select(prop => new Operand(prop))
                 .ToList();
 
             Help = applicationOptions.GetType().GetTypeInfo().GetHelp();
@@ -37,13 +37,13 @@ namespace EntryPoint.Arguments {
         public HelpAttribute Help { get; private set; }
 
         // Options defined by the class
-        public List<ModelOption> Options { get; set; }
+        public List<Option> Options { get; set; }
 
         // Operands defined by the class
-        public List<ModelOperand> Operands { get; set; }
+        public List<Operand> Operands { get; set; }
 
         // Find the ModelOption for the given Token, or null
-        public ModelOption FindOptionByToken(Token token) {
+        public Option FindOptionByToken(Token token) {
             var option = this.Options
                 .FirstOrDefault(o => token.InvokesOption(o));
             if (option == null) {
@@ -54,7 +54,7 @@ namespace EntryPoint.Arguments {
             return option;
         }
 
-        public List<ModelOption> WhereOptionsNotIn(List<TokenGroup> tokenGroups) {
+        public List<Option> WhereOptionsNotIn(List<TokenGroup> tokenGroups) {
             return this.Options
                 .Where(o => !tokenGroups.Any(tg => tg.Option.InvokesOption(o)))
                 .ToList();

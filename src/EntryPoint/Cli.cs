@@ -49,7 +49,7 @@ namespace EntryPoint {
         public static A Parse<A>(A applicationOptions, string[] args) where A : BaseCliArguments {
 
             // Process inputs
-            Model model = new Model(applicationOptions);
+            ArgumentModel model = new ArgumentModel(applicationOptions);
             var tokens = Tokeniser.MakeTokens(args);
             ParseResult parseResult = Parser.MakeParseResult(tokens, model);
             
@@ -86,7 +86,7 @@ namespace EntryPoint {
         /// <param name="commands">An instance of the class implementing BaseCliCommands</param>
         /// <param name="args">The CLI arguments input</param>
         public static void ExecuteCommand<C>(C commands, string[] args) where C : BaseCliCommands {
-            var model = new Commands.CommandModel(commands);
+            var model = new CommandModel(commands);
             model.Execute(args);
         }
 
@@ -109,7 +109,7 @@ namespace EntryPoint {
         /// <param name="applicationOptions">Instance of custom BaseCliArguments implementation</param>
         /// <returns>Help string</returns>
         public static string GenerateHelp<A>(A applicationOptions) where A : BaseCliArguments, new() {
-            return CliArgumentsHelp.Generate(new Model(applicationOptions));
+            return CliArgumentsHelp.Generate(new ArgumentModel(applicationOptions));
         }
     }
 

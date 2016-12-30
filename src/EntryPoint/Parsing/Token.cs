@@ -56,7 +56,7 @@ namespace EntryPoint.Parsing {
 
 
         // Check if a ModelOption is being called by an option token
-        public bool InvokesOption(ModelOption option) {
+        public bool InvokesOption(Option option) {
             return ((this.IsSingleDashOption() && this.Value.Contains(option.Definition.ShortName))
                  || (this.IsDoubleDashOption() && this.Value.StartsWith(
                             Cli.DASH_DOUBLE + option.Definition.LongName,

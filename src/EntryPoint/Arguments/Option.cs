@@ -8,8 +8,8 @@ using EntryPoint.Internals;
 
 namespace EntryPoint.Arguments {
 
-    internal class ModelOption {
-        internal ModelOption(PropertyInfo property) {
+    internal class Option {
+        internal Option(PropertyInfo property) {
             Property = property;
             Definition = property.GetOptionDefinition();
             Required = property.HasRequiredAttribute();

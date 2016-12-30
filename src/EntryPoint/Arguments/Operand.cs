@@ -9,8 +9,8 @@ using EntryPoint.OptionStrategies;
 using System.Reflection;
 
 namespace EntryPoint.Arguments {
-    internal class ModelOperand {
-        public ModelOperand(PropertyInfo property) {
+    internal class Operand {
+        public Operand(PropertyInfo property) {
             Property = property;
             Definition = property.GetOperandDefinition();
             Required = property.HasRequiredAttribute();

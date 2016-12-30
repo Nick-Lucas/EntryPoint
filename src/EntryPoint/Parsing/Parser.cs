@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace EntryPoint.Parsing {
     public static class Parser {
 
-        internal static ParseResult MakeParseResult(List<Token> tokens, Model model) {
+        internal static ParseResult MakeParseResult(List<Token> tokens, ArgumentModel model) {
             var result = new ParseResult();
 
             var queue = new Queue<Token>(tokens);

@@ -13,7 +13,7 @@ namespace EntryPoint.Parsing {
     internal static class Mapper {
 
         // Takes the input from the API and orchestrates the process of population
-        public static Model MapOptions(Model model, ParseResult parseResult) {
+        public static ArgumentModel MapOptions(ArgumentModel model, ParseResult parseResult) {
 
             // Validate Model and Arguments
             model.Validate();
@@ -28,7 +28,7 @@ namespace EntryPoint.Parsing {
             return model;
         }
 
-        static void StoreOptions(Model model, ParseResult parseResult) {
+        static void StoreOptions(ArgumentModel model, ParseResult parseResult) {
             foreach (var tokenGroup in parseResult.TokenGroups) {
                 var modelOption = model.FindOptionByToken(tokenGroup.Option);
 
@@ -39,7 +39,7 @@ namespace EntryPoint.Parsing {
         }
 
         // Map and then Remove operands which have been mapped on the Model
-        static void StoreOperands(Model model, ParseResult parseResult) {
+        static void StoreOperands(ArgumentModel model, ParseResult parseResult) {
             var operands = parseResult.Operands;
             foreach (var operand in model.Operands) {
                 if (parseResult.OperandProvided(operand)) {
@@ -59,7 +59,7 @@ namespace EntryPoint.Parsing {
         }
 
         // if an option was not provided, Validate whether it's marked as required
-        static void HandleUnusedOptions(Model model, List<TokenGroup> usedOptions) {
+        static void HandleUnusedOptions(ArgumentModel model, List<TokenGroup> usedOptions) {
             if (model.ApplicationOptions.HelpRequested) {
                 // If the help flag is set, then Required parameters are irrelevant
                 return;
@@ -77,7 +77,7 @@ namespace EntryPoint.Parsing {
             }
         }
 
-        static void HandleUnusedOperands(Model model, ParseResult parseResult) {
+        static void HandleUnusedOperands(ArgumentModel model, ParseResult parseResult) {
             if (model.ApplicationOptions.HelpRequested) {
                 // If the help flag is set, then Required parameters are irrelevant
                 return;
@@ -96,7 +96,7 @@ namespace EntryPoint.Parsing {
             }
         }
 
-        static void ValidateTokensForDuplicateOptions(Model model, List<TokenGroup> tokenGroups) {
+        static void ValidateTokensForDuplicateOptions(ArgumentModel model, List<TokenGroup> tokenGroups) {
             var duplicates = tokenGroups
                 .Select(a => model.FindOptionByToken(a.Option).Definition)
                 .Duplicates(new BaseOptionAttributeEqualityComparer());

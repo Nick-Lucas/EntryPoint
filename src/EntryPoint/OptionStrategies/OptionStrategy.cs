@@ -12,7 +12,7 @@ namespace EntryPoint.OptionStrategies {
     internal class OptionStrategy : IOptionStrategy {
         internal OptionStrategy() { }
 
-        public object GetValue(ModelOption modelOption, TokenGroup tokenGroup) {
+        public object GetValue(Option modelOption, TokenGroup tokenGroup) {
             var value = HasDoubleOption(tokenGroup.Option, modelOption.Definition) 
                      || HasSingleOption(tokenGroup.Option, modelOption.Definition.ShortName);
             return CheckValue(value, modelOption.Property.PropertyType, modelOption.Definition);

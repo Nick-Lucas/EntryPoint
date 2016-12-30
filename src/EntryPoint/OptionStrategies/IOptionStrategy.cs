@@ -10,7 +10,7 @@ using EntryPoint.Arguments;
 namespace EntryPoint.OptionStrategies {
 
     internal interface IOptionStrategy {
-        object GetValue(ModelOption modelOption, TokenGroup tokenGroup);
+        object GetValue(Option modelOption, TokenGroup tokenGroup);
         bool RequiresParameter { get; }
     }
 

@@ -11,7 +11,7 @@ namespace EntryPoint.Parsing {
     internal class ParseResult {
         public List<TokenGroup> TokenGroups { get; set; } = new List<TokenGroup>();
         public List<Token> Operands { get; set; } = new List<Token>();
-        public bool OperandProvided(ModelOperand operand) {
+        public bool OperandProvided(Operand operand) {
             return Operands.Count >= operand.Definition.Position;
         }
         public bool HelpRequested { get; set; }
