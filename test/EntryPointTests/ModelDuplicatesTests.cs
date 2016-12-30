@@ -15,7 +15,7 @@ namespace EntryPointTests {
             string[] args = new string[] { };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.Parse<DuplicateSingleModel>(args));
+                () => Cli.Parse<DuplicateSingleModel>(args));
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace EntryPointTests {
             string[] args = new string[] { };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.Parse<DuplicateDoubleModel>(args));
+                () => Cli.Parse<DuplicateDoubleModel>(args));
         }
 
         [Fact]
@@ -31,7 +31,7 @@ namespace EntryPointTests {
             string[] args = new string[] { };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.Parse<DuplicateHelpSingleModel>(args));
+                () => Cli.Parse<DuplicateHelpSingleModel>(args));
         }
 
         [Fact]
@@ -39,28 +39,28 @@ namespace EntryPointTests {
             string[] args = new string[] { };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.Parse<DuplicateHelpSingleModel>(args));
+                () => Cli.Parse<DuplicateHelpSingleModel>(args));
         }
 
         [Fact]
         public void Duplicates_OnTheLimitsButFine() {
             string[] args = new string[] { };
 
-            EntryPointApi.Parse<DuplicateLimitsModel>(args);
+            Cli.Parse<DuplicateLimitsModel>(args);
         }
 
         [Fact]
         public void Duplicates_NoSingles() {
             string[] args = new string[] { };
 
-            EntryPointApi.Parse<DuplicateNoSinglesModel>(args);
+            Cli.Parse<DuplicateNoSinglesModel>(args);
         }
 
         [Fact]
         public void Duplicates_NoDoubles() {
             string[] args = new string[] { };
 
-            EntryPointApi.Parse<DuplicateNoDoublesModel>(args);
+            Cli.Parse<DuplicateNoDoublesModel>(args);
         }
     }
 }

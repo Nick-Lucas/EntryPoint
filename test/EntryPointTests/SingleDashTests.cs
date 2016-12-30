@@ -16,7 +16,7 @@ namespace EntryPointTests {
                 "-ab"
             };
 
-            var model = EntryPointApi.Parse<SingleDashArgsModel>(args);
+            var model = Cli.Parse<SingleDashArgsModel>(args);
 
             Assert.StrictEqual(true, model.Opt1);
             Assert.StrictEqual(true, model.Opt2);
@@ -29,7 +29,7 @@ namespace EntryPointTests {
                 "-abc", "hello",
             };
 
-            var model = EntryPointApi.Parse<SingleDashArgsModel>(args);
+            var model = Cli.Parse<SingleDashArgsModel>(args);
 
             Assert.StrictEqual(true, model.Opt1);
             Assert.StrictEqual(true, model.Opt2);
@@ -43,7 +43,7 @@ namespace EntryPointTests {
                 "-abc=hello",
             };
 
-            var model = EntryPointApi.Parse<SingleDashArgsModel>(args);
+            var model = Cli.Parse<SingleDashArgsModel>(args);
 
             Assert.StrictEqual(true, model.Opt1);
             Assert.StrictEqual(true, model.Opt2);

@@ -14,7 +14,7 @@ namespace EntryPointTests {
         public void NotProvided() {
             string[] args = new string[] { };
 
-            var model = EntryPointApi.Parse<ParametersArgsModel>(args);
+            var model = Cli.Parse<ParametersArgsModel>(args);
 
             Assert.StrictEqual(0, model.Param1);
             Assert.StrictEqual(7, model.Param2);
@@ -27,7 +27,7 @@ namespace EntryPointTests {
                 "--param-2", "2",
             };
 
-            var model = EntryPointApi.Parse<ParametersArgsModel>(args);
+            var model = Cli.Parse<ParametersArgsModel>(args);
 
             Assert.StrictEqual(1, model.Param1);
             Assert.StrictEqual(2, model.Param2);
@@ -40,7 +40,7 @@ namespace EntryPointTests {
                 "-b", "2"
             };
 
-            var model = EntryPointApi.Parse<ParametersArgsModel>(args);
+            var model = Cli.Parse<ParametersArgsModel>(args);
 
             Assert.StrictEqual(1, model.Param1);
             Assert.StrictEqual(2, model.Param2);
@@ -54,7 +54,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<UnkownOptionException>(
-                () => EntryPointApi.Parse<ParametersArgsModel>(args));
+                () => Cli.Parse<ParametersArgsModel>(args));
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace EntryPointTests {
                 "--param-2", "2",
             };
 
-            var model = EntryPointApi.Parse<ParametersArgsModel>(args);
+            var model = Cli.Parse<ParametersArgsModel>(args);
 
             Assert.StrictEqual(1, model.Param1);
             Assert.StrictEqual(2, model.Param2);
@@ -78,7 +78,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<ParametersArgsModel>(args));
+                () => Cli.Parse<ParametersArgsModel>(args));
         }
 
         [Fact]
@@ -89,7 +89,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<ParametersArgsModel>(args));
+                () => Cli.Parse<ParametersArgsModel>(args));
         }
     }
 }

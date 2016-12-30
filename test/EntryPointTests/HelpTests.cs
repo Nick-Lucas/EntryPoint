@@ -17,7 +17,7 @@ namespace EntryPointTests {
             };
 
             // Check this doesn't throw because of Required validation
-            EntryPointApi.Parse<HelpWithRequiredArgsModel>(args);
+            Cli.Parse<HelpWithRequiredArgsModel>(args);
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace EntryPointTests {
             // Check this doesn't throw because of Required validation
             // Also check it doesn't throw because of an option being included
             // Behaviour: --help will take control
-            EntryPointApi.Parse<HelpWithRequiredArgsModel>(args);
+            Cli.Parse<HelpWithRequiredArgsModel>(args);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace EntryPointTests {
             // Check this doesn't throw because of Required validation
             // Also check it doesn't throw because of an option being included
             // Behaviour: --help will take control
-            EntryPointApi.Parse<HelpWithRequiredArgsModel>(args);
+            Cli.Parse<HelpWithRequiredArgsModel>(args);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace EntryPointTests {
 
             // Check this doesn't throw because of an option being included
             // Behaviour: --help will take control
-            EntryPointApi.Parse<HelpWithRequiredArgsModel>(args);
+            Cli.Parse<HelpWithRequiredArgsModel>(args);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace EntryPoint {
     /// <summary>
     /// The main API for EntryPoint
     /// </summary>
-    public static class EntryPointApi {
+    public static class Cli {
         internal const string DASH_SINGLE = "-";
         internal const string DASH_DOUBLE = "--";
 

@@ -41,7 +41,7 @@ namespace EntryPoint.OptionStrategies {
         object CheckValue(bool value, Type outputType, BaseOptionAttribute definition) {
             if (outputType != typeof(bool)) {
                 throw new InvalidOperationException(
-                    $"The type of {EntryPointApi.DASH_DOUBLE}{definition.LongName} on the ArgumentsModel, " 
+                    $"The type of {Cli.DASH_DOUBLE}{definition.LongName} on the ArgumentsModel, " 
                     + $"must be a boolean for {nameof(OptionAttribute)}");
             }
             return value;

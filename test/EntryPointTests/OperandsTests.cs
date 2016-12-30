@@ -23,7 +23,7 @@ namespace EntryPointTests {
                 "hello", "world"
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal("hello", model.Name);
             Assert.Equal("world", model.Gender);
@@ -35,7 +35,7 @@ namespace EntryPointTests {
                 "--opt-1", "--opt-2",
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal("NoName", model.Name);
             Assert.Equal(null, model.Gender);
@@ -49,7 +49,7 @@ namespace EntryPointTests {
                 "true"
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal(true, model.BoolValue);
         }
@@ -62,7 +62,7 @@ namespace EntryPointTests {
                 "1"
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal(true, model.BoolValue);
         }
@@ -75,7 +75,7 @@ namespace EntryPointTests {
                 "2"
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal(Enum1.item2, model.Enum);
         }
@@ -88,7 +88,7 @@ namespace EntryPointTests {
                 "item2"
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal(Enum1.item2, model.Enum);
         }
@@ -99,7 +99,7 @@ namespace EntryPointTests {
                 "hello"
             };
 
-            var model = EntryPointApi.Parse<OperandRequiredArgsModel>(args);
+            var model = Cli.Parse<OperandRequiredArgsModel>(args);
 
             Assert.Equal("hello", model.Name);
         }
@@ -110,14 +110,14 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<RequiredException>(
-                () => EntryPointApi.Parse<OperandRequiredArgsModel>(args));
+                () => Cli.Parse<OperandRequiredArgsModel>(args));
         }
 
         [Fact]
         public void OperandMap_CheckDumpSize() {
             string[] args = new string[] { };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal(0, model.Operands.Length);
         }
@@ -128,7 +128,7 @@ namespace EntryPointTests {
                 "hello"
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal(0, model.Operands.Length);
         }
@@ -139,7 +139,7 @@ namespace EntryPointTests {
                 "hello", "world", "false", "item1"
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal(0, model.Operands.Length);
         }
@@ -150,7 +150,7 @@ namespace EntryPointTests {
                 "hello", "world", "false", "item1", "something completely different"
             };
 
-            var model = EntryPointApi.Parse<OperandArgsModel>(args);
+            var model = Cli.Parse<OperandArgsModel>(args);
 
             Assert.Equal(1, model.Operands.Length);
         }
@@ -162,7 +162,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.Parse<OperandNonContiguousArgsModel>(args));
+                () => Cli.Parse<OperandNonContiguousArgsModel>(args));
         }
 
         [Fact]
@@ -172,7 +172,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<InvalidModelException>(
-                () => EntryPointApi.Parse<OperandStartAt0ArgsModel>(args));
+                () => Cli.Parse<OperandStartAt0ArgsModel>(args));
         }
 
 
@@ -188,7 +188,7 @@ namespace EntryPointTests {
                 "hello", "world"
             };
 
-            var model = EntryPointApi.Parse<OperandDumpModel>(args);
+            var model = Cli.Parse<OperandDumpModel>(args);
 
             Assert.True(model.Operands.All(s => expectedOperands.Contains(s)));
             Assert.True(expectedOperands.All(s => model.Operands.Contains(s)));
@@ -204,7 +204,7 @@ namespace EntryPointTests {
                 "hello", "world"
             };
 
-            var model = EntryPointApi.Parse<OperandDumpModel>(args);
+            var model = Cli.Parse<OperandDumpModel>(args);
 
             Assert.True(model.Operands.All(s => expectedOperands.Contains(s)));
             Assert.True(expectedOperands.All(s => model.Operands.Contains(s)));
@@ -221,7 +221,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<UnkownOptionException>(
-                () => EntryPointApi.Parse<OperandDumpModel>(args));
+                () => Cli.Parse<OperandDumpModel>(args));
         }
 
         [Fact]
@@ -232,7 +232,7 @@ namespace EntryPointTests {
                 "hello", "world"
             };
 
-            var model = EntryPointApi.Parse<OperandDumpModel>(args);
+            var model = Cli.Parse<OperandDumpModel>(args);
 
             Assert.True(model.Operands.All(s => expectedOperands.Contains(s)));
             Assert.True(expectedOperands.All(s => model.Operands.Contains(s)));
@@ -244,7 +244,7 @@ namespace EntryPointTests {
                 "--opt-1"
             };
 
-            var model = EntryPointApi.Parse<OperandDumpModel>(args);
+            var model = Cli.Parse<OperandDumpModel>(args);
 
             Assert.False(model.Operands.Any());
         }
@@ -255,7 +255,7 @@ namespace EntryPointTests {
                 "--opt-param-1", "1"
             };
 
-            var model = EntryPointApi.Parse<OperandDumpModel>(args);
+            var model = Cli.Parse<OperandDumpModel>(args);
 
             Assert.False(model.Operands.Any());
         }
@@ -265,7 +265,7 @@ namespace EntryPointTests {
             string[] args = new string[] {
             };
 
-            var model = EntryPointApi.Parse<OperandDumpModel>(args);
+            var model = Cli.Parse<OperandDumpModel>(args);
 
             Assert.False(model.Operands.Any());
         }

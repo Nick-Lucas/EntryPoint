@@ -71,8 +71,8 @@ namespace EntryPoint.Parsing {
 
             if (requiredOption != null) {
                 throw new RequiredException(
-                    $"The option {EntryPointApi.DASH_SINGLE}{requiredOption.Definition.ShortName}/"
-                    + $"{EntryPointApi.DASH_DOUBLE}{requiredOption.Definition.LongName} "
+                    $"The option {Cli.DASH_SINGLE}{requiredOption.Definition.ShortName}/"
+                    + $"{Cli.DASH_DOUBLE}{requiredOption.Definition.LongName} "
                     + "was not included, but is a required option");
             }
         }

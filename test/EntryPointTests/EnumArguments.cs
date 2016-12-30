@@ -15,7 +15,7 @@ namespace EntryPointTests {
                 "--opt-1", "3"
             };
 
-            var options = EntryPointApi.Parse<EnumAppOptions>(args);
+            var options = Cli.Parse<EnumAppOptions>(args);
 
             Assert.StrictEqual(Enum1.item3, options.OptEnum1);
         }
@@ -26,7 +26,7 @@ namespace EntryPointTests {
                 "--opt-1", "item3"
             };
 
-            var options = EntryPointApi.Parse<EnumAppOptions>(args);
+            var options = Cli.Parse<EnumAppOptions>(args);
 
             Assert.StrictEqual(Enum1.item3, options.OptEnum1);
         }
@@ -37,7 +37,7 @@ namespace EntryPointTests {
                 "--opt-1", "ITEM3"
             };
 
-            var options = EntryPointApi.Parse<EnumAppOptions>(args);
+            var options = Cli.Parse<EnumAppOptions>(args);
 
             Assert.StrictEqual(Enum1.item3, options.OptEnum1);
         }
@@ -47,7 +47,7 @@ namespace EntryPointTests {
             string[] args = new string[] {
             };
 
-            var options = EntryPointApi.Parse<EnumAppOptions>(args);
+            var options = Cli.Parse<EnumAppOptions>(args);
 
             Assert.StrictEqual(default(Enum1), options.OptEnum1);
             Assert.StrictEqual(Enum1.item2, options.OptEnum2);

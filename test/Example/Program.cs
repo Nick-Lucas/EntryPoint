@@ -6,7 +6,7 @@ using EntryPoint;
 namespace Example {
     public class Program {
         public static void Main(string[] args) {
-            EntryPointApi.ExecuteCommand<ExampleCommands>(args);
+            Cli.ExecuteCommand<ExampleCommands>(args);
         }
     }
 }

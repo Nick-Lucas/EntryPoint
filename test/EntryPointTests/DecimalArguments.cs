@@ -14,7 +14,7 @@ namespace EntryPointTests {
         public void NotProvided() {
             string[] args = new string[] { };
 
-            var model = EntryPointApi.Parse<DecimalArgsModel>(args);
+            var model = Cli.Parse<DecimalArgsModel>(args);
 
             Assert.StrictEqual(null, model.DefaultNull);
             Assert.StrictEqual(0, model.DefaultZero);
@@ -29,7 +29,7 @@ namespace EntryPointTests {
                 "--default-71", "3.1"
             };
 
-            var model = EntryPointApi.Parse<DecimalArgsModel>(args);
+            var model = Cli.Parse<DecimalArgsModel>(args);
 
             Assert.StrictEqual(1.1m, model.DefaultNull);
             Assert.StrictEqual(2.1m, model.DefaultZero);
@@ -45,7 +45,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<DecimalArgsModel>(args));
+                () => Cli.Parse<DecimalArgsModel>(args));
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace EntryPointTests {
             };
 
             Assert.Throws<NoParameterException>(
-                () => EntryPointApi.Parse<DecimalArgsModel>(args));
+                () => Cli.Parse<DecimalArgsModel>(args));
         }
     }
 }
