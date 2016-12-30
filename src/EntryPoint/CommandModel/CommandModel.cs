@@ -55,6 +55,7 @@ namespace EntryPoint.CommandModel {
 
         // ** Validation **
 
+        // Check that we have 1 or 0 Default Commands
         static void ValidateForMultipleDefaults(List<Command> defaults) {
             if (defaults.Count > 1) {
                 throw new InvalidModelException(
@@ -63,6 +64,7 @@ namespace EntryPoint.CommandModel {
             }
         }
 
+        // Check that no Commands have the same command name
         static void ValidateNoDuplicateNames(List<Command> commands) {
             var duplicates = commands
                 .Select(c => c.Definition.Name)
@@ -74,6 +76,7 @@ namespace EntryPoint.CommandModel {
             }
         }
 
+        // Check that all Command methods have a valid method signature
         static void ValidateMethodArguments(List<Command> commands) {
             foreach (var command in commands) {
                 var args = command.Method.GetParameters().ToList();
