@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace Example {
-    public class Commands : BaseCommands {
-        //[DefaultCommand]
+    public class ExampleCommands : BaseCommands {
+        [DefaultCommand]
         [Command("main")]
         [Help(
             "The Main command, for doing something")]
