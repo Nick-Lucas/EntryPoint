@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint.Exceptions;
 using EntryPoint.Internals;
 using EntryPoint.Parsing;
-using EntryPoint.ArgumentModel;
+using EntryPoint.Arguments;
 
 namespace EntryPoint.OptionStrategies {
 

@@ -8,7 +8,7 @@ using EntryPoint.Internals;
 using EntryPoint.OptionStrategies;
 using System.Reflection;
 
-namespace EntryPoint.ArgumentModel {
+namespace EntryPoint.Arguments {
     internal class ModelOperand {
         public ModelOperand(PropertyInfo property) {
             Property = property;

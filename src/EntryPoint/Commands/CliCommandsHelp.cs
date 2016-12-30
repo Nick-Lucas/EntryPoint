@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using EntryPoint.Internals;
 
-namespace EntryPoint.CommandModel {
+namespace EntryPoint.Commands {
     internal static class CliCommandsHelp {
         public static string Generate(CommandModel model) {
             StringBuilder builder = new StringBuilder();

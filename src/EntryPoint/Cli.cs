@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 using EntryPoint.Internals;
 using EntryPoint.Parsing;
-using EntryPoint.ArgumentModel;
-using EntryPoint.CommandModel;
+using EntryPoint.Arguments;
+using EntryPoint.Commands;
 
 namespace EntryPoint {
 
@@ -86,7 +86,7 @@ namespace EntryPoint {
         /// <param name="commands">An instance of the class implementing BaseCliCommands</param>
         /// <param name="args">The CLI arguments input</param>
         public static void ExecuteCommand<C>(C commands, string[] args) where C : BaseCliCommands {
-            var model = new CommandModel.CommandModel(commands);
+            var model = new Commands.CommandModel(commands);
             model.Execute(args);
         }
 

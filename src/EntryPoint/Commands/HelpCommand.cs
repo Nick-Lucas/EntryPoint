@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 
-namespace EntryPoint.CommandModel {
+namespace EntryPoint.Commands {
     internal class HelpCommand : BaseCommand {
         internal HelpCommand(BaseCliCommands baseCommands, MethodInfo method) 
             : base(baseCommands, method) { }

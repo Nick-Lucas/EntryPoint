@@ -7,7 +7,7 @@ using System.Reflection;
 using EntryPoint.Exceptions;
 using EntryPoint.Internals;
 
-namespace EntryPoint.CommandModel {
+namespace EntryPoint.Commands {
     internal class CommandModel {
         internal CommandModel(BaseCliCommands baseCommands) {
             CommandsClass = baseCommands;

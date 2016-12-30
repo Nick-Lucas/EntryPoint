@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace EntryPoint.CommandModel {
+namespace EntryPoint.Commands {
     internal class BaseCommand {
         internal BaseCommand(BaseCliCommands parent, MethodInfo method) {
             Parent = parent;

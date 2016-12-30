@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using EntryPoint.CommandModel;
+using EntryPoint.Commands;
 
 namespace EntryPoint {
 

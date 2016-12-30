@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 
-namespace EntryPoint.CommandModel {
+namespace EntryPoint.Commands {
     internal class Command : BaseCommand {
         internal Command(BaseCliCommands parent, MethodInfo method) : base(parent, method) {
             Definition = method.GetCommandDefinition();

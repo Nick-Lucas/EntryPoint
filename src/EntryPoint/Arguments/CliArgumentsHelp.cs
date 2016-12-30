@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EntryPoint.ArgumentModel {
+namespace EntryPoint.Arguments {
     internal static class CliArgumentsHelp {
 
         // Given a Model, generates a string which can be printed to the CLI 

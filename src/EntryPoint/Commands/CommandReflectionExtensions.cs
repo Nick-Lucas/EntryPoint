@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using System.Reflection;
-using EntryPoint.CommandModel;
+using EntryPoint.Commands;
 
-namespace EntryPoint.CommandModel {
+namespace EntryPoint.Commands {
     internal static class CommandReflectionExtensions {
 
         // Get a list of all commands in a BaseCliCommands class
