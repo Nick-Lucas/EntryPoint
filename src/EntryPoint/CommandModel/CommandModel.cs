@@ -37,35 +37,44 @@ namespace EntryPoint.CommandModel {
 
         // ** Execution **
 
+        // Starts invocation of the CommandsClass
         public void Execute(string[] args) {
             string commandName = args.DefaultIfEmpty().First();
             if (IsHelpInvocation(commandName)) {
                 HelpCommand.Execute(this);
-                return;
+            } else {
+                ExecuteCommand(args, commandName);
             }
+        }
 
+        // Attempts to Execute a given Command
+        void ExecuteCommand(string[] args, string commandName) {
             Command command = Commands.GetCommandToExecute(commandName);
             if (command == null) {
-                if (DefaultCommand == null) {
-                    // If we have no default then invoke Help 
-                    string message =
-                        $"The command '{commandName}' does not exist, and here is no default command";
-                    HelpCommand.Execute(this, message);
-
-                } else {
-                    // Pass on all arguments to the default Command
-                    DefaultCommand.Execute(args);
-                }
+                ExecuteFallback(args, commandName);
             } else {
                 // Pass all remaining arguments to the matched command
                 command.Execute(args.Skip(1).ToArray());
             }
         }
 
+        // Falls back on a given Default or Help
+        void ExecuteFallback(string[] args, string commandName) {
+            if (DefaultCommand == null) {
+                // If we have no default then invoke Help 
+                string message =
+                    $"The command '{commandName}' does not exist, and here is no default command";
+                HelpCommand.Execute(this, message);
+
+            } else {
+                // Pass on all arguments to the default Command
+                DefaultCommand.Execute(args);
+            }
+        }
+
         bool IsHelpInvocation(string commandName) {
             return commandName == "--help" || commandName == "-h";
         }
-
 
 
         // ** Validation **
