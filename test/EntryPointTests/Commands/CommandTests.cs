@@ -14,12 +14,13 @@ namespace EntryPointTests.Commands {
 
         // ** Basic Command Handling **
 
-        // If no command passed in, there is no default set, so we will get a RequiredException
+        // If no command passed in, there is no default set, we will get routed to the Help method
         [Fact]
         public void Commands_ExecuteNothing_NoDefaults() {
             string[] args = { };
 
-            Assert.Throws<RequiredException>(
+            Assert.Throws<CommandExecutedException>(
+                "HELP",
                 () => Cli.ExecuteCommand<CommandModel_NoDefaults>(args));
         }
 

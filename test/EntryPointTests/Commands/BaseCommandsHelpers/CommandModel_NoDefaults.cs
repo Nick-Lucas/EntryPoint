@@ -19,7 +19,7 @@ namespace EntryPointTests.Commands.BaseCommandsHelpers {
         }
 
         public override void Help(string commandsHelpText) {
-            throw new NotImplementedException();
+            throw new CommandExecutedException("HELP");
         }
     }
 }
