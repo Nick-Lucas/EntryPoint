@@ -6,11 +6,13 @@
 
   "dependencies": {
     "MarkdownDeepNext.NET": "2.0.3",
-    "EntryPoint": "0.9.5"
+    "EntryPoint": {
+      "target": "project"
+    }
   },
   "frameworks": {
     "net452": {
-      
+
     }
   }
 }

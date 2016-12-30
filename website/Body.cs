@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define CODE
+
+using System;
 using System.Linq;
 
 using EntryPoint;
@@ -42,7 +44,7 @@ namespace Website {
     /// 
     /// This has one Option, one OptionParameter and a positional Operand
 #if CODE
-    class SimpleApplicationOptions : BaseApplicationOptions {
+    class SimpleApplicationOptions : BaseCliArguments {
         public SimpleApplicationOptions() : base("SimpleApp") { }
 
         // Option
@@ -64,7 +66,7 @@ namespace Website {
         void main(string[] args) {
             
             // One line parsing of any `BaseApplicationOptions` implementation
-            var options = EntryPointApi.Parse<SimpleApplicationOptions>(args);
+            var options = Cli.Parse<SimpleApplicationOptions>(args);
 
             // Object oriented access to your arguments
             Console.WriteLine($"The name is {options.Name}");
@@ -116,7 +118,7 @@ namespace Website {
     /// 
     /// This is used like `UtilityName [ -v | --verbose ] [ -s | --subject "your subject" ] [ -i | --importance [ 1 | normal | 2 | high ] ] [message]`
 #if CODE
-    class MessagingApplicationOptions : BaseApplicationOptions {
+    class MessagingApplicationOptions : BaseCliArguments {
         public MessagingApplicationOptions() : base("Message Sender") { }
 
         // Verbose will be a familiar option to most CLI users
@@ -150,7 +152,7 @@ namespace Website {
     // Usage is then as simple as
     class MessagingProgram {
         void main(string[] args) {
-            var options = EntryPointApi.Parse<MessagingApplicationOptions>(args);
+            var options = Cli.Parse<MessagingApplicationOptions>(args);
 
             // Use the options object...
         }
@@ -190,7 +192,7 @@ namespace Website {
     /// It consumes the following information:
 #if CODE
     [Help("This will be displayed as an initial blurb for the utility")]
-    class HelpApplicationOptions : BaseApplicationOptions {
+    class HelpApplicationOptions : BaseCliArguments {
         public HelpApplicationOptions() 
             : base(utilityName: "Displayed as the application name") { }
 
@@ -206,9 +208,9 @@ namespace Website {
 #if CODE
     class HelpProgram {
         public void main(string[] args) {
-            var options = EntryPointApi.Parse<HelpApplicationOptions>(args);
-            if (options.HelpRequested) {
-                string help = EntryPointApi.GenerateHelp<HelpApplicationOptions>();
+            var options = Cli.Parse<HelpApplicationOptions>(args);
+            if (options.HelpInvoked) {
+                string help = Cli.GetHelp<HelpApplicationOptions>();
                 Console.WriteLine(help);
                 Console.WriteLine("Press enter to exit...");
                 Console.ReadLine();
