@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace Example {
-    public class SecondaryApplicationOptions : BaseApplicationOptions {
+    public class SecondaryApplicationOptions : BaseCliArguments {
         public SecondaryApplicationOptions() : base("Secondary Command") { }
     }
 }

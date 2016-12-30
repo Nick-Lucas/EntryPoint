@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.AppOptionModels {
-    public class DuplicateNoSinglesModel : BaseApplicationOptions {
+    public class DuplicateNoSinglesModel : BaseCliArguments {
         [Option(LongName = "alpha")]
         public bool Alpha { get; set; }
 

@@ -24,7 +24,7 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">The type of the ApplicationOptions, which derives from BaseArgumentsModel</typeparam>
         /// <returns>A populated ApplicationOptions instance</returns>
-        public static A Parse<A>() where A : BaseApplicationOptions, new() {
+        public static A Parse<A>() where A : BaseCliArguments, new() {
             var args = Environment.GetCommandLineArgs();
             return Parse(new A(), args);
         }
@@ -35,7 +35,7 @@ namespace EntryPoint {
         /// <typeparam name="A">The type of the ApplicationOptions, which derives from BaseArgumentsModel</typeparam>
         /// <param name="args">The CLI arguments input</param>
         /// <returns>A populated ApplicationOptions instance</returns>
-        public static A Parse<A>(string[] args) where A : BaseApplicationOptions, new() {
+        public static A Parse<A>(string[] args) where A : BaseCliArguments, new() {
             return Parse(new A(), args);
         }
 
@@ -46,7 +46,7 @@ namespace EntryPoint {
         /// <param name="applicationOptions">The pre-instantiated ApplicationOptions implementation</param>
         /// <param name="args">The CLI arguments input</param>
         /// <returns>A populated ApplicationOptions instance</returns>
-        public static A Parse<A>(A applicationOptions, string[] args) where A : BaseApplicationOptions {
+        public static A Parse<A>(A applicationOptions, string[] args) where A : BaseCliArguments {
 
             // Process inputs
             Model model = new Model(applicationOptions);
@@ -94,21 +94,21 @@ namespace EntryPoint {
         // ** Help **
 
         /// <summary>
-        /// Generate and return a Help string for a given BaseApplicationOptions instance
+        /// Generate and return a Help string for a given BaseCliArguments instance
         /// </summary>
-        /// <typeparam name="A">Custom implementation type of BaseApplicationOptions which can be created with 0 arguments</typeparam>
+        /// <typeparam name="A">Custom implementation type of BaseCliArguments which can be created with 0 arguments</typeparam>
         /// <returns>Help string</returns>
-        public static string GenerateHelp<A>() where A : BaseApplicationOptions, new() {
+        public static string GenerateHelp<A>() where A : BaseCliArguments, new() {
             return GenerateHelp(new A());
         }
 
         /// <summary>
-        /// Generate and return a Help string for a given BaseApplicationOptions instance
+        /// Generate and return a Help string for a given BaseCliArguments instance
         /// </summary>
-        /// <typeparam name="A">Custom implementation type of BaseApplicationOptions</typeparam>
-        /// <param name="applicationOptions">Instance of custom BaseApplicationOptions implementation</param>
+        /// <typeparam name="A">Custom implementation type of BaseCliArguments</typeparam>
+        /// <param name="applicationOptions">Instance of custom BaseCliArguments implementation</param>
         /// <returns>Help string</returns>
-        public static string GenerateHelp<A>(A applicationOptions) where A : BaseApplicationOptions, new() {
+        public static string GenerateHelp<A>(A applicationOptions) where A : BaseCliArguments, new() {
             return Help.Generate(new Model(applicationOptions));
         }
     }

@@ -8,15 +8,15 @@ namespace EntryPoint {
     /// <summary>
     /// The base class which must be derived from for an OptionsModel  implementation
     /// </summary>
-    public abstract class BaseApplicationOptions {
+    public abstract class BaseCliArguments {
         /// <summary>
         /// The base class which must be derived from for an OptionsModel implementation
         /// </summary>
         /// <param name="utilityName">The name of your utility or application</param>
-        public BaseApplicationOptions(string utilityName) {
+        public BaseCliArguments(string utilityName) {
             UtilityName = utilityName;
         }
-        internal BaseApplicationOptions() { }
+        internal BaseCliArguments() { }
 
         internal string UtilityName { get; set; }
     

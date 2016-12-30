@@ -10,9 +10,9 @@ using EntryPoint.Parsing;
 
 namespace EntryPoint.OptionModel {
     internal class Model {
-        public BaseApplicationOptions ApplicationOptions { get; private set; }
+        public BaseCliArguments ApplicationOptions { get; private set; }
 
-        internal Model(BaseApplicationOptions applicationOptions) {
+        internal Model(BaseCliArguments applicationOptions) {
             ApplicationOptions = applicationOptions;
 
             // TODO: extract this reflection logic
@@ -119,7 +119,7 @@ namespace EntryPoint.OptionModel {
         }
         static void AssertDuplicateOptionsInModel(List<string> duplicateOptionNames) {
             throw new InvalidModelException(
-                $"The given {nameof(BaseApplicationOptions)} implementation was invalid. "
+                $"The given {nameof(BaseCliArguments)} implementation was invalid. "
                 + $"There are duplicate single dash arguments: {String.Join("/", duplicateOptionNames)}");
         }
     }

@@ -54,7 +54,7 @@ namespace EntryPointTests {
         }
     }
 
-    class EnumAppOptions : BaseApplicationOptions {
+    class EnumAppOptions : BaseCliArguments {
         [OptionParameter(
             LongName = "opt-1")]
         public Enum1 OptEnum1 { get; set; }

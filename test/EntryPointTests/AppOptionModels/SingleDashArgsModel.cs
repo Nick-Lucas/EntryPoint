@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.AppOptionModels {
-    public class SingleDashArgsModel : BaseApplicationOptions {
+    public class SingleDashArgsModel : BaseCliArguments {
         [Option(
             LongName = "opt1",
             ShortName = 'a')]

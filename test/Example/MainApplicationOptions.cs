@@ -9,7 +9,7 @@ namespace Example
     [Help(
         "This program is intended to show off the key features of EntryPoint, "
         + "such as this handy declarative API which includes a documentation generator")]
-    public class MainApplicationOptions : BaseApplicationOptions {
+    public class MainApplicationOptions : BaseCliArguments {
         public MainApplicationOptions() : base("Example Project") { }
 
         // Simple flag options are a given

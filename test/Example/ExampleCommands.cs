@@ -17,7 +17,7 @@ namespace Example {
             Console.WriteLine("Main Command invoked with args: ");
             Console.WriteLine(string.Join(" ", args));
 
-            // Parses arguments based on a declarative BaseApplicationOptions implementation (below)
+            // Parses arguments based on a declarative BaseCliArguments implementation (below)
             MainApplicationOptions a = Cli.Parse<MainApplicationOptions>(args);
             if (a.HelpRequested) {
                 Console.WriteLine(Cli.GenerateHelp<MainApplicationOptions>());

@@ -7,7 +7,7 @@ using EntryPoint;
 using EntryPointTests.Helpers;
 
 namespace EntryPointTests.AppOptionModels {
-    public class OperandStartAt0ArgsModel : BaseApplicationOptions {
+    public class OperandStartAt0ArgsModel : BaseCliArguments {
         // Shou;d start at 0 :(
         [Operand(0)]
         public string Name { get; set; } = "NoName";

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.AppOptionModels {
-    public class IntegerArgsModel : BaseApplicationOptions {
+    public class IntegerArgsModel : BaseCliArguments {
         [OptionParameter(
             LongName = "default-zero",
             ShortName = 'a')]

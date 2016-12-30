@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 
 namespace EntryPointTests.AppOptionModels {
-    public class DecimalArgsModel : BaseApplicationOptions {
+    public class DecimalArgsModel : BaseCliArguments {
         [OptionParameter(
             LongName = "default-zero",
             ShortName = 'a')]
