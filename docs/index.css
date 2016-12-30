@@ -1,0 +1,66 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600);
+
+body {
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    padding-top: 50px;
+    min-width: 480px;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Open Sans", sans-serif;
+  font-weight: normal;
+}
+
+h2 {
+    padding-top: 0.7em;
+    padding-bottom: 0.1em;
+}
+
+code {
+    color: #585858;
+}
+
+pre {
+    padding: 0;
+}
+
+pre code.hljs {
+    padding: 1.2em;
+}
+
+.starter-template {
+    padding: 20px 15px 30px;
+    text-align: center;
+}
+
+.hero {
+    font-weight: lighter;
+    background: #222;
+    color: ghostwhite;
+    width: inherit;
+}
+.hero-title {
+    color: #d95800;
+}
+
+.btn-nuget { 
+  color: #ffffff; 
+  background-color: #FFA71A; 
+  border-color: #FB9902; 
+} 
+ 
+.btn-nuget:hover, 
+.btn-nuget:focus, 
+.btn-nuget:active, 
+.btn-nuget.active
+{ 
+  color: #ffffff; 
+  background-color: #F09D18; 
+  border-color: #FB9902; 
+}
+
+.footer {
+    text-align: center;
+    padding-bottom: 50px;
+}
