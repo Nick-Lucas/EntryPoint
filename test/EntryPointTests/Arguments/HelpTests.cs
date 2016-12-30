@@ -12,6 +12,17 @@ using EntryPointTests.Arguments.Helpers;
 namespace EntryPointTests.Arguments {
     public class HelpTests {
         [Fact]
+        public void Help_OnHelpInvoked_IsInvoked() {
+            string[] args = new string[] {
+                "--help"
+            };
+
+            // Check this doesn't throw because of Required validation
+            Assert.Throws<HelpTriggeredSuccessException>(
+                () => Cli.Parse<HelpWithRequiredArgsModel>(args));
+        }
+
+        [Fact]
         public void Help_CheckRequiredDoesNotThrow_Std() {
             string[] args = new string[] {
                 "--help"
