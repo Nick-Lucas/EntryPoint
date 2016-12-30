@@ -109,7 +109,7 @@ namespace EntryPoint {
         /// <param name="applicationOptions">Instance of custom BaseCliArguments implementation</param>
         /// <returns>Help string</returns>
         public static string GenerateHelp<A>(A applicationOptions) where A : BaseCliArguments, new() {
-            return Help.Generate(new Model(applicationOptions));
+            return CliArgumentsHelp.Generate(new Model(applicationOptions));
         }
     }
 
