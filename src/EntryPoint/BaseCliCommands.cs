@@ -9,7 +9,7 @@ using EntryPoint.Interfaces;
 namespace EntryPoint {
 
     /// <summary>
-    /// The base class which must be derived from for an application's Commands
+    /// The base class which must be derived from for a CliCommands implement
     /// </summary>
     public abstract class BaseCliCommands : ICliHelpable {
         

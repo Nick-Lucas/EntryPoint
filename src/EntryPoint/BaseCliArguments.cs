@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace EntryPoint {
 
     /// <summary>
-    /// The base class which must be derived from for an OptionsModel  implementation
+    /// The base class which must be derived from for a CliArguments implementation
     /// </summary>
     public abstract class BaseCliArguments : ICliHelpable {
         /// <summary>
-        /// The base class which must be derived from for an OptionsModel implementation
+        /// The base class which must be derived from for  CliArguments implementation
         /// </summary>
         /// <param name="utilityName">The name of your utility or application</param>
         public BaseCliArguments(string utilityName) {
@@ -20,9 +20,9 @@ namespace EntryPoint {
         internal BaseCliArguments() { }
 
         internal string UtilityName { get; set; }
-    
+
         /// <summary>
-        /// All trailing arguments left after the list of Options and OptionParameters
+        /// All trailing arguments left after any Options and OptionParameters defined in CliArguments
         /// </summary>
         public string[] Operands { get; internal set; }
 

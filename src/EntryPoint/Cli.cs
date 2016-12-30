@@ -95,19 +95,19 @@ namespace EntryPoint {
         // ** Help **
 
         /// <summary>
-        /// Generate and return a Help string for a given BaseCliArguments instance
+        /// Generate and return a Help string for a given BaseCliArguments or BaseCliCommands instance
         /// </summary>
-        /// <typeparam name="A">Custom implementation type of BaseCliArguments which can be created with 0 arguments</typeparam>
+        /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands which can be created with 0 arguments</typeparam>
         /// <returns>Help string</returns>
         public static string GetHelp<A>() where A : ICliHelpable, new() {
             return GetHelp(new A());
         }
 
         /// <summary>
-        /// Generate and return a Help string for a given BaseCliArguments instance
+        /// Generate and return a Help string for a given BaseCliArguments or BaseCliCommands instance
         /// </summary>
-        /// <typeparam name="A">Custom implementation type of BaseCliArguments</typeparam>
-        /// <param name="applicationOptions">Instance of custom BaseCliArguments implementation</param>
+        /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands</typeparam>
+        /// <param name="applicationOptions">Instance of the custom BaseCliArguments or BaseCliCommands implementation</param>
         /// <returns>Help string</returns>
         public static string GetHelp<A>(A applicationOptions) where A : ICliHelpable, new() {
             if (applicationOptions is BaseCliArguments) {
