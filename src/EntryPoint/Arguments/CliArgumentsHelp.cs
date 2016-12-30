@@ -1,4 +1,4 @@
-﻿using EntryPoint.Internals;
+﻿using EntryPoint.Helpers;
 using EntryPoint.Parsing;
 using System;
 using System.Collections.Generic;

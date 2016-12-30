@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using System.Reflection;
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 
 namespace EntryPoint.Arguments {
 

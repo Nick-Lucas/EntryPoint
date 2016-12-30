@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 using EntryPoint.Exceptions;
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 using EntryPoint.Parsing;
 using EntryPoint.Arguments;
 

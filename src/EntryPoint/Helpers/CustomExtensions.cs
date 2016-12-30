@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EntryPoint.Internals {
+namespace EntryPoint.Helpers {
 
     internal static class CustomExtensions {
         internal static List<T> Duplicates<T>(this IEnumerable<T> items, IEqualityComparer<T> comparer = null) {

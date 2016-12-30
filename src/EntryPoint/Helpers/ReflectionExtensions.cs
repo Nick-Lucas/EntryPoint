@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint.Exceptions;
 using System.Reflection;
 
-namespace EntryPoint.Internals {
+namespace EntryPoint.Helpers {
     internal static class ReflectionExtensions {
 
         // Get the HelpAttribute from a class or property

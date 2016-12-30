@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint.Exceptions;
 using System.Reflection;
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 
 namespace EntryPoint.Arguments {
     public static class ArgumentReflectionExtensions {

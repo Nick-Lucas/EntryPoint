@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Reflection;
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 
 namespace EntryPoint.Commands {
     internal static class CliCommandsHelp {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using System.Reflection;
 using EntryPoint.Exceptions;
-using EntryPoint.Internals;
+using EntryPoint.Helpers;
 
 namespace EntryPoint.Commands {
     internal class CommandModel {
