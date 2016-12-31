@@ -92,34 +92,35 @@
     
     <div class="container">
         <h3>About EntryPoint</h3>
-<p>An argument parser designed to be composable, practical and maintainable.</p>
+<p>Entrypoint is an argument parser designed to be composable, practical to use, and maintainable over the life time of a project.</p>
+<p>It's based around the concept of Declarative POCOs (CliArguments, and CliCommands classes), which you simply pass to EntryPoint for parsing and construction.</p>
 <p>Parses arguments in the form <code>UtilityName [command] [-o | --options] [operands]</code></p>
-<p>Supports:</p>
+<h3>Standards</h3>
 <ul>
 <li>.Net Standard 1.6+ (All future .Net releases are built on this)</li>
 <li>.Net Framework 4.5+</li>
 </ul>
-<p>Follows the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">IEEE Standard</a>
-closely, but does include common adblibs such as fully named <code>--option</code> style options.</p>
+<p>Follows the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">IEEE Standard</a> for command line utilities
+closely, but does include common adblibs, such as fully named <code>--option</code> style options.</p>
 <h3>Installation</h3>
 <p>EntryPoint is available on <a href="https://www.nuget.org/packages/EntryPoint">NuGet</a>:</p>
 <pre><code>PM&gt; Install-Package EntryPoint
 </code></pre>
 
 <h3>Introduction</h3>
-<p>EntryPoint is simple to use, and composable. It has a few tools you'll use:</p>
+<p>There are just a few classes you'll interact with:</p>
 <ul>
 <li><code>Cli</code> - The main API, which handles all processing</li>
-<li><code>BaseCliArguments</code> - An abstract class which you implement to define Options &amp; Operands</li>
-<li><code>BaseCliCommands</code> - An abstract class which you implement to define Commands</li>
-<li><code>Attributes</code> - There are a handful of attributes you can use to define your CliCommands and CliArguments implementations</li>
+<li><code>BaseCliArguments</code> - An abstract class which you implement to define Options &amp; Operands, known as CliArguments classes</li>
+<li><code>BaseCliCommands</code> - An abstract class which you implement to define Commands, known as CliCommands classes</li>
+<li><code>Attributes</code> - There are a handful of attributes you can use to define your CliCommands and CliArguments implementations, which are documented in depth below</li>
 </ul>
 <h2 id="arguments">Arguments</h2>
 <h3>Basic Usage</h3>
-<p>Everything revolves around declarative <code>CliArguments</code> classes
-which EntryPoint uses to parse command line arguments</p>
+<p>For a simple application, revolves around declarative <code>CliArguments</code> classes,
+which are used to parse command line arguments</p>
 <p>Let's say we want a utility used like: <code>UtilityName [-s] [--name Bob] [6.1]</code></p>
-<p>This has one Option, one OptionParameter and a positional Operand</p>
+<p>This has one Option (-s), one OptionParameter (--name Bob) and a positional Operand (6.1)</p>
 <pre><code>class SimpleProgram {
     void main(string[] args) {
 
@@ -136,17 +137,21 @@ which EntryPoint uses to parse command line arguments</p>
 class SimpleCliArguments : BaseCliArguments {
     public SimpleCliArguments() : base(&quot;SimpleApp&quot;) { }
 
-    // Option
+    // Defining a CliArguments class is as easy as adding 
+    // attributes to your POCO properties
     [Option(LongName = &quot;switch&quot;, 
             ShortName = 's')]
     public bool Switch { get; set; }
 
-    // Option-Parameter
+    // Both Option and OptionParameter attributes support a 
+    // combination of -o and --option style invocations
     [OptionParameter(LongName = &quot;name&quot;, 
                      ShortName = 'n')]
     public string Name { get; set; }
 
-    // Operand
+    // Operands can be mapped positionally
+    // But BaseCliArguments also has a .Operands string[] where 
+    // un-mapped operands are stored
     [Operand(position: 1)]
     public decimal FirstOperand { get; set; }
 }
@@ -181,7 +186,7 @@ class SimpleCliArguments : BaseCliArguments {
 </ul>
 <h5><code>[Required]</code></h5>
 <ul>
-<li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied</li>
+<li><strong>Apply to:</strong> Option, OptionParameter or Operand properties</li>
 <li><strong>Detail:</strong> Makes an Option or Operand mandatory for the user to provide</li>
 </ul>
 <h5><code>[Help(detail = string)]</code></h5>
@@ -191,8 +196,8 @@ class SimpleCliArguments : BaseCliArguments {
 </ul>
 <h3>Example Application</h3>
 <p>The following is an example implementation for use in a simple message sending application</p>
-<p>This is used like <code>UtilityName [ -v | --verbose ] [ -s | --subject &quot;your subject&quot; ] [ -i | --importance [ 1 | normal | 2 | high ] ] [message]</code></p>
-<pre><code>// Usage is then as simple as
+<p>This is used like <code>UtilityName [ -v | --verbose ] [ -s | --subject &quot;your subject&quot; ] [ -i | --importance [ normal | high ] ] [message]</code></p>
+<pre><code>// Usage is as simple as
 class MessagingProgram {
     void main(string[] args) {
         var arguments = Cli.Parse&lt;MessagingCliArguments&gt;(args);
@@ -254,8 +259,8 @@ public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.No
 <h2 id="commands">Commands</h2>
 <h3>Introduction</h3>
 <p>Although it's perfectly fine to only use a CliArguments class for a simple application,
-if you have multiple Commands, each with a different set of Arguments, you may want
-to create multiple CliArguments classes and route to the correct one.</p>
+if you have multiple Commands, each with a different set of Arguments; you may want
+to create multiple application entry points, each with its own CliArguments class.</p>
 <p>This is the purpose of <code>BaseCliCommands</code>.</p>
 <h3>Basic Usage</h3>
 <pre><code>class SimpleCommandsProgram {
@@ -298,26 +303,28 @@ class SimpleCliCommands : BaseCliCommands {
 </ul>
 <h5><code>[DefaultCommand]</code></h5>
 <ul>
-<li><strong>Apply to:</strong> Command Methods</li>
+<li><strong>Apply to:</strong> Command m\ethods</li>
 <li><strong>Detail:</strong> Defines a Command as the default when no Command is specified, otherwise EntryPoint invokes <code>--help</code></li>
 </ul>
 <h5><code>[Help(detail = string)]</code></h5>
 <ul>
-<li><strong>Apply to:</strong> CliCommands classes and Command Methods</li>
+<li><strong>Apply to:</strong> CliCommands classes and Command methods</li>
 <li><strong>Detail:</strong> Provides custom documentation on a Command</li>
 </ul>
 <h2 id="help-generator">Help Generator</h2>
 <h3>Introduction</h3>
 <p>EntryPoint provides an automatic Help generator, which always owns the <code>-h</code> and <code>--help</code>
 Options in both CliCommands and CliArguments instances.</p>
-<p>When <code>--help</code> is invoked by the user, <code>.HelpRequested</code> is set on CliCommands/CliArguments
-the empty virtual method <code>OnHelpInvoked(string helpText)</code> is invoked.</p>
-<p>By overriding <code>OnHelpInvoked</code> method on your CliCommands/CliArguments implementations,
-you can print and exit, or do something more appropriate to your program flow.
-EntryPoint does not try to control your usage of this.</p>
+<p>When <code>--help</code> is invoked by the user, <code>.HelpInvoked</code> is set on CliCommands/CliArguments,
+and the empty virtual method <code>OnHelpInvoked(string helpText)</code> is invoked.</p>
+<p>By overriding <code>OnHelpInvoked</code> on your CliCommands/CliArguments implementations,
+you can print and exit, or do something more appropriate to your program flow.</p>
+<p>EntryPoint does not try to control your usage of this, but be aware that invoking <code>--help</code> will
+disable  <code>Required</code> attributes; if you neither exit or check <code>.HelpInvoked</code>, then your
+program may continue running with invalid state.</p>
 <h3>Basic Usage</h3>
 <p>The Help Generator consumes the following information for each class type.</p>
-<p>CliCommands:</p>
+<p>CliCommands</p>
 <pre><code>[Help(&quot;This will be displayed as an initial blurb for the utility&quot;)]
 class HelpCliCommands : BaseCliCommands {
 
@@ -330,7 +337,7 @@ class HelpCliCommands : BaseCliCommands {
 }
 </code></pre>
 
-<p>CliArguments:</p>
+<p>CliArguments</p>
 <pre><code>[Help(&quot;This will be displayed as an initial blurb for the command/utility&quot;)]
 class HelpCliArguments : BaseCliArguments {
     public HelpCliArguments()
@@ -412,9 +419,6 @@ class ArgumentsHelpProgram {
 }
 </code></pre>
 
-<p>Invoking <code>--help</code> will disable exceptions for all <code>[Required]</code> Options or Operands,
-so you need to be aware that not exiting during the <code>OnHelpInvoked()</code> method, will leave the program running.
-If you neither exit, or check <code>.HelpInvoked</code>, then your program may continue running with invalid state.</p>
 <h2 id="tips-amp-behaviour">Tips &amp; Behaviour</h2>
 <ul>
 <li><code>Cli.Parse</code> and <code>Cli.Execute</code> have several overloads available. They can create the class and get the command line arguments themselves, but give you manual control, too.</li>
