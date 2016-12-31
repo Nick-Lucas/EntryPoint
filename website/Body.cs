@@ -7,7 +7,7 @@ using EntryPoint;
 
 namespace Website {
     class Body {
-        /// ## About EntryPoint
+        /// ### About EntryPoint
         /// 
         /// An argument parser designed to be composable, practical and maintainable.
         /// 
@@ -21,25 +21,25 @@ namespace Website {
         /// Follows the [IEEE Standard](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html) 
         /// closely, but does include common adblibs such as fully named `--option` style options.
         ///
-        /// ## Installation
+        /// ### Installation
         /// EntryPoint is available on [NuGet](https://www.nuget.org/packages/EntryPoint):
         /// 
         ///     PM> Install-Package EntryPoint
         ///     
     }
 
-    /// ## Introduction
+    /// ### Introduction
     /// EntryPoint is simple to use, and composable. It has a few tools you'll use:
     /// 
     /// * `Cli` - The main API, which handles all processing
-    /// * `CliArguments` - An abstract class which you implement to define Options & Operands
+    /// * `BaseCliArguments` - An abstract class which you implement to define Options & Operands
     /// * `BaseCliCommands` - An abstract class which you implement to define Commands
     /// * `Attributes` - There are a handful of attributes you can use to define your CliCommands and CliArguments implementations
-    /// 
-
-    /// # CliArguments
     ///
-    /// ## Basic Usage
+    
+    /// ## Arguments
+    ///
+    /// ### Basic Usage
     /// Everything revolves around declarative `CliArguments` classes 
     /// which EntryPoint uses to parse command line arguments
     /// 
@@ -79,11 +79,11 @@ namespace Website {
     }
 #endif
 
-    /// ## CliArguments Attributes
+    /// ### CliArguments Attributes
     /// 
-    /// `BaseCliArguments` implementations use Attributes to define CLI functionality
+    /// We use Attributes to define CLI functionality
     /// 
-    /// #### `[Option(LongName = string, ShortName = char)]`
+    /// ##### `[Option(LongName = string, ShortName = char)]`
     /// * **Apply to:** Class Properties
     /// * **Output Types:** Bool
     /// * **Detail:** Defines an On/Off option for use on the CLI
@@ -91,7 +91,7 @@ namespace Website {
     /// * **Argument, ShortName:** the case sensitive character to be used like `-n`
     /// * At least one name needs to be provided
     /// 
-    /// #### `[OptionParameter(LongName = string, ShortName = char)]`
+    /// ##### `[OptionParameter(LongName = string, ShortName = char)]`
     /// * **Apply to:** Class Properties
     /// * **Output Types:** Primitive Types, Enums
     /// * **Detail:** Defines a parameter which can be invoked to provide a value
@@ -99,23 +99,23 @@ namespace Website {
     /// * **Argument, ShortName:** the case sensitive character to be used like `-n`
     /// * At least one name needs to be provided
     /// 
-    /// #### `[Operand(position = int)]`
+    /// ##### `[Operand(position = int)]`
     /// * **Apply to:** Class Properties
     /// * **Output Types:** Primitive Types, Enums
     /// * **Detail:** Maps a positional operand from the end of a CLI command
     /// * **Argument, Position:** the 1 based position of the Operand
     /// 
-    /// #### `[Required]`
+    /// ##### `[Required]`
     /// * **Apply to:** Class Properties with any Option or Operand Attribute applied
     /// * **Detail:** Makes an Option or Operand mandatory for the user to provide
     /// 
-    /// #### `[Help(detail = string)]`
+    /// ##### `[Help(detail = string)]`
     /// * **Apply to:** Class Properties with any Option or Operand Attribute applied, or an CliArguments Class
     /// * **Detail:** Provides custom documentation on an Option, Operand or CliArguments Class, which will be consumed by the help generator
     ///
 
 
-    /// ## Example Application
+    /// ### Example Application
     /// 
     /// The following is an example implementation for use in a simple message sending application
     /// 
@@ -167,7 +167,7 @@ namespace Website {
     }
 #endif
 
-    /// ## Value Defaults
+    /// ### Value Defaults
     /// 
     /// If the user does not provide an non-required option-parameter or operand, 
     /// it can be useful to configure the application with a default.
@@ -185,10 +185,10 @@ namespace Website {
         public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 #endif
     }
-
-    /// # CliCommands
+    
+    /// ## Commands
     /// 
-    /// ## Introduction
+    /// ### Introduction
     /// 
     /// Although it's perfectly fine to only use a CliArguments class for a simple application, 
     /// if you have multiple Commands, each with a different set of Arguments, you may want
@@ -196,7 +196,7 @@ namespace Website {
     /// 
     /// This is the purpose of `BaseCliCommands`.
     /// 
-    /// ## Basic Usage
+    /// ### Basic Usage
 #if CODE
     class SimpleCliCommands : BaseCliCommands {
 
@@ -220,38 +220,44 @@ namespace Website {
     }
 #endif
 
-    /// ## CliCommands Attributes
+    /// ### CliCommands Attributes
     /// 
     /// There are several attributes which can be applied to a CliCommands class
     /// 
-    /// #### `[Command(Name = string)]`
+    /// ##### `[Command(Name = string)]`
     /// * **Apply to:** Methods with the signature: `void MethodName(string[])`
     /// * **Argument, Name:** This is the Command Name to be used on the CLI like: `Utility [Command Name] [options]`
     /// * **Detail:** Defines a method as a Command to be routed to
     /// 
-    /// #### `[DefaultCommand]`
+    /// ##### `[DefaultCommand]`
     /// * **Apply to:** Command Methods
-    /// * **Detail:** Defines a Command as the default when no Command is specified, otherwise the EntryPoint invokes --help
+    /// * **Detail:** Defines a Command as the default when no Command is specified, otherwise EntryPoint invokes `--help`
     /// 
-    /// #### `[Help(detail = string)]`
+    /// ##### `[Help(detail = string)]`
     /// * **Apply to:** CliCommands classes and Command Methods
     /// * **Detail:** Provides custom documentation on a Command
 
-    /// # Other Tools
-    /// 
+
+
     /// ## Help Generator
+    /// 
+    /// ### Introduction
     /// 
     /// EntryPoint provides an automatic Help generator, which always owns the `-h` and `--help` 
     /// Options in both CliCommands and CliArguments instances.
     /// 
-    /// When --help is invoked by the user, the `.HelpRequested` is set on CliCommands/CliArguments and 
-    /// the virtual method `OnHelpInvoked(string helpText)` is invoked.
+    /// When `--help` is invoked by the user, `.HelpRequested` is set on CliCommands/CliArguments  
+    /// the empty virtual method `OnHelpInvoked(string helpText)` is invoked.
     /// 
-    /// By overriding the `OnHelpInvoked` method on your CliCommands/CliArguments implementations 
-    /// you can print and exit, or do something equally appropriate to your program flow. 
-    /// Entrypoint does not try to control your usage of this.
+    /// By overriding `OnHelpInvoked` method on your CliCommands/CliArguments implementations,
+    /// you can print and exit, or do something more appropriate to your program flow. 
+    /// EntryPoint does not try to control your usage of this.
     /// 
-    /// The Help Generator consumes the following information for each class type:
+    /// ### Basic Usage
+    /// 
+    /// The Help Generator consumes the following information for each class type.
+    /// 
+    /// CliCommands:
 #if CODE
     [Help("This will be displayed as an initial blurb for the utility")]
     class HelpCliCommands : BaseCliCommands {
@@ -263,7 +269,9 @@ namespace Website {
             // ...
         }
     }
-
+#endif
+    /// CliArguments:
+#if CODE
     [Help("This will be displayed as an initial blurb for the command/utility")]
     class HelpCliArguments : BaseCliArguments {
         public HelpCliArguments()
@@ -313,7 +321,7 @@ namespace Website {
     }
 #endif
 
-    /// The same thinking applies to CliArguments
+    /// ...and the same thinking applies to CliArguments
 #if CODE
     [Help("This will be displayed as an initial blurb for the command/utility")]
     class ExampleHelpCliArguments : BaseCliArguments {
@@ -347,17 +355,17 @@ namespace Website {
     }
 #endif
 
-    /// It is recommended that you always check for `.HelpRequested`, as invoking `--help`
-    /// will disable exceptions for all `[Required]` Options or Operands. 
-    /// Help is expected to take precedence over other options
+    /// Invoking `--help` will disable exceptions for all `[Required]` Options or Operands,
+    /// so you need to be aware that not exiting during the `OnHelpInvoked()` method, will leave the program running.
+    /// If you neither exit, or check `.HelpInvoked`, then your program may continue running with invalid state.
 
     /// ## Tips & Behaviour
     /// 
-    /// * `EntryPointApi.Parse` has several overloads available. It can create the class and get the command line arguments itself, but gives you manual control, too.
+    /// * `Cli.Parse` and `Cli.Execute` have several overloads available. They can create the class and get the command line arguments themselves, but give you manual control, too.
     /// * Short named options `-o` are case sensitive: `-a != -A`
     /// * Long named options `--option` are case insensitive: `--opt == --Opt`
     /// * Options can be combined by the user: `-a -b -c` -> `-abc`
-    /// * Combined options can end with an option-parameter: `-abco value`
+    /// * Combined options can end with an option parameter: `-abco value`
     /// * Option-parameters have several forms: `-o value` `-o=value` `--option value` `--option=value`
     /// * Quotes and Escape characters are both supported: `--option "my value"` `--option \-my-value`
     /// * **Warning:** be careful with Quotes as .Net respects and then removes them during `string[] args` creation. They can be escaped to include in values.

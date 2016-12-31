@@ -73,22 +73,25 @@
                 <!--<br>
                 Second line goes here-->
             </p>
-            <div>
-                <!-- Add page links here -->
-                <!--<a class="btn btn-nuget btn-lg" href=#"installation">
-                    <i class="fa fa-cloud-download"></i>
-                    Install via NuGet
-                </a>
-                <a class="btn btn-default btn-lg" href=#"getting-started-basic-crud-create-read-update-delete">
-                    <i class="fa fa-book"></i>
-                    Documentation
-                </a>-->
-            </div>
         </div>
     </div>
-
+    
+    <div class="hotlinks-container">
+        <a class="btn btn-default btn-lg" href="#arguments">
+            <i class="fa fa-book"></i>
+            Arguments
+        </a>
+        <a class="btn btn-default btn-lg" href="#commands">
+            <i class="fa fa-book"></i>
+            Commands
+        </a>
+        <a class="btn btn-default btn-lg" href="#help-generator">
+            <i class="fa fa-book"></i>
+            Help Generator
+        </a>
+    </div>
     <div class="container">
-        <h2 id="about-entrypoint">About EntryPoint</h2>
+        <h3>About EntryPoint</h3>
 <p>An argument parser designed to be composable, practical and maintainable.</p>
 <p>Parses arguments in the form <code>UtilityName [command] [-o | --options] [operands]</code></p>
 <p>Supports:</p>
@@ -98,21 +101,21 @@
 </ul>
 <p>Follows the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">IEEE Standard</a>
 closely, but does include common adblibs such as fully named <code>--option</code> style options.</p>
-<h2 id="installation">Installation</h2>
+<h3>Installation</h3>
 <p>EntryPoint is available on <a href="https://www.nuget.org/packages/EntryPoint">NuGet</a>:</p>
 <pre><code>PM&gt; Install-Package EntryPoint
 </code></pre>
 
-<h2 id="introduction">Introduction</h2>
+<h3>Introduction</h3>
 <p>EntryPoint is simple to use, and composable. It has a few tools you'll use:</p>
 <ul>
 <li><code>Cli</code> - The main API, which handles all processing</li>
-<li><code>CliArguments</code> - An abstract class which you implement to define Options &amp; Operands</li>
+<li><code>BaseCliArguments</code> - An abstract class which you implement to define Options &amp; Operands</li>
 <li><code>BaseCliCommands</code> - An abstract class which you implement to define Commands</li>
 <li><code>Attributes</code> - There are a handful of attributes you can use to define your CliCommands and CliArguments implementations</li>
 </ul>
-<h1>CliArguments</h1>
-<h2 id="basic-usage">Basic Usage</h2>
+<h2 id="arguments">Arguments</h2>
+<h3>Basic Usage</h3>
 <p>Everything revolves around declarative <code>CliArguments</code> classes
 which EntryPoint uses to parse command line arguments</p>
 <p>Let's say we want a utility used like: <code>UtilityName [-s] [--name Bob] [6.1]</code></p>
@@ -149,9 +152,9 @@ class SimpleProgram {
 }
 </code></pre>
 
-<h2 id="cliarguments-attributes">CliArguments Attributes</h2>
-<p><code>BaseCliArguments</code> implementations use Attributes to define CLI functionality</p>
-<h4><code>[Option(LongName = string, ShortName = char)]</code></h4>
+<h3>CliArguments Attributes</h3>
+<p>We use Attributes to define CLI functionality</p>
+<h5><code>[Option(LongName = string, ShortName = char)]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> Class Properties</li>
 <li><strong>Output Types:</strong> Bool</li>
@@ -160,7 +163,7 @@ class SimpleProgram {
 <li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
 <li>At least one name needs to be provided</li>
 </ul>
-<h4><code>[OptionParameter(LongName = string, ShortName = char)]</code></h4>
+<h5><code>[OptionParameter(LongName = string, ShortName = char)]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> Class Properties</li>
 <li><strong>Output Types:</strong> Primitive Types, Enums</li>
@@ -169,24 +172,24 @@ class SimpleProgram {
 <li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
 <li>At least one name needs to be provided</li>
 </ul>
-<h4><code>[Operand(position = int)]</code></h4>
+<h5><code>[Operand(position = int)]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> Class Properties</li>
 <li><strong>Output Types:</strong> Primitive Types, Enums</li>
 <li><strong>Detail:</strong> Maps a positional operand from the end of a CLI command</li>
 <li><strong>Argument, Position:</strong> the 1 based position of the Operand</li>
 </ul>
-<h4><code>[Required]</code></h4>
+<h5><code>[Required]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied</li>
 <li><strong>Detail:</strong> Makes an Option or Operand mandatory for the user to provide</li>
 </ul>
-<h4><code>[Help(detail = string)]</code></h4>
+<h5><code>[Help(detail = string)]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied, or an CliArguments Class</li>
 <li><strong>Detail:</strong> Provides custom documentation on an Option, Operand or CliArguments Class, which will be consumed by the help generator</li>
 </ul>
-<h2 id="example-application">Example Application</h2>
+<h3>Example Application</h3>
 <p>The following is an example implementation for use in a simple message sending application</p>
 <p>This is used like <code>UtilityName [ -v | --verbose ] [ -s | --subject &quot;your subject&quot; ] [ -i | --importance [ 1 | normal | 2 | high ] ] [message]</code></p>
 <pre><code>class MessagingCliArguments : BaseCliArguments {
@@ -235,7 +238,7 @@ enum MessageImportanceEnum {
 }
 </code></pre>
 
-<h2 id="value-defaults">Value Defaults</h2>
+<h3>Value Defaults</h3>
 <p>If the user does not provide an non-required option-parameter or operand,
 it can be useful to configure the application with a default.</p>
 <p>This is easily done using C# property initialisers,
@@ -248,13 +251,13 @@ and will otherwise use the type's default value</p>
 public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 </code></pre>
 
-<h1>CliCommands</h1>
-<h2 id="introduction">Introduction</h2>
+<h2 id="commands">Commands</h2>
+<h3>Introduction</h3>
 <p>Although it's perfectly fine to only use a CliArguments class for a simple application,
 if you have multiple Commands, each with a different set of Arguments, you may want
 to create multiple CliArguments classes and route to the correct one.</p>
 <p>This is the purpose of <code>BaseCliCommands</code>.</p>
-<h2 id="basic-usage">Basic Usage</h2>
+<h3>Basic Usage</h3>
 <pre><code>class SimpleCliCommands : BaseCliCommands {
 
     // A command is a Method which takes a `string[]`.
@@ -277,34 +280,36 @@ to create multiple CliArguments classes and route to the correct one.</p>
 }
 </code></pre>
 
-<h2 id="clicommands-attributes">CliCommands Attributes</h2>
+<h3>CliCommands Attributes</h3>
 <p>There are several attributes which can be applied to a CliCommands class</p>
-<h4><code>[Command(Name = string)]</code></h4>
+<h5><code>[Command(Name = string)]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> Methods with the signature: <code>void MethodName(string[])</code></li>
 <li><strong>Argument, Name:</strong> This is the Command Name to be used on the CLI like: <code>Utility [Command Name] [options]</code></li>
 <li><strong>Detail:</strong> Defines a method as a Command to be routed to</li>
 </ul>
-<h4><code>[DefaultCommand]</code></h4>
+<h5><code>[DefaultCommand]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> Command Methods</li>
-<li><strong>Detail:</strong> Defines a Command as the default when no Command is specified, otherwise the EntryPoint invokes --help</li>
+<li><strong>Detail:</strong> Defines a Command as the default when no Command is specified, otherwise EntryPoint invokes <code>--help</code></li>
 </ul>
-<h4><code>[Help(detail = string)]</code></h4>
+<h5><code>[Help(detail = string)]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> CliCommands classes and Command Methods</li>
 <li><strong>Detail:</strong> Provides custom documentation on a Command</li>
 </ul>
-<h1>Other Tools</h1>
 <h2 id="help-generator">Help Generator</h2>
+<h3>Introduction</h3>
 <p>EntryPoint provides an automatic Help generator, which always owns the <code>-h</code> and <code>--help</code>
 Options in both CliCommands and CliArguments instances.</p>
-<p>When --help is invoked by the user, the <code>.HelpRequested</code> is set on CliCommands/CliArguments and
-the virtual method <code>OnHelpInvoked(string helpText)</code> is invoked.</p>
-<p>By overriding the <code>OnHelpInvoked</code> method on your CliCommands/CliArguments implementations
-you can print and exit, or do something equally appropriate to your program flow.
-Entrypoint does not try to control your usage of this.</p>
-<p>The Help Generator consumes the following information for each class type:</p>
+<p>When <code>--help</code> is invoked by the user, <code>.HelpRequested</code> is set on CliCommands/CliArguments
+the empty virtual method <code>OnHelpInvoked(string helpText)</code> is invoked.</p>
+<p>By overriding <code>OnHelpInvoked</code> method on your CliCommands/CliArguments implementations,
+you can print and exit, or do something more appropriate to your program flow.
+EntryPoint does not try to control your usage of this.</p>
+<h3>Basic Usage</h3>
+<p>The Help Generator consumes the following information for each class type.</p>
+<p>CliCommands:</p>
 <pre><code>[Help(&quot;This will be displayed as an initial blurb for the utility&quot;)]
 class HelpCliCommands : BaseCliCommands {
 
@@ -315,8 +320,10 @@ class HelpCliCommands : BaseCliCommands {
         // ...
     }
 }
+</code></pre>
 
-[Help(&quot;This will be displayed as an initial blurb for the command/utility&quot;)]
+<p>CliArguments:</p>
+<pre><code>[Help(&quot;This will be displayed as an initial blurb for the command/utility&quot;)]
 class HelpCliArguments : BaseCliArguments {
     public HelpCliArguments()
         : base(utilityName: &quot;Displayed as the command/utility name&quot;) { }
@@ -364,7 +371,7 @@ class CommandsHelpProgram {
 }
 </code></pre>
 
-<p>The same thinking applies to CliArguments</p>
+<p>...and the same thinking applies to CliArguments</p>
 <pre><code>[Help(&quot;This will be displayed as an initial blurb for the command/utility&quot;)]
 class ExampleHelpCliArguments : BaseCliArguments {
     public ExampleHelpCliArguments()
@@ -397,16 +404,16 @@ class ArgumentsHelpProgram {
 }
 </code></pre>
 
-<p>It is recommended that you always check for <code>.HelpRequested</code>, as invoking <code>--help</code>
-will disable exceptions for all <code>[Required]</code> Options or Operands.
-Help is expected to take precedence over other options</p>
+<p>Invoking <code>--help</code> will disable exceptions for all <code>[Required]</code> Options or Operands,
+so you need to be aware that not exiting during the <code>OnHelpInvoked()</code> method, will leave the program running.
+If you neither exit, or check <code>.HelpInvoked</code>, then your program may continue running with invalid state.</p>
 <h2 id="tips-amp-behaviour">Tips &amp; Behaviour</h2>
 <ul>
-<li><code>EntryPointApi.Parse</code> has several overloads available. It can create the class and get the command line arguments itself, but gives you manual control, too.</li>
+<li><code>Cli.Parse</code> and <code>Cli.Execute</code> have several overloads available. They can create the class and get the command line arguments themselves, but give you manual control, too.</li>
 <li>Short named options <code>-o</code> are case sensitive: <code>-a != -A</code></li>
 <li>Long named options <code>--option</code> are case insensitive: <code>--opt == --Opt</code></li>
 <li>Options can be combined by the user: <code>-a -b -c</code> -&gt; <code>-abc</code></li>
-<li>Combined options can end with an option-parameter: <code>-abco value</code></li>
+<li>Combined options can end with an option parameter: <code>-abco value</code></li>
 <li>Option-parameters have several forms: <code>-o value</code> <code>-o=value</code> <code>--option value</code> <code>--option=value</code></li>
 <li>Quotes and Escape characters are both supported: <code>--option &quot;my value&quot;</code> <code>--option \-my-value</code></li>
 <li><strong>Warning:</strong> be careful with Quotes as .Net respects and then removes them during <code>string[] args</code> creation. They can be escaped to include in values.</li>
@@ -418,7 +425,7 @@ Help is expected to take precedence over other options</p>
         <hr />
         <b>EntryPoint</b> is released under the <a href="https://raw.githubusercontent.com/Nick-Lucas/EntryPoint/master/LICENSE.txt">MIT license</a>
         <br />
-        Updated on Dec 30, 2016
+        Updated on Dec 31, 2016
         <br /><br />
     </div>
 
