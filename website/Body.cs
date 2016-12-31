@@ -36,7 +36,7 @@ namespace Website {
     /// * `BaseCliCommands` - An abstract class which you implement to define Commands
     /// * `Attributes` - There are a handful of attributes you can use to define your CliCommands and CliArguments implementations
     ///
-    
+
     /// ## Arguments
     ///
     /// ### Basic Usage
@@ -47,6 +47,19 @@ namespace Website {
     /// 
     /// This has one Option, one OptionParameter and a positional Operand
 #if CODE
+    class SimpleProgram {
+        void main(string[] args) {
+
+            // One line parsing of any `BaseCliArguments` implementation
+            var arguments = Cli.Parse<SimpleCliArguments>(args);
+
+            // Object oriented access to your arguments
+            Console.WriteLine($"The name is {arguments.Name}");
+            Console.WriteLine($"Switch flag: {arguments.Switch}");
+            Console.WriteLine($"Positional Operand 1: {arguments.FirstOperand}");
+        }
+    }
+
     class SimpleCliArguments : BaseCliArguments {
         public SimpleCliArguments() : base("SimpleApp") { }
 
@@ -63,19 +76,6 @@ namespace Website {
         // Operand
         [Operand(position: 1)]
         public decimal FirstOperand { get; set; }
-    }
-
-    class SimpleProgram {
-        void main(string[] args) {
-
-            // One line parsing of any `BaseCliArguments` implementation
-            var arguments = Cli.Parse<SimpleCliArguments>(args);
-
-            // Object oriented access to your arguments
-            Console.WriteLine($"The name is {arguments.Name}");
-            Console.WriteLine($"Switch flag: {arguments.Switch}");
-            Console.WriteLine($"Positional Operand 1: {arguments.FirstOperand}");
-        }
     }
 #endif
 
@@ -121,6 +121,15 @@ namespace Website {
     /// 
     /// This is used like `UtilityName [ -v | --verbose ] [ -s | --subject "your subject" ] [ -i | --importance [ 1 | normal | 2 | high ] ] [message]`
 #if CODE
+    // Usage is then as simple as
+    class MessagingProgram {
+        void main(string[] args) {
+            var arguments = Cli.Parse<MessagingCliArguments>(args);
+
+            // Use the arguments object...
+        }
+    }
+
     class MessagingCliArguments : BaseCliArguments {
         public MessagingCliArguments() : base("Message Sender") { }
 
@@ -150,15 +159,6 @@ namespace Website {
         [Operand(1)]
         [Help("Mandatory message to provide")]
         public string Message { get; set; }
-    }
-
-    // Usage is then as simple as
-    class MessagingProgram {
-        void main(string[] args) {
-            var arguments = Cli.Parse<MessagingCliArguments>(args);
-
-            // Use the arguments object...
-        }
     }
 
     enum MessageImportanceEnum {
@@ -198,6 +198,14 @@ namespace Website {
     /// 
     /// ### Basic Usage
 #if CODE
+    class SimpleCommandsProgram {
+        public void Main(string[] args) {
+            // One line execution of the Commands class
+            // It will select and route to one of your Command methods
+            var commands = Cli.Execute<SimpleCliCommands>(args);
+        }
+    }
+
     class SimpleCliCommands : BaseCliCommands {
 
         // A command is a Method which takes a `string[]`.

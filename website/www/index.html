@@ -77,15 +77,15 @@
     </div>
     
     <div class="hotlinks-container">
-        <a class="btn btn-default btn-lg" href="#arguments">
+        <a class="btn btn-default btn-md" href="#arguments">
             <i class="fa fa-book"></i>
             Arguments
         </a>
-        <a class="btn btn-default btn-lg" href="#commands">
+        <a class="btn btn-default btn-md" href="#commands">
             <i class="fa fa-book"></i>
             Commands
         </a>
-        <a class="btn btn-default btn-lg" href="#help-generator">
+        <a class="btn btn-default btn-md" href="#help-generator">
             <i class="fa fa-book"></i>
             Help Generator
         </a>
@@ -120,7 +120,20 @@ closely, but does include common adblibs such as fully named <code>--option</cod
 which EntryPoint uses to parse command line arguments</p>
 <p>Let's say we want a utility used like: <code>UtilityName [-s] [--name Bob] [6.1]</code></p>
 <p>This has one Option, one OptionParameter and a positional Operand</p>
-<pre><code>class SimpleCliArguments : BaseCliArguments {
+<pre><code>class SimpleProgram {
+    void main(string[] args) {
+
+        // One line parsing of any `BaseCliArguments` implementation
+        var arguments = Cli.Parse&lt;SimpleCliArguments&gt;(args);
+
+        // Object oriented access to your arguments
+        Console.WriteLine($&quot;The name is {arguments.Name}&quot;);
+        Console.WriteLine($&quot;Switch flag: {arguments.Switch}&quot;);
+        Console.WriteLine($&quot;Positional Operand 1: {arguments.FirstOperand}&quot;);
+    }
+}
+
+class SimpleCliArguments : BaseCliArguments {
     public SimpleCliArguments() : base(&quot;SimpleApp&quot;) { }
 
     // Option
@@ -136,19 +149,6 @@ which EntryPoint uses to parse command line arguments</p>
     // Operand
     [Operand(position: 1)]
     public decimal FirstOperand { get; set; }
-}
-
-class SimpleProgram {
-    void main(string[] args) {
-
-        // One line parsing of any `BaseCliArguments` implementation
-        var arguments = Cli.Parse&lt;SimpleCliArguments&gt;(args);
-
-        // Object oriented access to your arguments
-        Console.WriteLine($&quot;The name is {arguments.Name}&quot;);
-        Console.WriteLine($&quot;Switch flag: {arguments.Switch}&quot;);
-        Console.WriteLine($&quot;Positional Operand 1: {arguments.FirstOperand}&quot;);
-    }
 }
 </code></pre>
 
@@ -192,7 +192,16 @@ class SimpleProgram {
 <h3>Example Application</h3>
 <p>The following is an example implementation for use in a simple message sending application</p>
 <p>This is used like <code>UtilityName [ -v | --verbose ] [ -s | --subject &quot;your subject&quot; ] [ -i | --importance [ 1 | normal | 2 | high ] ] [message]</code></p>
-<pre><code>class MessagingCliArguments : BaseCliArguments {
+<pre><code>// Usage is then as simple as
+class MessagingProgram {
+    void main(string[] args) {
+        var arguments = Cli.Parse&lt;MessagingCliArguments&gt;(args);
+
+        // Use the arguments object...
+    }
+}
+
+class MessagingCliArguments : BaseCliArguments {
     public MessagingCliArguments() : base(&quot;Message Sender&quot;) { }
 
     // Verbose will be a familiar option to most CLI users
@@ -223,15 +232,6 @@ class SimpleProgram {
     public string Message { get; set; }
 }
 
-// Usage is then as simple as
-class MessagingProgram {
-    void main(string[] args) {
-        var arguments = Cli.Parse&lt;MessagingCliArguments&gt;(args);
-
-        // Use the arguments object...
-    }
-}
-
 enum MessageImportanceEnum {
     Normal = 1,
     High = 2
@@ -258,7 +258,15 @@ if you have multiple Commands, each with a different set of Arguments, you may w
 to create multiple CliArguments classes and route to the correct one.</p>
 <p>This is the purpose of <code>BaseCliCommands</code>.</p>
 <h3>Basic Usage</h3>
-<pre><code>class SimpleCliCommands : BaseCliCommands {
+<pre><code>class SimpleCommandsProgram {
+    public void Main(string[] args) {
+        // One line execution of the Commands class
+        // It will select and route to one of your Command methods
+        var commands = Cli.Execute&lt;SimpleCliCommands&gt;(args);
+    }
+}
+
+class SimpleCliCommands : BaseCliCommands {
 
     // A command is a Method which takes a `string[]`.
     // You also need to apply a [Command(name)] attribute, 
