@@ -40,7 +40,7 @@ namespace Website {
         }
 
         static string GetVersion() {
-            return typeof(EntryPointApi)
+            return typeof(Cli)
                 .Assembly
                 .GetName()
                 .Version

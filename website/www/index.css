@@ -7,14 +7,28 @@ body {
     min-width: 480px;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
   font-family: "Open Sans", sans-serif;
   font-weight: normal;
 }
 
 h2 {
+    text-align: center;
+    padding-top: 1.5em;
+    padding-bottom: 0em;
+}
+
+h3 {
     padding-top: 0.7em;
     padding-bottom: 0.1em;
+}
+
+h5 {
+    font-size: inherit;
+}
+
+hr {
+    border-color: #aaaaaa;
 }
 
 code {
@@ -44,20 +58,10 @@ pre code.hljs {
     color: #d95800;
 }
 
-.btn-nuget { 
-  color: #ffffff; 
-  background-color: #FFA71A; 
-  border-color: #FB9902; 
-} 
- 
-.btn-nuget:hover, 
-.btn-nuget:focus, 
-.btn-nuget:active, 
-.btn-nuget.active
-{ 
-  color: #ffffff; 
-  background-color: #F09D18; 
-  border-color: #FB9902; 
+.hotlinks-container {
+    padding: 0.7em;
+    padding-bottom: 0;
+    text-align: center;
 }
 
 .footer {
