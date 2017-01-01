@@ -1,5 +1,5 @@
 {
-  "version": "0.9.5-*",
+  "version": "0.9.6-*",
   "title": "EntryPoint",
   "description": "Lightweight and Composable CLI Argument Parser for all modern .Net platforms",
   "authors": [ "Nick Lucas" ],
