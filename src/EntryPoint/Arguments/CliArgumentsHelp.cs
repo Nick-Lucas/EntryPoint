@@ -83,10 +83,10 @@ namespace EntryPoint.Arguments {
             return $"[{GetTypeSummary(type)}] ";
         }
         static string GetTypeSummary(Type type) {
-            if (type == typeof(Enum)) {
+            if (type.BaseType() == typeof(Enum)) {
                 var names = Enum
                     .GetNames(type)
-                    .Select(s => s.ToUpper());
+                    .Select(s => s);
                 return string.Join("|", names);
             } else {
                 return type.Name.ToUpper();
