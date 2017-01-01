@@ -42,8 +42,8 @@ namespace Website {
     /// ## Arguments
     ///
     /// ### Basic Usage
-    /// For a simple application, revolves around declarative `CliArguments` classes, 
-    /// which are used to parse command line arguments
+    /// For a simple application you may not need Commands; `CliArguments` classes are used
+    /// to parse command line arguments without consideration of Commands.
     /// 
     /// Let's say we want a utility used like: `UtilityName [-s] [--name Bob] [6.1]`
     /// 

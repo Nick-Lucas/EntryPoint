@@ -117,8 +117,8 @@ closely, but does include common adblibs, such as fully named <code>--option</co
 </ul>
 <h2 id="arguments">Arguments</h2>
 <h3>Basic Usage</h3>
-<p>For a simple application, revolves around declarative <code>CliArguments</code> classes,
-which are used to parse command line arguments</p>
+<p>For a simple application you may not need Commands; <code>CliArguments</code> classes are used
+to parse command line arguments without consideration of Commands.</p>
 <p>Let's say we want a utility used like: <code>UtilityName [-s] [--name Bob] [6.1]</code></p>
 <p>This has one Option (-s), one OptionParameter (--name Bob) and a positional Operand (6.1)</p>
 <pre><code>class SimpleProgram {
