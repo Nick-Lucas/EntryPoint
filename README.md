@@ -8,7 +8,7 @@
 
 Lightweight and Composable CLI Argument Parser for all modern .Net platforms
 
-Parses arguments in the form `UtilityName[-o | --options][operands]`
+Parses arguments in the form `UtilityName [command] [-o | --options] [operands]`
 
 Supports:
 
@@ -28,11 +28,19 @@ Pull requests and suggestions are welcome, and some small tasks are already in t
 
 Parse your application's Command Line Arguments into a declarative POCO, in one line
 ```C#
-var options = EntryPointApi.Parse<MyApplicationOptions>(args);
-var someOption = options.SomeOption;
+var arguments = Cli.Parse<MyCliArguments>(args);
+var someOption = arguments.SomeOption;
 ```
 
+You can also route Commands using a dedicated Api
+```C#
+Cli.Execute<MyCliCommands>(args);
+```
+
+`MyCliArguments` and `MyCliCommands` are defined as declarative POCOs using Attributes.
+
 Full documentation: https://nick-lucas.github.io/EntryPoint/
+Example Implementation: https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example
 
 ## Roadmap
 * **Future**
