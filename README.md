@@ -40,6 +40,7 @@ Cli.Execute<MyCliCommands>(args);
 `MyCliArguments` and `MyCliCommands` are defined as declarative POCOs using Attributes.
 
 Full documentation: https://nick-lucas.github.io/EntryPoint/
+
 Example Implementation: https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example
 
 ## Roadmap
