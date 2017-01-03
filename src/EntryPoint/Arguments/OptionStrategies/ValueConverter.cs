@@ -18,12 +18,15 @@ namespace EntryPoint.Arguments.OptionStrategies {
             if (Nullable.GetUnderlyingType(outputType) != null) {
                 return Convert.ChangeType(value, Nullable.GetUnderlyingType(outputType));
             }
+
             value = SanitiseSpecialTypes(value, outputType);
+
             if (value is IConvertible) {
                 return Convert.ChangeType(value, outputType);
             } else if (value.GetType() == outputType) {
                 return value;
             }
+
             throw new InvalidCastException(
                 $"The requested type `{outputType.Name}` could not be converted to "
                 + $"from the type: `{value.GetType().Name}` with value: `{value.ToString()}`");
@@ -61,15 +64,22 @@ namespace EntryPoint.Arguments.OptionStrategies {
         // and convert its values to its core generic type
         // TODO: This might not be the best approach, but does work
         static object ProcessList(object serialisedList, Type listType) {
-            var typeArg = listType.GenericTypeArguments[0];
-            var reflectedList = Activator.CreateInstance(listType);
-            var listAddMethod = reflectedList.GetType().GetRuntimeMethod("Add", new Type[] { typeArg });
-            var stringValues = serialisedList.ToString().Split(',');
+            Type listTypeArg = listType.GenericTypeArguments[0];
+            var listInstance = Activator.CreateInstance(listType);
+            MethodInfo listAddMethod = GetListAddMethod(listType, listTypeArg);
+
+            string[] stringValues = serialisedList.ToString().Split(',');
             foreach (var stringValue in stringValues) {
-                object value = ConvertValue(stringValue, typeArg);
-                listAddMethod.Invoke(reflectedList, new[] { value });
+                var value = ConvertValue(stringValue, listTypeArg);
+                listAddMethod.Invoke(listInstance, new[] { value });
             }
-            return reflectedList;
+
+            return listInstance;
+        }
+
+        static MethodInfo GetListAddMethod(Type listType, Type typeArg) {
+            return listType
+                .GetRuntimeMethod("Add", new Type[] { typeArg });
         }
     }
 }
