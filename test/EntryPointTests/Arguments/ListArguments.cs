@@ -29,7 +29,7 @@ namespace EntryPointTests.Arguments {
         [Fact]
         public void List_Ints() {
             string[] args = new string[] {
-                "--strings", "1,2,3,4"
+                "--integers", "1,2,3,4"
             };
 
             var expected = new List<int>() {
@@ -45,7 +45,7 @@ namespace EntryPointTests.Arguments {
         [Fact]
         public void List_Bools() {
             string[] args = new string[] {
-                "--strings", "true, false"
+                "--booleans", "true, false"
             };
 
             var expected = new List<bool>() {

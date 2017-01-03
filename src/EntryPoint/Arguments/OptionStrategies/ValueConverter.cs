@@ -19,7 +19,14 @@ namespace EntryPoint.Arguments.OptionStrategies {
                 return Convert.ChangeType(value, Nullable.GetUnderlyingType(outputType));
             }
             value = SanitiseSpecialTypes(value, outputType);
-            return Convert.ChangeType(value, outputType);
+            if (value is IConvertible) {
+                return Convert.ChangeType(value, outputType);
+            } else if (value.GetType() == outputType) {
+                return value;
+            }
+            throw new InvalidCastException(
+                $"The requested type `{outputType.Name}` could not be converted to "
+                + $"from the type: `{value.GetType().Name}` with value: `{value.ToString()}`");
         }
 
         static object SanitiseSpecialTypes(object value, Type outputType) {
@@ -28,6 +35,9 @@ namespace EntryPoint.Arguments.OptionStrategies {
             }
             if (outputType.BaseType() == typeof(Enum) || outputType == typeof(Enum)) {
                 return SanitiseEnum(value, outputType);
+            }
+            if (outputType.IsList()) {
+                return ProcessList(value, outputType);
             }
             return value;
         }
@@ -45,6 +55,21 @@ namespace EntryPoint.Arguments.OptionStrategies {
         // Converts an int or string representation of an application enum into that enum
         static object SanitiseEnum(object value, Type outputType) {
             return Enum.Parse(outputType, value.ToString(), true);
+        }
+
+        // Split a serialised list by its delimiters 
+        // and convert its values to its core generic type
+        // TODO: This might not be the best approach, but does work
+        static object ProcessList(object serialisedList, Type listType) {
+            var typeArg = listType.GenericTypeArguments[0];
+            var reflectedList = Activator.CreateInstance(listType);
+            var listAddMethod = reflectedList.GetType().GetRuntimeMethod("Add", new Type[] { typeArg });
+            var stringValues = serialisedList.ToString().Split(',');
+            foreach (var stringValue in stringValues) {
+                object value = ConvertValue(stringValue, typeArg);
+                listAddMethod.Invoke(reflectedList, new[] { value });
+            }
+            return reflectedList;
         }
     }
 }
