@@ -12,7 +12,7 @@ Parses arguments in the form `UtilityName [command] [-o | --options] [operands]`
 
 Supports:
 
-* .Net Standard 1.6+ (All future.Net releases are built on this)
+* .Net Standard 1.6+ (.Net Core and all future .Net releases are built on this)
 * .Net Framework 4.5+
 
 Follows the [IEEE Standard](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html) closely, but does include common adblibs such as fully named `--option` style options.
