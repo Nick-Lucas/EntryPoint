@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 
 using EntryPoint;
+using System.Collections.Generic;
 
 namespace Website {
     class Body {
@@ -152,13 +153,20 @@ namespace Website {
         [Help("Mandatory Subject to provide")]
         public string Subject { get; set; }
 
-        // An importance level for the message.
+        // An enum importance level for the message.
         // If not provided this is defaulted to `Normal`
         // User can provide the value as a number or string (ie. '2' or 'high')
         [OptionParameter(LongName = "importance", 
                          ShortName = 'i')]
         [Help("Sets the importance level of a sent message")]
         public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
+
+        // A list of strings
+        // Lists support all the same types as any other option parameter
+        // The Cli expects list values in the form `item1,item2,item3` etc
+        [OptionParameter(LongName = "recipients")]
+        [Help("A list of email addresses to send to")]
+        public List<string> Recipients { get; set; }
 
         // A message *must* be provided as the first operand
         [Required]

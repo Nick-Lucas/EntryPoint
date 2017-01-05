@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="favicon.ico">
 
-    <title>EntryPoint 0.9.6</title>
+    <title>EntryPoint 0.9.7</title>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/androidstudio.min.css" rel="stylesheet" />
@@ -66,7 +66,7 @@
         <div class="starter-template">
             <h1 class="hero-title">
                 <i class="fa fa-terminal"></i>
-                EntryPoint 0.9.6
+                EntryPoint 0.9.7
             </h1>
             <p class="lead">
                 Composable CLI Argument Parser
@@ -222,13 +222,20 @@ class MessagingCliArguments : BaseCliArguments {
     [Help(&quot;Mandatory Subject to provide&quot;)]
     public string Subject { get; set; }
 
-    // An importance level for the message.
+    // An enum importance level for the message.
     // If not provided this is defaulted to `Normal`
     // User can provide the value as a number or string (ie. '2' or 'high')
     [OptionParameter(LongName = &quot;importance&quot;, 
                      ShortName = 'i')]
     [Help(&quot;Sets the importance level of a sent message&quot;)]
     public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
+
+    // A list of strings
+    // Lists support all the same types as any other option parameter
+    // The Cli expects list values in the form `item1,item2,item3` etc
+    [OptionParameter(LongName = &quot;recipients&quot;)]
+    [Help(&quot;A list of email addresses to send to&quot;)]
+    public List&lt;string&gt; Recipients { get; set; }
 
     // A message *must* be provided as the first operand
     [Required]
@@ -437,7 +444,7 @@ class ArgumentsHelpProgram {
         <hr />
         <b>EntryPoint</b> is released under the <a href="https://raw.githubusercontent.com/Nick-Lucas/EntryPoint/master/LICENSE.txt">MIT license</a>
         <br />
-        Updated on Jan 1, 2017
+        Updated on Jan 5, 2017
         <br /><br />
     </div>
 
