@@ -9,7 +9,7 @@ using Xunit;
 using EntryPointTests.Arguments.AppOptionModels;
 
 namespace EntryPointTests.Arguments {
-    public class ListArguments {
+    public class ListArgumentsTests {
         [Fact]
         public void List_Strings() {
             string[] args = new string[] {
@@ -45,7 +45,7 @@ namespace EntryPointTests.Arguments {
         [Fact]
         public void List_Bools() {
             string[] args = new string[] {
-                "--booleans", "true, false"
+                "--booleans", "true,false"
             };
 
             var expected = new List<bool>() {

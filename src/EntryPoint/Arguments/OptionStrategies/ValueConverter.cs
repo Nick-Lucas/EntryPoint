@@ -34,20 +34,20 @@ namespace EntryPoint.Arguments.OptionStrategies {
 
         static object SanitiseSpecialTypes(object value, Type outputType) {
             if (outputType == typeof(bool)) {
-                return SanitiseBool(value);
+                return DeserialiseBool(value);
             }
             if (outputType.BaseType() == typeof(Enum) || outputType == typeof(Enum)) {
-                return SanitiseEnum(value, outputType);
+                return DeserialiseEnum(value, outputType);
             }
             if (outputType.IsList()) {
-                return ProcessList(value, outputType);
+                return DeserialiseList(value, outputType);
             }
             return value;
         }
 
         // Converts an int or string representation of a bool into a bool
         // todo: what about bool.TryParse(...)? probably more appropriate as it supports string representations natively
-        static object SanitiseBool(object value) {
+        static object DeserialiseBool(object value) {
             int v;
             if (int.TryParse(value.ToString(), out v)) {
                 value = (v != 0);
@@ -56,14 +56,13 @@ namespace EntryPoint.Arguments.OptionStrategies {
         }
 
         // Converts an int or string representation of an application enum into that enum
-        static object SanitiseEnum(object value, Type outputType) {
+        static object DeserialiseEnum(object value, Type outputType) {
             return Enum.Parse(outputType, value.ToString(), true);
         }
 
         // Split a serialised list by its delimiters 
         // and convert its values to its core generic type
-        // TODO: This might not be the best approach, but does work
-        static object ProcessList(object serialisedList, Type listType) {
+        static object DeserialiseList(object serialisedList, Type listType) {
             Type listTypeArg = listType.GenericTypeArguments[0];
             var listInstance = Activator.CreateInstance(listType);
             MethodInfo listAddMethod = GetListAddMethod(listType, listTypeArg);
