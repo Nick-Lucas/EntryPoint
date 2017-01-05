@@ -50,8 +50,16 @@ namespace EntryPoint.Arguments {
 
             // For Options
             foreach (var option in options) {
-                string shortName = $"-{option.Definition.ShortName.ToString()} ";
-                string longName = $"--{option.Definition.LongName} ";
+                string shortName = "";
+                if (option.Definition.ShortName > char.MinValue) {
+                    shortName = $"-{option.Definition.ShortName.ToString()} ";
+                }
+
+                string longName = "";
+                if (option.Definition.LongName.HasValue()) {
+                    longName = $"--{option.Definition.LongName} ";
+                }
+
                 string parameterString = GetParameterString(option);
                 string requiredString = option.Required.IfTrue("REQUIRED");
 

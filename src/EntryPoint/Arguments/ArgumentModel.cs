@@ -104,7 +104,7 @@ namespace EntryPoint.Arguments {
 
             // Check the double dash options
             var doubleDashes = this.Options
-                .Where(o => o.Definition.LongName != string.Empty)
+                .Where(o => o.Definition.LongName.HasValue())
                 .Select(o => o.Definition.LongName)
                 .Duplicates(StringComparer.CurrentCultureIgnoreCase);
             if (doubleDashes.Any()) {
@@ -113,8 +113,7 @@ namespace EntryPoint.Arguments {
         }
         static void AssertDuplicateOptionsInModel(List<string> duplicateOptionNames) {
             throw new InvalidModelException(
-                $"The given {nameof(BaseCliArguments)} implementation was invalid. "
-                + $"There are duplicate single dash arguments: {String.Join("/", duplicateOptionNames)}");
+                $"There are duplicate option names: `{String.Join("/", duplicateOptionNames)}`");
         }
 
         void ValidateTypes() {

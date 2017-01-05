@@ -21,7 +21,7 @@ namespace Example
 
         // Take option parameters in any primitive type you like
         [OptionParameter(
-            ShortName = 's', LongName = "string")]
+            LongName = "string")]
         [Help(
             "Some string to be used")]
         public string StringArg { get; set; }
@@ -61,13 +61,13 @@ namespace Example
         // These are used in the example but don't show off any new features
 
         [Option(
-            ShortName = 'b', LongName = "option-2")]
+            ShortName = 'b')]
         [Help(
             "A test option. Does nothing")]
         public bool Option2 { get; set; }
 
         [Option(
-            ShortName = 'c', LongName = "option-3")]
+            ShortName = 'c')]
         [Help(
             "A test option. Does nothing")]
         public bool Option3 { get; set; }

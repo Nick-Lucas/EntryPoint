@@ -19,6 +19,10 @@ namespace EntryPoint.Common {
             return type.GetTypeInfo().IsGenericType
                 && type.GetGenericTypeDefinition() == genericType;
         } 
+
+        public static bool HasValue(this string s) {
+            return s != null && s.Length > 0;
+        }
     }
 
 }
