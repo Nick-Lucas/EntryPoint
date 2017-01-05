@@ -69,9 +69,19 @@ namespace EntryPointTests.Arguments {
             };
 
             var model = Cli.Parse<ListsArgsModel>(args);
-
+            
             Assert.Equal(expected.Count, model.Decimals.Count);
             Assert.True(expected.All(s => model.Decimals.Contains(s)));
+        }
+
+        [Fact]
+        public void List_NonStruct() {
+            string[] args = new string[] {
+                "--class", "param"
+            };
+
+            Assert.Throws<InvalidModelException>(
+                () => Cli.Parse<ListsNonStructModel>(args));
         }
     }
 }

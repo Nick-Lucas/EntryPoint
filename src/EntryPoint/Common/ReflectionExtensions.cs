@@ -26,9 +26,5 @@ namespace EntryPoint.Common {
         internal static Type BaseType(this Type type) {
             return type.GetTypeInfo().BaseType;
         }
-
-        internal static bool IsList(this Type type) {
-            return type.GetTypeInfo().GetInterface("IList") != null;
-        }
     }
 }
