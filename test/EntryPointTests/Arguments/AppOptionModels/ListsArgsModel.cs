@@ -15,5 +15,8 @@ namespace EntryPointTests.Arguments.AppOptionModels {
 
         [OptionParameter(LongName = "booleans", ShortName = 'b')]
         public List<bool> Booleans { get; set; }
+
+        [OptionParameter(LongName = "decimals")]
+        public List<decimal> Decimals { get; set; }
     }
 }

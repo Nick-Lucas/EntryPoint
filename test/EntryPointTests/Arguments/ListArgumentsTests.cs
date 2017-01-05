@@ -57,5 +57,21 @@ namespace EntryPointTests.Arguments {
             Assert.Equal(expected.Count, model.Booleans.Count);
             Assert.True(expected.All(s => model.Booleans.Contains(s)));
         }
+
+        [Fact]
+        public void List_Decimals() {
+            string[] args = new string[] {
+                "--decimals", "1.1,2.1,3.1,4.0"
+            };
+
+            var expected = new List<decimal>() {
+                1.1m, 2.1m, 3.1m, 4m
+            };
+
+            var model = Cli.Parse<ListsArgsModel>(args);
+
+            Assert.Equal(expected.Count, model.Decimals.Count);
+            Assert.True(expected.All(s => model.Decimals.Contains(s)));
+        }
     }
 }

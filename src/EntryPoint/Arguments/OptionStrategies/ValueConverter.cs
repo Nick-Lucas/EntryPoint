@@ -62,9 +62,11 @@ namespace EntryPoint.Arguments.OptionStrategies {
 
         // Split a serialised list by its delimiters 
         // and convert its values to its core generic type
+        // Reflectively create and return the required list instance
         static object DeserialiseList(object serialisedList, Type listType) {
-            Type listTypeArg = listType.GenericTypeArguments[0];
             var listInstance = Activator.CreateInstance(listType);
+
+            Type listTypeArg = listType.GenericTypeArguments[0];
             MethodInfo listAddMethod = GetListAddMethod(listType, listTypeArg);
 
             string[] stringValues = serialisedList.ToString().Split(',');
