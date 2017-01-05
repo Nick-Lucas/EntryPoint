@@ -45,6 +45,5 @@ Example Implementation: https://github.com/Nick-Lucas/EntryPoint/tree/master/tes
 
 ## Roadmap
 * **Future**
-	* Support Lists
-	* Support Data Validation
+	* Fix any discovered bugs
 	* 1.0 Release
