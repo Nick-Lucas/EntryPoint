@@ -76,5 +76,23 @@ namespace EntryPointTests.Arguments {
             Assert.Throws<DuplicateOptionException>(
                 () => Cli.Parse<DuplicateArgumentsModel>(args));
         }
+
+        [Fact]
+        public void DuplicateArgs_SimilarArgs_1() {
+            string[] args = new string[] {
+                "--log", "--log-level", "1"
+            };
+
+            Cli.Parse<DuplicateSimilarOptionsModel>(args);
+        }
+
+        [Fact]
+        public void DuplicateArgs_SimilarArgs_2() {
+            string[] args = new string[] {
+                "--log", "--log-level=1"
+            };
+
+            Cli.Parse<DuplicateSimilarOptionsModel>(args);
+        }
     }
 }

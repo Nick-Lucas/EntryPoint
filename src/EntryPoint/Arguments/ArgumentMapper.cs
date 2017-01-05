@@ -104,7 +104,7 @@ namespace EntryPoint.Arguments {
             if (duplicates.Any()) {
                 throw new DuplicateOptionException(
                     $"Duplicate options were entered for " 
-                    + $"${string.Join("/", duplicates.Select(o => o.LongName))}");
+                    + $"{string.Join("/", duplicates.Select(o => o.LongName))}");
             }
         }
     }
