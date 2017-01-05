@@ -7,6 +7,7 @@ using EntryPoint.Common;
 using EntryPoint.Exceptions;
 using EntryPoint.Parsing;
 using EntryPoint.Help;
+using System.Reflection;
 
 namespace EntryPoint.Arguments {
 
@@ -60,6 +61,7 @@ namespace EntryPoint.Arguments {
         public void Validate() {
             ValidateNoDuplicateOptionNames();
             ValidateContigiousOperandMapping();
+            ValidateTypes();
         }
 
         // Check that operand positions have the form: [ 1, 2, 3, 4 ](contigious)
@@ -113,6 +115,46 @@ namespace EntryPoint.Arguments {
             throw new InvalidModelException(
                 $"The given {nameof(BaseCliArguments)} implementation was invalid. "
                 + $"There are duplicate single dash arguments: {String.Join("/", duplicateOptionNames)}");
+        }
+
+        void ValidateTypes() {
+            foreach (var option in Options) {
+                ValidatePropertyType(option.Property);
+            }
+            foreach (var operand in Operands) {
+                ValidatePropertyType(operand.Property);
+            }
+        }
+        void ValidatePropertyType(PropertyInfo property) {
+            if (property.PropertyType.IsList()) {
+                var listTypeArg = property.PropertyType.GenericTypeArguments[0];
+                ValidateTypeIsSupported(listTypeArg);
+            } else {
+                ValidateTypeIsSupported(property.PropertyType);
+            }
+        }
+        void ValidateTypeIsSupported(Type type) {
+            if (type.GetTypeInfo().IsPrimitive) {
+                return;
+            }
+            if (type.GetTypeInfo().IsEnum) {
+                return;
+            }
+            if (type == typeof(string)) {
+                return;
+            }
+            if (type == typeof(decimal)) {
+                return;
+            }
+            if (type.IsNullable()) {
+                ValidateTypeIsSupported(Nullable.GetUnderlyingType(type));
+                return;
+            }
+            AssertTypeNotSupported(type);
+        }
+        void AssertTypeNotSupported(Type type) {
+            throw new InvalidModelException(
+                $"The type `{type.Name}` is not currently supported as an Option/Operand type");
         }
     }
 

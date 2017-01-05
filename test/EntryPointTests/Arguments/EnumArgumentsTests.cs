@@ -8,7 +8,7 @@ using Xunit;
 using EntryPointTests.Arguments.Helpers;
 
 namespace EntryPointTests.Arguments {
-    public class EnumArguments {
+    public class EnumArgumentsTests {
         [Fact]
         public void Enums_Int() {
             string[] args = new string[] {
