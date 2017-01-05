@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 
 namespace EntryPoint.Commands {
     internal class Command : BaseCommand {
@@ -28,7 +29,7 @@ namespace EntryPoint.Commands {
             try {
                 Method.Invoke(Parent, new object[] { args });
             } catch (TargetInvocationException e) {
-                throw e.InnerException;
+                ExceptionDispatchInfo.Capture(e.InnerException).Throw();
             }
         }
     }
