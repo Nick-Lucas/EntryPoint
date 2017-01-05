@@ -75,6 +75,22 @@ namespace EntryPointTests.Arguments {
         }
 
         [Fact]
+        public void List_Operand_Strings() {
+            string[] args = new string[] {
+                "one,two,three,four"
+            };
+
+            var expected = new List<string>() {
+                "one", "two", "three", "four"
+            };
+
+            var model = Cli.Parse<ListsOperandsModel>(args);
+
+            Assert.Equal(expected.Count, model.Strings.Count);
+            Assert.True(expected.All(s => model.Strings.Contains(s)));
+        }
+
+        [Fact]
         public void List_NonStruct() {
             string[] args = new string[] {
                 "--class", "param"
