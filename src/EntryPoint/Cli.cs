@@ -26,8 +26,7 @@ namespace EntryPoint {
         /// <typeparam name="A">The type of the CliArguments, which derives from BaseCliArguments</typeparam>
         /// <returns>A populated CliArguments instance</returns>
         public static A Parse<A>() where A : BaseCliArguments, new() {
-            var args = Environment.GetCommandLineArgs();
-            return Parse(new A(), args);
+            return Parse(new A(), GetCliArgs());
         }
 
         /// <summary>
@@ -72,7 +71,7 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="C">The type of the class implementing BaseCliCommands, which can be created with 0 arguments</typeparam>
         public static C Execute<C>() where C : BaseCliCommands, new() {
-            return Execute(new C(), Environment.GetCommandLineArgs());
+            return Execute(new C(), GetCliArgs());
         }
 
         /// <summary>
@@ -126,6 +125,13 @@ namespace EntryPoint {
             throw new InvalidOperationException(
                 $"Unknown {nameof(BaseHelpable)}: "
                 + $"{applicationOptions.GetType().Name}");
+        }
+
+
+        // ** Internal Helpers **
+
+        static string[] GetCliArgs() {
+            return Environment.GetCommandLineArgs().Skip(1).ToArray();
         }
     }
 
