@@ -8,13 +8,13 @@ using EntryPoint;
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class ParametersArgsModel : BaseCliArguments {
         [OptionParameter(
-            LongName = "param-1",
-            ShortName = 'a')]
+            LongName: "param-1",
+            ShortName: 'a')]
         public int Param1 { get; set; }
 
         [OptionParameter(
-            LongName = "param-2",
-            ShortName = 'b')]
+            LongName: "param-2",
+            ShortName: 'b')]
         public int Param2 { get; set; } = 7;
     }
 }

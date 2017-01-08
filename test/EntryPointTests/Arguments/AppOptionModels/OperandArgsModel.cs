@@ -9,11 +9,11 @@ using EntryPointTests.Arguments.Helpers;
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class OperandArgsModel : BaseCliArguments {
         [Option(
-            LongName = "opt-1")]
+            LongName: "opt-1")]
         public bool Opt1 { get; set; }
 
         [Option(
-            LongName = "opt-2")]
+            LongName: "opt-2")]
         public bool Opt2 { get; set; }
 
         [Operand(1)]

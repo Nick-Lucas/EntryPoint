@@ -8,18 +8,18 @@ using EntryPoint;
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class DecimalArgsModel : BaseCliArguments {
         [OptionParameter(
-            LongName = "default-zero",
-            ShortName = 'a')]
+            LongName: "default-zero",
+            ShortName: 'a')]
         public decimal DefaultZero { get; set; }
 
         [OptionParameter(
-            LongName = "default-null",
-            ShortName = 'b')]
+            LongName: "default-null",
+            ShortName: 'b')]
         public decimal? DefaultNull { get; set; }
 
         [OptionParameter(
-            LongName = "default-71",
-            ShortName = 'c')]
+            LongName: "default-71",
+            ShortName: 'c')]
         public decimal Default71 { get; set; } = 7.1m;
     }
 }

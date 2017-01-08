@@ -29,8 +29,8 @@ namespace EntryPoint {
         public string[] Operands { get; internal set; }
 
         [Option(
-            LongName = HelpRules.HelpLong, 
-            ShortName = HelpRules.HelpShort)]
+            LongName: HelpRules.HelpLong, 
+            ShortName: HelpRules.HelpShort)]
         [Help(
             "Displays Help information about arguments when set")]
         public new bool HelpInvoked { get; set; }

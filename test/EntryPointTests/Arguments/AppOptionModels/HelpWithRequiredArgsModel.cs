@@ -12,13 +12,13 @@ namespace EntryPointTests.Arguments.AppOptionModels {
 
         [Required]
         [OptionParameter(
-            LongName = "param-required",
-            ShortName = 'r')]
+            LongName: "param-required",
+            ShortName: 'r')]
         [Help("PARAM_REQUIRED_HELP_STRING")]
         public int ParamRequired { get; set; }
 
-        [OptionParameter(LongName = "param-2",
-                         ShortName = 'o')]
+        [OptionParameter(LongName: "param-2",
+                         ShortName: 'o')]
         [Help("PARAM_OPTIONAL_HELP_STRING")]
         public string StringOption { get; set; }
 

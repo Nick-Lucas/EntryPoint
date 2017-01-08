@@ -7,7 +7,7 @@ using EntryPoint;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class ListsNonStructModel : BaseCliArguments {
-        [OptionParameter(LongName = "class")]
+        [OptionParameter(LongName: "class")]
         public List<List<int>> Strings { get; set; }
     }
 }
