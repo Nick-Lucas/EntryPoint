@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>EntryPoint </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="EntryPoint ">
+    <meta name="generator" content="docfx 2.10.2.0">
+    
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/androidstudio.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              
+              <a class="navbar-brand brand-title docfx-brand" href="index.html">
+                  <i class="fa fa-terminal"></i>
+                  EntryPoint
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+              
+              <p><a href="https://ci.appveyor.com/project/Nick-Lucas/entrypoint"><img src="https://ci.appveyor.com/api/projects/status/bocpkn9t5lhan1o9?svg=true" alt="Build status"></a>
+<a href="https://www.nuget.org/packages/EntryPoint"><img src="https://img.shields.io/nuget/v/EntryPoint.svg" alt="NuGet"></a>
+<a href="https://github.com/Nick-Lucas/EntryPoint/blob/master/LICENSE"><img src="https://img.shields.io/github/license/Nick-Lucas/EntryPoint.svg" alt="MIT License"></a></p>
+<p><strong>Warning: (Version 0.9.8)</strong> EntryPoint is approaching v1.0 but changes to the API may yet come. See the roadmap below for more information</p>
+<h2 id="entrypoint">EntryPoint</h2>
+<p>Composable CLI Argument Parser for all modern .Net platforms</p>
+<p>Parses arguments in the form <code>UtilityName [command] [-o | --options] [operands]</code></p>
+<p>Supports:</p>
+<ul>
+<li>.Net Standard 1.6+ (.Net Core and all future .Net releases are built on this)</li>
+<li>.Net Framework 4.5+</li>
+</ul>
+<p>Follows the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">IEEE Standard</a> closely, but does include common adblibs such as fully named <code>--option</code> style options.</p>
+<h2 id="installation">Installation</h2>
+<p>EntryPoint is available on <a href="https://www.nuget.org/packages/EntryPoint">NuGet</a>:</p>
+<pre><code>PM&gt; Install-Package EntryPoint
+</code></pre><p>Pull requests and suggestions are welcome, and some small tasks are already in the Issues.</p>
+<h2 id="as-simple-as">As simple as...</h2>
+<p>Parse your application&#39;s Command Line Arguments into a declarative POCO, in one line</p>
+<pre><code class="lang-C#">var arguments = Cli.Parse&lt;MyCliArguments&gt;(args);
+var someOption = arguments.SomeOption;
+</code></pre><p>You can also route Commands using a dedicated Api</p>
+<pre><code class="lang-C#">Cli.Execute&lt;MyCliCommands&gt;(args);
+</code></pre><p><code>MyCliArguments</code> and <code>MyCliCommands</code> are defined as declarative POCOs using Attributes.</p>
+<p>Full documentation: <a href="https://nick-lucas.github.io/EntryPoint/">https://nick-lucas.github.io/EntryPoint/</a></p>
+<p>Example Implementation: <a href="https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example">https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example</a></p>
+<h2 id="roadmap">Roadmap</h2>
+<ul>
+<li><strong>Future</strong><ul>
+<li>Fix any discovered bugs</li>
+<li>1.0 Release</li>
+</ul>
+</li>
+</ul>
+
+            </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/docs/upgrade-website-generator/docs-generation/docfx/index.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+      <!--   <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2016 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div> -->
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>

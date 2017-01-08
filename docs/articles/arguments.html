@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Arguments </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Arguments ">
+    <meta name="generator" content="docfx 2.10.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/androidstudio.min.css">
+    <link rel="stylesheet" href="../styles/main.css">
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              
+              <a class="navbar-brand brand-title docfx-brand" href="../index.html">
+                  <i class="fa fa-terminal"></i>
+                  EntryPoint
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+              <h2 id="arguments">Arguments</h2>
+              
+<p>For a simple application you may not need Commands; <code>CliArguments</code> classes are used
+to parse command line arguments without consideration of Commands.</p>
+<h4 id="example">Example</h4>
+<p>Let&#39;s say we want a utility used like: <code>UtilityName [-s] [--name Bob] [6.1]</code></p>
+<p>This has one Option <code>-s</code>, one OptionParameter <code>--name Bob</code> and a positional Operand <code>6.1</code></p>
+<pre><code>class SimpleProgram {
+    void main(string[] args) {
+
+        // One line parsing of any `BaseCliArguments` implementation
+        var arguments = Cli.Parse&lt;SimpleCliArguments&gt;(args);
+
+        // Object oriented access to your arguments
+        Console.WriteLine(&quot;The name is: &quot; + arguments.Name);
+        Console.WriteLine(&quot;Switch flag: &quot; + arguments.Switch);
+        Console.WriteLine(&quot;Positional Operand 1: &quot; + arguments.FirstOperand);
+    }
+}
+
+class SimpleCliArguments : BaseCliArguments {
+    public SimpleCliArguments() : base(&quot;SimpleApp&quot;) { }
+
+    // Defining a CliArguments class is as easy as adding 
+    // attributes to your POCO properties
+    [Option(LongName: &quot;switch&quot;,
+            ShortName: &#39;s&#39;)]
+    public bool Switch { get; set; }
+
+    // Both Option and OptionParameter attributes support a 
+    // combination of -o and --option style invocations
+    [OptionParameter(LongName: &quot;name&quot;,
+                     ShortName: &#39;n&#39;)]
+    public string Name { get; set; }
+
+    // Operands can be mapped positionally
+    // But BaseCliArguments also has a .Operands string[] where 
+    // un-mapped operands are stored
+    [Operand(Position: 1)]
+    public decimal FirstOperand { get; set; }
+}
+</code></pre><h4 id="attributes">Attributes</h4>
+<p>We use Attributes to define CLI functionality</p>
+<h5 id="optionlongname--string-shortname--char"><code>[Option(LongName = string, ShortName = char)]</code></h5>
+<ul>
+<li><strong>Apply to:</strong> Class Properties</li>
+<li><strong>Output Types:</strong> Bool</li>
+<li><strong>Detail:</strong> Defines an On/Off option for use on the CLI</li>
+<li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
+<li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
+<li>At least one name needs to be provided</li>
+</ul>
+<h5 id="optionparameterlongname--string-shortname--char"><code>[OptionParameter(LongName = string, ShortName = char)]</code></h5>
+<ul>
+<li><strong>Apply to:</strong> Class Properties</li>
+<li><strong>Output Types:</strong> Primitive Types, Enums</li>
+<li><strong>Detail:</strong> Defines a parameter which can be invoked to provide a value</li>
+<li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
+<li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
+<li>At least one name needs to be provided</li>
+</ul>
+<h5 id="operandposition--int"><code>[Operand(position = int)]</code></h5>
+<ul>
+<li><strong>Apply to:</strong> Class Properties</li>
+<li><strong>Output Types:</strong> Primitive Types, Enums</li>
+<li><strong>Detail:</strong> Maps a positional operand from the end of a CLI command</li>
+<li><strong>Argument, Position:</strong> the 1 based position of the Operand</li>
+</ul>
+<h5 id="required"><code>[Required]</code></h5>
+<ul>
+<li><strong>Apply to:</strong> Option, OptionParameter or Operand properties</li>
+<li><strong>Detail:</strong> Makes an Option or Operand mandatory for the user to provide</li>
+</ul>
+<h5 id="helpdetail--string"><code>[Help(detail = string)]</code></h5>
+<ul>
+<li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied, or an CliArguments Class</li>
+<li><strong>Detail:</strong> Provides custom documentation on an Option, Operand or CliArguments Class, which will be consumed by the help generator</li>
+</ul>
+<h4 id="use-case">Use case</h4>
+<p>The following is an example implementation for use in a simple message sending application</p>
+<p>The following is used like:</p>
+<p><code>UtilityName [ -v | --verbose ] [ -s | --subject &quot;your subject&quot; ] [ -i | --importance ] [ normal | high ] ] [message]</code></p>
+<pre><code>// Usage is as simple as
+class MessagingProgram {
+    void main(string[] args) {
+        var arguments = Cli.Parse&lt;MessagingCliArguments&gt;(args);
+
+        // Use the arguments object...
+    }
+}
+
+class MessagingCliArguments : BaseCliArguments {
+    public MessagingCliArguments() : base(&quot;Message Sender&quot;) { }
+
+    // Verbose will be a familiar option to most CLI users
+    [Option(LongName: &quot;verbose&quot;,
+            ShortName: &#39;v&#39;)]
+    public bool Verbose { get; set; }
+
+    // A subject *must* be provided by the user 
+    [Required]
+    [OptionParameter(LongName: &quot;subject&quot;,
+                     ShortName: &#39;s&#39;)]
+    public string Subject { get; set; }
+
+    // An enum importance level for the message.
+    // If not provided this is defaulted to `Normal`
+    // User can provide the value as a number or string (ie. &#39;2&#39; or &#39;high&#39;)
+    [OptionParameter(LongName: &quot;importance&quot;,
+                     ShortName: &#39;i&#39;)]
+    public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
+
+    // A list of strings
+    // Lists support all the same types as any other option parameter
+    // The Cli expects list values in the form `item1,item2,item3` etc
+    [OptionParameter(LongName: &quot;recipients&quot;)]
+    public List&lt;string&gt; Recipients { get; set; }
+
+    // A message *must* be provided as the first operand
+    [Required]
+    [Operand(1)]
+    public string Message { get; set; }
+}
+
+enum MessageImportanceEnum {
+    Normal = 1,
+    High = 2
+}
+</code></pre><h4 id="value-defaults">Value Defaults</h4>
+<p>If the user does not provide an non-required option-parameter or operand,
+it can be useful to configure the application with a default.</p>
+<p>This is easily done using C# property initialisers,
+and will otherwise use the type&#39;s default value</p>
+<pre><code>// The following Importance Enum will always be set to &#39;Normal&#39;
+// if the user does not provide a value
+[OptionParameter(LongName: &quot;importance&quot;,
+                 ShortName: &#39;i&#39;)]
+public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
+</code></pre><h4 id="supported-types">Supported Types</h4>
+<p>Both OptionParameter and Operand arguments can be mapped to a number of different .Net types</p>
+<ul>
+<li><p><strong>Primitive &amp; &#39;Primitive like&#39; Types</strong></p>
+<ul>
+<li>These are your String, Int, Long, Double, Float, Decimal, Bool, etc...</li>
+<li>Should support any simple type which implements <code>IConvertible</code>, although this can&#39;t be exhaustively tested</li>
+</ul>
+</li>
+<li><p><strong>Enums</strong></p>
+<ul>
+<li>Parses custom enums from both the numeric value or the string/name for a value</li>
+</ul>
+</li>
+<li><p><strong>Lists</strong></p>
+<ul>
+<li>Supports the generic collection: <code>List&lt;T&gt;</code></li>
+<li>Parses lists from the form <code>item1,item2,item3</code></li>
+<li><code>T</code> can be any type supported <em>above</em></li>
+</ul>
+</li>
+</ul>
+
+            </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/docs/upgrade-website-generator/docs-generation/docfx/articles/arguments.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+      <!--   <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2016 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div> -->
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
