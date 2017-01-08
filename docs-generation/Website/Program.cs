@@ -19,26 +19,28 @@ namespace Website {
         static void Main(string[] args) {
             Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("en");
 
-            var layout = File.ReadAllText("./layout.html");
-            layout = layout.Replace("{{description}}", "Composable CLI Argument Parser");
-            layout = layout.Replace("{{version}}", GetVersion());
-            layout = layout.Replace("{{updated_on}}", DateTime.Now.ToString("MMM d, yyyy"));
+            var files = GetFiles();
+            foreach (var file in files) {
+                var fileName = GetFileName(file);
+                ProduceFile(file, fileName);
+            }
+        }
 
-            var headerIdList = new List<string>();
-            var markdownBody = TransformBodyToMarkdown();
-            var htmlBody = new Markdown().Transform(markdownBody);
-            htmlBody = AddHeaderAnchors(htmlBody, headerIdList);            
+        static List<string> GetFiles() {
+            var files = Directory.EnumerateFiles(
+                "./", "article_*", SearchOption.TopDirectoryOnly);
+            return files.ToList();
+        }
 
-            layout = layout.Replace("{{body}}", htmlBody);
-            ValidateHeaderAnchors(headerIdList, layout);
-            File.WriteAllText("./www/body.md", markdownBody);
-            File.WriteAllText("./www/index.html", layout);
+        static string GetFileName(string file) {
+            return Path
+                .GetFileNameWithoutExtension(file)
+                .Replace("article_", "");
+        }
 
-            // Useful if we ever need to copy to the /docs directory again
-            //var directory = new DirectoryInfo("../www/");
-            //foreach (var file in directory.GetFiles()) {
-            //    File.Copy(file.FullName, Path.Combine("../../", file.Name), true);
-            //}
+        static void ProduceFile(string fileName, string outputName) {
+            var markdownBody = TransformBodyToMarkdown(fileName);
+            File.WriteAllText($"./www/{outputName}.md", markdownBody);
         }
 
         static string GetVersion() {
@@ -50,8 +52,8 @@ namespace Website {
                 .TrimEnd(".0".ToCharArray());
         }
 
-        static string TransformBodyToMarkdown() {
-            var source = File.ReadAllLines("./Body.cs");
+        static string TransformBodyToMarkdown(string fileName) {
+            var source = File.ReadAllLines(fileName);
             var result = new List<string>();
             List<string> currentCode = null;
 
@@ -95,27 +97,6 @@ namespace Website {
             }
 
             return String.Join("\n", result);
-        }
-
-        static string AddHeaderAnchors(string html, List<string> idList) {
-            return Regex.Replace(html, @"(\<h2)([^>]*\>(.+?)\</h2\>)", m => {
-                var id = Regex.Replace(m.Groups[3].Value.ToLower(), "\\W+", "-").Trim('-');
-                idList.Add(id);
-                return m.Groups[1].Value + " id=\"" + id + "\"" + m.Groups[2].Value;
-            });        
-        }
-
-        static void ValidateHeaderAnchors(List<string> knownIdList, string html) {
-            var refs = Regex
-                .Matches(html, "href=\"#(.*?)\"")
-                .Cast<Match>()
-                .Select(m => m.Groups[1].Value)
-                .Where(s => s.Length > 0);
-            var wrong = refs.Except(knownIdList);
-            if(wrong.Any())
-                // If this throws - Please ensure you've updated any links to page sections after changing header titles.
-                // "Getting Started: CRUD" would become "#getting-started-crud" as a link
-                throw new Exception("Wrong header refs found.  " + String.Join(" ", wrong));
         }
 
     }
