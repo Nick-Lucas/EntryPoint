@@ -1,11 +1,14 @@
 echo "Building documentation"
-cd ./Website
+cd ./website
 dotnet restore
 dotnet build
 dotnet run
 
-cp ./www/body.md ../docfx/articles/body.md
+echo "Copying files into docfx inputs"
+cd ../
+cp -f ../README.md ./docfx/index.md
+cp -f ./website/www/*.md ./docfx/articles/
 
-echo "Building DoxFX and passing on all arguments"
-cd ../docfx
-docfx "$@"
+echo "Building DoxFX. Will Serve"
+cd ./docfx
+docfx --serve
