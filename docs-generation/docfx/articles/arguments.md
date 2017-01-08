@@ -1,9 +1,13 @@
+## Arguments
+
 For a simple application you may not need Commands; `CliArguments` classes are used
 to parse command line arguments without consideration of Commands.
 
+#### Example
+
 Let's say we want a utility used like: `UtilityName [-s] [--name Bob] [6.1]`
 
-This has one Option (-s), one OptionParameter (--name Bob) and a positional Operand (6.1)
+This has one Option `-s`, one OptionParameter `--name Bob` and a positional Operand `6.1`
 
     class SimpleProgram {
         void main(string[] args) {
@@ -12,9 +16,9 @@ This has one Option (-s), one OptionParameter (--name Bob) and a positional Oper
             var arguments = Cli.Parse<SimpleCliArguments>(args);
 
             // Object oriented access to your arguments
-            Console.WriteLine($"The name is {arguments.Name}");
-            Console.WriteLine($"Switch flag: {arguments.Switch}");
-            Console.WriteLine($"Positional Operand 1: {arguments.FirstOperand}");
+            Console.WriteLine("The name is: " + arguments.Name);
+            Console.WriteLine("Switch flag: " + arguments.Switch);
+            Console.WriteLine("Positional Operand 1: " + arguments.FirstOperand);
         }
     }
 
@@ -36,11 +40,11 @@ This has one Option (-s), one OptionParameter (--name Bob) and a positional Oper
         // Operands can be mapped positionally
         // But BaseCliArguments also has a .Operands string[] where 
         // un-mapped operands are stored
-        [Operand(position: 1)]
+        [Operand(Position: 1)]
         public decimal FirstOperand { get; set; }
     }
 
-### Attributes
+#### Attributes
 
 We use Attributes to define CLI functionality
 
@@ -74,11 +78,13 @@ We use Attributes to define CLI functionality
 * **Apply to:** Class Properties with any Option or Operand Attribute applied, or an CliArguments Class
 * **Detail:** Provides custom documentation on an Option, Operand or CliArguments Class, which will be consumed by the help generator
 
-### Example
+#### Use case
 
 The following is an example implementation for use in a simple message sending application
 
-This is used like `UtilityName [ -v | --verbose ] [ -s | --subject "your subject" ] [ -i | --importance [ normal | high ] ] [message]`
+The following is used like:
+
+`UtilityName [ -v | --verbose ] [ -s | --subject "your subject" ] [ -i | --importance ] [ normal | high ] ] [message]`
 
     // Usage is as simple as
     class MessagingProgram {
@@ -95,14 +101,12 @@ This is used like `UtilityName [ -v | --verbose ] [ -s | --subject "your subject
         // Verbose will be a familiar option to most CLI users
         [Option(LongName: "verbose",
                 ShortName: 'v')]
-        [Help("When this is set, verbose logging will be activated")]
         public bool Verbose { get; set; }
 
         // A subject *must* be provided by the user 
         [Required]
         [OptionParameter(LongName: "subject",
                          ShortName: 's')]
-        [Help("Mandatory Subject to provide")]
         public string Subject { get; set; }
 
         // An enum importance level for the message.
@@ -110,20 +114,17 @@ This is used like `UtilityName [ -v | --verbose ] [ -s | --subject "your subject
         // User can provide the value as a number or string (ie. '2' or 'high')
         [OptionParameter(LongName: "importance",
                          ShortName: 'i')]
-        [Help("Sets the importance level of a sent message")]
         public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 
         // A list of strings
         // Lists support all the same types as any other option parameter
         // The Cli expects list values in the form `item1,item2,item3` etc
         [OptionParameter(LongName: "recipients")]
-        [Help("A list of email addresses to send to")]
         public List<string> Recipients { get; set; }
 
         // A message *must* be provided as the first operand
         [Required]
         [Operand(1)]
-        [Help("Mandatory message to provide")]
         public string Message { get; set; }
     }
 
@@ -132,7 +133,7 @@ This is used like `UtilityName [ -v | --verbose ] [ -s | --subject "your subject
         High = 2
     }
 
-### Value Defaults
+#### Value Defaults
 
 If the user does not provide an non-required option-parameter or operand,
 it can be useful to configure the application with a default.
@@ -145,5 +146,21 @@ and will otherwise use the type's default value
     // if the user does not provide a value
     [OptionParameter(LongName: "importance",
                      ShortName: 'i')]
-    [Help("Sets the importance level of a sent message")]
     public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
+
+
+#### Supported Types
+
+Both OptionParameter and Operand arguments can be mapped to a number of different .Net types
+
+##### Primitive & 'Primitive like' Types
+* These are your String, Int, Long, Double, Float, Decimal, Bool
+* Should support any simple type which implements `IConvertible`, although this can't be exhaustively tested
+
+##### Enums
+* Parses custom enums from both the numeric value or the string/name for a value
+
+##### Lists
+* Supports the generic collection: `List<T>`
+* Parses lists from the form `item1,item2,item3`
+* `T` can be any type supported *above*

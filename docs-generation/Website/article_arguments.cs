@@ -8,12 +8,16 @@ using System.Collections.Generic;
 
 namespace Website {
     class article_arguments {
+        /// ## Arguments
+        /// 
         /// For a simple application you may not need Commands; `CliArguments` classes are used
         /// to parse command line arguments without consideration of Commands.
         /// 
+        /// #### Example
+        ///         
         /// Let's say we want a utility used like: `UtilityName [-s] [--name Bob] [6.1]`
         /// 
-        /// This has one Option (-s), one OptionParameter (--name Bob) and a positional Operand (6.1)
+        /// This has one Option `-s`, one OptionParameter `--name Bob` and a positional Operand `6.1`
 #if CODE
         class SimpleProgram {
             void main(string[] args) {
@@ -22,9 +26,9 @@ namespace Website {
                 var arguments = Cli.Parse<SimpleCliArguments>(args);
 
                 // Object oriented access to your arguments
-                Console.WriteLine($"The name is {arguments.Name}");
-                Console.WriteLine($"Switch flag: {arguments.Switch}");
-                Console.WriteLine($"Positional Operand 1: {arguments.FirstOperand}");
+                Console.WriteLine("The name is: " + arguments.Name);
+                Console.WriteLine("Switch flag: " + arguments.Switch);
+                Console.WriteLine("Positional Operand 1: " + arguments.FirstOperand);
             }
         }
 
@@ -51,7 +55,7 @@ namespace Website {
         }
 #endif
 
-        /// ### Attributes
+        /// #### Attributes
         /// 
         /// We use Attributes to define CLI functionality
         /// 
@@ -87,11 +91,13 @@ namespace Website {
         ///
 
 
-        /// ### Example
+        /// #### Use case
         /// 
         /// The following is an example implementation for use in a simple message sending application
         /// 
-        /// This is used like `UtilityName [ -v | --verbose ] [ -s | --subject "your subject" ] [ -i | --importance [ normal | high ] ] [message]`
+        /// The following is used like: 
+        /// 
+        /// `UtilityName [ -v | --verbose ] [ -s | --subject "your subject" ] [ -i | --importance ] [ normal | high ] ] [message]`
 #if CODE
         // Usage is as simple as
         class MessagingProgram {
@@ -108,14 +114,12 @@ namespace Website {
             // Verbose will be a familiar option to most CLI users
             [Option(LongName: "verbose",
                     ShortName: 'v')]
-            [Help("When this is set, verbose logging will be activated")]
             public bool Verbose { get; set; }
 
             // A subject *must* be provided by the user 
             [Required]
             [OptionParameter(LongName: "subject",
                              ShortName: 's')]
-            [Help("Mandatory Subject to provide")]
             public string Subject { get; set; }
 
             // An enum importance level for the message.
@@ -123,20 +127,17 @@ namespace Website {
             // User can provide the value as a number or string (ie. '2' or 'high')
             [OptionParameter(LongName: "importance",
                              ShortName: 'i')]
-            [Help("Sets the importance level of a sent message")]
             public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 
             // A list of strings
             // Lists support all the same types as any other option parameter
             // The Cli expects list values in the form `item1,item2,item3` etc
             [OptionParameter(LongName: "recipients")]
-            [Help("A list of email addresses to send to")]
             public List<string> Recipients { get; set; }
 
             // A message *must* be provided as the first operand
             [Required]
             [Operand(1)]
-            [Help("Mandatory message to provide")]
             public string Message { get; set; }
         }
 
@@ -146,7 +147,7 @@ namespace Website {
         }
 #endif
 
-        /// ### Value Defaults
+        /// #### Value Defaults
         /// 
         /// If the user does not provide an non-required option-parameter or operand, 
         /// it can be useful to configure the application with a default.
@@ -160,9 +161,25 @@ namespace Website {
             // if the user does not provide a value
             [OptionParameter(LongName: "importance",
                              ShortName: 'i')]
-            [Help("Sets the importance level of a sent message")]
             public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 #endif
         }
+
+        ///
+        /// #### Supported Types
+        /// 
+        /// Both OptionParameter and Operand arguments can be mapped to a number of different .Net types
+        /// 
+        /// ##### Primitive & 'Primitive like' Types
+        /// * These are your String, Int, Long, Double, Float, Decimal, Bool
+        /// * Should support any simple type which implements `IConvertible`, although this can't be exhaustively tested
+        /// 
+        /// ##### Enums
+        /// * Parses custom enums from both the numeric value or the string/name for a value
+        /// 
+        /// ##### Lists
+        /// * Supports the generic collection: `List<T>`
+        /// * Parses lists from the form `item1,item2,item3`
+        /// * `T` can be any type supported *above*
     }
 }

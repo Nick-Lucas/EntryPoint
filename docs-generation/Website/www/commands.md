@@ -1,10 +1,12 @@
+## Commands
+
 Although it's perfectly fine to only use a CliArguments class for a simple application,
 if you have multiple Commands, each with a different set of Arguments; you may want
 to create multiple application entry points, each with its own CliArguments class.
 
 This is the purpose of `BaseCliCommands`.
 
-### Basic Usage
+#### Basic Usage
 
     class SimpleCommandsProgram {
         public void Main(string[] args) {
@@ -35,7 +37,7 @@ This is the purpose of `BaseCliCommands`.
         }
     }
 
-### Attributes
+#### Attributes
 
 There are several attributes which can be applied to a CliCommands class
 

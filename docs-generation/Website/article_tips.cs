@@ -8,6 +8,8 @@ using System.Collections.Generic;
 
 namespace Website {
     class article_tips {
+        /// ## Tips & Behaviour
+        /// 
         /// * `Cli.Parse` and `Cli.Execute` have several overloads available. They can create the class and get the command line arguments themselves, but give you manual control, too.
         /// * Short named options `-o` are case sensitive: `-a != -A`
         /// * Long named options `--option` are case insensitive: `--opt == --Opt`

@@ -6,7 +6,7 @@
 
 ## EntryPoint
 
-Lightweight and Composable CLI Argument Parser for all modern .Net platforms
+Composable CLI Argument Parser for all modern .Net platforms
 
 Parses arguments in the form `UtilityName [command] [-o | --options] [operands]`
 

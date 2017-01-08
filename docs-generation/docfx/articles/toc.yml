@@ -1,8 +1,10 @@
 - name: Introduction
   href: intro.md
-- name: Arguments
+- name: API Overview
+  href: api_overview.md
+- name: "- Arguments"
   href: arguments.md
-- name: Commands
+- name: "- Commands"
   href: commands.md
 - name: Help Generator
   href: help_generator.md
