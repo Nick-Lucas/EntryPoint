@@ -7,7 +7,7 @@ using EntryPoint;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class DuplicateHelpDoubleModel : BaseCliArguments {
-        [Option(LongName = "help", ShortName = 'a')]
+        [Option(LongName: "help", ShortName: 'a')]
         public bool Alpha { get; set; }
     }
 }

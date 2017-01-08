@@ -7,10 +7,10 @@ using EntryPoint;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class DuplicateSimilarOptionsModel : BaseCliArguments {
-        [Option(LongName = "log")]
+        [Option(LongName: "log")]
         public bool Log { get; set; }
 
-        [OptionParameter(LongName = "log-level")]
+        [OptionParameter(LongName: "log-level")]
         public int LogLevel { get; set; }
     }
 }

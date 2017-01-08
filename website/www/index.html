@@ -140,13 +140,13 @@ class SimpleCliArguments : BaseCliArguments {
     // Defining a CliArguments class is as easy as adding 
     // attributes to your POCO properties
     [Option(LongName = &quot;switch&quot;, 
-            ShortName = 's')]
+            ShortName: 's')]
     public bool Switch { get; set; }
 
     // Both Option and OptionParameter attributes support a 
     // combination of -o and --option style invocations
     [OptionParameter(LongName = &quot;name&quot;, 
-                     ShortName = 'n')]
+                     ShortName: 'n')]
     public string Name { get; set; }
 
     // Operands can be mapped positionally
@@ -211,14 +211,14 @@ class MessagingCliArguments : BaseCliArguments {
 
     // Verbose will be a familiar option to most CLI users
     [Option(LongName = &quot;verbose&quot;, 
-            ShortName = 'v')]
+            ShortName: 'v')]
     [Help(&quot;When this is set, verbose logging will be activated&quot;)]
     public bool Verbose { get; set; }
 
     // A subject *must* be provided by the user 
     [Required]
     [OptionParameter(LongName = &quot;subject&quot;,
-                     ShortName = 's')]
+                     ShortName: 's')]
     [Help(&quot;Mandatory Subject to provide&quot;)]
     public string Subject { get; set; }
 
@@ -226,7 +226,7 @@ class MessagingCliArguments : BaseCliArguments {
     // If not provided this is defaulted to `Normal`
     // User can provide the value as a number or string (ie. '2' or 'high')
     [OptionParameter(LongName = &quot;importance&quot;, 
-                     ShortName = 'i')]
+                     ShortName: 'i')]
     [Help(&quot;Sets the importance level of a sent message&quot;)]
     public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 
@@ -258,7 +258,7 @@ and will otherwise use the type's default value</p>
 <pre><code>// The following Importance Enum will always be set to 'Normal'
 // if the user does not provide a value
 [OptionParameter(LongName = &quot;importance&quot;,
-                 ShortName = 'i')]
+                 ShortName: 'i')]
 [Help(&quot;Sets the importance level of a sent message&quot;)]
 public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 </code></pre>

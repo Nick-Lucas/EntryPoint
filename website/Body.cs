@@ -68,14 +68,14 @@ namespace Website {
 
         // Defining a CliArguments class is as easy as adding 
         // attributes to your POCO properties
-        [Option(LongName = "switch", 
-                ShortName = 's')]
+        [Option(LongName: "switch", 
+                ShortName: 's')]
         public bool Switch { get; set; }
 
         // Both Option and OptionParameter attributes support a 
         // combination of -o and --option style invocations
-        [OptionParameter(LongName = "name", 
-                         ShortName = 'n')]
+        [OptionParameter(LongName: "name", 
+                         ShortName: 'n')]
         public string Name { get; set; }
 
         // Operands can be mapped positionally
@@ -141,30 +141,30 @@ namespace Website {
         public MessagingCliArguments() : base("Message Sender") { }
 
         // Verbose will be a familiar option to most CLI users
-        [Option(LongName = "verbose", 
-                ShortName = 'v')]
+        [Option(LongName: "verbose", 
+                ShortName: 'v')]
         [Help("When this is set, verbose logging will be activated")]
         public bool Verbose { get; set; }
 
         // A subject *must* be provided by the user 
         [Required]
-        [OptionParameter(LongName = "subject",
-                         ShortName = 's')]
+        [OptionParameter(LongName: "subject",
+                         ShortName: 's')]
         [Help("Mandatory Subject to provide")]
         public string Subject { get; set; }
 
         // An enum importance level for the message.
         // If not provided this is defaulted to `Normal`
         // User can provide the value as a number or string (ie. '2' or 'high')
-        [OptionParameter(LongName = "importance", 
-                         ShortName = 'i')]
+        [OptionParameter(LongName: "importance", 
+                         ShortName: 'i')]
         [Help("Sets the importance level of a sent message")]
         public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 
         // A list of strings
         // Lists support all the same types as any other option parameter
         // The Cli expects list values in the form `item1,item2,item3` etc
-        [OptionParameter(LongName = "recipients")]
+        [OptionParameter(LongName: "recipients")]
         [Help("A list of email addresses to send to")]
         public List<string> Recipients { get; set; }
 
@@ -193,8 +193,8 @@ namespace Website {
 #if CODE
         // The following Importance Enum will always be set to 'Normal'
         // if the user does not provide a value
-        [OptionParameter(LongName = "importance",
-                         ShortName = 'i')]
+        [OptionParameter(LongName: "importance",
+                         ShortName: 'i')]
         [Help("Sets the importance level of a sent message")]
         public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
 #endif
@@ -353,7 +353,7 @@ namespace Website {
         public ExampleHelpCliArguments()
             : base(utilityName: "Displayed as the command/utility name") { }
         
-        [OptionParameter(LongName = "value1")]
+        [OptionParameter(LongName: "value1")]
         [Help("Some value to set")]
         public bool Value1 { get; set; }
 

@@ -8,13 +8,13 @@ using EntryPoint;
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class StringArgsModel : BaseCliArguments {
         [OptionParameter(
-            LongName = "default-null",
-            ShortName = 'a')]
+            LongName: "default-null",
+            ShortName: 'a')]
         public string DefaultNull { get; set; }
 
         [OptionParameter(
-            LongName = "default-no-name",
-            ShortName = 'b')]
+            LongName: "default-no-name",
+            ShortName: 'b')]
         public string DefaultNoName { get; set; } = "NoName";
     }
 }

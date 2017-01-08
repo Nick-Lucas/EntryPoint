@@ -7,10 +7,10 @@ using EntryPoint;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class DuplicateNoSinglesModel : BaseCliArguments {
-        [Option(LongName = "alpha")]
+        [Option(LongName: "alpha")]
         public bool Alpha { get; set; }
 
-        [OptionParameter(LongName = "beta")]
+        [OptionParameter(LongName: "beta")]
         public int Bravo { get; set; }
     }
 }

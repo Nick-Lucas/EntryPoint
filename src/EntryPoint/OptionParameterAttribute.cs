@@ -16,7 +16,33 @@ namespace EntryPoint {
         AllowMultiple = false,
         Inherited = true)]
     public class OptionParameterAttribute : BaseOptionAttribute {
-        public OptionParameterAttribute() : base(OptionStrategyFactory.OptionParameter) { }
+
+        /// <summary>
+        /// Apply to a Supported Property to mark it as an OptionParameter definition
+        /// </summary>
+        /// <param name="LongName">The case insensitive string which can be declared after a -- to invoke an option parameter</param>
+        /// <param name="ShortName">The case sensitive character which can be declared after a - to invoke an option parameter </param>
+        public OptionParameterAttribute(string LongName, char ShortName) : base(OptionStrategyFactory.OptionParameter) {
+            base.LongName = LongName;
+            base.ShortName = ShortName;
+        }
+
+        /// <summary>
+        /// Apply to a Supported Property to mark it as an OptionParameter definition
+        /// </summary>
+        /// <param name="LongName">The case insensitive string which can be declared after a -- to invoke an option parameter</param>
+        public OptionParameterAttribute(string LongName) : base(OptionStrategyFactory.OptionParameter) {
+            base.LongName = LongName;
+        }
+
+        /// <summary>
+        /// Apply to a Supported Property to mark it as an OptionParameter definition
+        /// </summary>
+        /// <param name="ShortName">The case sensitive character which can be declared after a - to invoke an option parameter</param>
+        public OptionParameterAttribute(char ShortName) : base(OptionStrategyFactory.OptionParameter) {
+            base.ShortName = ShortName;
+        }
+
     }
 
 }

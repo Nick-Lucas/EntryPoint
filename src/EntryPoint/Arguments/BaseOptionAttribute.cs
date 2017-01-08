@@ -14,7 +14,7 @@ namespace EntryPoint.Arguments {
         AttributeTargets.Property, 
         AllowMultiple = true, 
         Inherited = true)]
-    public class BaseOptionAttribute : Attribute {
+    public abstract class BaseOptionAttribute : Attribute {
         internal BaseOptionAttribute(IOptionStrategy optionStrategy) {
             OptionStrategy = optionStrategy;
         }
@@ -23,12 +23,12 @@ namespace EntryPoint.Arguments {
         /// <summary>
         /// The case sensitive character which can be declared after a - to trigger an option 
         /// </summary>
-        public char ShortName { get; set; }
+        internal char ShortName { get; set; }
 
         /// <summary>
         /// The case insensitive string which can be declared after a -- to trigger an option
         /// </summary>
-        public string LongName { get; set; }
+        internal string LongName { get; set; }
     }
 
 }

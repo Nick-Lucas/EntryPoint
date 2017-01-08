@@ -8,8 +8,8 @@ using EntryPoint;
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class OptionArgsModel : BaseCliArguments {
         [Option(
-            LongName = "my-option",
-            ShortName = 'o')]
+            LongName: "my-option",
+            ShortName: 'o')]
         public bool Option { get; set; }
     }
 }

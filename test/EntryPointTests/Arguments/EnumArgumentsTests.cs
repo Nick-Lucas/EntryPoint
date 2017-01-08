@@ -56,11 +56,11 @@ namespace EntryPointTests.Arguments {
 
     class EnumAppOptions : BaseCliArguments {
         [OptionParameter(
-            LongName = "opt-1")]
+            LongName: "opt-1")]
         public Enum1 OptEnum1 { get; set; }
 
         [OptionParameter(
-            LongName = "opt-2")]
+            LongName: "opt-2")]
         public Enum1 OptEnum2 { get; set; } = Enum1.item2;
 
         public override void OnHelpInvoked(string helpText) {
