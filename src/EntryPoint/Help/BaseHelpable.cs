@@ -14,6 +14,11 @@ namespace EntryPoint.Help {
         /// Invoked when the user invokes -h/--help
         /// </summary>
         /// <param name="helpText">The help string for this class</param>
-        public virtual void OnHelpInvoked(string helpText) { }
+        public virtual void OnHelpInvoked(string helpText) {
+            Console.WriteLine(helpText);
+            Console.Write("Press enter to exit...");
+            Console.ReadLine();
+            Environment.Exit(0);
+        }
     }
 }
