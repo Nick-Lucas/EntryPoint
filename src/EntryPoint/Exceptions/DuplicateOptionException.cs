@@ -4,7 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Exceptions {
+
+    /// <summary>
+    /// Thrown whenever a user invokes the same option twice in a command
+    /// </summary>
     public class DuplicateOptionException : UserFacingException {
-        public DuplicateOptionException(string message) : base(message) { }
+        internal DuplicateOptionException(string message) : base(message) { }
     }
+
 }

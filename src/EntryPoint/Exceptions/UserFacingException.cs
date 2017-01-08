@@ -4,7 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Exceptions {
-    public class UserFacingException : ArgumentException {
-        public UserFacingException(string message) : base(message) { }
+
+    /// <summary>
+    /// The base exception used for all exceptions caused by the user: incorrect syntax or other argument mistakes
+    /// </summary>
+    public abstract class UserFacingException : ArgumentException {
+        internal UserFacingException(string message) : base(message) { }
     }
+
 }
