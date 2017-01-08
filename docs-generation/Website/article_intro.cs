@@ -7,7 +7,7 @@ using EntryPoint;
 using System.Collections.Generic;
 
 namespace Website {
-    class article_body {
+    class article_intro {
         /// ### About EntryPoint
         /// 
         /// Entrypoint is an argument parser designed to be composable, practical to use, and maintainable over the life time of a project.
