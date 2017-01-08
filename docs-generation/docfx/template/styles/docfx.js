@@ -653,9 +653,7 @@ $(function () {
     }
 
     function needFooter() {
-      var scrollHeight = $(document).height();
-      var scrollPosition = $(window).height() + $(window).scrollTop();
-      return (scrollHeight - scrollPosition) < 1;
+      return false;
     }
 
     function resetBottomCss() {
