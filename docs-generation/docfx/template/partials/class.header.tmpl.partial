@@ -15,7 +15,7 @@
 {{/derivedClasses}}
 </div>
 {{/inheritance.0}}
-{{#inheritedMembers.0}}
+<!-- {{#inheritedMembers.0}}
 <div class="inheritedMembers">
   <h5>{{__global.inheritedMembers}}</h5>
 {{/inheritedMembers.0}}
@@ -31,9 +31,9 @@
 {{/inheritedMembers}}
 {{#inheritedMembers.0}}
 </div>
-{{/inheritedMembers.0}}
-<h6><strong>{{__global.namespace}}</strong>:{{namespace}}</h6>
-<h6><strong>{{__global.assembly}}</strong>:{{assemblies.0}}.dll</h6>
+{{/inheritedMembers.0}} -->
+<!-- <h6><strong>{{__global.namespace}}</strong>:{{namespace}}</h6>
+<h6><strong>{{__global.assembly}}</strong>:{{assemblies.0}}.dll</h6> -->
 <h5 id="{{id}}_syntax">{{__global.syntax}}</h5>
 <div class="codewrapper">
   <pre><code class="lang-{{_lang}} hljs">{{syntax.content.0.value}}</code></pre>
