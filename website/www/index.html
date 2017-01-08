@@ -139,13 +139,13 @@ class SimpleCliArguments : BaseCliArguments {
 
     // Defining a CliArguments class is as easy as adding 
     // attributes to your POCO properties
-    [Option(LongName = &quot;switch&quot;, 
+    [Option(LongName: &quot;switch&quot;, 
             ShortName: 's')]
     public bool Switch { get; set; }
 
     // Both Option and OptionParameter attributes support a 
     // combination of -o and --option style invocations
-    [OptionParameter(LongName = &quot;name&quot;, 
+    [OptionParameter(LongName: &quot;name&quot;, 
                      ShortName: 'n')]
     public string Name { get; set; }
 
@@ -210,14 +210,14 @@ class MessagingCliArguments : BaseCliArguments {
     public MessagingCliArguments() : base(&quot;Message Sender&quot;) { }
 
     // Verbose will be a familiar option to most CLI users
-    [Option(LongName = &quot;verbose&quot;, 
+    [Option(LongName: &quot;verbose&quot;, 
             ShortName: 'v')]
     [Help(&quot;When this is set, verbose logging will be activated&quot;)]
     public bool Verbose { get; set; }
 
     // A subject *must* be provided by the user 
     [Required]
-    [OptionParameter(LongName = &quot;subject&quot;,
+    [OptionParameter(LongName: &quot;subject&quot;,
                      ShortName: 's')]
     [Help(&quot;Mandatory Subject to provide&quot;)]
     public string Subject { get; set; }
@@ -225,7 +225,7 @@ class MessagingCliArguments : BaseCliArguments {
     // An enum importance level for the message.
     // If not provided this is defaulted to `Normal`
     // User can provide the value as a number or string (ie. '2' or 'high')
-    [OptionParameter(LongName = &quot;importance&quot;, 
+    [OptionParameter(LongName: &quot;importance&quot;, 
                      ShortName: 'i')]
     [Help(&quot;Sets the importance level of a sent message&quot;)]
     public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
@@ -233,7 +233,7 @@ class MessagingCliArguments : BaseCliArguments {
     // A list of strings
     // Lists support all the same types as any other option parameter
     // The Cli expects list values in the form `item1,item2,item3` etc
-    [OptionParameter(LongName = &quot;recipients&quot;)]
+    [OptionParameter(LongName: &quot;recipients&quot;)]
     [Help(&quot;A list of email addresses to send to&quot;)]
     public List&lt;string&gt; Recipients { get; set; }
 
@@ -257,7 +257,7 @@ it can be useful to configure the application with a default.</p>
 and will otherwise use the type's default value</p>
 <pre><code>// The following Importance Enum will always be set to 'Normal'
 // if the user does not provide a value
-[OptionParameter(LongName = &quot;importance&quot;,
+[OptionParameter(LongName: &quot;importance&quot;,
                  ShortName: 'i')]
 [Help(&quot;Sets the importance level of a sent message&quot;)]
 public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.Normal;
@@ -323,9 +323,10 @@ class SimpleCliCommands : BaseCliCommands {
 <p>EntryPoint provides an automatic Help generator, which always owns the <code>-h</code> and <code>--help</code>
 Options in both CliCommands and CliArguments instances.</p>
 <p>When <code>--help</code> is invoked by the user, <code>.HelpInvoked</code> is set on CliCommands/CliArguments,
-and the empty virtual method <code>OnHelpInvoked(string helpText)</code> is invoked.</p>
-<p>By overriding <code>OnHelpInvoked</code> on your CliCommands/CliArguments implementations,
-you can print and exit, or do something more appropriate to your program flow.</p>
+and the virtual method <code>OnHelpInvoked(string helpText)</code> is invoked.</p>
+<p><strong>By default</strong> <code>OnHelpInvoked</code> will print the help text to screen, and call <code>Environment.Exit(0)</code>.</p>
+<p><strong>By overriding</strong> <code>OnHelpInvoked</code> on a CliCommands/CliArguments implementation,
+you change the implementation to something more appropriate to your program flow.</p>
 <p>EntryPoint does not try to control your usage of this, but be aware that invoking <code>--help</code> will
 disable  <code>Required</code> attributes; if you neither exit or check <code>.HelpInvoked</code>, then your
 program may continue running with invalid state.</p>
@@ -399,7 +400,7 @@ class ExampleHelpCliArguments : BaseCliArguments {
     public ExampleHelpCliArguments()
         : base(utilityName: &quot;Displayed as the command/utility name&quot;) { }
 
-    [OptionParameter(LongName = &quot;value1&quot;)]
+    [OptionParameter(LongName: &quot;value1&quot;)]
     [Help(&quot;Some value to set&quot;)]
     public bool Value1 { get; set; }
 
@@ -444,7 +445,7 @@ class ArgumentsHelpProgram {
         <hr />
         <b>EntryPoint</b> is released under the <a href="https://raw.githubusercontent.com/Nick-Lucas/EntryPoint/master/LICENSE.txt">MIT license</a>
         <br />
-        Updated on Jan 5, 2017
+        Updated on Jan 8, 2017
         <br /><br />
     </div>
 

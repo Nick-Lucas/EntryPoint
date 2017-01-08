@@ -71,12 +71,5 @@ namespace Example
         [Help(
             "A test option. Does nothing")]
         public bool Option3 { get; set; }
-
-        public override void OnHelpInvoked(string helpText) {
-            Console.WriteLine(helpText);
-            Console.WriteLine("Press enter to exit...");
-            Console.ReadLine();
-            Environment.Exit(0);
-        }
     }
 }

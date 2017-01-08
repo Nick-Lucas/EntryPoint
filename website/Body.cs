@@ -269,10 +269,12 @@ namespace Website {
     /// Options in both CliCommands and CliArguments instances.
     /// 
     /// When `--help` is invoked by the user, `.HelpInvoked` is set on CliCommands/CliArguments,  
-    /// and the empty virtual method `OnHelpInvoked(string helpText)` is invoked.
+    /// and the virtual method `OnHelpInvoked(string helpText)` is invoked. 
     /// 
-    /// By overriding `OnHelpInvoked` on your CliCommands/CliArguments implementations,
-    /// you can print and exit, or do something more appropriate to your program flow. 
+    /// **By default** `OnHelpInvoked` will print the help text to screen, and call `Environment.Exit(0)`.
+    /// 
+    /// **By overriding** `OnHelpInvoked` on a CliCommands/CliArguments implementation,
+    /// you change the implementation to something more appropriate to your program flow.
     /// 
     /// EntryPoint does not try to control your usage of this, but be aware that invoking `--help` will 
     /// disable  `Required` attributes; if you neither exit or check `.HelpInvoked`, then your 
