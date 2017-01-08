@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace EntryPoint {
 
     /// <summary>
-    /// Used to mark an Option as required
+    /// Used to mark an Option, Operand or Command as required
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class RequiredAttribute : Attribute {

@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace EntryPoint {
 
+    /// <summary>
+    /// Used to mark a method as a Command, in a CliCommands class
+    /// </summary>
     [AttributeUsage(
         AttributeTargets.Method,
         AllowMultiple = false,

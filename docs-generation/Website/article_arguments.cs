@@ -46,7 +46,7 @@ namespace Website {
             // Operands can be mapped positionally
             // But BaseCliArguments also has a .Operands string[] where 
             // un-mapped operands are stored
-            [Operand(position: 1)]
+            [Operand(Position: 1)]
             public decimal FirstOperand { get; set; }
         }
 #endif

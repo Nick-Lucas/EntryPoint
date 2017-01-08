@@ -9,7 +9,7 @@ using EntryPoint.Arguments.OptionStrategies;
 namespace EntryPoint {
 
     /// <summary>
-    /// Declares an Option argument which requires a parameter after the Option is declared
+    /// Declares an Option argument which requires a parameter after the Option is invoked
     /// </summary>
     [AttributeUsage(
         AttributeTargets.Property,

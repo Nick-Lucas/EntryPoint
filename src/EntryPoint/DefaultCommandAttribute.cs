@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint {
+    
+    /// <summary>
+    /// Used to mark a Command method as the default, when no command is provided
+    /// </summary>
     [AttributeUsage(
         AttributeTargets.Method,
         AllowMultiple = false,
@@ -16,4 +20,5 @@ namespace EntryPoint {
         public DefaultCommandAttribute() { }
 
     }
+
 }
