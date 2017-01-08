@@ -1,0 +1,1 @@
+cp -rf ./docfx/docs/** ../docs/
