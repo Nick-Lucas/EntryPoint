@@ -21,9 +21,9 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Example", "test\Example\Exa
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "EntryPointTests", "test\EntryPointTests\EntryPointTests.xproj", "{16E4BDFF-B4BA-4D70-8AFF-BBD1341F02F4}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "website", "website", "{F76E7265-8998-41F0-8A27-DAEF53C9B40B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Website", "docs-generation/Website", "{F76E7265-8998-41F0-8A27-DAEF53C9B40B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Website", "website\Website.xproj", "{EE85C0CE-3A7E-4B3A-9157-8E9BDD037BFD}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Website", "docs-generation/Website\Website.xproj", "{EE85C0CE-3A7E-4B3A-9157-8E9BDD037BFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
