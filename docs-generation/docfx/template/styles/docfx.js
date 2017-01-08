@@ -22,9 +22,11 @@ $(function () {
 
   // Enable highlight.js
   (function () {
-    $('pre code').each(function(i, block) {
-      hljs.highlightBlock(block);
-    });
+    hljs.configure({ languages: [ "cs", "json" ] });
+    hljs.initHighlightingOnLoad();
+    // $('pre code').each(function(i, block) {
+    //   hljs.highlightBlock(block);
+    // });
   })();
 
   // Line highlight for code snippet
