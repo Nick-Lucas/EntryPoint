@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Help Generator </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Help Generator ">
+    <meta name="generator" content="docfx 2.10.2.0">
+    
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/androidstudio.min.css">
+    <link rel="stylesheet" href="../styles/main.css">
+  </head>
+  <body data-spy="scroll" data-target="#affix">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              
+              <a class="navbar-brand brand-title docfx-brand" href="../index.html">
+                  <i class="fa fa-terminal"></i>
+                  EntryPoint
+              </a>    </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div role="main" class="container body-content hide-when-search">
+        
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+              <h2 id="help-generator">Help Generator</h2>
+              
+<p>EntryPoint provides an automatic Help generator, which always owns the <code>-h</code> and <code>--help</code>
+Options in both CliCommands and CliArguments instances.</p>
+<p>When <code>--help</code> is invoked by the user, <code>.HelpInvoked</code> is set on CliCommands/CliArguments,
+and the virtual method <code>OnHelpInvoked(string helpText)</code> is invoked.</p>
+<ul>
+<li><strong>By default</strong> <code>OnHelpInvoked</code> will print the help text to screen, and call <code>Environment.Exit(0)</code></li>
+<li><strong>By overriding</strong> <code>OnHelpInvoked</code> on a CliCommands/CliArguments implementation,
+you change the implementation to something more appropriate to your program flow.</li>
+</ul>
+<p>EntryPoint does not try to control your usage of this, but be aware that invoking <code>--help</code> will
+disable  <code>Required</code> attributes; if you neither exit or check <code>.HelpInvoked</code>, then your
+program may continue running with invalid state.</p>
+<h4 id="basic-usage">Basic Usage</h4>
+<p>The Help Generator consumes the following information for each class type.</p>
+<h5 id="clicommands">CliCommands</h5>
+<pre><code>[Help(&quot;This will be displayed as an initial blurb for the utility&quot;)]
+class ExampleHelpCliCommands : BaseCliCommands {
+
+    // [DefaultCommand]
+    [Command(&quot;command1&quot;)]
+    [Help(&quot;Some command that can be used&quot;)]
+    public void Command1(string[] args) {
+        // ...etc
+    }
+}
+
+class CommandsHelpProgram {
+    public void main(string[] args) {
+        var commands = Cli.Execute&lt;ExampleHelpCliCommands&gt;(args);
+        // Execution would not reach this point if --help is invoked, 
+        // since OnHelpInvoked would run and exit the program
+
+        // However, if you override and don&#39;t exit at OnHelpInvoked, 
+        // you could also do this:
+        if (commands.HelpInvoked) {
+            // Return here, or run something else
+        }
+
+        // Normal Post-Command Application code...
+    }
+}
+</code></pre><h5 id="cliarguments">CliArguments</h5>
+<pre><code>[Help(&quot;This will be displayed as an initial blurb for the command/utility&quot;)]
+class ExampleHelpCliArguments : BaseCliArguments {
+    public ExampleHelpCliArguments()
+        : base(utilityName: &quot;Displayed as the command/utility name&quot;) { }
+
+    [OptionParameter(LongName: &quot;value1&quot;)]
+    [Help(&quot;Some value to set&quot;)]
+    public bool Value1 { get; set; }
+}
+
+class ArgumentsHelpProgram {
+    public void main(string[] args) {
+        var arguments = Cli.Parse&lt;ExampleHelpCliArguments&gt;(args);
+        // Execution would not reach this point if --help is invoked, 
+        // since OnHelpInvoked would run and exit the program
+
+        // However, if you override and don&#39;t exit at OnHelpInvoked, 
+        // you could also do this:
+        if (arguments.HelpInvoked) {
+            // Return here, or run something else
+        }
+
+        // Normal Application code...
+    }
+}
+</code></pre><h4 id="overriding-onhelpinvoked">Overriding OnHelpInvoked(...)</h4>
+<p>Below is a brief example of overriding the help method.</p>
+<pre><code>[Help(&quot;This will be displayed as an initial blurb for the utility&quot;)]
+class OverrideHelpCliCommands : BaseCliCommands {
+
+    // [DefaultCommand]
+    [Command(&quot;command1&quot;)]
+    [Help(&quot;Some command that can be used&quot;)]
+    public void Command1(string[] args) {
+        // ...etc
+    }
+
+    // Now the following code will be executed when 
+    // help is invoked against this CliCommands class
+    public override void OnHelpInvoked(string helpText) {
+        Console.WriteLine(helpText);
+        throw new HelpInvokedException(&quot;Using an exception to control application flow&quot;);
+    }
+}
+</code></pre>
+            </article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/docs/upgrade-website-generator/docs-generation/docfx/articles/help_generator.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+      <!--   <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Copyright © 2015-2016 Microsoft<br>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div> -->
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="../styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

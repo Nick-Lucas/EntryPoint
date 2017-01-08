@@ -4,7 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace EntryPoint.Exceptions {
+
+    /// <summary>
+    /// Thrown whenever an OptionParameter is invoked, but no parameter argument is provided
+    /// </summary>
     public class NoParameterException : UserFacingException {
-        public NoParameterException(string message) : base(message) { }
+        internal NoParameterException(string message) : base(message) { }
     }
+
 }

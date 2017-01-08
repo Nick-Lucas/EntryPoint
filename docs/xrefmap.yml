@@ -1,0 +1,366 @@
+### YamlMime:XRefMap
+sorted: true
+references:
+- uid: EntryPoint
+  name: EntryPoint
+  href: api/EntryPoint.html
+  commentId: N:EntryPoint
+  fullName: EntryPoint
+  nameWithType: EntryPoint
+- uid: EntryPoint.BaseCliArguments
+  name: BaseCliArguments
+  href: api/EntryPoint.BaseCliArguments.html
+  commentId: T:EntryPoint.BaseCliArguments
+  fullName: EntryPoint.BaseCliArguments
+  nameWithType: BaseCliArguments
+- uid: EntryPoint.BaseCliArguments.#ctor(System.String)
+  name: BaseCliArguments(String)
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments__ctor_System_String_
+  commentId: M:EntryPoint.BaseCliArguments.#ctor(System.String)
+  fullName: EntryPoint.BaseCliArguments.BaseCliArguments(System.String)
+  nameWithType: BaseCliArguments.BaseCliArguments(String)
+- uid: EntryPoint.BaseCliArguments.#ctor*
+  name: BaseCliArguments
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments__ctor_
+  commentId: Overload:EntryPoint.BaseCliArguments.#ctor
+  fullName: EntryPoint.BaseCliArguments.BaseCliArguments
+  nameWithType: BaseCliArguments.BaseCliArguments
+- uid: EntryPoint.BaseCliArguments.HelpInvoked
+  name: HelpInvoked
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_HelpInvoked
+  commentId: P:EntryPoint.BaseCliArguments.HelpInvoked
+  fullName: EntryPoint.BaseCliArguments.HelpInvoked
+  nameWithType: BaseCliArguments.HelpInvoked
+- uid: EntryPoint.BaseCliArguments.HelpInvoked*
+  name: HelpInvoked
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_HelpInvoked_
+  commentId: Overload:EntryPoint.BaseCliArguments.HelpInvoked
+  fullName: EntryPoint.BaseCliArguments.HelpInvoked
+  nameWithType: BaseCliArguments.HelpInvoked
+- uid: EntryPoint.BaseCliArguments.Operands
+  name: Operands
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_Operands
+  commentId: P:EntryPoint.BaseCliArguments.Operands
+  fullName: EntryPoint.BaseCliArguments.Operands
+  nameWithType: BaseCliArguments.Operands
+- uid: EntryPoint.BaseCliArguments.Operands*
+  name: Operands
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_Operands_
+  commentId: Overload:EntryPoint.BaseCliArguments.Operands
+  fullName: EntryPoint.BaseCliArguments.Operands
+  nameWithType: BaseCliArguments.Operands
+- uid: EntryPoint.BaseCliCommands
+  name: BaseCliCommands
+  href: api/EntryPoint.BaseCliCommands.html
+  commentId: T:EntryPoint.BaseCliCommands
+  fullName: EntryPoint.BaseCliCommands
+  nameWithType: BaseCliCommands
+- uid: EntryPoint.Cli
+  name: Cli
+  href: api/EntryPoint.Cli.html
+  commentId: T:EntryPoint.Cli
+  fullName: EntryPoint.Cli
+  nameWithType: Cli
+- uid: EntryPoint.Cli.Execute*
+  name: Execute<C>
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_Execute_
+  commentId: Overload:EntryPoint.Cli.Execute
+  name.vb: Execute(Of C)
+  fullName: EntryPoint.Cli.Execute<C>
+  fullName.vb: EntryPoint.Cli.Execute(Of C)
+  nameWithType: Cli.Execute<C>
+  nameWithType.vb: Cli.Execute(Of C)
+- uid: EntryPoint.Cli.Execute``1
+  name: Execute<C>()
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_Execute__1
+  commentId: M:EntryPoint.Cli.Execute``1
+  name.vb: Execute(Of C)()
+  fullName: EntryPoint.Cli.Execute<C>()
+  fullName.vb: EntryPoint.Cli.Execute(Of C)()
+  nameWithType: Cli.Execute<C>()
+  nameWithType.vb: Execute(Of C)()
+- uid: EntryPoint.Cli.Execute``1(``0,System.String[])
+  name: Execute<C>(C, String[])
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_Execute__1___0_System_String___
+  commentId: M:EntryPoint.Cli.Execute``1(``0,System.String[])
+  name.vb: Execute(Of C)(C, String())
+  fullName: EntryPoint.Cli.Execute<C>(C, System.String[])
+  fullName.vb: EntryPoint.Cli.Execute(Of C)(C, System.String())
+  nameWithType: Cli.Execute<C>(C, String[])
+  nameWithType.vb: Execute(Of C)(C, String())
+- uid: EntryPoint.Cli.Execute``1(System.String[])
+  name: Execute<C>(String[])
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_Execute__1_System_String___
+  commentId: M:EntryPoint.Cli.Execute``1(System.String[])
+  name.vb: Execute(Of C)(String())
+  fullName: EntryPoint.Cli.Execute<C>(System.String[])
+  fullName.vb: EntryPoint.Cli.Execute(Of C)(System.String())
+  nameWithType: Cli.Execute<C>(String[])
+  nameWithType.vb: Execute(Of C)(String())
+- uid: EntryPoint.Cli.GetHelp*
+  name: GetHelp<A>
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_GetHelp_
+  commentId: Overload:EntryPoint.Cli.GetHelp
+  name.vb: GetHelp(Of A)
+  fullName: EntryPoint.Cli.GetHelp<A>
+  fullName.vb: EntryPoint.Cli.GetHelp(Of A)
+  nameWithType: Cli.GetHelp<A>
+  nameWithType.vb: Cli.GetHelp(Of A)
+- uid: EntryPoint.Cli.GetHelp``1
+  name: GetHelp<A>()
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_GetHelp__1
+  commentId: M:EntryPoint.Cli.GetHelp``1
+  name.vb: GetHelp(Of A)()
+  fullName: EntryPoint.Cli.GetHelp<A>()
+  fullName.vb: EntryPoint.Cli.GetHelp(Of A)()
+  nameWithType: Cli.GetHelp<A>()
+  nameWithType.vb: GetHelp(Of A)()
+- uid: EntryPoint.Cli.GetHelp``1(``0)
+  name: GetHelp<A>(A)
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_GetHelp__1___0_
+  commentId: M:EntryPoint.Cli.GetHelp``1(``0)
+  name.vb: GetHelp(Of A)(A)
+  fullName: EntryPoint.Cli.GetHelp<A>(A)
+  fullName.vb: EntryPoint.Cli.GetHelp(Of A)(A)
+  nameWithType: Cli.GetHelp<A>(A)
+  nameWithType.vb: GetHelp(Of A)(A)
+- uid: EntryPoint.Cli.Parse*
+  name: Parse<A>
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_Parse_
+  commentId: Overload:EntryPoint.Cli.Parse
+  name.vb: Parse(Of A)
+  fullName: EntryPoint.Cli.Parse<A>
+  fullName.vb: EntryPoint.Cli.Parse(Of A)
+  nameWithType: Cli.Parse<A>
+  nameWithType.vb: Cli.Parse(Of A)
+- uid: EntryPoint.Cli.Parse``1
+  name: Parse<A>()
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_Parse__1
+  commentId: M:EntryPoint.Cli.Parse``1
+  name.vb: Parse(Of A)()
+  fullName: EntryPoint.Cli.Parse<A>()
+  fullName.vb: EntryPoint.Cli.Parse(Of A)()
+  nameWithType: Cli.Parse<A>()
+  nameWithType.vb: Parse(Of A)()
+- uid: EntryPoint.Cli.Parse``1(``0,System.String[])
+  name: Parse<A>(A, String[])
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_Parse__1___0_System_String___
+  commentId: M:EntryPoint.Cli.Parse``1(``0,System.String[])
+  name.vb: Parse(Of A)(A, String())
+  fullName: EntryPoint.Cli.Parse<A>(A, System.String[])
+  fullName.vb: EntryPoint.Cli.Parse(Of A)(A, System.String())
+  nameWithType: Cli.Parse<A>(A, String[])
+  nameWithType.vb: Parse(Of A)(A, String())
+- uid: EntryPoint.Cli.Parse``1(System.String[])
+  name: Parse<A>(String[])
+  href: api/EntryPoint.Cli.html#EntryPoint_Cli_Parse__1_System_String___
+  commentId: M:EntryPoint.Cli.Parse``1(System.String[])
+  name.vb: Parse(Of A)(String())
+  fullName: EntryPoint.Cli.Parse<A>(System.String[])
+  fullName.vb: EntryPoint.Cli.Parse(Of A)(System.String())
+  nameWithType: Cli.Parse<A>(String[])
+  nameWithType.vb: Parse(Of A)(String())
+- uid: EntryPoint.CommandAttribute
+  name: CommandAttribute
+  href: api/EntryPoint.CommandAttribute.html
+  commentId: T:EntryPoint.CommandAttribute
+  fullName: EntryPoint.CommandAttribute
+  nameWithType: CommandAttribute
+- uid: EntryPoint.CommandAttribute.#ctor(System.String)
+  name: CommandAttribute(String)
+  href: api/EntryPoint.CommandAttribute.html#EntryPoint_CommandAttribute__ctor_System_String_
+  commentId: M:EntryPoint.CommandAttribute.#ctor(System.String)
+  fullName: EntryPoint.CommandAttribute.CommandAttribute(System.String)
+  nameWithType: CommandAttribute.CommandAttribute(String)
+- uid: EntryPoint.CommandAttribute.#ctor*
+  name: CommandAttribute
+  href: api/EntryPoint.CommandAttribute.html#EntryPoint_CommandAttribute__ctor_
+  commentId: Overload:EntryPoint.CommandAttribute.#ctor
+  fullName: EntryPoint.CommandAttribute.CommandAttribute
+  nameWithType: CommandAttribute.CommandAttribute
+- uid: EntryPoint.DefaultCommandAttribute
+  name: DefaultCommandAttribute
+  href: api/EntryPoint.DefaultCommandAttribute.html
+  commentId: T:EntryPoint.DefaultCommandAttribute
+  fullName: EntryPoint.DefaultCommandAttribute
+  nameWithType: DefaultCommandAttribute
+- uid: EntryPoint.DefaultCommandAttribute.#ctor
+  name: DefaultCommandAttribute()
+  href: api/EntryPoint.DefaultCommandAttribute.html#EntryPoint_DefaultCommandAttribute__ctor
+  commentId: M:EntryPoint.DefaultCommandAttribute.#ctor
+  fullName: EntryPoint.DefaultCommandAttribute.DefaultCommandAttribute()
+  nameWithType: DefaultCommandAttribute.DefaultCommandAttribute()
+- uid: EntryPoint.DefaultCommandAttribute.#ctor*
+  name: DefaultCommandAttribute
+  href: api/EntryPoint.DefaultCommandAttribute.html#EntryPoint_DefaultCommandAttribute__ctor_
+  commentId: Overload:EntryPoint.DefaultCommandAttribute.#ctor
+  fullName: EntryPoint.DefaultCommandAttribute.DefaultCommandAttribute
+  nameWithType: DefaultCommandAttribute.DefaultCommandAttribute
+- uid: EntryPoint.Exceptions
+  name: EntryPoint.Exceptions
+  href: api/EntryPoint.Exceptions.html
+  commentId: N:EntryPoint.Exceptions
+  fullName: EntryPoint.Exceptions
+  nameWithType: EntryPoint.Exceptions
+- uid: EntryPoint.Exceptions.DuplicateOptionException
+  name: DuplicateOptionException
+  href: api/EntryPoint.Exceptions.DuplicateOptionException.html
+  commentId: T:EntryPoint.Exceptions.DuplicateOptionException
+  fullName: EntryPoint.Exceptions.DuplicateOptionException
+  nameWithType: DuplicateOptionException
+- uid: EntryPoint.Exceptions.InvalidModelException
+  name: InvalidModelException
+  href: api/EntryPoint.Exceptions.InvalidModelException.html
+  commentId: T:EntryPoint.Exceptions.InvalidModelException
+  fullName: EntryPoint.Exceptions.InvalidModelException
+  nameWithType: InvalidModelException
+- uid: EntryPoint.Exceptions.NoParameterException
+  name: NoParameterException
+  href: api/EntryPoint.Exceptions.NoParameterException.html
+  commentId: T:EntryPoint.Exceptions.NoParameterException
+  fullName: EntryPoint.Exceptions.NoParameterException
+  nameWithType: NoParameterException
+- uid: EntryPoint.Exceptions.RequiredException
+  name: RequiredException
+  href: api/EntryPoint.Exceptions.RequiredException.html
+  commentId: T:EntryPoint.Exceptions.RequiredException
+  fullName: EntryPoint.Exceptions.RequiredException
+  nameWithType: RequiredException
+- uid: EntryPoint.Exceptions.UnknownOptionException
+  name: UnknownOptionException
+  href: api/EntryPoint.Exceptions.UnknownOptionException.html
+  commentId: T:EntryPoint.Exceptions.UnknownOptionException
+  fullName: EntryPoint.Exceptions.UnknownOptionException
+  nameWithType: UnknownOptionException
+- uid: EntryPoint.Exceptions.UserFacingException
+  name: UserFacingException
+  href: api/EntryPoint.Exceptions.UserFacingException.html
+  commentId: T:EntryPoint.Exceptions.UserFacingException
+  fullName: EntryPoint.Exceptions.UserFacingException
+  nameWithType: UserFacingException
+- uid: EntryPoint.HelpAttribute
+  name: HelpAttribute
+  href: api/EntryPoint.HelpAttribute.html
+  commentId: T:EntryPoint.HelpAttribute
+  fullName: EntryPoint.HelpAttribute
+  nameWithType: HelpAttribute
+- uid: EntryPoint.HelpAttribute.#ctor(System.String)
+  name: HelpAttribute(String)
+  href: api/EntryPoint.HelpAttribute.html#EntryPoint_HelpAttribute__ctor_System_String_
+  commentId: M:EntryPoint.HelpAttribute.#ctor(System.String)
+  fullName: EntryPoint.HelpAttribute.HelpAttribute(System.String)
+  nameWithType: HelpAttribute.HelpAttribute(String)
+- uid: EntryPoint.HelpAttribute.#ctor*
+  name: HelpAttribute
+  href: api/EntryPoint.HelpAttribute.html#EntryPoint_HelpAttribute__ctor_
+  commentId: Overload:EntryPoint.HelpAttribute.#ctor
+  fullName: EntryPoint.HelpAttribute.HelpAttribute
+  nameWithType: HelpAttribute.HelpAttribute
+- uid: EntryPoint.HelpAttribute.Detail
+  name: Detail
+  href: api/EntryPoint.HelpAttribute.html#EntryPoint_HelpAttribute_Detail
+  commentId: P:EntryPoint.HelpAttribute.Detail
+  fullName: EntryPoint.HelpAttribute.Detail
+  nameWithType: HelpAttribute.Detail
+- uid: EntryPoint.HelpAttribute.Detail*
+  name: Detail
+  href: api/EntryPoint.HelpAttribute.html#EntryPoint_HelpAttribute_Detail_
+  commentId: Overload:EntryPoint.HelpAttribute.Detail
+  fullName: EntryPoint.HelpAttribute.Detail
+  nameWithType: HelpAttribute.Detail
+- uid: EntryPoint.OperandAttribute
+  name: OperandAttribute
+  href: api/EntryPoint.OperandAttribute.html
+  commentId: T:EntryPoint.OperandAttribute
+  fullName: EntryPoint.OperandAttribute
+  nameWithType: OperandAttribute
+- uid: EntryPoint.OperandAttribute.#ctor(System.Int32)
+  name: OperandAttribute(Int32)
+  href: api/EntryPoint.OperandAttribute.html#EntryPoint_OperandAttribute__ctor_System_Int32_
+  commentId: M:EntryPoint.OperandAttribute.#ctor(System.Int32)
+  fullName: EntryPoint.OperandAttribute.OperandAttribute(System.Int32)
+  nameWithType: OperandAttribute.OperandAttribute(Int32)
+- uid: EntryPoint.OperandAttribute.#ctor*
+  name: OperandAttribute
+  href: api/EntryPoint.OperandAttribute.html#EntryPoint_OperandAttribute__ctor_
+  commentId: Overload:EntryPoint.OperandAttribute.#ctor
+  fullName: EntryPoint.OperandAttribute.OperandAttribute
+  nameWithType: OperandAttribute.OperandAttribute
+- uid: EntryPoint.OperandAttribute.Position
+  name: Position
+  href: api/EntryPoint.OperandAttribute.html#EntryPoint_OperandAttribute_Position
+  commentId: P:EntryPoint.OperandAttribute.Position
+  fullName: EntryPoint.OperandAttribute.Position
+  nameWithType: OperandAttribute.Position
+- uid: EntryPoint.OperandAttribute.Position*
+  name: Position
+  href: api/EntryPoint.OperandAttribute.html#EntryPoint_OperandAttribute_Position_
+  commentId: Overload:EntryPoint.OperandAttribute.Position
+  fullName: EntryPoint.OperandAttribute.Position
+  nameWithType: OperandAttribute.Position
+- uid: EntryPoint.OptionAttribute
+  name: OptionAttribute
+  href: api/EntryPoint.OptionAttribute.html
+  commentId: T:EntryPoint.OptionAttribute
+  fullName: EntryPoint.OptionAttribute
+  nameWithType: OptionAttribute
+- uid: EntryPoint.OptionAttribute.#ctor(System.Char)
+  name: OptionAttribute(Char)
+  href: api/EntryPoint.OptionAttribute.html#EntryPoint_OptionAttribute__ctor_System_Char_
+  commentId: M:EntryPoint.OptionAttribute.#ctor(System.Char)
+  fullName: EntryPoint.OptionAttribute.OptionAttribute(System.Char)
+  nameWithType: OptionAttribute.OptionAttribute(Char)
+- uid: EntryPoint.OptionAttribute.#ctor(System.String)
+  name: OptionAttribute(String)
+  href: api/EntryPoint.OptionAttribute.html#EntryPoint_OptionAttribute__ctor_System_String_
+  commentId: M:EntryPoint.OptionAttribute.#ctor(System.String)
+  fullName: EntryPoint.OptionAttribute.OptionAttribute(System.String)
+  nameWithType: OptionAttribute.OptionAttribute(String)
+- uid: EntryPoint.OptionAttribute.#ctor(System.String,System.Char)
+  name: OptionAttribute(String, Char)
+  href: api/EntryPoint.OptionAttribute.html#EntryPoint_OptionAttribute__ctor_System_String_System_Char_
+  commentId: M:EntryPoint.OptionAttribute.#ctor(System.String,System.Char)
+  fullName: EntryPoint.OptionAttribute.OptionAttribute(System.String, System.Char)
+  nameWithType: OptionAttribute.OptionAttribute(String, Char)
+- uid: EntryPoint.OptionAttribute.#ctor*
+  name: OptionAttribute
+  href: api/EntryPoint.OptionAttribute.html#EntryPoint_OptionAttribute__ctor_
+  commentId: Overload:EntryPoint.OptionAttribute.#ctor
+  fullName: EntryPoint.OptionAttribute.OptionAttribute
+  nameWithType: OptionAttribute.OptionAttribute
+- uid: EntryPoint.OptionParameterAttribute
+  name: OptionParameterAttribute
+  href: api/EntryPoint.OptionParameterAttribute.html
+  commentId: T:EntryPoint.OptionParameterAttribute
+  fullName: EntryPoint.OptionParameterAttribute
+  nameWithType: OptionParameterAttribute
+- uid: EntryPoint.OptionParameterAttribute.#ctor(System.Char)
+  name: OptionParameterAttribute(Char)
+  href: api/EntryPoint.OptionParameterAttribute.html#EntryPoint_OptionParameterAttribute__ctor_System_Char_
+  commentId: M:EntryPoint.OptionParameterAttribute.#ctor(System.Char)
+  fullName: EntryPoint.OptionParameterAttribute.OptionParameterAttribute(System.Char)
+  nameWithType: OptionParameterAttribute.OptionParameterAttribute(Char)
+- uid: EntryPoint.OptionParameterAttribute.#ctor(System.String)
+  name: OptionParameterAttribute(String)
+  href: api/EntryPoint.OptionParameterAttribute.html#EntryPoint_OptionParameterAttribute__ctor_System_String_
+  commentId: M:EntryPoint.OptionParameterAttribute.#ctor(System.String)
+  fullName: EntryPoint.OptionParameterAttribute.OptionParameterAttribute(System.String)
+  nameWithType: OptionParameterAttribute.OptionParameterAttribute(String)
+- uid: EntryPoint.OptionParameterAttribute.#ctor(System.String,System.Char)
+  name: OptionParameterAttribute(String, Char)
+  href: api/EntryPoint.OptionParameterAttribute.html#EntryPoint_OptionParameterAttribute__ctor_System_String_System_Char_
+  commentId: M:EntryPoint.OptionParameterAttribute.#ctor(System.String,System.Char)
+  fullName: EntryPoint.OptionParameterAttribute.OptionParameterAttribute(System.String, System.Char)
+  nameWithType: OptionParameterAttribute.OptionParameterAttribute(String, Char)
+- uid: EntryPoint.OptionParameterAttribute.#ctor*
+  name: OptionParameterAttribute
+  href: api/EntryPoint.OptionParameterAttribute.html#EntryPoint_OptionParameterAttribute__ctor_
+  commentId: Overload:EntryPoint.OptionParameterAttribute.#ctor
+  fullName: EntryPoint.OptionParameterAttribute.OptionParameterAttribute
+  nameWithType: OptionParameterAttribute.OptionParameterAttribute
+- uid: EntryPoint.RequiredAttribute
+  name: RequiredAttribute
+  href: api/EntryPoint.RequiredAttribute.html
+  commentId: T:EntryPoint.RequiredAttribute
+  fullName: EntryPoint.RequiredAttribute
+  nameWithType: RequiredAttribute

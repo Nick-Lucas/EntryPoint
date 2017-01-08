@@ -24,7 +24,6 @@ namespace EntryPoint {
         /// Create and populate a CliArguments implementation from the command line args
         /// </summary>
         /// <typeparam name="A">The type of the CliArguments, which derives from BaseCliArguments</typeparam>
-        /// <returns>A populated CliArguments instance</returns>
         public static A Parse<A>() where A : BaseCliArguments, new() {
             return Parse(new A(), GetCliArgs());
         }
@@ -34,7 +33,6 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">The type of the CliArguments, which derives from BaseCliArguments</typeparam>
         /// <param name="args">The CLI arguments input</param>
-        /// <returns>A populated CliArguments instance</returns>
         public static A Parse<A>(string[] args) where A : BaseCliArguments, new() {
             return Parse(new A(), args);
         }
@@ -45,7 +43,6 @@ namespace EntryPoint {
         /// <typeparam name="A">The type of the CliArguments, which derives from BaseCliArguments</typeparam>
         /// <param name="applicationOptions">The pre-instantiated CliArguments implementation</param>
         /// <param name="args">The CLI arguments input</param>
-        /// <returns>A populated CliArguments instance</returns>
         public static A Parse<A>(A applicationOptions, string[] args) where A : BaseCliArguments {
 
             // Process inputs
@@ -102,7 +99,6 @@ namespace EntryPoint {
         /// Generate and return a Help string for a given BaseCliArguments or BaseCliCommands instance
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands which can be created with 0 arguments</typeparam>
-        /// <returns>Help string</returns>
         public static string GetHelp<A>() where A : BaseHelpable, new() {
             return GetHelp(new A());
         }
@@ -112,7 +108,6 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands</typeparam>
         /// <param name="applicationOptions">Instance of the custom BaseCliArguments or BaseCliCommands implementation</param>
-        /// <returns>Help string</returns>
         public static string GetHelp<A>(A applicationOptions) where A : BaseHelpable {
             if (applicationOptions is BaseCliArguments) {
                 return CliArgumentsHelp.Generate(

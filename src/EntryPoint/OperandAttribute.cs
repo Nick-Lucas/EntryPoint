@@ -6,18 +6,29 @@ using System.Threading.Tasks;
 using EntryPoint.Arguments.OptionStrategies;
 
 namespace EntryPoint {
+
+    /// <summary>
+    /// Declares a positional Operand argument
+    /// </summary>
     [AttributeUsage(
         AttributeTargets.Property,
         AllowMultiple = false,
         Inherited = true)]
     public class OperandAttribute : Attribute {
-        public OperandAttribute(int position) {
-            Position = position;
+
+        /// <summary>
+        /// Declares a positional Operand argument
+        /// </summary>
+        /// <param name="Position">The 1-Based position of the operand</param>
+        public OperandAttribute(int Position) {
+            this.Position = Position;
         }
 
         /// <summary>
-        /// The 1 Based position of the operand
+        /// The 1-Based position of the operand
         /// </summary>
         public int Position { get; set; }
+
     }
+
 }

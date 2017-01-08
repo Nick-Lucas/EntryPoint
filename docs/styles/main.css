@@ -1,0 +1,26 @@
+/* NAVBAR */
+
+.brand-title {
+	color: #d95800 !important;
+}
+.brand-title:hover {
+	color: #ff944d !important;;
+}
+
+.docfx-brand {
+	font-size: 18px; 
+	line-height: 50px;
+	padding-right: 15px;
+}
+
+
+/* CODE BLOCKS FIX */
+
+pre {
+  padding: 0 !important;
+}
+
+code {
+	background-color: #e7e7e7;
+	color: #333;
+}

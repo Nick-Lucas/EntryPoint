@@ -52,7 +52,7 @@ namespace Example
         // Operands are always dumped into the BaseApplicationModel.Operands list
         // But Positional Operands can also be mapped directly
         [Required]
-        [Operand(position: 1)]
+        [Operand(Position: 1)]
         [Help(
             "The first Operand after all Options and OptionParameters")]
         public string Operand1 { get; set; }
