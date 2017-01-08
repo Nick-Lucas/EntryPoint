@@ -1,0 +1,8 @@
+.docfx-brand {
+	font-size: xx-large; 
+	padding-top: 8px;
+	color: #d95800 !important;
+}
+.docfx-brand:hover {
+	color: #ff6600 !important;;
+}
