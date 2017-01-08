@@ -49,7 +49,7 @@
   </tbody>
 </table>
 {{/parameters.0}}
-{{#return}}
+<!-- {{#return}}
 <h5 class="returns">{{__global.returns}}</h5>
 <table class="table table-bordered table-striped table-condensed">
   <thead>
@@ -65,7 +65,7 @@
     </tr>
   </tbody>
 </table>
-{{/return}}
+{{/return}} -->
 {{#typeParameters.0}}
 <h5 class="typeParameters">{{__global.typeParameters}}</h5>
 <table class="table table-bordered table-striped table-condensed">
