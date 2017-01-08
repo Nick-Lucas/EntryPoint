@@ -25,11 +25,13 @@ namespace Website {
             layout = layout.Replace("{{updated_on}}", DateTime.Now.ToString("MMM d, yyyy"));
 
             var headerIdList = new List<string>();
-            var body = new Markdown().Transform(PreprocessBody());
-            body = AddHeaderAnchors(body, headerIdList);            
+            var markdownBody = TransformBodyToMarkdown();
+            var htmlBody = new Markdown().Transform(markdownBody);
+            htmlBody = AddHeaderAnchors(htmlBody, headerIdList);            
 
-            layout = layout.Replace("{{body}}", body);
+            layout = layout.Replace("{{body}}", htmlBody);
             ValidateHeaderAnchors(headerIdList, layout);
+            File.WriteAllText("./www/body.md", markdownBody);
             File.WriteAllText("./www/index.html", layout);
 
             // Useful if we ever need to copy to the /docs directory again
@@ -48,7 +50,7 @@ namespace Website {
                 .TrimEnd(".0".ToCharArray());
         }
 
-        static string PreprocessBody() {
+        static string TransformBodyToMarkdown() {
             var source = File.ReadAllLines("./Body.cs");
             var result = new List<string>();
             List<string> currentCode = null;
@@ -104,7 +106,11 @@ namespace Website {
         }
 
         static void ValidateHeaderAnchors(List<string> knownIdList, string html) {
-            var refs = Regex.Matches(html, "href=\"#(.+?)\"").Cast<Match>().Select(m => m.Groups[1].Value);
+            var refs = Regex
+                .Matches(html, "href=\"#(.*?)\"")
+                .Cast<Match>()
+                .Select(m => m.Groups[1].Value)
+                .Where(s => s.Length > 0);
             var wrong = refs.Except(knownIdList);
             if(wrong.Any())
                 // If this throws - Please ensure you've updated any links to page sections after changing header titles.
