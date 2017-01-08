@@ -2,7 +2,7 @@
 [![NuGet](https://img.shields.io/nuget/v/EntryPoint.svg)](https://www.nuget.org/packages/EntryPoint)
 [![MIT License](https://img.shields.io/github/license/Nick-Lucas/EntryPoint.svg)](https://github.com/Nick-Lucas/EntryPoint/blob/master/LICENSE)
 
-**Warning: (Version 0.9.6)** EntryPoint is approaching v1.0 but changes to the API may yet come. See the roadmap below for more information
+**Warning: (Version 0.9.8)** EntryPoint is approaching v1.0 but changes to the API may yet come. See the roadmap below for more information
 
 ## EntryPoint
 

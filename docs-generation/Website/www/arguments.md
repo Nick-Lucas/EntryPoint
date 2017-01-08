@@ -153,14 +153,14 @@ and will otherwise use the type's default value
 
 Both OptionParameter and Operand arguments can be mapped to a number of different .Net types
 
-##### Primitive & 'Primitive like' Types
-* These are your String, Int, Long, Double, Float, Decimal, Bool
-* Should support any simple type which implements `IConvertible`, although this can't be exhaustively tested
+* **Primitive & 'Primitive like' Types**
+    * These are your String, Int, Long, Double, Float, Decimal, Bool, etc...
+    * Should support any simple type which implements `IConvertible`, although this can't be exhaustively tested
 
-##### Enums
-* Parses custom enums from both the numeric value or the string/name for a value
+* **Enums**
+    * Parses custom enums from both the numeric value or the string/name for a value
 
-##### Lists
-* Supports the generic collection: `List<T>`
-* Parses lists from the form `item1,item2,item3`
-* `T` can be any type supported *above*
+* **Lists**
+    * Supports the generic collection: `List<T>`
+    * Parses lists from the form `item1,item2,item3`
+    * `T` can be any type supported *above*
