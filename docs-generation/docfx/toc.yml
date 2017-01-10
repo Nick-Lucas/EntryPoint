@@ -1,3 +1,10 @@
+- name: Nuget
+  href: https://www.nuget.org/packages/EntryPoint/
+- name: GitHub
+  href: https://github.com/Nick-Lucas/EntryPoint/
+- name: AppVeyor
+  href: https://ci.appveyor.com/project/Nick-Lucas/entrypoint
+- name: " "
 - name: Getting Started
   href: articles/
 - name: API Documentation
