@@ -5,26 +5,19 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace Example {
-    public class ExampleCommands : BaseCliCommands {
+namespace Example.CommandLine {
+    public class ExampleCliCommands : BaseCliCommands {
         [DefaultCommand]
-        [Command("main")]
-        [Help(
-            "The Main command, for doing something")]
-        public void Main(string[] args) {
+        [Command("primary")]
+        [Help("The Main command, for doing something")]
+        public void Primary(string[] args) {
             // CLI command:
             // ApplicationName -oq -re FirstItem --string Bob -n=1.2 "the operand"
-            Console.WriteLine("Main Command invoked with args: ");
+            Console.WriteLine("Primary Command invoked with args: ");
             Console.WriteLine(string.Join(" ", args));
 
             // Parses arguments based on a declarative BaseCliArguments implementation (below)
-            MainCliArguments a = Cli.Parse<MainCliArguments>(args);
-            if (a.HelpInvoked) {
-                Console.WriteLine(Cli.GetHelp<MainCliArguments>());
-                Console.WriteLine("Enter to exit...");
-                Console.ReadLine();
-                return;
-            }
+            PrimaryCliArguments a = Cli.Parse<PrimaryCliArguments>(args);
 
             Console.WriteLine($"a: {a.Option1}");
             Console.WriteLine($"b: {a.Option2}");
@@ -39,12 +32,11 @@ namespace Example {
         }
 
         [Command("secondary")]
-        [Help(
-            "The Secondary command, for doing something else. Takes only Operands")]
+        [Help("The Secondary command, for doing something else. Takes only Operands")]
         public void Secondary(string[] args) {
-            var options = Cli.Parse<SecondaryCliArguments>(args);
-
             Console.WriteLine("Secondary Command Invoked");
+
+            var options = Cli.Parse<SecondaryCliArguments>(args);
 
             int i = 1;
             foreach (var operand in options.Operands) {
@@ -53,13 +45,6 @@ namespace Example {
             }
 
             Console.ReadLine();
-        }
-        
-        public override void OnHelpInvoked(string commandsHelpText) {
-            Console.WriteLine(commandsHelpText);
-            Console.WriteLine("Press Enter to exit...");
-            Console.ReadLine();
-            Environment.Exit(0);
         }
     }
 }

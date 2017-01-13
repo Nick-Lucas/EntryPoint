@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint;
 
-namespace Example {
+namespace Example.CommandLine {
     public class SecondaryCliArguments : BaseCliArguments {
         public SecondaryCliArguments() : base("Secondary Command") { }
 
