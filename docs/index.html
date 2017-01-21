@@ -66,7 +66,6 @@
               <p><a href="https://ci.appveyor.com/project/Nick-Lucas/entrypoint"><img src="https://ci.appveyor.com/api/projects/status/bocpkn9t5lhan1o9?svg=true" alt="Build status"></a>
 <a href="https://www.nuget.org/packages/EntryPoint"><img src="https://img.shields.io/nuget/v/EntryPoint.svg" alt="NuGet"></a>
 <a href="https://github.com/Nick-Lucas/EntryPoint/blob/master/LICENSE"><img src="https://img.shields.io/github/license/Nick-Lucas/EntryPoint.svg" alt="MIT License"></a></p>
-<p><strong>Warning: (Version 0.9.8)</strong> EntryPoint is approaching v1.0 but changes to the API may yet come. See the roadmap below for more information</p>
 <h2 id="entrypoint">EntryPoint</h2>
 <p>Composable CLI Argument Parser for all modern .Net platforms</p>
 <p>Parses arguments in the form <code>UtilityName [command] [-o | --options] [operands]</code></p>
@@ -80,6 +79,13 @@
 <p>EntryPoint is available on <a href="https://www.nuget.org/packages/EntryPoint">NuGet</a>:</p>
 <pre><code>PM&gt; Install-Package EntryPoint
 </code></pre><p>Pull requests and suggestions are welcome, and some small tasks are already in the Issues.</p>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li><p>Full documentation: <a href="https://nick-lucas.github.io/EntryPoint/">https://nick-lucas.github.io/EntryPoint/</a></p>
+</li>
+<li><p>Example Implementation: <a href="https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example">https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example</a></p>
+</li>
+</ul>
 <h2 id="as-simple-as">As simple as...</h2>
 <p>Parse your application&#39;s Command Line Arguments into a declarative POCO, in one line</p>
 <pre><code class="lang-C#">var arguments = Cli.Parse&lt;MyCliArguments&gt;(args);
@@ -87,16 +93,6 @@ var someOption = arguments.SomeOption;
 </code></pre><p>You can also route Commands using a dedicated Api</p>
 <pre><code class="lang-C#">Cli.Execute&lt;MyCliCommands&gt;(args);
 </code></pre><p><code>MyCliArguments</code> and <code>MyCliCommands</code> are defined as declarative POCOs using Attributes.</p>
-<p>Full documentation: <a href="https://nick-lucas.github.io/EntryPoint/">https://nick-lucas.github.io/EntryPoint/</a></p>
-<p>Example Implementation: <a href="https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example">https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example</a></p>
-<h2 id="roadmap">Roadmap</h2>
-<ul>
-<li><strong>Future</strong><ul>
-<li>Fix any discovered bugs</li>
-<li>1.0 Release</li>
-</ul>
-</li>
-</ul>
 
             </article>
           </div>
@@ -105,6 +101,9 @@ var someOption = arguments.SomeOption;
             <div class="sideaffix">
               <div class="contribution">
                 <ul class="nav">
+                  <li>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/master/docs-generation/docfx/index.md/#L1" class="contribution-link">Improve this Doc</a>
+                  </li>
                 </ul>
               </div>
               <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">

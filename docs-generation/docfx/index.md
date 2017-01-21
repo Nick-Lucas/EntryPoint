@@ -2,8 +2,6 @@
 [![NuGet](https://img.shields.io/nuget/v/EntryPoint.svg)](https://www.nuget.org/packages/EntryPoint)
 [![MIT License](https://img.shields.io/github/license/Nick-Lucas/EntryPoint.svg)](https://github.com/Nick-Lucas/EntryPoint/blob/master/LICENSE)
 
-**Warning: (Version 0.9.8)** EntryPoint is approaching v1.0 but changes to the API may yet come. See the roadmap below for more information
-
 ## EntryPoint
 
 Composable CLI Argument Parser for all modern .Net platforms
@@ -24,6 +22,12 @@ EntryPoint is available on [NuGet](https://www.nuget.org/packages/EntryPoint):
 
 Pull requests and suggestions are welcome, and some small tasks are already in the Issues.
 
+## Documentation
+
+* Full documentation: https://nick-lucas.github.io/EntryPoint/
+
+* Example Implementation: https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example
+
 ## As simple as...
 
 Parse your application's Command Line Arguments into a declarative POCO, in one line
@@ -38,12 +42,3 @@ Cli.Execute<MyCliCommands>(args);
 ```
 
 `MyCliArguments` and `MyCliCommands` are defined as declarative POCOs using Attributes.
-
-Full documentation: https://nick-lucas.github.io/EntryPoint/
-
-Example Implementation: https://github.com/Nick-Lucas/EntryPoint/tree/master/test/Example
-
-## Roadmap
-* **Future**
-	* Fix any discovered bugs
-	* 1.0 Release
