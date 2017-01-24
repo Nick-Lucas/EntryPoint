@@ -30,15 +30,34 @@ Pull requests and suggestions are welcome, and some small tasks are already in t
 
 ## As simple as...
 
-Parse your application's Command Line Arguments into a declarative POCO, in one line
+Parse your application's Command Line Arguments into a declarative POCO, in one line.
+
+Arguments are defined as declarative POCOs using Attributes.
 ```C#
-var arguments = Cli.Parse<MyCliArguments>(args);
-var someOption = arguments.SomeOption;
+var arguments = Cli.Parse<CliArguments>(args);
+if (arguments.Option) {
+  // ...
+};
+```
+```C#
+public class CliArguments : BaseCliArguments {
+    public CliArguments() : base("MyApplication") { }
+
+    [Option(ShortName: 'o',
+            LongName: "option-1")]
+    public bool Option { get; set; }
+}
 ```
 
-You can also route Commands using a dedicated Api
+Commands have a dedicated API:
 ```C#
-Cli.Execute<MyCliCommands>(args);
+Cli.Execute<CliCommands>(args);
 ```
-
-`MyCliArguments` and `MyCliCommands` are defined as declarative POCOs using Attributes.
+```C#
+public class CliCommands : BaseCliCommands {
+    [Command("primary")]
+    public void Primary(string[] args) {
+    	// Arguments Parsing and Command Code...
+    }
+}
+```

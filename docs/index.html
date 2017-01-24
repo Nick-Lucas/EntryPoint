@@ -87,13 +87,28 @@
 </li>
 </ul>
 <h2 id="as-simple-as">As simple as...</h2>
-<p>Parse your application&#39;s Command Line Arguments into a declarative POCO, in one line</p>
-<pre><code class="lang-C#">var arguments = Cli.Parse&lt;MyCliArguments&gt;(args);
-var someOption = arguments.SomeOption;
-</code></pre><p>You can also route Commands using a dedicated Api</p>
-<pre><code class="lang-C#">Cli.Execute&lt;MyCliCommands&gt;(args);
-</code></pre><p><code>MyCliArguments</code> and <code>MyCliCommands</code> are defined as declarative POCOs using Attributes.</p>
+<p>Parse your application&#39;s Command Line Arguments into a declarative POCO, in one line.</p>
+<p>Arguments are defined as declarative POCOs using Attributes.</p>
+<pre><code class="lang-C#">var arguments = Cli.Parse&lt;CliArguments&gt;(args);
+if (arguments.Option) {
+  // ...
+};
+</code></pre><pre><code class="lang-C#">public class CliArguments : BaseCliArguments {
+    public CliArguments() : base(&quot;MyApplication&quot;) { }
 
+    [Option(ShortName: &#39;o&#39;,
+            LongName: &quot;option-1&quot;)]
+    public bool Option { get; set; }
+}
+</code></pre><p>Commands have a dedicated API:</p>
+<pre><code class="lang-C#">Cli.Execute&lt;CliCommands&gt;(args);
+</code></pre><pre><code class="lang-C#">public class CliCommands : BaseCliCommands {
+    [Command(&quot;primary&quot;)]
+    public void Primary(string[] args) {
+        // Arguments Parsing and Command Code...
+    }
+}
+</code></pre>
             </article>
           </div>
           
