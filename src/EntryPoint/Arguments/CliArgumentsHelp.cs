@@ -74,6 +74,7 @@ namespace EntryPoint.Arguments {
                 string type = GetOperandTypeString(operand);
                 breakdown.AppendLine($"   [Operand {position}{type}]");
                 breakdown.AppendLine($"   {operand.Help.Detail}");
+                breakdown.AppendLine();
             }
 
             return breakdown.ToString();
@@ -96,6 +97,10 @@ namespace EntryPoint.Arguments {
                     .GetNames(type)
                     .Select(s => s);
                 return string.Join("|", names);
+            } else if (type.GetTypeInfo().IsGenericType) {
+                string genericType = type.Name.Remove(type.Name.IndexOf("`"));
+                string genericParam = type.GenericTypeArguments.Single().Name;
+                return $"{genericType}<{genericParam}>";
             } else {
                 return type.Name.ToUpper();
             }
