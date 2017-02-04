@@ -58,5 +58,9 @@ namespace Example.CommandLine {
         [Option(ShortName: 'c')]
         [Help("A test option. Does nothing")]
         public bool Option3 { get; set; }
+
+        [Operand(Position: 2)]
+        [Help("A test list, used when checking help-generator output")]
+        public List<int> ListOperands { get; set; }
     }
 }
