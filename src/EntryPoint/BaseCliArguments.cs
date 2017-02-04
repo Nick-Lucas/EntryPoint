@@ -19,7 +19,7 @@ namespace EntryPoint {
         public BaseCliArguments(string utilityName) {
             UtilityName = utilityName;
         }
-        internal BaseCliArguments() { }
+        internal BaseCliArguments() : this("") { }
 
         internal string UtilityName { get; set; }
 

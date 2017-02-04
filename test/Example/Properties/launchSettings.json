@@ -9,7 +9,7 @@
     },
     "MainHelp": {
       "commandName": "Project",
-      "commandLineArgs": "Main --help"
+      "commandLineArgs": "Primary --help"
     },
     "TestArgs": {
       "commandName": "Project",
