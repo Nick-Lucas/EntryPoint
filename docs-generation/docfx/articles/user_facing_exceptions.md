@@ -24,6 +24,7 @@ If you want your own implementation you can override this, like so
         public override void OnUserFacingException(UserFacingException e, string message) {
             // your own handling of the message for the user
             Console.WriteLine("User error: " + message);
+            Environment.Exit(1);
         }
     }
 
