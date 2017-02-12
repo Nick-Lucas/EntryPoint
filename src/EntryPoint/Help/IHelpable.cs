@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace EntryPoint.Help {
     public interface IHelpable {
-        // Set when the user invokes -h/--help
+        
+        /// <summary>
+        /// Set when the user invokes -h/--help
+        /// </summary>
         bool HelpInvoked { get; set; }
 
         /// <summary>
@@ -14,5 +17,6 @@ namespace EntryPoint.Help {
         /// </summary>
         /// <param name="helpText">The help string for this class</param>
         void OnHelpInvoked(string helpText);
+
     }
 }
