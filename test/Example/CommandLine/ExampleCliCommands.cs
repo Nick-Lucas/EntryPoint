@@ -9,7 +9,7 @@ using EntryPoint.Exceptions;
 namespace Example.CommandLine {
     public class ExampleCliCommands : BaseCliCommands {
         public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            throw e;
         }
 
         [DefaultCommand]

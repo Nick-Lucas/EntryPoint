@@ -15,7 +15,7 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         public int MarysDouble { get; set; }
 
         public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            throw e;
         }
     }
 }

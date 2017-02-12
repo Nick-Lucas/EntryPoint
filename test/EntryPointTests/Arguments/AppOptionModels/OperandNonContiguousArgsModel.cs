@@ -23,7 +23,7 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         public Enum1 Enum { get; set; }
 
         public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            throw e;
         }
     }
 }

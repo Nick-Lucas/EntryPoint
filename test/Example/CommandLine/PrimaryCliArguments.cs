@@ -65,7 +65,7 @@ namespace Example.CommandLine {
         public List<int> ListOperands { get; set; }
 
         public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            throw e;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         public int Default7 { get; set; } = 7;
 
         public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            throw e;
         }
     }
 }

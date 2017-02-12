@@ -69,7 +69,7 @@ namespace EntryPointTests.Arguments {
         }
 
         public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            throw e;
         }
     }
 }

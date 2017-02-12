@@ -12,7 +12,7 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         public List<string> Strings { get; set; }
 
         public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            throw e;
         }
     }
 }

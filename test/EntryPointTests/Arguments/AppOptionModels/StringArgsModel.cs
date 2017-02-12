@@ -19,7 +19,7 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         public string DefaultNoName { get; set; } = "NoName";
 
         public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            throw e;
         }
     }
 }

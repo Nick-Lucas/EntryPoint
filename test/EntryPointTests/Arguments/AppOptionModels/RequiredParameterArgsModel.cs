@@ -20,7 +20,7 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         public int ParamOptional { get; set; } = 7;
 
         public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            throw e;
         }
     }
 }
