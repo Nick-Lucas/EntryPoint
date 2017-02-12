@@ -63,9 +63,5 @@ namespace Example.CommandLine {
         [Operand(Position: 2)]
         [Help("A test list, used when checking help-generator output")]
         public List<int> ListOperands { get; set; }
-
-        public override void OnUserFacingException(UserFacingException e, string message) {
-            throw e;
-        }
     }
 }

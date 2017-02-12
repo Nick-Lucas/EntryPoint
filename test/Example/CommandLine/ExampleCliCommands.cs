@@ -8,10 +8,6 @@ using EntryPoint.Exceptions;
 
 namespace Example.CommandLine {
     public class ExampleCliCommands : BaseCliCommands {
-        public override void OnUserFacingException(UserFacingException e, string message) {
-            throw e;
-        }
-
         [DefaultCommand]
         [Command("primary")]
         [Help("The Main command, for doing something")]

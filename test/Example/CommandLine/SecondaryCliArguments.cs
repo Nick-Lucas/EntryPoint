@@ -15,9 +15,5 @@ namespace Example.CommandLine {
             Console.WriteLine(helpText);
             throw new Exception("Broke flow via Exception");
         }
-
-        public override void OnUserFacingException(UserFacingException e, string message) {
-            throw e;
-        }
     }
 }
