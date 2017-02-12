@@ -42,6 +42,10 @@ This has one Option `-s`, one OptionParameter `--name Bob` and a positional Oper
         // un-mapped operands are stored
         [Operand(Position: 1)]
         public decimal FirstOperand { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 
 #### Attributes
@@ -126,6 +130,10 @@ The following is used like:
         [Required]
         [Operand(1)]
         public string Message { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 
     enum MessageImportanceEnum {
