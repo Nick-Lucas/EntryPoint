@@ -109,6 +109,10 @@ class SimpleCliArguments : BaseCliArguments {
     // un-mapped operands are stored
     [Operand(Position: 1)]
     public decimal FirstOperand { get; set; }
+
+    public override void OnUserFacingException(UserFacingException e, string message) {
+        throw new NotImplementedException();
+    }
 }
 </code></pre><h4 id="attributes">Attributes</h4>
 <p>We use Attributes to define CLI functionality</p>
@@ -191,6 +195,10 @@ class MessagingCliArguments : BaseCliArguments {
     [Required]
     [Operand(1)]
     public string Message { get; set; }
+
+    public override void OnUserFacingException(UserFacingException e, string message) {
+        throw new NotImplementedException();
+    }
 }
 
 enum MessageImportanceEnum {
@@ -238,7 +246,7 @@ public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.No
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/master/docs-generation/docfx/articles/arguments.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/enhance/user-facing-exception/docs-generation/docfx/articles/arguments.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

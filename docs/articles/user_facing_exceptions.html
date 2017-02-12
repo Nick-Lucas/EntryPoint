@@ -5,9 +5,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Introduction </title>
+    <title>User Facing Exceptions </title>
     <meta name="viewport" content="width=device-width">
-    <meta name="title" content="Introduction ">
+    <meta name="title" content="User Facing Exceptions ">
     <meta name="generator" content="docfx 2.10.2.0">
     
     <link rel="shortcut icon" href="../favicon.ico">
@@ -69,21 +69,97 @@
         <div class="article row grid-right">
           <div class="col-md-10">
             <article class="content wrap" id="_content" data-uid="">
-              <h2 id="introduction">Introduction</h2>
+              <h2 id="user-facing-exceptions">User Facing Exceptions</h2>
               
-<p>Entrypoint is an argument parser designed to be composable, practical to use, and maintainable over the life time of a project.</p>
-<p>It&#39;s based around the concept of Declarative POCOs (<code>CliArguments</code>, and <code>CliCommands</code> classes), which you simply pass to EntryPoint for parsing and construction.</p>
-<p>Entrypoint parses arguments in the form: <code>UtilityName [command] [-o | --options] [operands]</code></p>
-<h4 id="standards">Standards</h4>
+<p>When a user makes a mistake, EntryPoint will throw an exception which derives from UserFacingException.</p>
+<p>This exception is caught and the following takes place on the relevant CliCommands or CliArguments instance</p>
 <ul>
-<li>.Net Standard 1.6+ (All future .Net releases are built on this)</li>
-<li>.Net Framework 4.5+</li>
+<li><code>.UserFacingExceptionThrown</code> is set to <code>true</code></li>
+<li>the virtual method <code>.OnUserFacingException(UserFacingException e, string message)</code> is called</li>
 </ul>
-<p>Follows the <a href="http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html">IEEE Standard</a> for command line utilities
-closely, but does include common adblibs, such as fully named <code>--option</code> style options.</p>
-<h4 id="installation">Installation</h4>
-<p>EntryPoint is available on <a href="https://www.nuget.org/packages/EntryPoint">NuGet</a>:</p>
-<pre><code>PM&gt; Install-Package EntryPoint
+<p>The virtual method contains a sane default implementation which prints to screen and exits the application.</p>
+<h4 id="custom-onuserfacingexception-handler">Custom OnUserFacingException Handler</h4>
+<p>If you want your own implementation you can override this, like so</p>
+<pre><code>class CliArguments : BaseCliArguments {
+    public CliArguments() : base(&quot;Test&quot;) { }
+
+    [Option(LongName: &quot;Option&quot;,
+            ShortName: &#39;o&#39;)]
+    public bool Option { get; set; }
+
+    public override void OnUserFacingException(UserFacingException e, string message) {
+        // your own handling of the message for the user
+        Console.WriteLine(&quot;User error: &quot; + message);
+    }
+}
+
+class UserFacingExceptionProgram {
+    public void main(string[] args) {
+        var arguments = Cli.Parse&lt;CliArguments&gt;(args);
+        // Execution would not reach this point if the user provides invalid arguments, 
+        // since OnUserFacingException would run and exit the program
+
+        // However, if you override OnUserFacingException and don&#39;t exit, 
+        // you could also do this:
+        if (arguments.UserFacingExceptionThrown) {
+            // Return here, or run something else
+        }
+
+        // Normal Post-Arguments Application code...
+    }
+}
+</code></pre><h4 id="userfacingexception-bubbling">UserFacingException Bubbling</h4>
+<p>If your application utilises both CliCommands and CliArguments,
+you may want to handle UserFacingExceptions only on the CliCommands level.</p>
+<p>This can be achieved using bubbling.</p>
+<p>Simply override OnUserFacingException in your CliArguments implementations and re-throw the exception.
+The exception will then be caught at the CliCommands level.</p>
+<pre><code>class BubblingCliArguments : BaseCliArguments {
+    public BubblingCliArguments() : base(&quot;Test&quot;) { }
+
+    [Option(LongName: &quot;Option&quot;,
+            ShortName: &#39;o&#39;)]
+    public bool Option { get; set; }
+
+    public override void OnUserFacingException(UserFacingException e, string message) {
+        // Re-throw the exception, causing it to bubble up to the root command
+        throw e;
+    }
+}
+
+class BubblingCliCommands : BaseCliCommands{
+
+    [Command(&quot;command1&quot;)]
+    public void Command1(string[] args) {
+        var arguments = Cli.Parse&lt;BubblingCliArguments&gt;(args);
+
+        // Normal Post-Arguments application logic
+    }
+
+    public override void OnUserFacingException(UserFacingException e, string message) {
+        // All UserFacingException throws will now come to here
+        Console.WriteLine(&quot;User error: &quot; + message);
+        Console.ReadLine();
+        Environment.Exit(1);
+    }
+}
+
+class BubblingProgram {
+    public void main(string[] args) {
+        var commands = Cli.Execute&lt;BubblingCliCommands&gt;(args);
+        // Execution would not reach this point when the user provides invalid 
+        // commands or arguments, since our custom OnUserFacingException handler 
+        // would run and exit the program
+
+        // However, if you override OnUserFacingException and don&#39;t exit, 
+        // you could also do this:
+        if (commands.UserFacingExceptionThrown) {
+            // Return here, or run something else
+        }
+
+        // Normal Post-Command Application code...
+    }
+}
 </code></pre>
             </article>
           </div>
@@ -93,7 +169,7 @@ closely, but does include common adblibs, such as fully named <code>--option</co
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/enhance/user-facing-exception/docs-generation/docfx/articles/intro.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/enhance/user-facing-exception/docs-generation/docfx/articles/user_facing_exceptions.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

@@ -103,6 +103,10 @@ class SimpleCliCommands : BaseCliCommands {
         // var arguments = Cli.Parse&lt;Command2CliArguments&gt;(args);
         // ...Application logic
     }
+
+    public override void OnUserFacingException(UserFacingException e, string message) {
+        throw new NotImplementedException();
+    }
 }
 </code></pre><h4 id="attributes">Attributes</h4>
 <p>There are several attributes which can be applied to a CliCommands class</p>
@@ -131,7 +135,7 @@ class SimpleCliCommands : BaseCliCommands {
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/master/docs-generation/docfx/articles/commands.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/enhance/user-facing-exception/docs-generation/docfx/articles/commands.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>
