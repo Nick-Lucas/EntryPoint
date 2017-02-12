@@ -31,12 +31,13 @@ namespace EntryPoint {
 
         public bool UserFacingExceptionThrown { get; set; }
 
-        public virtual void OnUserFacingException(UserFacingException e, string message) {
-            Console.WriteLine(message);
-            Console.WriteLine("Press enter to exit...");
-            Console.ReadLine();
-            Environment.Exit(1);
-        }
+        public abstract void OnUserFacingException(UserFacingException e, string message);
+        //{
+        //    Console.WriteLine(message);
+        //    Console.WriteLine("Press enter to exit...");
+        //    Console.ReadLine();
+        //    Environment.Exit(1);
+        //}
 
     }
 
