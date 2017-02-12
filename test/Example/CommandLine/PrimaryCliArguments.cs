@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EntryPoint.Exceptions;
 
 namespace Example.CommandLine {
     [Help("This program is intended to show off the key features of EntryPoint, "

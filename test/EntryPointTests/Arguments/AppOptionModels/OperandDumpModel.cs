@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class OperandDumpModel : BaseCliArguments {
@@ -18,5 +19,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         [Option(
             LongName: "opt-1")]
         public bool Opt1 { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
+        }
     }
 }

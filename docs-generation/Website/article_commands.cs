@@ -5,6 +5,7 @@ using System.Linq;
 
 using EntryPoint;
 using System.Collections.Generic;
+using EntryPoint.Exceptions;
 
 namespace Website {
     class article_commands {
@@ -44,6 +45,10 @@ namespace Website {
             public void Command2(string[] args) {
                 // var arguments = Cli.Parse<Command2CliArguments>(args);
                 // ...Application logic
+            }
+
+            public override void OnUserFacingException(UserFacingException e, string message) {
+                throw new NotImplementedException();
             }
         }
 #endif

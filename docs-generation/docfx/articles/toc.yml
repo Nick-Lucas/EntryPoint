@@ -8,5 +8,7 @@
   href: commands.md
 - name: Help Generator
   href: help_generator.md
+- name: Invalid Argument Handling
+  href: user_facing_exceptions.md
 - name: Tips & Behaviour
   href: tips.md

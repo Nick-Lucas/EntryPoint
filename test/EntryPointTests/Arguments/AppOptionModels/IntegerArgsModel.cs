@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class IntegerArgsModel : BaseCliArguments {
@@ -21,5 +22,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
             LongName: "default-7",
             ShortName: 'c')]
         public int Default7 { get; set; } = 7;
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
+        }
     }
 }

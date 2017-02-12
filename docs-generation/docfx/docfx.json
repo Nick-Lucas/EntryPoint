@@ -5,7 +5,8 @@
         {
           "files": [
             "src/EntryPoint/*.cs",
-            "src/EntryPoint/Exceptions/*.cs"
+            "src/EntryPoint/Exceptions/*.cs",
+            "src/EntryPoint/Help/*.cs"
           ],
           "exclude": [
             "**/obj/**",

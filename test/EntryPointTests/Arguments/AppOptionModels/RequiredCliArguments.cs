@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPointTests.Arguments.Helpers;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class RequiredCliArguments : BaseCliArguments {
@@ -16,6 +17,10 @@ namespace EntryPointTests.Arguments.AppOptionModels {
 
         public override void OnHelpInvoked(string helpText) {
             throw new HelpTriggeredSuccessException();
+        }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
         }
     }
 }

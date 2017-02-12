@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 using Xunit;
 using EntryPointTests.Arguments.Helpers;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments {
     public class EnumArgumentsTests {
@@ -65,6 +66,10 @@ namespace EntryPointTests.Arguments {
 
         public override void OnHelpInvoked(string helpText) {
             throw new NotImplementedException();
+        }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
         }
     }
 }

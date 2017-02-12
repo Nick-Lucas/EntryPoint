@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class RequiredParameterArgsModel : BaseCliArguments {
@@ -17,5 +18,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
             LongName: "param-optional",
             ShortName: 'o')]
         public int ParamOptional { get; set; } = 7;
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
+        }
     }
 }

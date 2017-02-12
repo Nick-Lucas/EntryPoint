@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace Example.CommandLine {
     public class ExampleCliCommands : BaseCliCommands {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class OptionArgsModel : BaseCliArguments {
@@ -11,5 +12,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
             LongName: "my-option",
             ShortName: 'o')]
         public bool Option { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
+        }
     }
 }

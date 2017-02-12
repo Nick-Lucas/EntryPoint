@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 using EntryPointTests.Arguments.Helpers;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
@@ -11,5 +12,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         [Operand(1)]
         [Required]
         public string Name { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
+        }
     }
 }

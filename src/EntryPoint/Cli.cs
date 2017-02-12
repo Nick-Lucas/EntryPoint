@@ -44,20 +44,7 @@ namespace EntryPoint {
         /// <param name="applicationOptions">The pre-instantiated CliArguments implementation</param>
         /// <param name="args">The CLI arguments input</param>
         public static A Parse<A>(A applicationOptions, string[] args) where A : BaseCliArguments {
-
-            // Process inputs
-            ArgumentModel model = new ArgumentModel(applicationOptions);
-            var tokens = Tokeniser.MakeTokens(args);
-            ParseResult parseResult = Parser.MakeParseResult(tokens, model);
-            
-            // Map results
-            model = ArgumentMapper.MapOptions(model, parseResult);
-
-            if (model.CliArguments.HelpInvoked) {
-                model.HelpFacade.Execute();
-            }
-
-            return (A)model.CliArguments;
+            return ArgumentFacade.Parse(applicationOptions, args);
         }
 
 
@@ -87,9 +74,7 @@ namespace EntryPoint {
         /// <param name="commands">An instance of the class implementing BaseCliCommands</param>
         /// <param name="args">The CLI arguments input</param>
         public static C Execute<C>(C commands, string[] args) where C : BaseCliCommands {
-            var model = new CommandModel(commands);
-            model.Execute(args);
-            return commands;
+            return CommandFacade.Execute(commands, args);
         }
 
 
@@ -99,7 +84,7 @@ namespace EntryPoint {
         /// Generate and return a Help string for a given BaseCliArguments or BaseCliCommands instance
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands which can be created with 0 arguments</typeparam>
-        public static string GetHelp<A>() where A : BaseHelpable, new() {
+        public static string GetHelp<A>() where A : IHelpable, new() {
             return GetHelp(new A());
         }
 
@@ -108,7 +93,7 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands</typeparam>
         /// <param name="applicationOptions">Instance of the custom BaseCliArguments or BaseCliCommands implementation</param>
-        public static string GetHelp<A>(A applicationOptions) where A : BaseHelpable {
+        public static string GetHelp<A>(A applicationOptions) where A : IHelpable {
             if (applicationOptions is BaseCliArguments) {
                 return CliArgumentsHelp.Generate(
                     new ArgumentModel(applicationOptions as BaseCliArguments));
@@ -118,7 +103,7 @@ namespace EntryPoint {
                     new CommandModel(applicationOptions as BaseCliCommands));
             }
             throw new InvalidOperationException(
-                $"Unknown {nameof(BaseHelpable)}: "
+                $"Unknown {nameof(IHelpable)}: "
                 + $"{applicationOptions.GetType().Name}");
         }
 

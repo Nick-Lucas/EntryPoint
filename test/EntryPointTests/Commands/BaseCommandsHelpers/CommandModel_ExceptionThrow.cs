@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 using EntryPointTests.Commands.Helpers;
 
 namespace EntryPointTests.Commands.BaseCommandsHelpers {
@@ -28,6 +29,10 @@ namespace EntryPointTests.Commands.BaseCommandsHelpers {
 
         private void Layer1() {
             throw new DivideByZeroException();
+        }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
         }
     }
 }

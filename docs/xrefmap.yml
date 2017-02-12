@@ -37,6 +37,30 @@ references:
   commentId: Overload:EntryPoint.BaseCliArguments.HelpInvoked
   fullName: EntryPoint.BaseCliArguments.HelpInvoked
   nameWithType: BaseCliArguments.HelpInvoked
+- uid: EntryPoint.BaseCliArguments.OnHelpInvoked(System.String)
+  name: OnHelpInvoked(String)
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_OnHelpInvoked_System_String_
+  commentId: M:EntryPoint.BaseCliArguments.OnHelpInvoked(System.String)
+  fullName: EntryPoint.BaseCliArguments.OnHelpInvoked(System.String)
+  nameWithType: BaseCliArguments.OnHelpInvoked(String)
+- uid: EntryPoint.BaseCliArguments.OnHelpInvoked*
+  name: OnHelpInvoked
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_OnHelpInvoked_
+  commentId: Overload:EntryPoint.BaseCliArguments.OnHelpInvoked
+  fullName: EntryPoint.BaseCliArguments.OnHelpInvoked
+  nameWithType: BaseCliArguments.OnHelpInvoked
+- uid: EntryPoint.BaseCliArguments.OnUserFacingException(EntryPoint.Exceptions.UserFacingException,System.String)
+  name: OnUserFacingException(UserFacingException, String)
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_OnUserFacingException_EntryPoint_Exceptions_UserFacingException_System_String_
+  commentId: M:EntryPoint.BaseCliArguments.OnUserFacingException(EntryPoint.Exceptions.UserFacingException,System.String)
+  fullName: EntryPoint.BaseCliArguments.OnUserFacingException(EntryPoint.Exceptions.UserFacingException, System.String)
+  nameWithType: BaseCliArguments.OnUserFacingException(UserFacingException, String)
+- uid: EntryPoint.BaseCliArguments.OnUserFacingException*
+  name: OnUserFacingException
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_OnUserFacingException_
+  commentId: Overload:EntryPoint.BaseCliArguments.OnUserFacingException
+  fullName: EntryPoint.BaseCliArguments.OnUserFacingException
+  nameWithType: BaseCliArguments.OnUserFacingException
 - uid: EntryPoint.BaseCliArguments.Operands
   name: Operands
   href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_Operands
@@ -49,12 +73,72 @@ references:
   commentId: Overload:EntryPoint.BaseCliArguments.Operands
   fullName: EntryPoint.BaseCliArguments.Operands
   nameWithType: BaseCliArguments.Operands
+- uid: EntryPoint.BaseCliArguments.UserFacingExceptionThrown
+  name: UserFacingExceptionThrown
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_UserFacingExceptionThrown
+  commentId: P:EntryPoint.BaseCliArguments.UserFacingExceptionThrown
+  fullName: EntryPoint.BaseCliArguments.UserFacingExceptionThrown
+  nameWithType: BaseCliArguments.UserFacingExceptionThrown
+- uid: EntryPoint.BaseCliArguments.UserFacingExceptionThrown*
+  name: UserFacingExceptionThrown
+  href: api/EntryPoint.BaseCliArguments.html#EntryPoint_BaseCliArguments_UserFacingExceptionThrown_
+  commentId: Overload:EntryPoint.BaseCliArguments.UserFacingExceptionThrown
+  fullName: EntryPoint.BaseCliArguments.UserFacingExceptionThrown
+  nameWithType: BaseCliArguments.UserFacingExceptionThrown
 - uid: EntryPoint.BaseCliCommands
   name: BaseCliCommands
   href: api/EntryPoint.BaseCliCommands.html
   commentId: T:EntryPoint.BaseCliCommands
   fullName: EntryPoint.BaseCliCommands
   nameWithType: BaseCliCommands
+- uid: EntryPoint.BaseCliCommands.HelpInvoked
+  name: HelpInvoked
+  href: api/EntryPoint.BaseCliCommands.html#EntryPoint_BaseCliCommands_HelpInvoked
+  commentId: P:EntryPoint.BaseCliCommands.HelpInvoked
+  fullName: EntryPoint.BaseCliCommands.HelpInvoked
+  nameWithType: BaseCliCommands.HelpInvoked
+- uid: EntryPoint.BaseCliCommands.HelpInvoked*
+  name: HelpInvoked
+  href: api/EntryPoint.BaseCliCommands.html#EntryPoint_BaseCliCommands_HelpInvoked_
+  commentId: Overload:EntryPoint.BaseCliCommands.HelpInvoked
+  fullName: EntryPoint.BaseCliCommands.HelpInvoked
+  nameWithType: BaseCliCommands.HelpInvoked
+- uid: EntryPoint.BaseCliCommands.OnHelpInvoked(System.String)
+  name: OnHelpInvoked(String)
+  href: api/EntryPoint.BaseCliCommands.html#EntryPoint_BaseCliCommands_OnHelpInvoked_System_String_
+  commentId: M:EntryPoint.BaseCliCommands.OnHelpInvoked(System.String)
+  fullName: EntryPoint.BaseCliCommands.OnHelpInvoked(System.String)
+  nameWithType: BaseCliCommands.OnHelpInvoked(String)
+- uid: EntryPoint.BaseCliCommands.OnHelpInvoked*
+  name: OnHelpInvoked
+  href: api/EntryPoint.BaseCliCommands.html#EntryPoint_BaseCliCommands_OnHelpInvoked_
+  commentId: Overload:EntryPoint.BaseCliCommands.OnHelpInvoked
+  fullName: EntryPoint.BaseCliCommands.OnHelpInvoked
+  nameWithType: BaseCliCommands.OnHelpInvoked
+- uid: EntryPoint.BaseCliCommands.OnUserFacingException(EntryPoint.Exceptions.UserFacingException,System.String)
+  name: OnUserFacingException(UserFacingException, String)
+  href: api/EntryPoint.BaseCliCommands.html#EntryPoint_BaseCliCommands_OnUserFacingException_EntryPoint_Exceptions_UserFacingException_System_String_
+  commentId: M:EntryPoint.BaseCliCommands.OnUserFacingException(EntryPoint.Exceptions.UserFacingException,System.String)
+  fullName: EntryPoint.BaseCliCommands.OnUserFacingException(EntryPoint.Exceptions.UserFacingException, System.String)
+  nameWithType: BaseCliCommands.OnUserFacingException(UserFacingException, String)
+- uid: EntryPoint.BaseCliCommands.OnUserFacingException*
+  name: OnUserFacingException
+  href: api/EntryPoint.BaseCliCommands.html#EntryPoint_BaseCliCommands_OnUserFacingException_
+  commentId: Overload:EntryPoint.BaseCliCommands.OnUserFacingException
+  fullName: EntryPoint.BaseCliCommands.OnUserFacingException
+  nameWithType: BaseCliCommands.OnUserFacingException
+- uid: EntryPoint.BaseCliCommands.UserFacingExceptionThrown
+  name: UserFacingExceptionThrown
+  href: api/EntryPoint.BaseCliCommands.html#EntryPoint_BaseCliCommands_UserFacingExceptionThrown
+  commentId: P:EntryPoint.BaseCliCommands.UserFacingExceptionThrown
+  fullName: EntryPoint.BaseCliCommands.UserFacingExceptionThrown
+  nameWithType: BaseCliCommands.UserFacingExceptionThrown
+- uid: EntryPoint.BaseCliCommands.UserFacingExceptionThrown*
+  name: UserFacingExceptionThrown
+  href: api/EntryPoint.BaseCliCommands.html#EntryPoint_BaseCliCommands_UserFacingExceptionThrown_
+  commentId: Overload:EntryPoint.BaseCliCommands.UserFacingExceptionThrown
+  fullName: EntryPoint.BaseCliCommands.UserFacingExceptionThrown
+  nameWithType: BaseCliCommands.UserFacingExceptionThrown
 - uid: EntryPoint.Cli
   name: Cli
   href: api/EntryPoint.Cli.html
@@ -214,6 +298,36 @@ references:
   commentId: T:EntryPoint.Exceptions.InvalidModelException
   fullName: EntryPoint.Exceptions.InvalidModelException
   nameWithType: InvalidModelException
+- uid: EntryPoint.Exceptions.IUserFacingExceptionHandler
+  name: IUserFacingExceptionHandler
+  href: api/EntryPoint.Exceptions.IUserFacingExceptionHandler.html
+  commentId: T:EntryPoint.Exceptions.IUserFacingExceptionHandler
+  fullName: EntryPoint.Exceptions.IUserFacingExceptionHandler
+  nameWithType: IUserFacingExceptionHandler
+- uid: EntryPoint.Exceptions.IUserFacingExceptionHandler.OnUserFacingException(EntryPoint.Exceptions.UserFacingException,System.String)
+  name: OnUserFacingException(UserFacingException, String)
+  href: api/EntryPoint.Exceptions.IUserFacingExceptionHandler.html#EntryPoint_Exceptions_IUserFacingExceptionHandler_OnUserFacingException_EntryPoint_Exceptions_UserFacingException_System_String_
+  commentId: M:EntryPoint.Exceptions.IUserFacingExceptionHandler.OnUserFacingException(EntryPoint.Exceptions.UserFacingException,System.String)
+  fullName: EntryPoint.Exceptions.IUserFacingExceptionHandler.OnUserFacingException(EntryPoint.Exceptions.UserFacingException, System.String)
+  nameWithType: IUserFacingExceptionHandler.OnUserFacingException(UserFacingException, String)
+- uid: EntryPoint.Exceptions.IUserFacingExceptionHandler.OnUserFacingException*
+  name: OnUserFacingException
+  href: api/EntryPoint.Exceptions.IUserFacingExceptionHandler.html#EntryPoint_Exceptions_IUserFacingExceptionHandler_OnUserFacingException_
+  commentId: Overload:EntryPoint.Exceptions.IUserFacingExceptionHandler.OnUserFacingException
+  fullName: EntryPoint.Exceptions.IUserFacingExceptionHandler.OnUserFacingException
+  nameWithType: IUserFacingExceptionHandler.OnUserFacingException
+- uid: EntryPoint.Exceptions.IUserFacingExceptionHandler.UserFacingExceptionThrown
+  name: UserFacingExceptionThrown
+  href: api/EntryPoint.Exceptions.IUserFacingExceptionHandler.html#EntryPoint_Exceptions_IUserFacingExceptionHandler_UserFacingExceptionThrown
+  commentId: P:EntryPoint.Exceptions.IUserFacingExceptionHandler.UserFacingExceptionThrown
+  fullName: EntryPoint.Exceptions.IUserFacingExceptionHandler.UserFacingExceptionThrown
+  nameWithType: IUserFacingExceptionHandler.UserFacingExceptionThrown
+- uid: EntryPoint.Exceptions.IUserFacingExceptionHandler.UserFacingExceptionThrown*
+  name: UserFacingExceptionThrown
+  href: api/EntryPoint.Exceptions.IUserFacingExceptionHandler.html#EntryPoint_Exceptions_IUserFacingExceptionHandler_UserFacingExceptionThrown_
+  commentId: Overload:EntryPoint.Exceptions.IUserFacingExceptionHandler.UserFacingExceptionThrown
+  fullName: EntryPoint.Exceptions.IUserFacingExceptionHandler.UserFacingExceptionThrown
+  nameWithType: IUserFacingExceptionHandler.UserFacingExceptionThrown
 - uid: EntryPoint.Exceptions.NoParameterException
   name: NoParameterException
   href: api/EntryPoint.Exceptions.NoParameterException.html
@@ -238,6 +352,42 @@ references:
   commentId: T:EntryPoint.Exceptions.UserFacingException
   fullName: EntryPoint.Exceptions.UserFacingException
   nameWithType: UserFacingException
+- uid: EntryPoint.Help
+  name: EntryPoint.Help
+  href: api/EntryPoint.Help.html
+  commentId: N:EntryPoint.Help
+  fullName: EntryPoint.Help
+  nameWithType: EntryPoint.Help
+- uid: EntryPoint.Help.IHelpable
+  name: IHelpable
+  href: api/EntryPoint.Help.IHelpable.html
+  commentId: T:EntryPoint.Help.IHelpable
+  fullName: EntryPoint.Help.IHelpable
+  nameWithType: IHelpable
+- uid: EntryPoint.Help.IHelpable.HelpInvoked
+  name: HelpInvoked
+  href: api/EntryPoint.Help.IHelpable.html#EntryPoint_Help_IHelpable_HelpInvoked
+  commentId: P:EntryPoint.Help.IHelpable.HelpInvoked
+  fullName: EntryPoint.Help.IHelpable.HelpInvoked
+  nameWithType: IHelpable.HelpInvoked
+- uid: EntryPoint.Help.IHelpable.HelpInvoked*
+  name: HelpInvoked
+  href: api/EntryPoint.Help.IHelpable.html#EntryPoint_Help_IHelpable_HelpInvoked_
+  commentId: Overload:EntryPoint.Help.IHelpable.HelpInvoked
+  fullName: EntryPoint.Help.IHelpable.HelpInvoked
+  nameWithType: IHelpable.HelpInvoked
+- uid: EntryPoint.Help.IHelpable.OnHelpInvoked(System.String)
+  name: OnHelpInvoked(String)
+  href: api/EntryPoint.Help.IHelpable.html#EntryPoint_Help_IHelpable_OnHelpInvoked_System_String_
+  commentId: M:EntryPoint.Help.IHelpable.OnHelpInvoked(System.String)
+  fullName: EntryPoint.Help.IHelpable.OnHelpInvoked(System.String)
+  nameWithType: IHelpable.OnHelpInvoked(String)
+- uid: EntryPoint.Help.IHelpable.OnHelpInvoked*
+  name: OnHelpInvoked
+  href: api/EntryPoint.Help.IHelpable.html#EntryPoint_Help_IHelpable_OnHelpInvoked_
+  commentId: Overload:EntryPoint.Help.IHelpable.OnHelpInvoked
+  fullName: EntryPoint.Help.IHelpable.OnHelpInvoked
+  nameWithType: IHelpable.OnHelpInvoked
 - uid: EntryPoint.HelpAttribute
   name: HelpAttribute
   href: api/EntryPoint.HelpAttribute.html

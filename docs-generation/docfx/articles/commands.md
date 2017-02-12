@@ -35,6 +35,10 @@ This is the purpose of `BaseCliCommands`.
             // var arguments = Cli.Parse<Command2CliArguments>(args);
             // ...Application logic
         }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 
 #### Attributes

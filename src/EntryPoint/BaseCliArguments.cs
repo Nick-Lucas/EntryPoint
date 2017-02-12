@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 
 using EntryPoint.Help;
 using EntryPoint.Common;
+using EntryPoint.Exceptions;
 
 namespace EntryPoint {
 
     /// <summary>
     /// The base class which must be derived from for a CliArguments implementation
     /// </summary>
-    public abstract class BaseCliArguments : BaseHelpable {
+    public abstract class BaseCliArguments : IHelpable, IUserFacingExceptionHandler {
+        
         /// <summary>
         /// The base class which must be derived from for  CliArguments implementation
         /// </summary>
@@ -28,12 +30,32 @@ namespace EntryPoint {
         /// </summary>
         public string[] Operands { get; internal set; }
 
+
+        // ** IHelpable **
+
         [Option(
             LongName: HelpRules.HelpLong, 
             ShortName: HelpRules.HelpShort)]
         [Help(
             "Displays Help information about arguments when set")]
-        public new bool HelpInvoked { get; set; }
+        public bool HelpInvoked { get; set; }
+
+        public virtual void OnHelpInvoked(string helpText) {
+            Console.WriteLine(helpText);
+            Console.Write("Press enter to exit...");
+            Console.ReadLine();
+            Environment.Exit(0);
+        }
+
+
+        // ** IUserFacingExceptionHandler **
+
+        public bool UserFacingExceptionThrown { get; set; }
+
+        public virtual void OnUserFacingException(UserFacingException e, string message) {
+            UserFacingExceptionDefaults.OnUserFacingException(e, message);
+        }
+
     }
 
 }

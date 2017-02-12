@@ -95,6 +95,10 @@ class ExampleHelpCliCommands : BaseCliCommands {
     public void Command1(string[] args) {
         // ...etc
     }
+
+    public override void OnUserFacingException(UserFacingException e, string message) {
+        throw new NotImplementedException();
+    }
 }
 
 class CommandsHelpProgram {
@@ -121,6 +125,10 @@ class ExampleHelpCliArguments : BaseCliArguments {
     [OptionParameter(LongName: &quot;value1&quot;)]
     [Help(&quot;Some value to set&quot;)]
     public bool Value1 { get; set; }
+
+    public override void OnUserFacingException(UserFacingException e, string message) {
+        throw new NotImplementedException();
+    }
 }
 
 class ArgumentsHelpProgram {
@@ -156,6 +164,10 @@ class OverrideHelpCliCommands : BaseCliCommands {
         Console.WriteLine(helpText);
         throw new HelpInvokedException(&quot;Using an exception to control application flow&quot;);
     }
+
+    public override void OnUserFacingException(UserFacingException e, string message) {
+        throw new NotImplementedException();
+    }
 }
 </code></pre>
             </article>
@@ -166,7 +178,7 @@ class OverrideHelpCliCommands : BaseCliCommands {
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/master/docs-generation/docfx/articles/help_generator.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/enhance/user-facing-exception/docs-generation/docfx/articles/help_generator.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class DecimalArgsModel : BaseCliArguments {
@@ -21,5 +22,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
             LongName: "default-71",
             ShortName: 'c')]
         public decimal Default71 { get; set; } = 7.1m;
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
+        }
     }
 }
