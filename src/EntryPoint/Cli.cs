@@ -84,7 +84,7 @@ namespace EntryPoint {
         /// Generate and return a Help string for a given BaseCliArguments or BaseCliCommands instance
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands which can be created with 0 arguments</typeparam>
-        public static string GetHelp<A>() where A : BaseHelpable, new() {
+        public static string GetHelp<A>() where A : IHelpable, new() {
             return GetHelp(new A());
         }
 
@@ -93,7 +93,7 @@ namespace EntryPoint {
         /// </summary>
         /// <typeparam name="A">Custom implementation type of BaseCliArguments or BaseCliCommands</typeparam>
         /// <param name="applicationOptions">Instance of the custom BaseCliArguments or BaseCliCommands implementation</param>
-        public static string GetHelp<A>(A applicationOptions) where A : BaseHelpable {
+        public static string GetHelp<A>(A applicationOptions) where A : IHelpable {
             if (applicationOptions is BaseCliArguments) {
                 return CliArgumentsHelp.Generate(
                     new ArgumentModel(applicationOptions as BaseCliArguments));
@@ -103,7 +103,7 @@ namespace EntryPoint {
                     new CommandModel(applicationOptions as BaseCliCommands));
             }
             throw new InvalidOperationException(
-                $"Unknown {nameof(BaseHelpable)}: "
+                $"Unknown {nameof(IHelpable)}: "
                 + $"{applicationOptions.GetType().Name}");
         }
 

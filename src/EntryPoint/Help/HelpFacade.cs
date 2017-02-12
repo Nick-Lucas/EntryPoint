@@ -8,12 +8,12 @@ using EntryPoint.Commands;
 
 namespace EntryPoint.Help {
     internal class HelpFacade {
-        internal HelpFacade(BaseHelpable helpable) {
+        internal HelpFacade(IHelpable helpable) {
             Helpable = helpable;
         }
 
         // Command class to invoke on
-        protected BaseHelpable Helpable { get; set; }
+        protected IHelpable Helpable { get; set; }
 
         public void Execute(string message = null) {
             string spacer = message == null ? "" : "\n\n";
