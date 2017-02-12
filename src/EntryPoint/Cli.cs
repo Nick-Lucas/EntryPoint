@@ -44,20 +44,7 @@ namespace EntryPoint {
         /// <param name="applicationOptions">The pre-instantiated CliArguments implementation</param>
         /// <param name="args">The CLI arguments input</param>
         public static A Parse<A>(A applicationOptions, string[] args) where A : BaseCliArguments {
-
-            // Process inputs
-            ArgumentModel model = new ArgumentModel(applicationOptions);
-            var tokens = Tokeniser.MakeTokens(args);
-            ParseResult parseResult = Parser.MakeParseResult(tokens, model);
-            
-            // Map results
-            model = ArgumentMapper.MapOptions(model, parseResult);
-
-            if (model.CliArguments.HelpInvoked) {
-                model.HelpFacade.Execute();
-            }
-
-            return (A)model.CliArguments;
+            return ArgumentFacade.Parse(applicationOptions, args);
         }
 
 
@@ -87,9 +74,7 @@ namespace EntryPoint {
         /// <param name="commands">An instance of the class implementing BaseCliCommands</param>
         /// <param name="args">The CLI arguments input</param>
         public static C Execute<C>(C commands, string[] args) where C : BaseCliCommands {
-            var model = new CommandModel(commands);
-            model.Execute(args);
-            return commands;
+            return CommandFacade.Execute(commands, args);
         }
 
 
