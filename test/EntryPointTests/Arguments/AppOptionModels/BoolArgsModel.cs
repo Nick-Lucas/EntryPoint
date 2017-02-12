@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class BoolArgsModel : BaseCliArguments {
@@ -21,5 +22,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
             LongName: "default-true",
             ShortName: 'c')]
         public bool DefaultTrue { get; set; } = true;
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 }

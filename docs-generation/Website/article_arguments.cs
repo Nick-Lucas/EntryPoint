@@ -5,6 +5,7 @@ using System.Linq;
 
 using EntryPoint;
 using System.Collections.Generic;
+using EntryPoint.Exceptions;
 
 namespace Website {
     class article_arguments {
@@ -52,6 +53,10 @@ namespace Website {
             // un-mapped operands are stored
             [Operand(Position: 1)]
             public decimal FirstOperand { get; set; }
+
+            public override void OnUserFacingException(UserFacingException e, string message) {
+                throw new NotImplementedException();
+            }
         }
 #endif
 
@@ -139,6 +144,10 @@ namespace Website {
             [Required]
             [Operand(1)]
             public string Message { get; set; }
+
+            public override void OnUserFacingException(UserFacingException e, string message) {
+                throw new NotImplementedException();
+            }
         }
 
         enum MessageImportanceEnum {

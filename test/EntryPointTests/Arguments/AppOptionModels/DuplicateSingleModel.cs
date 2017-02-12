@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class DuplicateSingleModel : BaseCliArguments {
@@ -12,5 +13,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
 
         [OptionParameter(LongName: "marys-double", ShortName: 'm')]
         public int MarysDouble { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 }

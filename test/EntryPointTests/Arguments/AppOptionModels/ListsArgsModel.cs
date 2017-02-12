@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class ListsArgsModel : BaseCliArguments {
@@ -18,5 +19,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
 
         [OptionParameter(LongName: "decimals")]
         public List<decimal> Decimals { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 }

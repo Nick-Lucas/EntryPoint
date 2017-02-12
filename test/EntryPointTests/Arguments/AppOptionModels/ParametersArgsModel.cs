@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class ParametersArgsModel : BaseCliArguments {
@@ -16,5 +17,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
             LongName: "param-2",
             ShortName: 'b')]
         public int Param2 { get; set; } = 7;
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 }

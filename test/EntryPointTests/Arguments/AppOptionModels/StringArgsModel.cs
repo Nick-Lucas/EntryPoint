@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class StringArgsModel : BaseCliArguments {
@@ -16,5 +17,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
             LongName: "default-no-name",
             ShortName: 'b')]
         public string DefaultNoName { get; set; } = "NoName";
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 }

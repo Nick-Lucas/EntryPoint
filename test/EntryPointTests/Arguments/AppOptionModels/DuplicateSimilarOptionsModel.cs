@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class DuplicateSimilarOptionsModel : BaseCliArguments {
@@ -12,5 +13,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
 
         [OptionParameter(LongName: "log-level")]
         public int LogLevel { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EntryPoint.Exceptions;
 
 namespace Example.CommandLine {
     [Help("This program is intended to show off the key features of EntryPoint, "
@@ -62,5 +63,9 @@ namespace Example.CommandLine {
         [Operand(Position: 2)]
         [Help("A test list, used when checking help-generator output")]
         public List<int> ListOperands { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 }

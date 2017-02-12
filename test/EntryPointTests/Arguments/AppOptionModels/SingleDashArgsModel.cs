@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class SingleDashArgsModel : BaseCliArguments {
@@ -21,5 +22,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
             LongName: "opt3",
             ShortName: 'c')]
         public string Opt3 { get; set; }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
     }
 }

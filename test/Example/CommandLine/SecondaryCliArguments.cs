@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace Example.CommandLine {
     public class SecondaryCliArguments : BaseCliArguments {
@@ -13,6 +14,10 @@ namespace Example.CommandLine {
             Console.WriteLine("This help generator has been overridden");
             Console.WriteLine(helpText);
             throw new Exception("Broke flow via Exception");
+        }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
         }
     }
 }

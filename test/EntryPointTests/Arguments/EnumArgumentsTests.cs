@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EntryPoint;
 using Xunit;
 using EntryPointTests.Arguments.Helpers;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments {
     public class EnumArgumentsTests {
@@ -64,6 +65,10 @@ namespace EntryPointTests.Arguments {
         public Enum1 OptEnum2 { get; set; } = Enum1.item2;
 
         public override void OnHelpInvoked(string helpText) {
+            throw new NotImplementedException();
+        }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
             throw new NotImplementedException();
         }
     }

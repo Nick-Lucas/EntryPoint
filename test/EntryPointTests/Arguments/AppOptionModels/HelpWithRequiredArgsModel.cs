@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 using EntryPointTests.Arguments.Helpers;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
@@ -28,6 +29,10 @@ namespace EntryPointTests.Arguments.AppOptionModels {
 
         public override void OnHelpInvoked(string helpText) {
             throw new HelpTriggeredSuccessException();
+        }
+
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
         }
     }
 }

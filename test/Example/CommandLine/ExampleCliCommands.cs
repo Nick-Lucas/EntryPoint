@@ -4,9 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using EntryPoint;
+using EntryPoint.Exceptions;
 
 namespace Example.CommandLine {
     public class ExampleCliCommands : BaseCliCommands {
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
+
         [DefaultCommand]
         [Command("primary")]
         [Help("The Main command, for doing something")]
