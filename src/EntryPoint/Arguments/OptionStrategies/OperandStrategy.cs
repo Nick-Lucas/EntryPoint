@@ -6,6 +6,7 @@ using EntryPoint.Arguments;
 using EntryPoint.Parsing;
 
 namespace EntryPoint.Arguments.OptionStrategies {
+
     internal class OperandStrategy {
         public object GetValue(Operand modelOperand, ParseResult parseResult) {
             int position = modelOperand.Definition.Position;
@@ -13,4 +14,5 @@ namespace EntryPoint.Arguments.OptionStrategies {
             return ValueConverter.ConvertValue(value, modelOperand.Property.PropertyType);
         }
     }
+
 }

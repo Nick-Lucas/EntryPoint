@@ -24,6 +24,13 @@ namespace EntryPoint.Arguments {
                 .ToList();
         }
 
+        internal static List<EnvironmentVariable> GetEnvironmentVariables(this BaseCliArguments cliArguments) {
+            return cliArguments.GetType().GetRuntimeProperties()
+                .Where(prop => prop.GetEnvironmentVariableDefinition() != null)
+                .Select(prop => new EnvironmentVariable(prop))
+                .ToList();
+        }
+
         internal static HelpAttribute GetHelpAttribute(this BaseCliArguments cliArguments) {
             return cliArguments.GetType().GetTypeInfo()
                 .GetHelp();
@@ -43,6 +50,10 @@ namespace EntryPoint.Arguments {
 
         internal static OperandAttribute GetOperandDefinition(this PropertyInfo prop) {
             return prop.GetCustomAttribute<OperandAttribute>();
+        }
+
+        internal static EnvironmentVariableAttribute GetEnvironmentVariableDefinition(this PropertyInfo prop) {
+            return prop.GetCustomAttribute<EnvironmentVariableAttribute>();
         }
 
         internal static bool HasRequiredAttribute(this PropertyInfo prop) {

@@ -21,6 +21,7 @@ namespace EntryPoint.Arguments {
 
             // Populate ArgumentsModel
             StoreOptions(model, parseResult);
+            StoreEnvironmentVariables(model);
             HandleUnusedOptions(model, parseResult.TokenGroups);
             StoreOperands(model, parseResult);
             HandleUnusedOperands(model, parseResult);
@@ -32,10 +33,19 @@ namespace EntryPoint.Arguments {
             foreach (var tokenGroup in parseResult.TokenGroups) {
                 var modelOption = model.FindOptionByToken(tokenGroup.Option);
 
-                object value = modelOption.Definition.OptionStrategy.GetValue(modelOption, tokenGroup);
+                object value = modelOption.Definition.Strategy.GetValue(modelOption, tokenGroup);
                 modelOption.Property.SetValue(model.CliArguments, value);
             }
             model.CliArguments.Operands = parseResult.Operands.Select(t => t.Value).ToArray();
+        }
+
+        static void StoreEnvironmentVariables(ArgumentModel model) {
+            foreach (var envVar in model.EnvironmentVariables) {
+                Type type = envVar.Property.PropertyType;
+                string varName = envVar.Definition.VariableName;
+                object value = envVar.Strategy.GetValue(type, varName);
+                envVar.Property.SetValue(model.CliArguments, value);
+            }
         }
 
         // Map and then Remove operands which have been mapped on the Model
@@ -43,7 +53,7 @@ namespace EntryPoint.Arguments {
             var operands = parseResult.Operands;
             foreach (var operand in model.Operands) {
                 if (parseResult.OperandProvided(operand)) {
-                    object value = operand.OperandStrategy.GetValue(operand, parseResult);
+                    object value = operand.Strategy.GetValue(operand, parseResult);
                     operand.Property.SetValue(model.CliArguments, value);
                 }
             }
