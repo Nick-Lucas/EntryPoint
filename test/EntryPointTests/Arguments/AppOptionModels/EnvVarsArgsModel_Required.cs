@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using EntryPoint.Exceptions;
 
 namespace EntryPointTests.Arguments.AppOptionModels {
     public class EnvVarsArgsModel_Required : BaseCliArguments {
@@ -14,5 +15,8 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         [EnvironmentVariable("ENV_STRING")]
         public string EnvVarString { get; set; }
 
+        public override void OnUserFacingException(UserFacingException e, string message) {
+            throw e;
+        }
     }
 }

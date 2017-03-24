@@ -65,7 +65,7 @@ namespace EntryPointTests.Arguments {
 
         [Fact]
         public void Required_NotProvided_Two() {
-            Environment.SetEnvironmentVariable("ENV_INT", 1.ToString());
+            Environment.SetEnvironmentVariable("ENV_INT", "1");
             Environment.SetEnvironmentVariable("ENV_STRING", null);
 
             Assert.Throws<RequiredException>(
@@ -77,10 +77,9 @@ namespace EntryPointTests.Arguments {
             Environment.SetEnvironmentVariable("ENV_INT", 1.ToString());
             Environment.SetEnvironmentVariable("ENV_STRING", "");
 
-            var model = Cli.Parse<EnvVarsArgsModel_Required>(new string[] { });
-
-            Assert.StrictEqual(1, model.EnvVarInt);
-            Assert.StrictEqual("", model.EnvVarString);
+            // I don't like this but it's a known fact that "" will count as a deleted variable
+            Assert.Throws<RequiredException>(
+                () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { }));
         }
     }
 }
