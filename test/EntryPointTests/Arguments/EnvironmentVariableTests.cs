@@ -7,6 +7,7 @@ using EntryPoint;
 using EntryPoint.Exceptions;
 using Xunit;
 using EntryPointTests.Arguments.AppOptionModels;
+using EntryPointTests.Arguments.Helpers;
 
 namespace EntryPointTests.Arguments {
     public class EnvironmentVariableTests {
@@ -80,6 +81,17 @@ namespace EntryPointTests.Arguments {
             // I don't like this but it's a known fact that "" will count as a deleted variable
             Assert.Throws<RequiredException>(
                 () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { }));
+        }
+
+        [Fact]
+        public void Required_NotProvided_HelpInvoked() {
+            Environment.SetEnvironmentVariable("ENV_INT", null);
+            Environment.SetEnvironmentVariable("ENV_STRING", null);
+
+            Assert.Throws<HelpTriggeredSuccessException>(
+                () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { "--help" }));
+            Assert.Throws<HelpTriggeredSuccessException>(
+                () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { "--h" }));
         }
     }
 }

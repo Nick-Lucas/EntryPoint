@@ -18,5 +18,9 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         public override void OnUserFacingException(UserFacingException e, string message) {
             throw e;
         }
+
+        public override void OnHelpInvoked(string helpText) {
+            throw new Helpers.HelpTriggeredSuccessException();
+        }
     }
 }

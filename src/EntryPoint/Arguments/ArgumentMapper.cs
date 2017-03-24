@@ -21,6 +21,10 @@ namespace EntryPoint.Arguments {
 
             // Populate ArgumentsModel
             StoreOptions(model, parseResult);
+            if (model.CliArguments.HelpInvoked) {
+                return model;
+            }
+
             ValidateRequiredOptions(model, parseResult.TokenGroups);
             StoreEnvironmentVariables(model);
             StoreOperands(model, parseResult);

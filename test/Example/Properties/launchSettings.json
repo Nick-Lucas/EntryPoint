@@ -13,7 +13,10 @@
     },
     "TestArgs": {
       "commandName": "Project",
-      "commandLineArgs": "-ac -bs Bob --app-enum FirstItem -n=1.2 \"the operand\" \n"
+      "commandLineArgs": "-ac -b --app-enum FirstItem \"the operand\"",
+      "environmentVariables": {
+        "MY_ENV_VAR": "7"
+      }
     },
     "SecondaryCommand": {
       "commandName": "Project",
