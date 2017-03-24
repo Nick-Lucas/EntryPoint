@@ -21,8 +21,8 @@ namespace EntryPoint.Arguments {
 
             // Populate ArgumentsModel
             StoreOptions(model, parseResult);
+            ValidateRequiredOptions(model, parseResult.TokenGroups);
             StoreEnvironmentVariables(model);
-            HandleUnusedOptions(model, parseResult.TokenGroups);
             StoreOperands(model, parseResult);
             HandleUnusedOperands(model, parseResult);
 
@@ -43,7 +43,7 @@ namespace EntryPoint.Arguments {
             foreach (var envVar in model.EnvironmentVariables) {
                 Type type = envVar.Property.PropertyType;
                 string varName = envVar.Definition.VariableName;
-                object value = envVar.Strategy.GetValue(type, varName);
+                object value = envVar.Strategy.GetValue(type, varName, envVar.Required);
                 envVar.Property.SetValue(model.CliArguments, value);
             }
         }
@@ -69,7 +69,7 @@ namespace EntryPoint.Arguments {
         }
 
         // if an option was not provided, Validate whether it's marked as required
-        static void HandleUnusedOptions(ArgumentModel model, List<TokenGroup> usedOptions) {
+        static void ValidateRequiredOptions(ArgumentModel model, List<TokenGroup> usedOptions) {
             if (model.CliArguments.HelpInvoked) {
                 // If the help flag is set, then Required parameters are irrelevant
                 return;

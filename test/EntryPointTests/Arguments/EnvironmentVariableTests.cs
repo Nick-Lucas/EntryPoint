@@ -71,5 +71,16 @@ namespace EntryPointTests.Arguments {
             Assert.Throws<RequiredException>(
                 () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { }));
         }
+
+        [Fact]
+        public void Required_NotProvided_Two_EmptyString() {
+            Environment.SetEnvironmentVariable("ENV_INT", 1.ToString());
+            Environment.SetEnvironmentVariable("ENV_STRING", "");
+
+            var model = Cli.Parse<EnvVarsArgsModel_Required>(new string[] { });
+
+            Assert.StrictEqual(1, model.EnvVarInt);
+            Assert.StrictEqual("", model.EnvVarString);
+        }
     }
 }
