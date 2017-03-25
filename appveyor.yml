@@ -23,7 +23,7 @@ build_script:
 
 test_script:
   # .NET Core
-  - dotnet test .\test\EntryPointTests
+  - dotnet test .\test\EntryPointTests\EntryPointTests.csproj
 
 after_test:
   - dotnet pack .\src\EntryPoint --configuration=Release --output=".\Nuget"
