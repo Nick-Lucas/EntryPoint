@@ -47,7 +47,9 @@ namespace EntryPoint.Arguments {
         static void StoreEnvironmentVariables(ArgumentModel model) {
             foreach (var envVar in model.EnvironmentVariables) {
                 object value = envVar.Strategy.GetValue(envVar);
-                envVar.Property.SetValue(model.CliArguments, value);
+                if (value != null) {
+                    envVar.Property.SetValue(model.CliArguments, value);
+                }
             }
         }
 

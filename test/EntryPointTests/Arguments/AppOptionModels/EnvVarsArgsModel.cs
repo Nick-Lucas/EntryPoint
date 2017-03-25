@@ -12,5 +12,8 @@ namespace EntryPointTests.Arguments.AppOptionModels {
         [EnvironmentVariable("ENV_STRING")]
         public string EnvVarString { get; set; }
 
+        [EnvironmentVariable("ENV_STRING_DEFAULTABLE")]
+        public string EnvVarStringDefaulted { get; set; } = "DEFAULT_VALUE";
+
     }
 }
