@@ -8,18 +8,18 @@ cache:
 
 before_build:
   # Install dotnet cli
-  - appveyor DownloadFile https://raw.githubusercontent.com/dotnet/cli/v1.0.0-preview2/scripts/obtain/dotnet-install.ps1
+  - appveyor DownloadFile https://raw.githubusercontent.com/dotnet/cli/rel/1.0.1/scripts/obtain/dotnet-install.ps1
   - powershell -File dotnet-install.ps1
   - set PATH=%PATH%;%LOCALAPPDATA%\Microsoft\dotnet
   - dotnet --version
 
   # Restore packages
-  - dotnet restore .\src\EntryPoint\project.json
-  - dotnet restore .\test\EntryPointTests\project.json
+  - dotnet restore .\src\EntryPoint
+  - dotnet restore .\test\EntryPointTests
 
 build_script:
-  - dotnet build .\src\EntryPoint\project.json
-  - dotnet build .\test\EntryPointTests\project.json
+  - dotnet build .\src\EntryPoint
+  - dotnet build .\test\EntryPointTests
 
 test_script:
   # .NET Core
@@ -29,4 +29,4 @@ after_test:
   - dotnet pack .\src\EntryPoint --configuration=Release --output=".\Nuget"
 
 artifacts:
-  - path: .\Nuget\*.nupkg
+  - path: .\src\EntryPoint\Nuget\*.nupkg
