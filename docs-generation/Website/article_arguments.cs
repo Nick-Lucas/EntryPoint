@@ -78,7 +78,7 @@ namespace Website {
         /// * **Detail:** Defines an On/Off option for use on the CLI
         /// * **Argument, LongName:** the case in-sensitive name to be used like `--name`
         /// * **Argument, ShortName:** the case sensitive character to be used like `-n`
-        /// * At least one name needs to be provided
+        /// * **Usable with:** `Required` and `Help` attributes
         /// 
         /// ##### `[OptionParameter(LongName = string, ShortName = char)]`
         /// * **Apply to:** Class Properties
@@ -86,30 +86,28 @@ namespace Website {
         /// * **Detail:** Defines a parameter which can be invoked to provide a value
         /// * **Argument, LongName:** the case in-sensitive name to be used like `--name`
         /// * **Argument, ShortName:** the case sensitive character to be used like `-n`
-        /// * **Also Supports:** `Required` and `Help` attributes
-        /// * At least one name needs to be provided
+        /// * **Usable with:** `Required` and `Help` attributes
         /// 
         /// ##### `[Operand(Position = int)]`
         /// * **Apply to:** Class Properties
         /// * **Output Types:** Primitive Types, Enums, Lists of Primitives or Enums
         /// * **Detail:** Maps a positional operand from the end of a CLI command
         /// * **Argument, Position:** the 1 based position of the Operand
-        /// * **Also Supports:** `Required` and `Help` attributes
+        /// * **Usable with:** `Required` and `Help` attributes
         /// 
         /// ##### `[EnvironmentVariable(VariableName = string)]`
         /// * **Apply to:** Class Properties
         /// * **Output Types:** Primitive Types, Enums, Lists of Primitives or Enums
         /// * **Detail:** Maps a variable from the environment
-        /// * **Argument, VariableName:** the case sensitive name of the environment variable
-        /// * **Also Supports:** `Required` and `Help` attributes
-        /// * Be aware: VariableName case-sensitivity is platform dependent. Linux will be case-sensitive and Windows is not
+        /// * **Argument, VariableName:** the case in-sensitive name of the environment variable
+        /// * **Usable with:** `Required` and `Help` attributes
         /// 
         /// ##### `[Required]`
-        /// * **Apply to:** Option, OptionParameter or Operand properties
+        /// * **Apply to:** Option, OptionParameter, Operand or EnvironmentVariable properties
         /// * **Detail:** Makes an Option or Operand mandatory for the user to provide
         /// 
         /// ##### `[Help(Detail = string)]`
-        /// * **Apply to:** Class Properties with any Option or Operand Attribute applied, or an CliArguments Class
+        /// * **Apply to:** Class Properties with any Option, Operand or EnvironmentVariable Attribute applied, or an CliArguments Class
         /// * **Detail:** Provides custom documentation on an Option, Operand or CliArguments Class, which will be consumed by the help generator
         ///
 
@@ -159,9 +157,6 @@ namespace Website {
             public List<string> Recipients { get; set; }
 
             // Variables can be mapped from the environment
-            // Be aware that case-sensitivity of VariableName is dependent on platform.
-            //  - Linux is case-sensitive
-            //  - Windows is case-insensitive
             [Required]
             [EnvironmentVariable("MSGSDR_PASSWORD")]
             public string Password { get; set; }
