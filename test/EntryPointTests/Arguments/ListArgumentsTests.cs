@@ -43,6 +43,16 @@ namespace EntryPointTests.Arguments {
         }
 
         [Fact]
+        public void List_Ints_InvalidType() {
+            string[] args = new string[] {
+                "--integers", "1,2,3,FAIL"
+            };
+
+            Assert.Throws<VariableTypeException>(
+                () => Cli.Parse<ListsArgsModel>(args));
+        }
+
+        [Fact]
         public void List_Bools() {
             string[] args = new string[] {
                 "--booleans", "true,false"
@@ -59,6 +69,16 @@ namespace EntryPointTests.Arguments {
         }
 
         [Fact]
+        public void List_Bools_InvalidType() {
+            string[] args = new string[] {
+                "--booleans", "true,FAIL"
+            };
+
+            Assert.Throws<VariableTypeException>(
+                () => Cli.Parse<ListsArgsModel>(args));
+        }
+
+        [Fact]
         public void List_Decimals() {
             string[] args = new string[] {
                 "--decimals", "1.1,2.1,3.1,4.0"
@@ -69,9 +89,19 @@ namespace EntryPointTests.Arguments {
             };
 
             var model = Cli.Parse<ListsArgsModel>(args);
-            
+
             Assert.Equal(expected.Count, model.Decimals.Count);
             Assert.True(expected.All(s => model.Decimals.Contains(s)));
+        }
+
+        [Fact]
+        public void List_Decimals_InvalidType() {
+            string[] args = new string[] {
+                "--decimals", "1.1,2.1,FAIL,4.0"
+            };
+
+            Assert.Throws<VariableTypeException>(
+                () => Cli.Parse<ListsArgsModel>(args));
         }
 
         [Fact]

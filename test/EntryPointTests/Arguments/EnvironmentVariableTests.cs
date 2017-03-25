@@ -38,9 +38,8 @@ namespace EntryPointTests.Arguments {
         public void IncompatibleType() {
             Environment.SetEnvironmentVariable("ENV_INT", "FAIL");
             Environment.SetEnvironmentVariable("ENV_STRING", "HelloWorld");
-
-            Assert.True(false, "Check awaiting implementation of ValueTypeException");
-            Assert.Throws<Exception>(
+            
+            Assert.Throws<VariableTypeException>(
                 () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { }));
         }
 

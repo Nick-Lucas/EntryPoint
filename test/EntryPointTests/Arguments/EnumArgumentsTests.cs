@@ -44,6 +44,16 @@ namespace EntryPointTests.Arguments {
         }
 
         [Fact]
+        public void Enums_InvalidType() {
+            string[] args = new string[] {
+                "--opt-1", "FAILITEM"
+            };
+            
+            Assert.Throws<VariableTypeException>(
+                () => Cli.Parse<EnumAppOptions>(args));
+        }
+
+        [Fact]
         public void Enums_Defaults() {
             string[] args = new string[] {
             };

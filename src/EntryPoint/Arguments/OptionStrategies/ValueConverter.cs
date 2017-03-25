@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 using EntryPoint.Common;
 using System.Reflection;
+using EntryPoint.Exceptions;
 
 namespace EntryPoint.Arguments.OptionStrategies {
     internal static class ValueConverter {
@@ -22,7 +23,7 @@ namespace EntryPoint.Arguments.OptionStrategies {
             value = SanitiseSpecialTypes(value, outputType);
 
             if (value is IConvertible) {
-                return Convert.ChangeType(value, outputType);
+                return ChangeType(value, outputType);
             } else if (value.GetType() == outputType) {
                 return value;
             }
@@ -30,6 +31,15 @@ namespace EntryPoint.Arguments.OptionStrategies {
             throw new InvalidCastException(
                 $"The requested type `{outputType.Name}` could not be converted to "
                 + $"from the type: `{value.GetType().Name}` with value: `{value.ToString()}`");
+        }
+
+        static object ChangeType(object value, Type outputType) {
+            try {
+                return Convert.ChangeType(value, outputType);
+            } catch (FormatException e) {
+                throw new VariableTypeException(
+                    $"`{value}` cannot be converted to [{outputType.Name}]");
+            }
         }
 
         static object SanitiseSpecialTypes(object value, Type outputType) {
@@ -57,7 +67,13 @@ namespace EntryPoint.Arguments.OptionStrategies {
 
         // Converts an int or string representation of an application enum into that enum
         static object DeserialiseEnum(object value, Type outputType) {
-            return Enum.Parse(outputType, value.ToString(), true);
+            try {
+                return Enum.Parse(outputType, value.ToString(), true);
+            } catch (ArgumentException e) {
+                throw new VariableTypeException(
+                    $"`{value}` is not a value present in {outputType.Name}. " +
+                    $"Valid options are: [{String.Join("|", Enum.GetNames(outputType))}]");
+            }
         }
 
         // Split a serialised list by its delimiters 

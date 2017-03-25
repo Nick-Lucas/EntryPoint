@@ -37,6 +37,18 @@ namespace EntryPointTests.Arguments {
         }
 
         [Fact]
+        public void InvalidType() {
+            string[] args = new string[] {
+                "--default-null", "true",
+                "--default-false", "true",
+                "--default-true", "fail"
+            };
+
+            Assert.Throws<VariableTypeException>(
+                () => Cli.Parse<BoolArgsModel>(args));
+        }
+
+        [Fact]
         public void NoParameter_DefaultNull() {
             string[] args = new string[] {
                 "--default-null", 
