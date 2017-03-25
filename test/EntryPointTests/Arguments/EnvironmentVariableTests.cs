@@ -25,13 +25,27 @@ namespace EntryPointTests.Arguments {
 
         [Fact]
         public void Provided() {
-            Environment.SetEnvironmentVariable("ENV_INT", 1.ToString());
+            Environment.SetEnvironmentVariable("ENV_INT", "1");
             Environment.SetEnvironmentVariable("ENV_STRING", "HelloWorld");
 
             var model = Cli.Parse<EnvVarsArgsModel>(new string[] { });
 
             Assert.StrictEqual(1, model.EnvVarInt);
             Assert.StrictEqual("HelloWorld", model.EnvVarString);
+        }
+        
+        [Fact]
+        public void Provided_CaseSensitivity() {
+            Environment.SetEnvironmentVariable("ENV_INT", "1");
+            //Environment.SetEnvironmentVariable("ENV_STRING", "HelloWorld");
+            Environment.SetEnvironmentVariable("env_string", "GoodbyeWorld");
+
+            var model = Cli.Parse<EnvVarsArgsModel>(new string[] { });
+
+            Assert.StrictEqual("GoodbyeWorld", model.EnvVarString);
+
+            // Clean up as this one isn't used in any other checks
+            Environment.SetEnvironmentVariable("env_string", null);
         }
 
         [Fact]
@@ -45,7 +59,7 @@ namespace EntryPointTests.Arguments {
 
         [Fact]
         public void Required_Provided() {
-            Environment.SetEnvironmentVariable("ENV_INT", 1.ToString());
+            Environment.SetEnvironmentVariable("ENV_INT", "1");
             Environment.SetEnvironmentVariable("ENV_STRING", "HelloWorld");
 
             var model = Cli.Parse<EnvVarsArgsModel_Required>(new string[] { });
@@ -70,6 +84,15 @@ namespace EntryPointTests.Arguments {
 
             Assert.Throws<RequiredException>(
                 () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { }));
+        }
+
+        [Fact]
+        public void Required_NotProvided_Three_Default() {
+            Environment.SetEnvironmentVariable("ENV_STRING_DEFAULTABLE", null);
+
+            var model = Cli.Parse<EnvVarsArgsModel>(new string[] { });
+
+            Assert.Equal("DEFAULT_VALUE", model.EnvVarStringDefaulted);
         }
 
         [Fact]

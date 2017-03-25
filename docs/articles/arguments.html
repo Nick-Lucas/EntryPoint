@@ -110,7 +110,15 @@ class SimpleCliArguments : BaseCliArguments {
     [Operand(Position: 1)]
     public decimal FirstOperand { get; set; }
 
+    // When the user makes a mistake, a default handler takes over
+    // You can override this behaviour on this Virtual method
     public override void OnUserFacingException(UserFacingException e, string message) {
+        throw new NotImplementedException();
+    }
+
+    // When the user invokes --help/-h a default handler will take over
+    // You can define your own behaviour by overriding this Virtual method
+    public override void OnHelpInvoked(string helpText) {
         throw new NotImplementedException();
     }
 }
@@ -123,32 +131,41 @@ class SimpleCliArguments : BaseCliArguments {
 <li><strong>Detail:</strong> Defines an On/Off option for use on the CLI</li>
 <li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
 <li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
-<li>At least one name needs to be provided</li>
+<li><strong>Usable with:</strong> <code>Required</code> and <code>Help</code> attributes</li>
 </ul>
 <h5 id="optionparameterlongname--string-shortname--char"><code>[OptionParameter(LongName = string, ShortName = char)]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> Class Properties</li>
-<li><strong>Output Types:</strong> Primitive Types, Enums</li>
+<li><strong>Output Types:</strong> Primitive Types, Enums, Lists of Primitives or Enums</li>
 <li><strong>Detail:</strong> Defines a parameter which can be invoked to provide a value</li>
 <li><strong>Argument, LongName:</strong> the case in-sensitive name to be used like <code>--name</code></li>
 <li><strong>Argument, ShortName:</strong> the case sensitive character to be used like <code>-n</code></li>
-<li>At least one name needs to be provided</li>
+<li><strong>Usable with:</strong> <code>Required</code> and <code>Help</code> attributes</li>
 </ul>
-<h5 id="operandposition--int"><code>[Operand(position = int)]</code></h5>
+<h5 id="operandposition--int"><code>[Operand(Position = int)]</code></h5>
 <ul>
 <li><strong>Apply to:</strong> Class Properties</li>
-<li><strong>Output Types:</strong> Primitive Types, Enums</li>
+<li><strong>Output Types:</strong> Primitive Types, Enums, Lists of Primitives or Enums</li>
 <li><strong>Detail:</strong> Maps a positional operand from the end of a CLI command</li>
 <li><strong>Argument, Position:</strong> the 1 based position of the Operand</li>
+<li><strong>Usable with:</strong> <code>Required</code> and <code>Help</code> attributes</li>
+</ul>
+<h5 id="environmentvariablevariablename--string"><code>[EnvironmentVariable(VariableName = string)]</code></h5>
+<ul>
+<li><strong>Apply to:</strong> Class Properties</li>
+<li><strong>Output Types:</strong> Primitive Types, Enums, Lists of Primitives or Enums</li>
+<li><strong>Detail:</strong> Maps a variable from the environment</li>
+<li><strong>Argument, VariableName:</strong> the case in-sensitive name of the environment variable</li>
+<li><strong>Usable with:</strong> <code>Required</code> and <code>Help</code> attributes</li>
 </ul>
 <h5 id="required"><code>[Required]</code></h5>
 <ul>
-<li><strong>Apply to:</strong> Option, OptionParameter or Operand properties</li>
+<li><strong>Apply to:</strong> Option, OptionParameter, Operand or EnvironmentVariable properties</li>
 <li><strong>Detail:</strong> Makes an Option or Operand mandatory for the user to provide</li>
 </ul>
-<h5 id="helpdetail--string"><code>[Help(detail = string)]</code></h5>
+<h5 id="helpdetail--string"><code>[Help(Detail = string)]</code></h5>
 <ul>
-<li><strong>Apply to:</strong> Class Properties with any Option or Operand Attribute applied, or an CliArguments Class</li>
+<li><strong>Apply to:</strong> Class Properties with any Option, Operand or EnvironmentVariable Attribute applied, or an CliArguments Class</li>
 <li><strong>Detail:</strong> Provides custom documentation on an Option, Operand or CliArguments Class, which will be consumed by the help generator</li>
 </ul>
 <h4 id="use-case">Use case</h4>
@@ -191,14 +208,15 @@ class MessagingCliArguments : BaseCliArguments {
     [OptionParameter(LongName: &quot;recipients&quot;)]
     public List&lt;string&gt; Recipients { get; set; }
 
+    // Variables can be mapped from the environment
+    [Required]
+    [EnvironmentVariable(&quot;MSGSDR_PASSWORD&quot;)]
+    public string Password { get; set; }
+
     // A message *must* be provided as the first operand
     [Required]
     [Operand(1)]
     public string Message { get; set; }
-
-    public override void OnUserFacingException(UserFacingException e, string message) {
-        throw new NotImplementedException();
-    }
 }
 
 enum MessageImportanceEnum {
@@ -246,7 +264,7 @@ public MessageImportanceEnum Importance { get; set; } = MessageImportanceEnum.No
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/enhance/user-facing-exception/docs-generation/docfx/articles/arguments.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/feature/1.2-polish/docs-generation/docfx/articles/arguments.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

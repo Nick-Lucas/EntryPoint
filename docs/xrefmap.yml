@@ -280,6 +280,36 @@ references:
   commentId: Overload:EntryPoint.DefaultCommandAttribute.#ctor
   fullName: EntryPoint.DefaultCommandAttribute.DefaultCommandAttribute
   nameWithType: DefaultCommandAttribute.DefaultCommandAttribute
+- uid: EntryPoint.EnvironmentVariableAttribute
+  name: EnvironmentVariableAttribute
+  href: api/EntryPoint.EnvironmentVariableAttribute.html
+  commentId: T:EntryPoint.EnvironmentVariableAttribute
+  fullName: EntryPoint.EnvironmentVariableAttribute
+  nameWithType: EnvironmentVariableAttribute
+- uid: EntryPoint.EnvironmentVariableAttribute.#ctor(System.String)
+  name: EnvironmentVariableAttribute(String)
+  href: api/EntryPoint.EnvironmentVariableAttribute.html#EntryPoint_EnvironmentVariableAttribute__ctor_System_String_
+  commentId: M:EntryPoint.EnvironmentVariableAttribute.#ctor(System.String)
+  fullName: EntryPoint.EnvironmentVariableAttribute.EnvironmentVariableAttribute(System.String)
+  nameWithType: EnvironmentVariableAttribute.EnvironmentVariableAttribute(String)
+- uid: EntryPoint.EnvironmentVariableAttribute.#ctor*
+  name: EnvironmentVariableAttribute
+  href: api/EntryPoint.EnvironmentVariableAttribute.html#EntryPoint_EnvironmentVariableAttribute__ctor_
+  commentId: Overload:EntryPoint.EnvironmentVariableAttribute.#ctor
+  fullName: EntryPoint.EnvironmentVariableAttribute.EnvironmentVariableAttribute
+  nameWithType: EnvironmentVariableAttribute.EnvironmentVariableAttribute
+- uid: EntryPoint.EnvironmentVariableAttribute.VariableName
+  name: VariableName
+  href: api/EntryPoint.EnvironmentVariableAttribute.html#EntryPoint_EnvironmentVariableAttribute_VariableName
+  commentId: P:EntryPoint.EnvironmentVariableAttribute.VariableName
+  fullName: EntryPoint.EnvironmentVariableAttribute.VariableName
+  nameWithType: EnvironmentVariableAttribute.VariableName
+- uid: EntryPoint.EnvironmentVariableAttribute.VariableName*
+  name: VariableName
+  href: api/EntryPoint.EnvironmentVariableAttribute.html#EntryPoint_EnvironmentVariableAttribute_VariableName_
+  commentId: Overload:EntryPoint.EnvironmentVariableAttribute.VariableName
+  fullName: EntryPoint.EnvironmentVariableAttribute.VariableName
+  nameWithType: EnvironmentVariableAttribute.VariableName
 - uid: EntryPoint.Exceptions
   name: EntryPoint.Exceptions
   href: api/EntryPoint.Exceptions.html
@@ -352,6 +382,12 @@ references:
   commentId: T:EntryPoint.Exceptions.UserFacingException
   fullName: EntryPoint.Exceptions.UserFacingException
   nameWithType: UserFacingException
+- uid: EntryPoint.Exceptions.VariableTypeException
+  name: VariableTypeException
+  href: api/EntryPoint.Exceptions.VariableTypeException.html
+  commentId: T:EntryPoint.Exceptions.VariableTypeException
+  fullName: EntryPoint.Exceptions.VariableTypeException
+  nameWithType: VariableTypeException
 - uid: EntryPoint.Help
   name: EntryPoint.Help
   href: api/EntryPoint.Help.html

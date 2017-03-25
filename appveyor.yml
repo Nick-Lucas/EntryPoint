@@ -4,7 +4,7 @@ clone_depth: 50
 
 cache:
   - '%LOCALAPPDATA%\Microsoft\dotnet -> appveyor.yml'
-  - '%USERPROFILE%\.nuget\packages -> appveyor.yml, **\project.json, Nuget.Config'
+  - '%USERPROFILE%\.nuget\packages -> appveyor.yml, **\*.csproj, Nuget.Config'
 
 before_build:
   # Install dotnet cli

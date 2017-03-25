@@ -43,7 +43,15 @@ This has one Option `-s`, one OptionParameter `--name Bob` and a positional Oper
         [Operand(Position: 1)]
         public decimal FirstOperand { get; set; }
 
+        // When the user makes a mistake, a default handler takes over
+        // You can override this behaviour on this Virtual method
         public override void OnUserFacingException(UserFacingException e, string message) {
+            throw new NotImplementedException();
+        }
+
+        // When the user invokes --help/-h a default handler will take over
+        // You can define your own behaviour by overriding this Virtual method
+        public override void OnHelpInvoked(string helpText) {
             throw new NotImplementedException();
         }
     }
@@ -58,28 +66,36 @@ We use Attributes to define CLI functionality
 * **Detail:** Defines an On/Off option for use on the CLI
 * **Argument, LongName:** the case in-sensitive name to be used like `--name`
 * **Argument, ShortName:** the case sensitive character to be used like `-n`
-* At least one name needs to be provided
+* **Usable with:** `Required` and `Help` attributes
 
 ##### `[OptionParameter(LongName = string, ShortName = char)]`
 * **Apply to:** Class Properties
-* **Output Types:** Primitive Types, Enums
+* **Output Types:** Primitive Types, Enums, Lists of Primitives or Enums
 * **Detail:** Defines a parameter which can be invoked to provide a value
 * **Argument, LongName:** the case in-sensitive name to be used like `--name`
 * **Argument, ShortName:** the case sensitive character to be used like `-n`
-* At least one name needs to be provided
+* **Usable with:** `Required` and `Help` attributes
 
-##### `[Operand(position = int)]`
+##### `[Operand(Position = int)]`
 * **Apply to:** Class Properties
-* **Output Types:** Primitive Types, Enums
+* **Output Types:** Primitive Types, Enums, Lists of Primitives or Enums
 * **Detail:** Maps a positional operand from the end of a CLI command
 * **Argument, Position:** the 1 based position of the Operand
+* **Usable with:** `Required` and `Help` attributes
+
+##### `[EnvironmentVariable(VariableName = string)]`
+* **Apply to:** Class Properties
+* **Output Types:** Primitive Types, Enums, Lists of Primitives or Enums
+* **Detail:** Maps a variable from the environment
+* **Argument, VariableName:** the case in-sensitive name of the environment variable
+* **Usable with:** `Required` and `Help` attributes
 
 ##### `[Required]`
-* **Apply to:** Option, OptionParameter or Operand properties
+* **Apply to:** Option, OptionParameter, Operand or EnvironmentVariable properties
 * **Detail:** Makes an Option or Operand mandatory for the user to provide
 
-##### `[Help(detail = string)]`
-* **Apply to:** Class Properties with any Option or Operand Attribute applied, or an CliArguments Class
+##### `[Help(Detail = string)]`
+* **Apply to:** Class Properties with any Option, Operand or EnvironmentVariable Attribute applied, or an CliArguments Class
 * **Detail:** Provides custom documentation on an Option, Operand or CliArguments Class, which will be consumed by the help generator
 
 #### Use case
@@ -126,14 +142,15 @@ The following is used like:
         [OptionParameter(LongName: "recipients")]
         public List<string> Recipients { get; set; }
 
+        // Variables can be mapped from the environment
+        [Required]
+        [EnvironmentVariable("MSGSDR_PASSWORD")]
+        public string Password { get; set; }
+
         // A message *must* be provided as the first operand
         [Required]
         [Operand(1)]
         public string Message { get; set; }
-
-        public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
-        }
     }
 
     enum MessageImportanceEnum {
