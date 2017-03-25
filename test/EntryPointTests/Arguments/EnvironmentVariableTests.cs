@@ -91,7 +91,7 @@ namespace EntryPointTests.Arguments {
             Assert.Throws<HelpTriggeredSuccessException>(
                 () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { "--help" }));
             Assert.Throws<HelpTriggeredSuccessException>(
-                () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { "--h" }));
+                () => Cli.Parse<EnvVarsArgsModel_Required>(new string[] { "-h" }));
         }
     }
 }
