@@ -12,7 +12,7 @@ using EntryPoint.Arguments;
 namespace EntryPoint.Arguments {
     internal static class ArgumentMapper {
 
-        // Takes the input from the API and orchestrates the process of population
+        // Takes the input from the API and orchestrates the process of model population
         public static ArgumentModel MapOptions(ArgumentModel model, ParseResult parseResult) {
 
             // Validate Model and Arguments
@@ -21,9 +21,15 @@ namespace EntryPoint.Arguments {
 
             // Populate ArgumentsModel
             StoreOptions(model, parseResult);
-            HandleUnusedOptions(model, parseResult.TokenGroups);
+            if (model.CliArguments.HelpInvoked) {
+                return model;
+            }
+            ValidateRequiredOptions(model, parseResult.TokenGroups);
+
             StoreOperands(model, parseResult);
             HandleUnusedOperands(model, parseResult);
+
+            StoreEnvironmentVariables(model);
 
             return model;
         }
@@ -32,10 +38,17 @@ namespace EntryPoint.Arguments {
             foreach (var tokenGroup in parseResult.TokenGroups) {
                 var modelOption = model.FindOptionByToken(tokenGroup.Option);
 
-                object value = modelOption.Definition.OptionStrategy.GetValue(modelOption, tokenGroup);
+                object value = modelOption.Definition.Strategy.GetValue(modelOption, tokenGroup);
                 modelOption.Property.SetValue(model.CliArguments, value);
             }
             model.CliArguments.Operands = parseResult.Operands.Select(t => t.Value).ToArray();
+        }
+
+        static void StoreEnvironmentVariables(ArgumentModel model) {
+            foreach (var envVar in model.EnvironmentVariables) {
+                object value = envVar.Strategy.GetValue(envVar);
+                envVar.Property.SetValue(model.CliArguments, value);
+            }
         }
 
         // Map and then Remove operands which have been mapped on the Model
@@ -43,7 +56,7 @@ namespace EntryPoint.Arguments {
             var operands = parseResult.Operands;
             foreach (var operand in model.Operands) {
                 if (parseResult.OperandProvided(operand)) {
-                    object value = operand.OperandStrategy.GetValue(operand, parseResult);
+                    object value = operand.Strategy.GetValue(operand, parseResult);
                     operand.Property.SetValue(model.CliArguments, value);
                 }
             }
@@ -59,12 +72,7 @@ namespace EntryPoint.Arguments {
         }
 
         // if an option was not provided, Validate whether it's marked as required
-        static void HandleUnusedOptions(ArgumentModel model, List<TokenGroup> usedOptions) {
-            if (model.CliArguments.HelpInvoked) {
-                // If the help flag is set, then Required parameters are irrelevant
-                return;
-            }
-
+        static void ValidateRequiredOptions(ArgumentModel model, List<TokenGroup> usedOptions) {
             var requiredOption = model
                 .WhereOptionsNotIn(usedOptions)
                 .FirstOrDefault(mo => mo.Property.HasRequiredAttribute());
@@ -78,11 +86,6 @@ namespace EntryPoint.Arguments {
         }
 
         static void HandleUnusedOperands(ArgumentModel model, ParseResult parseResult) {
-            if (model.CliArguments.HelpInvoked) {
-                // If the help flag is set, then Required parameters are irrelevant
-                return;
-            }
-
             int providedOperandsCount = parseResult.Operands.Count;
 
             var requiredOperand = model.Operands

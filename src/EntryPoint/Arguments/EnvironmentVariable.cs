@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-using EntryPoint;
 using EntryPoint.Common;
 using EntryPoint.Arguments.OptionStrategies;
 using System.Reflection;
 
 namespace EntryPoint.Arguments {
-    internal class Operand {
+    internal class EnvironmentVariable {
 
-        public Operand(PropertyInfo property) {
+        public EnvironmentVariable(PropertyInfo property) {
             Property = property;
-            Definition = property.GetOperandDefinition();
+            Definition = property.GetEnvironmentVariableDefinition();
             Required = property.HasRequiredAttribute();
             Help = property.GetHelp();
         }
@@ -21,18 +19,17 @@ namespace EntryPoint.Arguments {
         // The original property on the ApplicationOptions implementation
         public PropertyInfo Property { get; set; }
 
-        // Operand attribute
-        public OperandAttribute Definition { get; set; }
+        // Attribute on the Property
+        public EnvironmentVariableAttribute Definition { get; set; }
 
         // Strategy for value getting
-        public OperandStrategy Strategy { get; private set; } = new OperandStrategy();
+        public EnvironmentVariableStrategy Strategy { get; private set; } = new EnvironmentVariableStrategy();
 
-        // Whether the Option is required
+        // Whether the Variable is required
         public bool Required { get; private set; }
 
         // Help attribute
         public HelpAttribute Help { get; internal set; }
 
     }
-
 }

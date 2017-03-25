@@ -27,6 +27,7 @@ namespace Example.CommandLine {
             Console.WriteLine($"string: {a.StringArg}");
             Console.WriteLine($"n: {a.DecimalArg}");
             Console.WriteLine($"first operand: {a.Operand1}");
+            Console.WriteLine($"environment variable: {a.MyEnvironmentVar}");
             Console.WriteLine($"other operands: {string.Join(" : ", a.Operands)}");
 
             Console.Read();

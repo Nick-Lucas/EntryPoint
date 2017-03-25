@@ -20,21 +20,17 @@ namespace EntryPoint {
         /// <summary>
         /// Additional information to display when --help is invoked
         /// </summary>
-        /// <param name="detail">A description of the utility/option's usage</param>
-        public HelpAttribute(string detail) {
-            _detail = detail;
+        /// <param name="Detail">A description of the utility/option's usage</param>
+        public HelpAttribute(string Detail) {
+            this.Detail = Detail.Trim();
         }
-        internal HelpAttribute() { }
+        internal HelpAttribute() : this("") { }
 
         /// <summary>
         /// A description of the utility/option's usage
         /// </summary>
-        public string Detail {
-            get {
-                return _detail.Trim();
-            }
-        }
-        string _detail = "";
+        public string Detail { get; set; }
+        
     }
 
 }

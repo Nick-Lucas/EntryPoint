@@ -16,6 +16,7 @@ namespace EntryPoint.Arguments {
             StringBuilder builder = new StringBuilder();
             var options = model.Options.OrderBy(mo => mo.Definition.ShortName).ToList();
             var operands = model.Operands.OrderBy(mo => mo.Definition.Position).ToList();
+            var envVars = model.EnvironmentVariables.OrderBy(ev => ev.Definition.VariableName).ToList();
             
             // Header section
             if (model.CliArguments.UtilityName.Length > 0) {
@@ -31,7 +32,7 @@ namespace EntryPoint.Arguments {
             
             builder.AppendLine(GenerateUsageSummary(MainAssembly(model.CliArguments).GetName().Name));
             builder.AppendLine();
-            builder.AppendLine(GenerateBreakdown(options, operands));
+            builder.AppendLine(GenerateBreakdown(options, operands, envVars));
 
             return builder.ToString();
         }
@@ -44,8 +45,14 @@ namespace EntryPoint.Arguments {
             return $"   Usage:\n   {utilityName} [ -o | --option ] [ -p VALUE | --parameter VALUE ] [ operands ]";
         }
 
-        static string GenerateBreakdown(List<Option> options, List<Operand> operands) {
+        static string GenerateBreakdown(List<Option> options, List<Operand> operands, List<EnvironmentVariable> envVars) {
             StringBuilder breakdown = new StringBuilder();
+
+            if (options.Any() || operands.Any()) {
+                breakdown.AppendLine();
+                breakdown.AppendLine("Arguments:");
+                breakdown.AppendLine();
+            }
 
             // For Options
             foreach (var option in options) {
@@ -60,9 +67,10 @@ namespace EntryPoint.Arguments {
                 }
 
                 string parameterString = GetParameterString(option);
-                string requiredString = option.Required.IfTrue("REQUIRED");
+                string requiredString = option.Required.IfTrue($"   REQUIRED{Environment.NewLine}");
 
-                breakdown.AppendLine($"   {shortName}{longName}{parameterString}{requiredString}");
+                breakdown.AppendLine($"   {shortName}{longName}{parameterString}");
+                breakdown.Append    ($"{requiredString}");
                 breakdown.AppendLine($"   {option.Help.Detail}");
                 breakdown.AppendLine();
             }
@@ -73,6 +81,22 @@ namespace EntryPoint.Arguments {
                 string type = GetOperandTypeString(operand);
                 breakdown.AppendLine($"   [Operand {position}{type}]");
                 breakdown.AppendLine($"   {operand.Help.Detail}");
+                breakdown.AppendLine();
+            }
+
+            // For Environment Variables
+            if (envVars.Any()) {
+                breakdown.AppendLine();
+                breakdown.AppendLine("Environment Variables:");
+                breakdown.AppendLine();
+            }
+            foreach (var envVar in envVars) {
+                string name = envVar.Definition.VariableName;
+                string requiredString = envVar.Required.IfTrue($"   REQUIRED{Environment.NewLine}");
+                string type = GetTypeSummary(envVar.Property.PropertyType);
+                breakdown.AppendLine($"   '{name}' [{type}]");
+                breakdown.Append    ($"{requiredString}");
+                breakdown.AppendLine($"   {envVar.Help.Detail}");
                 breakdown.AppendLine();
             }
 
@@ -101,7 +125,7 @@ namespace EntryPoint.Arguments {
                 string genericParam = type.GenericTypeArguments.Single().Name;
                 return $"{genericType}<{genericParam}>";
             } else {
-                return type.Name.ToUpper();
+                return type.Name;
             }
         }
 

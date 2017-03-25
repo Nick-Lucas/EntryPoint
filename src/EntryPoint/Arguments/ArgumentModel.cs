@@ -16,6 +16,7 @@ namespace EntryPoint.Arguments {
             CliArguments = cliArguments;
             Options = cliArguments.GetOptions();
             Operands = cliArguments.GetOperands();
+            EnvironmentVariables = cliArguments.GetEnvironmentVariables();
             Help = cliArguments.GetHelpAttribute();
             HelpFacade = new HelpFacade(cliArguments);
         }
@@ -30,6 +31,9 @@ namespace EntryPoint.Arguments {
 
         // Operands defined by the class
         public List<Operand> Operands { get; set; }
+
+        // Environment Variables defined by the class
+        public List<EnvironmentVariable> EnvironmentVariables { get; set; }
 
         // Facade for invoking Help
         public HelpFacade HelpFacade { get; set; }

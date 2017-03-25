@@ -16,9 +16,9 @@ namespace EntryPoint.Arguments {
         Inherited = true)]
     public abstract class BaseOptionAttribute : Attribute {
         internal BaseOptionAttribute(IOptionStrategy optionStrategy) {
-            OptionStrategy = optionStrategy;
+            Strategy = optionStrategy;
         }
-        internal IOptionStrategy OptionStrategy { get; private set; }
+        internal IOptionStrategy Strategy { get; private set; }
 
         /// <summary>
         /// The case sensitive character which can be declared after a - to trigger an option 

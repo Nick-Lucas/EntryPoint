@@ -49,6 +49,12 @@ namespace Example.CommandLine {
         [Help("The first Operand after all Options and OptionParameters")]
         public string Operand1 { get; set; }
 
+        // You can also map environment variables to the class, required or not
+        [Required]
+        [EnvironmentVariable("MY_ENV_VAR")]
+        [Help("An environment variable")]
+        public int MyEnvironmentVar { get; set; }
+
 
         // These are used in the example but don't show off any new features
 
