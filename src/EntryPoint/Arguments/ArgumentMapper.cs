@@ -73,11 +73,6 @@ namespace EntryPoint.Arguments {
 
         // if an option was not provided, Validate whether it's marked as required
         static void ValidateRequiredOptions(ArgumentModel model, List<TokenGroup> usedOptions) {
-            if (model.CliArguments.HelpInvoked) {
-                // If the help flag is set, then Required parameters are irrelevant
-                return;
-            }
-
             var requiredOption = model
                 .WhereOptionsNotIn(usedOptions)
                 .FirstOrDefault(mo => mo.Property.HasRequiredAttribute());
@@ -91,11 +86,6 @@ namespace EntryPoint.Arguments {
         }
 
         static void HandleUnusedOperands(ArgumentModel model, ParseResult parseResult) {
-            if (model.CliArguments.HelpInvoked) {
-                // If the help flag is set, then Required parameters are irrelevant
-                return;
-            }
-
             int providedOperandsCount = parseResult.Operands.Count;
 
             var requiredOperand = model.Operands
