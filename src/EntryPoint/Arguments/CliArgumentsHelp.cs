@@ -16,11 +16,11 @@ namespace EntryPoint.Arguments {
             StringBuilder builder = new StringBuilder();
             var options = model.Options.OrderBy(mo => mo.Definition.ShortName).ToList();
             var operands = model.Operands.OrderBy(mo => mo.Definition.Position).ToList();
-
+            
             // Header section
             if (model.CliArguments.UtilityName.Length > 0) {
                 string utilityName = model.CliArguments.UtilityName;
-                string version = MainAssembly().GetName().Version.ToString().TrimEnd('.', '0');
+                string version = MainAssembly(model.CliArguments).GetName().Version.ToString().TrimEnd('.', '0');
                 builder.AppendLine($"{utilityName} v{version} Documentation");
                 builder.AppendLine();
             }
@@ -29,19 +29,18 @@ namespace EntryPoint.Arguments {
                 builder.AppendLine();
             }
             
-            builder.AppendLine(GenerateUsageSummary(options, operands));
+            builder.AppendLine(GenerateUsageSummary(MainAssembly(model.CliArguments).GetName().Name));
             builder.AppendLine();
             builder.AppendLine(GenerateBreakdown(options, operands));
 
             return builder.ToString();
         }
 
-        static Assembly MainAssembly() {
-            return Assembly.GetEntryAssembly();
+        static Assembly MainAssembly(BaseCliArguments cliModel) {
+            return cliModel.GetType().GetTypeInfo().Assembly;
         }
 
-        static string GenerateUsageSummary(List<Option> options, List<Operand> operands) {
-            string utilityName = MainAssembly().GetName().Name;
+        static string GenerateUsageSummary(string utilityName) {
             return $"   Usage:\n   {utilityName} [ -o | --option ] [ -p VALUE | --parameter VALUE ] [ operands ]";
         }
 

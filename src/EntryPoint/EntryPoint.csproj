@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Lightweight and Composable CLI Argument Parser for all modern .Net platforms</Description>
+    <AssemblyTitle>EntryPoint</AssemblyTitle>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <Authors>Nick Lucas</Authors>
+    <TargetFrameworks>netstandard1.6;net45</TargetFrameworks>
+    <AssemblyName>EntryPoint</AssemblyName>
+    <PackageId>EntryPoint</PackageId>
+    <PackageTags>composable;cli;argument;option;parameter;declarative;parser;.net;dotnet;core;netcore;4.5;net45</PackageTags>
+    <PackageIconUrl>https://nick-lucas.github.io/EntryPoint/fa-terminal.png</PackageIconUrl>
+    <PackageProjectUrl>https://nick-lucas.github.io/EntryPoint/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/Nick-Lucas/EntryPoint/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/Nick-Lucas/EntryPoint</RepositoryUrl>
+    <PackageTargetFallback Condition=" '$(TargetFramework)' == 'netstandard1.6' ">$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.0</NetStandardImplicitPackageVersion>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
