@@ -22,9 +22,9 @@ namespace EntryPoint {
         /// </summary>
         /// <param name="Detail">A description of the utility/option's usage</param>
         public HelpAttribute(string Detail) {
-            Detail = Detail.Trim();
+            this.Detail = Detail.Trim();
         }
-        internal HelpAttribute() { }
+        internal HelpAttribute() : this("") { }
 
         /// <summary>
         /// A description of the utility/option's usage
