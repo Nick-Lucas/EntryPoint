@@ -24,11 +24,12 @@ namespace EntryPoint.Arguments {
             if (model.CliArguments.HelpInvoked) {
                 return model;
             }
-
             ValidateRequiredOptions(model, parseResult.TokenGroups);
-            StoreEnvironmentVariables(model);
+
             StoreOperands(model, parseResult);
             HandleUnusedOperands(model, parseResult);
+
+            StoreEnvironmentVariables(model);
 
             return model;
         }
@@ -45,9 +46,7 @@ namespace EntryPoint.Arguments {
 
         static void StoreEnvironmentVariables(ArgumentModel model) {
             foreach (var envVar in model.EnvironmentVariables) {
-                Type type = envVar.Property.PropertyType;
-                string varName = envVar.Definition.VariableName;
-                object value = envVar.Strategy.GetValue(type, varName, envVar.Required);
+                object value = envVar.Strategy.GetValue(envVar);
                 envVar.Property.SetValue(model.CliArguments, value);
             }
         }
