@@ -54,7 +54,15 @@ namespace Website {
             [Operand(Position: 1)]
             public decimal FirstOperand { get; set; }
 
+            // When the user makes a mistake, a default handler takes over
+            // You can override this behaviour on this Virtual method
             public override void OnUserFacingException(UserFacingException e, string message) {
+                throw new NotImplementedException();
+            }
+
+            // When the user invokes --help/-h a default handler will take over
+            // You can define your own behaviour by overriding this Virtual method
+            public override void OnHelpInvoked(string helpText) {
                 throw new NotImplementedException();
             }
         }
@@ -74,23 +82,33 @@ namespace Website {
         /// 
         /// ##### `[OptionParameter(LongName = string, ShortName = char)]`
         /// * **Apply to:** Class Properties
-        /// * **Output Types:** Primitive Types, Enums
+        /// * **Output Types:** Primitive Types, Enums, Lists of Primitives or Enums
         /// * **Detail:** Defines a parameter which can be invoked to provide a value
         /// * **Argument, LongName:** the case in-sensitive name to be used like `--name`
         /// * **Argument, ShortName:** the case sensitive character to be used like `-n`
+        /// * **Also Supports:** `Required` and `Help` attributes
         /// * At least one name needs to be provided
         /// 
-        /// ##### `[Operand(position = int)]`
+        /// ##### `[Operand(Position = int)]`
         /// * **Apply to:** Class Properties
-        /// * **Output Types:** Primitive Types, Enums
+        /// * **Output Types:** Primitive Types, Enums, Lists of Primitives or Enums
         /// * **Detail:** Maps a positional operand from the end of a CLI command
         /// * **Argument, Position:** the 1 based position of the Operand
+        /// * **Also Supports:** `Required` and `Help` attributes
+        /// 
+        /// ##### `[EnvironmentVariable(VariableName = string)]`
+        /// * **Apply to:** Class Properties
+        /// * **Output Types:** Primitive Types, Enums, Lists of Primitives or Enums
+        /// * **Detail:** Maps a variable from the environment
+        /// * **Argument, VariableName:** the case sensitive name of the environment variable
+        /// * **Also Supports:** `Required` and `Help` attributes
+        /// * Be aware: VariableName case-sensitivity is platform dependent. Linux will be case-sensitive and Windows is not
         /// 
         /// ##### `[Required]`
         /// * **Apply to:** Option, OptionParameter or Operand properties
         /// * **Detail:** Makes an Option or Operand mandatory for the user to provide
         /// 
-        /// ##### `[Help(detail = string)]`
+        /// ##### `[Help(Detail = string)]`
         /// * **Apply to:** Class Properties with any Option or Operand Attribute applied, or an CliArguments Class
         /// * **Detail:** Provides custom documentation on an Option, Operand or CliArguments Class, which will be consumed by the help generator
         ///
@@ -140,14 +158,18 @@ namespace Website {
             [OptionParameter(LongName: "recipients")]
             public List<string> Recipients { get; set; }
 
+            // Variables can be mapped from the environment
+            // Be aware that case-sensitivity of VariableName is dependent on platform.
+            //  - Linux is case-sensitive
+            //  - Windows is case-insensitive
+            [Required]
+            [EnvironmentVariable("MSGSDR_PASSWORD")]
+            public string Password { get; set; }
+
             // A message *must* be provided as the first operand
             [Required]
             [Operand(1)]
             public string Message { get; set; }
-
-            public override void OnUserFacingException(UserFacingException e, string message) {
-                throw new NotImplementedException();
-            }
         }
 
         enum MessageImportanceEnum {

@@ -25,7 +25,7 @@ namespace EntryPointTests.Arguments {
 
         [Fact]
         public void Provided() {
-            Environment.SetEnvironmentVariable("ENV_INT", 1.ToString());
+            Environment.SetEnvironmentVariable("ENV_INT", "1");
             Environment.SetEnvironmentVariable("ENV_STRING", "HelloWorld");
 
             var model = Cli.Parse<EnvVarsArgsModel>(new string[] { });
@@ -33,6 +33,19 @@ namespace EntryPointTests.Arguments {
             Assert.StrictEqual(1, model.EnvVarInt);
             Assert.StrictEqual("HelloWorld", model.EnvVarString);
         }
+
+        // This test is not included because case-sensitivity is platform dependent. 
+        // *nux is case-sensitive, Windows is not.
+        //[Fact]
+        //public void Provided_CaseSensitivity() {
+        //    Environment.SetEnvironmentVariable("ENV_INT", "1");
+        //    Environment.SetEnvironmentVariable("ENV_STRING", "HelloWorld");
+        //    Environment.SetEnvironmentVariable("env_string", "GoodbyeWorld");
+
+        //    var model = Cli.Parse<EnvVarsArgsModel>(new string[] { });
+            
+        //    Assert.StrictEqual("GoodbyeWorld", model.EnvVarString);
+        //}
 
         [Fact]
         public void IncompatibleType() {
@@ -45,7 +58,7 @@ namespace EntryPointTests.Arguments {
 
         [Fact]
         public void Required_Provided() {
-            Environment.SetEnvironmentVariable("ENV_INT", 1.ToString());
+            Environment.SetEnvironmentVariable("ENV_INT", "1");
             Environment.SetEnvironmentVariable("ENV_STRING", "HelloWorld");
 
             var model = Cli.Parse<EnvVarsArgsModel_Required>(new string[] { });
