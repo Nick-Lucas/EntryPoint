@@ -25,7 +25,7 @@ namespace EntryPoint {
         }
 
         /// <summary>
-        /// The 1-Based position of the operand
+        /// The name of the Environment Variable
         /// </summary>
         public string VariableName { get; set; }
 

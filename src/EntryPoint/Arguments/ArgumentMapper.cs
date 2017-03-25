@@ -12,7 +12,7 @@ using EntryPoint.Arguments;
 namespace EntryPoint.Arguments {
     internal static class ArgumentMapper {
 
-        // Takes the input from the API and orchestrates the process of population
+        // Takes the input from the API and orchestrates the process of model population
         public static ArgumentModel MapOptions(ArgumentModel model, ParseResult parseResult) {
 
             // Validate Model and Arguments

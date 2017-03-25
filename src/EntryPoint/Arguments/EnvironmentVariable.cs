@@ -19,7 +19,7 @@ namespace EntryPoint.Arguments {
         // The original property on the ApplicationOptions implementation
         public PropertyInfo Property { get; set; }
 
-        // Operand attribute
+        // Attribute on the Property
         public EnvironmentVariableAttribute Definition { get; set; }
 
         // Strategy for value getting
