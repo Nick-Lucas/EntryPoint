@@ -95,10 +95,6 @@ class ExampleHelpCliCommands : BaseCliCommands {
     public void Command1(string[] args) {
         // ...etc
     }
-
-    public override void OnUserFacingException(UserFacingException e, string message) {
-        throw new NotImplementedException();
-    }
 }
 
 class CommandsHelpProgram {
@@ -120,15 +116,11 @@ class CommandsHelpProgram {
 <pre><code>[Help(&quot;This will be displayed as an initial blurb for the command/utility&quot;)]
 class ExampleHelpCliArguments : BaseCliArguments {
     public ExampleHelpCliArguments()
-        : base(utilityName: &quot;Displayed as the command/utility name&quot;) { }
+        : base(utilityName: &quot;MyFirstUtility&quot;) { }
 
     [OptionParameter(LongName: &quot;value1&quot;)]
     [Help(&quot;Some value to set&quot;)]
     public bool Value1 { get; set; }
-
-    public override void OnUserFacingException(UserFacingException e, string message) {
-        throw new NotImplementedException();
-    }
 }
 
 class ArgumentsHelpProgram {
@@ -162,11 +154,9 @@ class OverrideHelpCliCommands : BaseCliCommands {
     // help is invoked against this CliCommands class
     public override void OnHelpInvoked(string helpText) {
         Console.WriteLine(helpText);
-        throw new HelpInvokedException(&quot;Using an exception to control application flow&quot;);
-    }
-
-    public override void OnUserFacingException(UserFacingException e, string message) {
-        throw new NotImplementedException();
+        Console.WriteLine(&quot;Press Enter to exit&quot;);
+        Console.ReadLine();
+        Environment.Exit(0);
     }
 }
 </code></pre>
@@ -178,7 +168,7 @@ class OverrideHelpCliCommands : BaseCliCommands {
               <div class="contribution">
                 <ul class="nav">
                   <li>
-                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/feature/1.2-polish/docs-generation/docfx/articles/help_generator.md/#L1" class="contribution-link">Improve this Doc</a>
+                    <a href="https://github.com/Nick-Lucas/EntryPoint/blob/master/docs-generation/docfx/articles/help_generator.md/#L1" class="contribution-link">Improve this Doc</a>
                   </li>
                 </ul>
               </div>

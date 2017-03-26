@@ -29,10 +29,6 @@ The Help Generator consumes the following information for each class type.
         public void Command1(string[] args) {
             // ...etc
         }
-
-        public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
-        }
     }
 
     class CommandsHelpProgram {
@@ -57,15 +53,11 @@ The Help Generator consumes the following information for each class type.
     [Help("This will be displayed as an initial blurb for the command/utility")]
     class ExampleHelpCliArguments : BaseCliArguments {
         public ExampleHelpCliArguments()
-            : base(utilityName: "Displayed as the command/utility name") { }
+            : base(utilityName: "MyFirstUtility") { }
 
         [OptionParameter(LongName: "value1")]
         [Help("Some value to set")]
         public bool Value1 { get; set; }
-
-        public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
-        }
     }
 
     class ArgumentsHelpProgram {
@@ -104,10 +96,8 @@ Below is a brief example of overriding the help method.
         // help is invoked against this CliCommands class
         public override void OnHelpInvoked(string helpText) {
             Console.WriteLine(helpText);
-            throw new HelpInvokedException("Using an exception to control application flow");
-        }
-
-        public override void OnUserFacingException(UserFacingException e, string message) {
-            throw new NotImplementedException();
+            Console.WriteLine("Press Enter to exit");
+            Console.ReadLine();
+            Environment.Exit(0);
         }
     }
