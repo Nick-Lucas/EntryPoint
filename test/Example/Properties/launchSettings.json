@@ -21,6 +21,10 @@
     "SecondaryCommand": {
       "commandName": "Project",
       "commandLineArgs": "Secondary \"operand one\" two three"
+    },
+    "CheckCommandDefaultError": {
+      "commandName": "Project",
+      "commandLineArgs": "one two three"
     }
   }
 }

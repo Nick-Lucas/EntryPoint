@@ -21,7 +21,7 @@ namespace EntryPoint {
         public CommandAttribute(string Name) {
             if (Name == null || Name.Length == 0) {
                 throw new ArgumentException(
-                    "You must give a Command a name");
+                    $"A {nameof(CommandAttribute)} was not given a name");
             }
             this.Name = Name;
         }
