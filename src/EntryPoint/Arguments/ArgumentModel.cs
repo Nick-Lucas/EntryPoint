@@ -87,7 +87,7 @@ namespace EntryPoint.Arguments {
                 // Position should always increase by 1
                 } else if (diff != 1) {
                     throw new InvalidModelException("Missing Operand Position(s). "
-                        + $"Operand positions should increment by 1 min->max. Positions {position} and {lastPosition} leave a gap");
+                        + $"Operand positions should always increment by 1 from first->last. Positions {position} and {lastPosition} leave a gap");
                 }
 
                 lastPosition = position;
