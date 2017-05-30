@@ -12,7 +12,7 @@ namespace EntryPoint.Arguments {
     /// </summary>
     [AttributeUsage(
         AttributeTargets.Property, 
-        AllowMultiple = true, 
+        AllowMultiple = false, 
         Inherited = true)]
     public abstract class BaseOptionAttribute : Attribute {
         internal BaseOptionAttribute(IOptionStrategy optionStrategy) {

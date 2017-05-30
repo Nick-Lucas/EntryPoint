@@ -13,7 +13,7 @@ namespace EntryPoint {
     /// </summary>
     [AttributeUsage(
         AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Method,
-        AllowMultiple = true,
+        AllowMultiple = false,
         Inherited = true)]
     public class HelpAttribute : Attribute {
 
