@@ -22,11 +22,21 @@ namespace EntryPointTests.ParsingTests {
         }
 
         [Fact]
-        // TODO: revise this behaviour, it's correct and understood
-        // TODO: but maybe there is a precedent for having to escape
-        // TODO: both dashes to see a potential option as a parameter?
-        public void Tokenise_EscapeDoubleDash() {
+        public void Tokenise_EscapeNonQuotedArg() {
             string[] args = new string[] { "--hello", @"\--world" };
+            List<Token> expectedTokens = new List<Token>() {
+                new Token("--hello", true),
+                new Token(@"\--world", false)
+            };
+
+            var tokens = Tokeniser.MakeTokens(args);
+            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
+        }
+
+        // the whole world argument is in quotes here
+        [Fact]
+        public void Tokenise_EscapeQuotedArg() {
+            string[] args = new string[] { "--hello", "\"--w\\orld\"" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("--hello", true),
                 new Token("--world", false)
