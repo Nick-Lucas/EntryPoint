@@ -9,37 +9,13 @@ using EntryPoint.Parsing;
 namespace EntryPointTests.ParsingTests {
     public class TokeniserTests {
 
-        [Fact]
-        public void Tokenise_EscaleSingleDash() {
-            string[] args = new string[] { "--hello", @"\-world" };
-            List<Token> expectedTokens = new List<Token>() {
-                new Token("--hello", true),
-                new Token("-world", false)
-            };
-
-            var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
-        }
-
-        [Fact]
-        public void Tokenise_EscapeNonQuotedArg() {
-            string[] args = new string[] { "--hello", @"\--world" };
-            List<Token> expectedTokens = new List<Token>() {
-                new Token("--hello", true),
-                new Token(@"\--world", false)
-            };
-
-            var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
-        }
-
-        // the whole world argument is in quotes here
+        // this text would be received if the user passed the argument in quotes (quotes would be stripped)
         [Fact]
         public void Tokenise_EscapeQuotedArg() {
-            string[] args = new string[] { "--hello", "\"--w\\orld\"" };
+            string[] args = new string[] { "--hello", @"w\orld" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("--hello", true),
-                new Token("--world", false)
+                new Token(@"w\orld", false)
             };
 
             var tokens = Tokeniser.MakeTokens(args);
