@@ -9,27 +9,13 @@ using EntryPoint.Parsing;
 namespace EntryPointTests.ParsingTests {
     public class TokeniserTests {
 
+        // this text would be received if the user passed the argument in quotes (quotes would be stripped)
         [Fact]
-        public void Tokenise_EscaleSingleDash() {
-            string[] args = new string[] { "--hello", @"\-world" };
+        public void Tokenise_EscapeQuotedArg() {
+            string[] args = new string[] { "--hello", @"w\orld" };
             List<Token> expectedTokens = new List<Token>() {
                 new Token("--hello", true),
-                new Token("-world", false)
-            };
-
-            var tokens = Tokeniser.MakeTokens(args);
-            Assert.Equal(expectedTokens, tokens, new TokenEqualityComparer());
-        }
-
-        [Fact]
-        // TODO: revise this behaviour, it's correct and understood
-        // TODO: but maybe there is a precedent for having to escape
-        // TODO: both dashes to see a potential option as a parameter?
-        public void Tokenise_EscapeDoubleDash() {
-            string[] args = new string[] { "--hello", @"\--world" };
-            List<Token> expectedTokens = new List<Token>() {
-                new Token("--hello", true),
-                new Token("--world", false)
+                new Token(@"w\orld", false)
             };
 
             var tokens = Tokeniser.MakeTokens(args);

@@ -51,11 +51,10 @@ namespace EntryPoint.Parsing {
 
         static IEnumerable<Token> BasicTokenise(string args) {
             bool isOption = false;
-            bool escaped = false;
 
             StringBuilder token = new StringBuilder();
             List<Token> tokens = new List<Token>();
-            Action StoreToken = () => {
+            void StoreToken() {
                 if (token.Length > 0) {
                     var t = token.ToString().Trim('"');
                     tokens.Add(new Token(t, isOption));
@@ -65,30 +64,19 @@ namespace EntryPoint.Parsing {
             };
 
             foreach (var c in args.ToCharArray()) {
-                if (!escaped && c == '\\') {
-                    // If char is an unescaped escape, then set the escape state and continue
-                    escaped = true;
-                    continue;
-                }
-
-                if (!escaped && (c == '=')) {
-                    // if char is an unescaped = then store the token and start again
+                if (c == '=') {
+                    // if char is = then store the token and start again
                     // Whitespace splitting was already handled by .Net
                     StoreToken();
 
                 } else {
-                    if (!escaped && token.Length == 0 && c == '-') {
+                    if (token.Length == 0 && c == '-') {
                         // Mark the new token as an option
                         isOption = true;
                     }
 
-                    // Otherwise append thiss char to the current token
+                    // Otherwise append this char to the current token
                     token.Append(c);
-                }
-
-                if (escaped) {
-                    // If this char was escape then switch off for the next char
-                    escaped = false;
                 }
             }
             StoreToken();
