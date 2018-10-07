@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 using EntryPoint;
-using EntryPoint.Exceptions;
 
 namespace Example.CommandLine {
     public class ExampleCliCommands : BaseCliCommands {
@@ -18,17 +14,19 @@ namespace Example.CommandLine {
             Console.WriteLine(string.Join(" ", args));
 
             // Parses arguments based on a declarative BaseCliArguments implementation (below)
-            PrimaryCliArguments a = Cli.Parse<PrimaryCliArguments>(args);
+            PrimaryCliArguments options = Cli.Parse<PrimaryCliArguments>(args);
 
-            Console.WriteLine($"a: {a.Option1}");
-            Console.WriteLine($"b: {a.Option2}");
-            Console.WriteLine($"c: {a.Option3}");
-            Console.WriteLine($"e: {a.AppEnum}");
-            Console.WriteLine($"string: {a.StringArg}");
-            Console.WriteLine($"n: {a.DecimalArg}");
-            Console.WriteLine($"first operand: {a.Operand1}");
-            Console.WriteLine($"environment variable: {a.MyEnvironmentVar}");
-            Console.WriteLine($"other operands: {string.Join(" : ", a.Operands)}");
+            Console.WriteLine($"a:                    {options.Option1}");
+            Console.WriteLine($"b:                    {options.Option2}");
+            Console.WriteLine($"c:                    {options.Option3}");
+            Console.WriteLine($"e:                    {options.AppEnum}");
+            Console.WriteLine($"string:               {options.StringArg}");
+            Console.WriteLine($"n:                    {options.DecimalArg}");
+            Console.WriteLine($"first operand:        {options.Operand1}");
+            Console.WriteLine($"environment variable: {options.MyEnvironmentVar}");
+            Console.WriteLine($"other operands:       {string.Join(" : ", options.Operands)}");
+            Console.WriteLine($"defaultable value:    {options.DefaultableValue}");
+            Console.WriteLine($"help invoked:         {options.HelpInvoked}");
 
             Console.Read();
         }
@@ -42,9 +40,10 @@ namespace Example.CommandLine {
 
             int i = 1;
             foreach (var operand in options.Operands) {
-                Console.WriteLine($"Operand {i}: {operand}");
+                Console.WriteLine($"operand {i}:          {operand}");
                 i++;
             }
+            Console.WriteLine($"help invoked:         {options.HelpInvoked}");
 
             Console.ReadLine();
         }
