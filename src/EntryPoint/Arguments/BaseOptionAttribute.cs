@@ -23,12 +23,12 @@ namespace EntryPoint.Arguments {
         /// <summary>
         /// The case sensitive character which can be declared after a - to trigger an option 
         /// </summary>
-        internal char ShortName { get; set; }
+        public char ShortName { get; internal set; }
 
         /// <summary>
         /// The case insensitive string which can be declared after a -- to trigger an option
         /// </summary>
-        internal string LongName { get; set; }
+        public string LongName { get; internal set; }
     }
 
 }
